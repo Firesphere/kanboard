@@ -12,7 +12,7 @@ use SessionHandlerInterface;
  */
 class SessionHandler implements SessionHandlerInterface
 {
-    const TABLE = 'sessions';
+    public const TABLE = 'sessions';
 
     /**
      * @var Database

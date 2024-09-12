@@ -10,5 +10,4 @@ namespace Kanboard\Core\Controller;
  */
 class PageNotFoundException extends BaseException
 {
-
 }

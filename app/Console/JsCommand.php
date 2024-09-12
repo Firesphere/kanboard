@@ -25,7 +25,7 @@ require_once $path . '/path-converter/src/Converter.php';
  */
 class JsCommand extends BaseCommand
 {
-    const CSS_DIST_PATH = 'assets/js/';
+    public const CSS_DIST_PATH = 'assets/js/';
 
     private $appFiles = [
         'assets/vendor/text-caret/index.js',

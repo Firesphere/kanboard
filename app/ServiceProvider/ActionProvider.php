@@ -53,7 +53,6 @@ use Kanboard\Action\StopSubtaskTimerMoveTaskColumn;
 use Kanboard\Action\TaskMoveColumnOnStartDate;
 use Kanboard\Action\TaskAssignDueDateOnMoveColumn;
 
-
 /**
  * Action Provider
  *
@@ -119,7 +118,7 @@ class ActionProvider implements ServiceProviderInterface
         $container['actionManager']->register(new TaskMoveColumnOnStartDate($container));
         $container['actionManager']->register(new TaskAssignColorOnStartDate($container));
         $container['actionManager']->register(new TaskAssignDueDateOnMoveColumn($container));
-        
+
         return $container;
     }
 }

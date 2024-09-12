@@ -35,7 +35,7 @@ class BoardAjaxController extends BaseController
         }
 
         try {
-            $result =$this->taskPositionModel->movePosition(
+            $result = $this->taskPositionModel->movePosition(
                 $project_id,
                 $values['task_id'],
                 $values['dst_column_id'],

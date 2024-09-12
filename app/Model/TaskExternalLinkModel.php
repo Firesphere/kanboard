@@ -17,7 +17,7 @@ class TaskExternalLinkModel extends Base
      *
      * @var string
      */
-    const TABLE = 'task_has_external_links';
+    public const TABLE = 'task_has_external_links';
 
     /**
      * Get all links

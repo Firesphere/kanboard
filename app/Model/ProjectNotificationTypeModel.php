@@ -15,7 +15,7 @@ class ProjectNotificationTypeModel extends NotificationTypeModel
      *
      * @var string
      */
-    const TABLE = 'project_has_notification_types';
+    public const TABLE = 'project_has_notification_types';
 
     /**
      * Get selected notification types for a given project

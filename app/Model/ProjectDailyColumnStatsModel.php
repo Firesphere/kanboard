@@ -17,7 +17,7 @@ class ProjectDailyColumnStatsModel extends Base
      *
      * @var string
      */
-    const TABLE = 'project_daily_column_stats';
+    public const TABLE = 'project_daily_column_stats';
 
     /**
      * Update daily totals for the project and for each column

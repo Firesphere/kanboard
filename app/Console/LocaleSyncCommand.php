@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class LocaleSyncCommand extends BaseCommand
 {
-    const REF_LOCALE = 'fr_FR';
+    public const REF_LOCALE = 'fr_FR';
 
     protected function configure()
     {

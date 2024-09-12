@@ -21,7 +21,7 @@ class CaptchaController extends BaseController
     {
         $this->response->withContentType('image/jpeg')->send();
 
-        $builder = new CaptchaBuilder;
+        $builder = new CaptchaBuilder();
         $builder->build();
         session_set('captcha', $builder->getPhrase());
         $builder->output();

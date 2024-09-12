@@ -12,12 +12,12 @@ use Kanboard\Core\Base;
  */
 class ColumnRestrictionModel extends Base
 {
-    const TABLE = 'column_has_restrictions';
+    public const TABLE = 'column_has_restrictions';
 
-    const RULE_ALLOW_TASK_CREATION    = 'allow.task_creation';
-    const RULE_ALLOW_TASK_OPEN_CLOSE  = 'allow.task_open_close';
-    const RULE_BLOCK_TASK_CREATION    = 'block.task_creation';
-    const RULE_BLOCK_TASK_OPEN_CLOSE  = 'block.task_open_close';
+    public const RULE_ALLOW_TASK_CREATION    = 'allow.task_creation';
+    public const RULE_ALLOW_TASK_OPEN_CLOSE  = 'allow.task_open_close';
+    public const RULE_BLOCK_TASK_CREATION    = 'block.task_creation';
+    public const RULE_BLOCK_TASK_OPEN_CLOSE  = 'block.task_open_close';
 
     /**
      * Get rules
@@ -151,7 +151,7 @@ class ColumnRestrictionModel extends Base
     }
 
     /**
-     * Copy column_restriction models from a custome_role in the src project to the dst custom_role of the dst project 
+     * Copy column_restriction models from a custome_role in the src project to the dst custom_role of the dst project
      *
      * @param  integer $project_src_id
      * @param  integer $project_dst_id
@@ -181,12 +181,12 @@ class ColumnRestrictionModel extends Base
                 'column_id' => $dst_column_id,
                 'rule' => $row['rule'],
             ));
-            
+
             if (! $result) {
                 return false;
             }
         }
-            
+
         return true;
     }
 }

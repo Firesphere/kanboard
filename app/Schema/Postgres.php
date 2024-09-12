@@ -294,7 +294,8 @@ function version_86(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE files RENAME TO task_has_files');
 
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE project_has_files (
             id SERIAL PRIMARY KEY,
             project_id INTEGER NOT NULL,
@@ -411,7 +412,7 @@ function version_77(PDO $pdo)
 
         if ($row['is_admin'] == 1) {
             $role = Role::APP_ADMIN;
-        } else if ($row['is_project_admin']) {
+        } elseif ($row['is_project_admin']) {
             $role = Role::APP_MANAGER;
         }
 
@@ -1194,7 +1195,7 @@ function version_10(PDO $pdo)
     $parameters = $rq->fetch(PDO::FETCH_ASSOC);
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48*60*60));
+    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
     $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
     $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
     $rq->execute(array('board_columns', $parameters['default_columns']));

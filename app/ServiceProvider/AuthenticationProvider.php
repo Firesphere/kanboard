@@ -42,10 +42,10 @@ class AuthenticationProvider implements ServiceProviderInterface
         }
 
         $container['authenticationManager']->register(new ApiAccessTokenAuth($container));
-        
+
         if (LDAP_AUTH) {
             $container['authenticationManager']->register(new LdapAuth($container));
-        }     
+        }
 
         $container['projectAccessMap'] = $this->getProjectAccessMap();
         $container['applicationAccessMap'] = $this->getApplicationAccessMap();
@@ -68,7 +68,7 @@ class AuthenticationProvider implements ServiceProviderInterface
      */
     public function getProjectAccessMap()
     {
-        $acl = new AccessMap;
+        $acl = new AccessMap();
         $acl->setDefaultRole(Role::PROJECT_VIEWER);
         $acl->setRoleHierarchy(Role::PROJECT_MANAGER, array(Role::PROJECT_MEMBER, Role::PROJECT_VIEWER));
         $acl->setRoleHierarchy(Role::PROJECT_MEMBER, array(Role::PROJECT_VIEWER));
@@ -129,7 +129,7 @@ class AuthenticationProvider implements ServiceProviderInterface
      */
     public function getApplicationAccessMap()
     {
-        $acl = new AccessMap;
+        $acl = new AccessMap();
         $acl->setDefaultRole(Role::APP_USER);
         $acl->setRoleHierarchy(Role::APP_ADMIN, array(Role::APP_MANAGER, Role::APP_USER, Role::APP_PUBLIC));
         $acl->setRoleHierarchy(Role::APP_MANAGER, array(Role::APP_USER, Role::APP_PUBLIC));
@@ -174,7 +174,7 @@ class AuthenticationProvider implements ServiceProviderInterface
      */
     public function getApiAccessMap()
     {
-        $acl = new AccessMap;
+        $acl = new AccessMap();
         $acl->setDefaultRole(Role::APP_USER);
         $acl->setRoleHierarchy(Role::APP_ADMIN, array(Role::APP_MANAGER, Role::APP_USER, Role::APP_PUBLIC));
         $acl->setRoleHierarchy(Role::APP_MANAGER, array(Role::APP_USER, Role::APP_PUBLIC));
@@ -198,7 +198,7 @@ class AuthenticationProvider implements ServiceProviderInterface
      */
     public function getApiProjectAccessMap()
     {
-        $acl = new AccessMap;
+        $acl = new AccessMap();
         $acl->setDefaultRole(Role::PROJECT_VIEWER);
         $acl->setRoleHierarchy(Role::PROJECT_MANAGER, array(Role::PROJECT_MEMBER, Role::PROJECT_VIEWER));
         $acl->setRoleHierarchy(Role::PROJECT_MEMBER, array(Role::PROJECT_VIEWER));

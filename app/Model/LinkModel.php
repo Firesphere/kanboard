@@ -19,7 +19,7 @@ class LinkModel extends Base
      *
      * @var string
      */
-    const TABLE = 'links';
+    public const TABLE = 'links';
 
     /**
      * Get a link by id

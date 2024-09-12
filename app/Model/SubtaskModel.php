@@ -18,26 +18,26 @@ class SubtaskModel extends Base
      *
      * @var string
      */
-    const TABLE = 'subtasks';
+    public const TABLE = 'subtasks';
 
     /**
      * Subtask status
      *
      * @var integer
      */
-    const STATUS_TODO = 0;
-    const STATUS_INPROGRESS = 1;
-    const STATUS_DONE = 2;
+    public const STATUS_TODO = 0;
+    public const STATUS_INPROGRESS = 1;
+    public const STATUS_DONE = 2;
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_UPDATE        = 'subtask.update';
-    const EVENT_CREATE        = 'subtask.create';
-    const EVENT_DELETE        = 'subtask.delete';
-    const EVENT_CREATE_UPDATE = 'subtask.create_update';
+    public const EVENT_UPDATE        = 'subtask.update';
+    public const EVENT_CREATE        = 'subtask.create';
+    public const EVENT_DELETE        = 'subtask.delete';
+    public const EVENT_CREATE_UPDATE = 'subtask.create_update';
 
     /**
      * Get projectId from subtaskId
@@ -218,7 +218,7 @@ class SubtaskModel extends Base
         if ($subtaskId !== false) {
             $this->subtaskTimeTrackingModel->updateTaskTimeTracking($values['task_id']);
             $this->queueManager->push($this->subtaskEventJob->withParams(
-                $subtaskId, 
+                $subtaskId,
                 array(self::EVENT_CREATE_UPDATE, self::EVENT_CREATE)
             ));
         }
@@ -247,7 +247,7 @@ class SubtaskModel extends Base
 
             if ($fireEvent) {
                 $this->queueManager->push($this->subtaskEventJob->withParams(
-                    $subtask['id'], 
+                    $subtask['id'],
                     array(self::EVENT_CREATE_UPDATE, self::EVENT_UPDATE),
                     $values
                 ));
@@ -289,7 +289,7 @@ class SubtaskModel extends Base
         return $this->db->transaction(function (Database $db) use ($srcTaskId, $dstTaskId) {
 
             $subtasks = $db->table(SubtaskModel::TABLE)
-                ->columns('title', 'time_estimated', 'position','user_id')
+                ->columns('title', 'time_estimated', 'position', 'user_id')
                 ->eq('task_id', $srcTaskId)
                 ->asc('position')
                 ->findAll();

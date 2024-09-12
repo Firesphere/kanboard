@@ -17,7 +17,7 @@ class UserUnreadNotificationModel extends Base
      *
      * @var string
      */
-    const TABLE = 'user_has_unread_notifications';
+    public const TABLE = 'user_has_unread_notifications';
 
     /**
      * Add unread notification to someone

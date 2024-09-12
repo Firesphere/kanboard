@@ -24,7 +24,7 @@ class EventDispatcherProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container['dispatcher'] = new EventDispatcher;
+        $container['dispatcher'] = new EventDispatcher();
         $container['dispatcher']->addSubscriber(new BootstrapSubscriber($container));
         $container['dispatcher']->addSubscriber(new AuthSubscriber($container));
         $container['dispatcher']->addSubscriber(new ProjectDailySummarySubscriber($container));

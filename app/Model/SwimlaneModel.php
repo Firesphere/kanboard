@@ -17,21 +17,21 @@ class SwimlaneModel extends Base
      *
      * @var string
      */
-    const TABLE = 'swimlanes';
+    public const TABLE = 'swimlanes';
 
     /**
      * Value for active swimlanes
      *
      * @var integer
      */
-    const ACTIVE = 1;
+    public const ACTIVE = 1;
 
     /**
      * Value for inactive swimlanes
      *
      * @var integer
      */
-    const INACTIVE = 0;
+    public const INACTIVE = 0;
 
     /**
      * Get a swimlane by the id

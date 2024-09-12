@@ -22,8 +22,8 @@ function version_127(PDO $pdo)
 
 function version_126(PDO $pdo)
 {
-	$pdo->exec('ALTER TABLE subtask_time_tracking RENAME TO subtask_time_tracking_old');
-    
+    $pdo->exec('ALTER TABLE subtask_time_tracking RENAME TO subtask_time_tracking_old');
+
     $pdo->exec('
         CREATE TABLE subtask_time_tracking (
             id INTEGER PRIMARY KEY,
@@ -36,9 +36,9 @@ function version_126(PDO $pdo)
             FOREIGN KEY(subtask_id) REFERENCES subtasks(id) ON DELETE CASCADE
         )
     ');
-    
-    $pdo->exec('DROP INDEX subtasks_task_idx');    
-    $pdo->exec('CREATE INDEX subtasks_task_idx ON subtasks(task_id)'); 
+
+    $pdo->exec('DROP INDEX subtasks_task_idx');
+    $pdo->exec('CREATE INDEX subtasks_task_idx ON subtasks(task_id)');
     $pdo->exec('INSERT INTO subtask_time_tracking SELECT * FROM subtask_time_tracking_old');
     $pdo->exec('DROP TABLE subtask_time_tracking_old');
 }
@@ -338,7 +338,8 @@ function version_98(PDO $pdo)
 {
     $pdo->exec('ALTER TABLE files RENAME TO task_has_files');
 
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE project_has_files (
             id INTEGER PRIMARY KEY,
             project_id INTEGER NOT NULL,
@@ -445,7 +446,7 @@ function version_91(PDO $pdo)
 
         if ($row['is_admin'] == 1) {
             $role = Role::APP_ADMIN;
-        } else if ($row['is_project_admin']) {
+        } elseif ($row['is_project_admin']) {
             $role = Role::APP_MANAGER;
         }
 
@@ -1169,7 +1170,7 @@ function version_29(PDO $pdo)
     $parameters = $rq->fetch(PDO::FETCH_ASSOC);
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48*60*60));
+    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
     $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
     $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
     $rq->execute(array('board_columns', $parameters['default_columns']));
@@ -1300,7 +1301,8 @@ function version_19(PDO $pdo)
 
 function version_18(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE task_has_subtasks (
             id INTEGER PRIMARY KEY,
             title TEXT COLLATE NOCASE NOT NULL,
@@ -1316,7 +1318,8 @@ function version_18(PDO $pdo)
 
 function version_17(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE task_has_files (
             id INTEGER PRIMARY KEY,
             name TEXT COLLATE NOCASE NOT NULL,
@@ -1330,7 +1333,8 @@ function version_17(PDO $pdo)
 
 function version_16(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE project_has_categories (
             id INTEGER PRIMARY KEY,
             name TEXT COLLATE NOCASE NOT NULL,

@@ -18,7 +18,7 @@ class SubtaskTimeTrackingModel extends Base
      *
      * @var string
      */
-    const TABLE = 'subtask_time_tracking';
+    public const TABLE = 'subtask_time_tracking';
 
     /**
      * Get query to check if a timer is started for the given user and subtask
@@ -32,9 +32,9 @@ class SubtaskTimeTrackingModel extends Base
         $sql = $this->db
                     ->table(self::TABLE)
                     ->columns('start')
-                    ->eq($this->db->escapeIdentifier('user_id',self::TABLE), $user_id)
-                    ->eq($this->db->escapeIdentifier('end',self::TABLE), 0)
-                    ->eq($this->db->escapeIdentifier('subtask_id',self::TABLE), SubtaskModel::TABLE.'.id')
+                    ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id)
+                    ->eq($this->db->escapeIdentifier('end', self::TABLE), 0)
+                    ->eq($this->db->escapeIdentifier('subtask_id', self::TABLE), SubtaskModel::TABLE.'.id')
                     ->limit(1)
                     ->buildSelectQuery();
         // need to interpolate values into the SQL text for use as a subquery
@@ -70,7 +70,7 @@ class SubtaskTimeTrackingModel extends Base
                     )
                     ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
                     ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
-                    ->eq($this->db->escapeIdentifier('user_id',self::TABLE), $user_id);
+                    ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id);
     }
 
     /**
@@ -100,7 +100,7 @@ class SubtaskTimeTrackingModel extends Base
                     ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
                     ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
                     ->join(UserModel::TABLE, 'id', 'user_id', self::TABLE)
-                    ->eq($this->db->escapeIdentifier('id',TaskModel::TABLE), $task_id);
+                    ->eq($this->db->escapeIdentifier('id', TaskModel::TABLE), $task_id);
     }
 
     /**
@@ -219,8 +219,8 @@ class SubtaskTimeTrackingModel extends Base
             return 0;
         }
 
-        $end = new DateTime;
-        $start = new DateTime;
+        $end = new DateTime();
+        $start = new DateTime();
         $start->setTimestamp($start_time);
 
         if ($this->hook->exists($hook)) {

@@ -12,7 +12,7 @@ use Kanboard\Core\Base;
  */
 class ColumnMoveRestrictionModel extends Base
 {
-    const TABLE = 'column_has_move_restrictions';
+    public const TABLE = 'column_has_move_restrictions';
 
     /**
      * Fetch one restriction
@@ -125,7 +125,7 @@ class ColumnMoveRestrictionModel extends Base
     }
 
     /**
-     * Copy column_move_restriction models from a custome_role in the src project to the dst custom_role of the dst project 
+     * Copy column_move_restriction models from a custome_role in the src project to the dst custom_role of the dst project
      *
      * @param  integer $project_src_id
      * @param  integer $project_dst_id
@@ -163,12 +163,12 @@ class ColumnMoveRestrictionModel extends Base
                 'dst_column_id' => $dst_column_id,
                 'only_assigned' => (int) $row['only_assigned'],
             ));
-            
+
             if (! $result) {
                 return false;
             }
         }
-            
+
         return true;
     }
 }

@@ -60,7 +60,7 @@ defined('DB_TIMEOUT') or define('DB_TIMEOUT', intval(getenv('DB_TIMEOUT')) ?: nu
 
 // Database backend group provider
 defined('DB_GROUP_PROVIDER') or define('DB_GROUP_PROVIDER', getenv('DB_GROUP_PROVIDER') ? strtolower(getenv('DB_GROUP_PROVIDER')) === 'true' : true);
-defined('DB_USER_PROVIDER') or define('DB_USER_PROVIDER', getenv('DB_USER_PROVIDER') ? strtolower(getenv('DB_USER_PROVIDER')) === 'true': true);
+defined('DB_USER_PROVIDER') or define('DB_USER_PROVIDER', getenv('DB_USER_PROVIDER') ? strtolower(getenv('DB_USER_PROVIDER')) === 'true' : true);
 
 // LDAP configuration
 defined('LDAP_AUTH') or define('LDAP_AUTH', strtolower(getenv('LDAP_AUTH')) === 'true');

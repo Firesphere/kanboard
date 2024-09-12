@@ -17,7 +17,7 @@ class ActionModel extends Base
      *
      * @var string
      */
-    const TABLE = 'actions';
+    public const TABLE = 'actions';
 
     /**
      * Return actions and parameters for a given user

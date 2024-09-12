@@ -17,14 +17,14 @@ class LastLoginModel extends Base
      *
      * @var string
      */
-    const TABLE = 'last_logins';
+    public const TABLE = 'last_logins';
 
     /**
      * Number of connections to keep for history
      *
      * @var integer
      */
-    const NB_LOGINS = 10;
+    public const NB_LOGINS = 10;
 
     /**
      * Create a new record

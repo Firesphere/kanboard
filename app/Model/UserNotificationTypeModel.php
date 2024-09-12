@@ -15,7 +15,7 @@ class UserNotificationTypeModel extends NotificationTypeModel
      *
      * @var string
      */
-    const TABLE = 'user_has_notification_types';
+    public const TABLE = 'user_has_notification_types';
 
     /**
      * Get selected notification types for a given user

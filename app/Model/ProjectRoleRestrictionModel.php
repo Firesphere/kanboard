@@ -12,14 +12,14 @@ use Kanboard\Core\Base;
  */
 class ProjectRoleRestrictionModel extends Base
 {
-    const TABLE = 'project_role_has_restrictions';
+    public const TABLE = 'project_role_has_restrictions';
 
-    const RULE_TASK_CREATION = 'task_creation';
-    const RULE_TASK_SUPPRESSION = 'task_remove';
-    const RULE_TASK_OPEN_CLOSE = 'task_open_close';
-    const RULE_TASK_MOVE = 'task_move';
-    const RULE_TASK_CHANGE_ASSIGNEE = 'task_change_assignee';
-    const RULE_TASK_UPDATE_ASSIGNED = 'task_update_assigned';
+    public const RULE_TASK_CREATION = 'task_creation';
+    public const RULE_TASK_SUPPRESSION = 'task_remove';
+    public const RULE_TASK_OPEN_CLOSE = 'task_open_close';
+    public const RULE_TASK_MOVE = 'task_move';
+    public const RULE_TASK_CHANGE_ASSIGNEE = 'task_change_assignee';
+    public const RULE_TASK_UPDATE_ASSIGNED = 'task_update_assigned';
 
     /**
      * Get rules
@@ -135,7 +135,7 @@ class ProjectRoleRestrictionModel extends Base
     }
 
     /**
-     * Copy role restriction models from a custome_role in the src project to the dst custom_role of the dst project 
+     * Copy role restriction models from a custome_role in the src project to the dst custom_role of the dst project
      *
      * @param  integer $project_src_id
      * @param  integer $project_dst_id
@@ -156,12 +156,12 @@ class ProjectRoleRestrictionModel extends Base
                 'role_id' => $role_dst_id,
                 'rule' => $row['rule'],
             ));
-            
+
             if (! $result) {
                 return false;
             }
         }
-            
+
         return true;
     }
 }

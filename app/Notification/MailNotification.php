@@ -18,7 +18,7 @@ class MailNotification extends Base implements NotificationInterface
      *
      * @var string
      */
-    const TYPE = 'email';
+    public const TYPE = 'email';
 
     /**
      * Send notification to a user

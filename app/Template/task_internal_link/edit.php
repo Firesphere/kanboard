@@ -16,13 +16,14 @@
         $values,
         $errors,
         array(
-            'required',
-            'placeholder="'.t('Start to type task title...').'"',
-            'title="'.t('Start to type task title...').'"',
-            'data-dst-field="opposite_task_id"',
-            'data-search-url="'.$this->url->href('TaskAjaxController', 'autocomplete', array('exclude_task_id' => $task['id'])).'"',
-        ),
-        'autocomplete') ?>
+                'required',
+                'placeholder="'.t('Start to type task title...').'"',
+                'title="'.t('Start to type task title...').'"',
+                'data-dst-field="opposite_task_id"',
+                'data-search-url="'.$this->url->href('TaskAjaxController', 'autocomplete', array('exclude_task_id' => $task['id'])).'"',
+            ),
+        'autocomplete'
+    ) ?>
 
     <?= $this->modal->submitButtons() ?>
 </form>

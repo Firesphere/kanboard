@@ -17,7 +17,7 @@ class TagModel extends Base
      *
      * @var string
      */
-    const TABLE = 'tags';
+    public const TABLE = 'tags';
 
     /**
      * Get all tags

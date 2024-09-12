@@ -6,7 +6,7 @@ use Kanboard\Core\Base;
 
 class PredefinedTaskDescriptionModel extends Base
 {
-    const TABLE = 'predefined_task_descriptions';
+    public const TABLE = 'predefined_task_descriptions';
 
     public function getAll($projectId)
     {

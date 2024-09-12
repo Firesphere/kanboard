@@ -18,7 +18,7 @@ class ProjectActivityModel extends Base
      *
      * @var string
      */
-    const TABLE = 'project_activities';
+    public const TABLE = 'project_activities';
 
     /**
      * Add a new event for the project

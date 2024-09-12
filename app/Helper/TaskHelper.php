@@ -72,7 +72,7 @@ class TaskHelper extends Base
             $html .= '<a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>'.t('Template for the task description').' <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
             $html .= '<ul>';
 
-            foreach ($templates as  $template) {
+            foreach ($templates as $template) {
                 $html .= '<li>';
                 $html .= '<a href="#" data-template-target="textarea[name=description]" data-template="'.$this->helper->text->e($template['description']).'" class="js-template">';
                 $html .= $this->helper->text->e($template['title']);
@@ -279,7 +279,8 @@ class TaskHelper extends Base
                 'plus',
                 t('Add a new task'),
                 'TaskCreationController',
-                'show', array(
+                'show',
+                array(
                     'project_id'  => $column['project_id'],
                     'column_id'   => $column['id'],
                     'swimlane_id' => $swimlane['id'],
@@ -293,7 +294,8 @@ class TaskHelper extends Base
                 'plus',
                 t('Add a new Kanboard task'),
                 'TaskCreationController',
-                'show', array(
+                'show',
+                array(
                     'project_id'  => $column['project_id'],
                     'column_id'   => $column['id'],
                     'swimlane_id' => $swimlane['id'],

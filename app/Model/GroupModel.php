@@ -17,7 +17,7 @@ class GroupModel extends Base
      *
      * @var string
      */
-    const TABLE = 'groups';
+    public const TABLE = 'groups';
 
     /**
      * Get query to fetch all groups

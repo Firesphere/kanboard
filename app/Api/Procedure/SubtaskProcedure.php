@@ -34,7 +34,7 @@ class SubtaskProcedure extends BaseProcedure
     public function createSubtask($task_id, $title, $user_id = 0, $time_estimated = 0, $time_spent = 0, $status = 0)
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'createSubtask', $task_id);
-        
+
         $values = array(
             'title' => $title,
             'task_id' => $task_id,
@@ -51,7 +51,7 @@ class SubtaskProcedure extends BaseProcedure
     public function updateSubtask($id, $task_id, $title = null, $user_id = null, $time_estimated = null, $time_spent = null, $status = null, $position = null)
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateSubtask', $task_id);
-        
+
         $values = array(
             'id' => $id,
             'task_id' => $task_id,

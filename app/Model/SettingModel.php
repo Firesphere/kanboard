@@ -17,7 +17,7 @@ abstract class SettingModel extends Base
      *
      * @var string
      */
-    const TABLE = 'settings';
+    public const TABLE = 'settings';
 
     /**
      * Prepare data before save
@@ -110,7 +110,7 @@ abstract class SettingModel extends Base
 
         return ! in_array(false, $results, true);
     }
-    
+
     /**
      * Remove a setting
      *

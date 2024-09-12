@@ -17,7 +17,7 @@ class ExternalLinkManager extends Base
      *
      * @var string
      */
-    const TYPE_AUTO = 'auto';
+    public const TYPE_AUTO = 'auto';
 
     /**
      * Registered providers

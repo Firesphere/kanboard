@@ -17,7 +17,7 @@ class TaskTagModel extends Base
      *
      * @var string
      */
-    const TABLE = 'task_has_tags';
+    public const TABLE = 'task_has_tags';
 
     /**
      * Get all tags not available in a project

@@ -1,5 +1,6 @@
 <p class="activity-title">
-    <?= e('%s removed a comment on the task %s',
+    <?= e(
+        '%s removed a comment on the task %s',
         $this->text->e($author),
         $this->url->link(t('#%d', $task['id']), 'TaskViewController', 'show', array('task_id' => $task['id']))
     ) ?>

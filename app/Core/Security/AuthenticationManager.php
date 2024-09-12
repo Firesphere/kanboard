@@ -20,8 +20,8 @@ class AuthenticationManager extends Base
      *
      * @var string
      */
-    const EVENT_SUCCESS = 'auth.success';
-    const EVENT_FAILURE = 'auth.failure';
+    public const EVENT_SUCCESS = 'auth.success';
+    public const EVENT_FAILURE = 'auth.failure';
 
     /**
      * List of authentication providers
@@ -152,7 +152,7 @@ class AuthenticationManager extends Base
             return true;
         }
 
-        $this->dispatcher->dispatch(new AuthFailureEvent, self::EVENT_FAILURE);
+        $this->dispatcher->dispatch(new AuthFailureEvent(), self::EVENT_FAILURE);
 
         return false;
     }
@@ -185,7 +185,7 @@ class AuthenticationManager extends Base
     {
         $interface = '\Kanboard\Core\Security\\'.$interface;
 
-        return array_filter($this->providers, function(AuthenticationProviderInterface $provider) use ($interface) {
+        return array_filter($this->providers, function (AuthenticationProviderInterface $provider) use ($interface) {
             return is_a($provider, $interface);
         });
     }

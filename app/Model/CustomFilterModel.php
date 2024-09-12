@@ -17,7 +17,7 @@ class CustomFilterModel extends Base
      *
      * @var string
      */
-    const TABLE = 'custom_filters';
+    public const TABLE = 'custom_filters';
 
     /**
      * Return the list of all allowed custom filters for a user and project

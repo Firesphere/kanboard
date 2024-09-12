@@ -17,7 +17,7 @@ class GroupMemberModel extends Base
      *
      * @var string
      */
-    const TABLE = 'group_has_users';
+    public const TABLE = 'group_has_users';
 
     /**
      * Get query to fetch all users

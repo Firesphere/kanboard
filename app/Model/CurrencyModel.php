@@ -17,7 +17,7 @@ class CurrencyModel extends Base
      *
      * @var string
      */
-    const TABLE = 'currencies';
+    public const TABLE = 'currencies';
 
     /**
      * Get available application currencies

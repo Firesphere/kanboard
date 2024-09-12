@@ -12,8 +12,8 @@ use DateTime;
  */
 class DateParser extends Base
 {
-    const DATE_FORMAT = 'm/d/Y';
-    const TIME_FORMAT = 'H:i';
+    public const DATE_FORMAT = 'm/d/Y';
+    public const TIME_FORMAT = 'H:i';
 
     /**
      * Get date format from settings

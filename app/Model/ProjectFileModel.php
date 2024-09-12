@@ -15,15 +15,15 @@ class ProjectFileModel extends FileModel
      *
      * @var string
      */
-    const TABLE = 'project_has_files';
+    public const TABLE = 'project_has_files';
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_CREATE = 'project.file.create';
-    const EVENT_DESTROY = 'project.file.destroy';
+    public const EVENT_CREATE = 'project.file.create';
+    public const EVENT_DESTROY = 'project.file.destroy';
 
     /**
      * Get the table

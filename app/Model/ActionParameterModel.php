@@ -17,7 +17,7 @@ class ActionParameterModel extends Base
      *
      * @var string
      */
-    const TABLE = 'action_has_params';
+    public const TABLE = 'action_has_params';
 
     /**
      * Get all action params

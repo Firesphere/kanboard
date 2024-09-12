@@ -11,10 +11,11 @@
         $values,
         $errors,
         array(
-            'required',
-            'autofocus',
-            'placeholder="'.t('Copy and paste your link here...').'"',
-        )) ?>
+                'required',
+                'autofocus',
+                'placeholder="'.t('Copy and paste your link here...').'"',
+            )
+    ) ?>
 
     <?= $this->form->label(t('Link type'), 'type') ?>
     <?= $this->form->select('type', $types, $values) ?>

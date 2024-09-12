@@ -20,14 +20,14 @@ class UserModel extends Base
      *
      * @var string
      */
-    const TABLE = 'users';
+    public const TABLE = 'users';
 
     /**
      * Id used for everybody (filtering)
      *
      * @var integer
      */
-    const EVERYBODY_ID = -1;
+    public const EVERYBODY_ID = -1;
 
     public function isValidSession($userID, $sessionRole)
     {

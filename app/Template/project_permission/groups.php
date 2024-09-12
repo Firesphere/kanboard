@@ -41,7 +41,11 @@
             <?= $this->form->hidden('external_id', $values) ?>
 
             <?= $this->form->label(t('Group Name'), 'name') ?>
-            <?= $this->form->text('name', $values, $errors, array(
+            <?= $this->form->text(
+                'name',
+                $values,
+                $errors,
+                array(
                 'required',
                 'placeholder="'.t('Enter group name...').'"',
                 'title="'.t('Enter group name...').'"',
@@ -49,7 +53,8 @@
                 'data-dst-extra-fields="external_id"',
                 'data-search-url="'.$this->url->href('GroupAjaxController', 'autocomplete').'"',
             ),
-                'autocomplete') ?>
+                'autocomplete'
+            ) ?>
 
             <?= $this->form->select('role', $roles, $values, $errors, array('aria-label="'.t('Role').'"')) ?>
 

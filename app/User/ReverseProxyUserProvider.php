@@ -35,7 +35,7 @@ class ReverseProxyUserProvider implements UserProviderInterface
      * @access protected
      * @var string
      */
-    protected $fullname= '';
+    protected $fullname = '';
 
     /**
      * User profile if the user already exists

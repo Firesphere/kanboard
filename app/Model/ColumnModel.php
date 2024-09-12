@@ -17,7 +17,7 @@ class ColumnModel extends Base
      *
      * @var string
      */
-    const TABLE = 'columns';
+    public const TABLE = 'columns';
 
     /**
      * Get a column by the id

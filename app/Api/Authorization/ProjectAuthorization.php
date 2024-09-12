@@ -19,13 +19,13 @@ class ProjectAuthorization extends Base
             $this->checkProjectPermission($class, $method, $project_id);
         }
     }
-    
+
     protected function checkProjectPermission($class, $method, $project_id)
     {
         if (empty($project_id)) {
             throw new AccessDeniedException('Project Not Found');
         }
-        
+
         $role = $this->projectUserRoleModel->getUserRole($project_id, $this->userSession->getId());
 
         if (! $this->apiProjectAuthorization->isAllowed($class, $method, $role)) {

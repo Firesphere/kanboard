@@ -17,14 +17,14 @@ class PasswordResetModel extends Base
      *
      * @var string
      */
-    const TABLE = 'password_reset';
+    public const TABLE = 'password_reset';
 
     /**
      * Token duration (30 minutes)
      *
      * @var integer
      */
-    const DURATION = 1800;
+    public const DURATION = 1800;
 
     /**
      * Get all tokens

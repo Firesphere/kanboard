@@ -16,13 +16,14 @@
         $values,
         $errors,
         array(
-            'required',
-            'placeholder="'.t('Start to type task title...').'"',
-            'title="'.t('Start to type task title...').'"',
-            'data-dst-field="opposite_task_id"',
-            'data-search-url="'.$this->url->href('TaskAjaxController', 'autocomplete', array('exclude_task_id' => $task['id'])).'"',
-        ),
-        'autocomplete') ?>
+                'required',
+                'placeholder="'.t('Start to type task title...').'"',
+                'title="'.t('Start to type task title...').'"',
+                'data-dst-field="opposite_task_id"',
+                'data-search-url="'.$this->url->href('TaskAjaxController', 'autocomplete', array('exclude_task_id' => $task['id'])).'"',
+            ),
+        'autocomplete'
+    ) ?>
 
     <?= $this->form->checkbox('another_tasklink', t('Create another link'), 1, isset($values['another_tasklink']) && $values['another_tasklink'] == 1) ?>
 

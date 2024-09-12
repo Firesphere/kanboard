@@ -109,7 +109,7 @@ class Csv
      */
     public static function output(array $rows)
     {
-        $csv = new static;
+        $csv = new static();
         $csv->write('php://output', $rows);
     }
 

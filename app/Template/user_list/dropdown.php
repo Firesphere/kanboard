@@ -61,7 +61,7 @@
         <?php if ($this->user->isAdmin() || $this->user->isCurrentUser($user['id'])): ?>
             <?php if ($this->user->hasAccess('UserViewController', 'timesheet')): ?>
                 <li>
-                    <?= $this->modal->medium('clock-o',t('Time tracking'), 'UserViewController', 'timesheet', array('user_id' => $user['id'])) ?>
+                    <?= $this->modal->medium('clock-o', t('Time tracking'), 'UserViewController', 'timesheet', array('user_id' => $user['id'])) ?>
                 </li>
             <?php endif ?>
             <?php if ($this->user->hasAccess('UserViewController', 'lastLogin')): ?>

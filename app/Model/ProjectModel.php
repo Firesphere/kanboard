@@ -21,35 +21,35 @@ class ProjectModel extends Base
      *
      * @var string
      */
-    const TABLE = 'projects';
+    public const TABLE = 'projects';
 
     /**
      * Value for active project
      *
      * @var integer
      */
-    const ACTIVE = 1;
+    public const ACTIVE = 1;
 
     /**
      * Value for inactive project
      *
      * @var integer
      */
-    const INACTIVE = 0;
+    public const INACTIVE = 0;
 
     /**
      * Value for private project
      *
      * @var integer
      */
-    const TYPE_PRIVATE = 1;
+    public const TYPE_PRIVATE = 1;
 
     /**
      * Value for team project
      *
      * @var integer
      */
-    const TYPE_TEAM = 0;
+    public const TYPE_TEAM = 0;
 
     /**
      * Get a project by the id
@@ -599,7 +599,7 @@ class ProjectModel extends Base
      * @param  integer $project_id  Project id
      * @param  bool    $global_tags New global tag value
      * @return bool
-     */    
+     */
     public function changeGlobalTagUsage($project_id, $global_tags)
     {
         return $this->exists($project_id) &&

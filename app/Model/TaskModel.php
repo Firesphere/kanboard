@@ -17,69 +17,69 @@ class TaskModel extends Base
      *
      * @var string
      */
-    const TABLE = 'tasks';
+    public const TABLE = 'tasks';
 
     /**
      * Task status
      *
      * @var integer
      */
-    const STATUS_OPEN = 1;
-    const STATUS_CLOSED = 0;
+    public const STATUS_OPEN = 1;
+    public const STATUS_CLOSED = 0;
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_MOVE_PROJECT = 'task.move.project';
-    const EVENT_MOVE_COLUMN = 'task.move.column';
-    const EVENT_MOVE_POSITION = 'task.move.position';
-    const EVENT_MOVE_SWIMLANE = 'task.move.swimlane';
-    const EVENT_UPDATE = 'task.update';
-    const EVENT_CREATE = 'task.create';
-    const EVENT_CLOSE = 'task.close';
-    const EVENT_OPEN = 'task.open';
-    const EVENT_CREATE_UPDATE = 'task.create_update';
-    const EVENT_ASSIGNEE_CHANGE = 'task.assignee_change';
-    const EVENT_OVERDUE = 'task.overdue';
-    const EVENT_USER_MENTION = 'task.user.mention';
-    const EVENT_DAILY_CRONJOB = 'task.cronjob.daily';
+    public const EVENT_MOVE_PROJECT = 'task.move.project';
+    public const EVENT_MOVE_COLUMN = 'task.move.column';
+    public const EVENT_MOVE_POSITION = 'task.move.position';
+    public const EVENT_MOVE_SWIMLANE = 'task.move.swimlane';
+    public const EVENT_UPDATE = 'task.update';
+    public const EVENT_CREATE = 'task.create';
+    public const EVENT_CLOSE = 'task.close';
+    public const EVENT_OPEN = 'task.open';
+    public const EVENT_CREATE_UPDATE = 'task.create_update';
+    public const EVENT_ASSIGNEE_CHANGE = 'task.assignee_change';
+    public const EVENT_OVERDUE = 'task.overdue';
+    public const EVENT_USER_MENTION = 'task.user.mention';
+    public const EVENT_DAILY_CRONJOB = 'task.cronjob.daily';
 
     /**
      * Recurrence: status
      *
      * @var integer
      */
-    const RECURRING_STATUS_NONE = 0;
-    const RECURRING_STATUS_PENDING = 1;
-    const RECURRING_STATUS_PROCESSED = 2;
+    public const RECURRING_STATUS_NONE = 0;
+    public const RECURRING_STATUS_PENDING = 1;
+    public const RECURRING_STATUS_PROCESSED = 2;
 
     /**
      * Recurrence: trigger
      *
      * @var integer
      */
-    const RECURRING_TRIGGER_FIRST_COLUMN = 0;
-    const RECURRING_TRIGGER_LAST_COLUMN = 1;
-    const RECURRING_TRIGGER_CLOSE = 2;
+    public const RECURRING_TRIGGER_FIRST_COLUMN = 0;
+    public const RECURRING_TRIGGER_LAST_COLUMN = 1;
+    public const RECURRING_TRIGGER_CLOSE = 2;
 
     /**
      * Recurrence: timeframe
      *
      * @var integer
      */
-    const RECURRING_TIMEFRAME_DAYS = 0;
-    const RECURRING_TIMEFRAME_MONTHS = 1;
-    const RECURRING_TIMEFRAME_YEARS = 2;
+    public const RECURRING_TIMEFRAME_DAYS = 0;
+    public const RECURRING_TIMEFRAME_MONTHS = 1;
+    public const RECURRING_TIMEFRAME_YEARS = 2;
 
     /**
      * Recurrence: base date used to calculate new due date
      *
      * @var integer
      */
-    const RECURRING_BASEDATE_DUEDATE = 0;
-    const RECURRING_BASEDATE_TRIGGERDATE = 1;
+    public const RECURRING_BASEDATE_DUEDATE = 0;
+    public const RECURRING_BASEDATE_TRIGGERDATE = 1;
 
     /**
      * Remove a task

@@ -18,7 +18,7 @@ class ProjectGroupRoleModel extends Base
      *
      * @var string
      */
-    const TABLE = 'project_has_groups';
+    public const TABLE = 'project_has_groups';
 
     /**
      * Get the list of project visible by the given user according to groups

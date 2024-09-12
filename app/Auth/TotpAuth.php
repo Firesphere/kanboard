@@ -51,7 +51,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
      */
     public function authenticate()
     {
-        $otp = new Otp;
+        $otp = new Otp();
         return $otp->checkTotp(Base32::decode($this->secret), $this->code);
     }
 

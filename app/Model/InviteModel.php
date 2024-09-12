@@ -13,7 +13,7 @@ use Kanboard\Core\Security\Token;
  */
 class InviteModel extends Base
 {
-    const TABLE = 'invites';
+    public const TABLE = 'invites';
 
     public function createInvites(array $emails, $projectId)
     {

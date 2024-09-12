@@ -25,9 +25,9 @@ require_once $path . '/path-converter/src/Converter.php';
  */
 class CssCommand extends BaseCommand
 {
-    const CSS_SRC_PATH = 'assets/css/src/';
-    const CSS_VENDOR_PATH = 'assets/vendor/';
-    const CSS_DIST_PATH = 'assets/css/';
+    public const CSS_SRC_PATH = 'assets/css/src/';
+    public const CSS_VENDOR_PATH = 'assets/vendor/';
+    public const CSS_DIST_PATH = 'assets/css/';
 
     private $appFiles = [
         'base.css',

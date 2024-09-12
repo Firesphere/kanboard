@@ -12,8 +12,8 @@ use Kanboard\Core\Base;
  */
 class Router extends Base
 {
-    const DEFAULT_CONTROLLER = 'DashboardController';
-    const DEFAULT_METHOD = 'show';
+    public const DEFAULT_CONTROLLER = 'DashboardController';
+    public const DEFAULT_METHOD = 'show';
 
     /**
      * Plugin name

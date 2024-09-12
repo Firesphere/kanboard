@@ -12,7 +12,7 @@ use Kanboard\Core\ExternalLink\ExternalLinkProviderInterface;
  */
 class FileLinkProvider extends BaseLinkProvider implements ExternalLinkProviderInterface
 {
-    protected $excludedPrefixes= array(
+    protected $excludedPrefixes = array(
         'http',
         'ftp',
     );

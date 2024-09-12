@@ -30,7 +30,7 @@ if (file_exists($config_file)) {
 require __DIR__.'/constants.php';
 require __DIR__.'/check_setup.php';
 
-$container = new Pimple\Container;
+$container = new Pimple\Container();
 $container->register(new Kanboard\ServiceProvider\MailProvider());
 $container->register(new Kanboard\ServiceProvider\HelperProvider());
 $container->register(new Kanboard\ServiceProvider\SessionProvider());

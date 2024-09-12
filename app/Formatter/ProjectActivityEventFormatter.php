@@ -34,7 +34,7 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
             $event['author'] = $event['author_name'] ?: $event['author_username'];
             $event['event_title'] = $this->notificationModel->getTitleWithAuthor($event['author'], $event['event_name'], $event);
             $event['event_content'] = $this->renderEvent($event);
-            $res []= $event;
+            $res [] = $event;
         }
 
         return $res;

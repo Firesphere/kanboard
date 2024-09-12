@@ -10,14 +10,14 @@ namespace Kanboard\Core\Security;
  */
 class Role
 {
-    const APP_ADMIN       = 'app-admin';
-    const APP_MANAGER     = 'app-manager';
-    const APP_USER        = 'app-user';
-    const APP_PUBLIC      = 'app-public';
+    public const APP_ADMIN       = 'app-admin';
+    public const APP_MANAGER     = 'app-manager';
+    public const APP_USER        = 'app-user';
+    public const APP_PUBLIC      = 'app-public';
 
-    const PROJECT_MANAGER = 'project-manager';
-    const PROJECT_MEMBER  = 'project-member';
-    const PROJECT_VIEWER  = 'project-viewer';
+    public const PROJECT_MANAGER = 'project-manager';
+    public const PROJECT_MEMBER  = 'project-member';
+    public const PROJECT_VIEWER  = 'project-viewer';
 
     /**
      * Get application roles

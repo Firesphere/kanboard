@@ -18,15 +18,15 @@ class TaskLinkModel extends Base
      *
      * @var string
      */
-    const TABLE = 'task_has_links';
+    public const TABLE = 'task_has_links';
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_CREATE_UPDATE = 'task_internal_link.create_update';
-    const EVENT_DELETE        = 'task_internal_link.delete';
+    public const EVENT_CREATE_UPDATE = 'task_internal_link.create_update';
+    public const EVENT_DELETE        = 'task_internal_link.delete';
 
     /**
      * Get projectId from $task_link_id

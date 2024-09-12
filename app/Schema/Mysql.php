@@ -400,7 +400,8 @@ function version_106(PDO $pdo)
 {
     $pdo->exec('RENAME TABLE files TO task_has_files');
 
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE project_has_files (
             `id` INT NOT NULL AUTO_INCREMENT,
             `project_id` INT NOT NULL,
@@ -519,7 +520,7 @@ function version_97(PDO $pdo)
 
         if ($row['is_admin'] == 1) {
             $role = Role::APP_ADMIN;
-        } else if ($row['is_project_admin']) {
+        } elseif ($row['is_project_admin']) {
             $role = Role::APP_MANAGER;
         }
 
@@ -1099,7 +1100,7 @@ function version_46(PDO $pdo)
     $pdo->exec("CREATE UNIQUE INDEX task_has_links_unique ON task_has_links(link_id, task_id, opposite_task_id)");
 
     $rq = $pdo->prepare('INSERT INTO links (label, opposite_id) VALUES (?, ?)');
-    
+
     # ID cannot be known at time of record creation so we have to update it after the fact
     # On MariaDB clusters auto-increment size is normally != 1, so relying on increments of 1 would break
     $arq = $pdo->prepare('UPDATE links SET opposite_id=? WHERE label=?');
@@ -1338,7 +1339,7 @@ function version_29(PDO $pdo)
     $parameters = $rq->fetch(PDO::FETCH_ASSOC);
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48*60*60));
+    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
     $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
     $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
     $rq->execute(array('board_columns', $parameters['default_columns']));
@@ -1472,7 +1473,8 @@ function version_19(PDO $pdo)
 
 function version_18(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE task_has_subtasks (
             id INT NOT NULL AUTO_INCREMENT,
             title VARCHAR(255),
@@ -1489,7 +1491,8 @@ function version_18(PDO $pdo)
 
 function version_17(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE task_has_files (
             id INT NOT NULL AUTO_INCREMENT,
             name VARCHAR(50),
@@ -1504,7 +1507,8 @@ function version_17(PDO $pdo)
 
 function version_16(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE project_has_categories (
             id INT NOT NULL AUTO_INCREMENT,
             name VARCHAR(255),
@@ -1537,7 +1541,8 @@ function version_13(PDO $pdo)
 
 function version_12(PDO $pdo)
 {
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE remember_me (
             id INT NOT NULL AUTO_INCREMENT,
             user_id INT,
@@ -1552,7 +1557,8 @@ function version_12(PDO $pdo)
         ) ENGINE=InnoDB CHARSET=utf8"
     );
 
-    $pdo->exec("
+    $pdo->exec(
+        "
         CREATE TABLE last_logins (
             id INT NOT NULL AUTO_INCREMENT,
             auth_type VARCHAR(25),

@@ -18,7 +18,7 @@ class SessionManager extends Base
      *
      * @var string
      */
-    const EVENT_DESTROY = 'session.destroy';
+    public const EVENT_DESTROY = 'session.destroy';
 
     /**
      * Return true if the session is open

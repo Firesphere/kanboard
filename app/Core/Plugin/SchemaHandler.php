@@ -18,7 +18,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      *
      * @var string
      */
-    const TABLE_SCHEMA = 'plugin_schema_versions';
+    public const TABLE_SCHEMA = 'plugin_schema_versions';
 
     /**
      * Get schema filename

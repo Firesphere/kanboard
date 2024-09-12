@@ -17,7 +17,7 @@ class TransitionModel extends Base
      *
      * @var string
      */
-    const TABLE = 'transitions';
+    public const TABLE = 'transitions';
 
     /**
      * Save transition event

@@ -31,7 +31,7 @@ class Client extends Base
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->transports = new Container;
+        $this->transports = new Container();
     }
 
     /**

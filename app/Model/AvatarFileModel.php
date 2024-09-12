@@ -18,7 +18,7 @@ class AvatarFileModel extends Base
      *
      * @var string
      */
-    const PATH_PREFIX = 'avatars';
+    public const PATH_PREFIX = 'avatars';
 
     /**
      * Get image filename

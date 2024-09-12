@@ -62,10 +62,10 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
     public function addTasksWithStartAndDueDate(Table $query, $startColumn, $endColumn)
     {
         foreach ($query->findAll() as $task) {
-            $start = new DateTime;
+            $start = new DateTime();
             $start->setTimestamp($task[$startColumn]);
 
-            $end = new DateTime;
+            $end = new DateTime();
             $end->setTimestamp($task[$endColumn] ?: time());
 
             $vEvent = $this->getTaskIcalEvent($task, 'task-#'.$task['id'].'-'.$startColumn.'-'.$endColumn);
@@ -88,7 +88,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
     public function addTasksWithDueDateOnly(Table $query)
     {
         foreach ($query->findAll() as $task) {
-            $date = new DateTime;
+            $date = new DateTime();
             $date->setTimestamp($task['date_due']);
 
             $vEvent = $this->getTaskIcalEvent($task, 'task-#'.$task['id'].'-date_due');
@@ -115,10 +115,10 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
      */
     protected function getTaskIcalEvent(array &$task, $uid)
     {
-        $dateCreation = new DateTime;
+        $dateCreation = new DateTime();
         $dateCreation->setTimestamp($task['date_creation']);
 
-        $dateModif = new DateTime;
+        $dateModif = new DateTime();
         $dateModif->setTimestamp($task['date_modification']);
 
         $vEvent = new Event($uid);
@@ -131,7 +131,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
         $vEvent->setUrl($this->helper->url->base().$this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])));
 
         if (! empty($task['owner_id'])) {
-            $attendees = new Attendees;
+            $attendees = new Attendees();
             $attendees->add(
                 'MAILTO:'.($task['assignee_email'] ?: $task['assignee_username'].'@kanboard.local'),
                 array('CN' => $task['assignee_name'] ?: $task['assignee_username'])

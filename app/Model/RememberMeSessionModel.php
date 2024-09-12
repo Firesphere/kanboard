@@ -18,14 +18,14 @@ class RememberMeSessionModel extends Base
      *
      * @var string
      */
-    const TABLE = 'remember_me';
+    public const TABLE = 'remember_me';
 
     /**
      * Expiration (60 days)
      *
      * @var integer
      */
-    const EXPIRATION = 5184000;
+    public const EXPIRATION = 5184000;
 
     /**
      * Get a remember me record

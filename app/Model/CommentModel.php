@@ -18,17 +18,17 @@ class CommentModel extends Base
      *
      * @var string
      */
-    const TABLE = 'comments';
+    public const TABLE = 'comments';
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_UPDATE       = 'comment.update';
-    const EVENT_CREATE       = 'comment.create';
-    const EVENT_DELETE       = 'comment.delete';
-    const EVENT_USER_MENTION = 'comment.user.mention';
+    public const EVENT_UPDATE       = 'comment.update';
+    public const EVENT_CREATE       = 'comment.create';
+    public const EVENT_DELETE       = 'comment.delete';
+    public const EVENT_USER_MENTION = 'comment.user.mention';
 
     /**
      * Get projectId from commentId

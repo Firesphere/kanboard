@@ -25,7 +25,7 @@ class AvatarProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['avatarManager'] = new AvatarManager;
+        $container['avatarManager'] = new AvatarManager();
         $container['avatarManager']->register(new LetterAvatarProvider($container));
         $container['avatarManager']->register(new AvatarFileProvider($container));
         return $container;

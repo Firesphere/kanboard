@@ -89,12 +89,12 @@ class User
      */
     protected function getGroups(Entry $entry)
     {
-	$userattr = '';
-	if ('username' == $this->getGroupUserAttribute()) {
-		$userattr = $entry->getFirstValue($this->getAttributeUsername());
-	} else if ('dn' == $this->getGroupUserAttribute()) {
-		$userattr = $entry->getDn();
-	}
+        $userattr = '';
+        if ('username' == $this->getGroupUserAttribute()) {
+            $userattr = $entry->getFirstValue($this->getAttributeUsername());
+        } elseif ('dn' == $this->getGroupUserAttribute()) {
+            $userattr = $entry->getDn();
+        }
         $groupIds = array();
 
         if (! empty($userattr) && $this->group !== null && $this->hasGroupUserFilter()) {
@@ -124,7 +124,7 @@ class User
         if (! $this->hasGroupsConfigured()) {
             return null;
         }
-	
+
         if (LDAP_USER_DEFAULT_ROLE_MANAGER) {
             $role = Role::APP_MANAGER;
         } else {

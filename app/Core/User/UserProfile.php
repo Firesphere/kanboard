@@ -13,7 +13,7 @@ use Kanboard\Event\UserProfileSyncEvent;
  */
 class UserProfile extends Base
 {
-    const EVENT_USER_PROFILE_AFTER_SYNC = 'user_profile.after.sync';
+    public const EVENT_USER_PROFILE_AFTER_SYNC = 'user_profile.after.sync';
 
     /**
      * Assign provider data to the local user

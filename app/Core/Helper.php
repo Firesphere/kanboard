@@ -59,7 +59,7 @@ class Helper
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->helpers = new Container;
+        $this->helpers = new Container();
     }
 
     /**
@@ -98,7 +98,7 @@ class Helper
     {
         $container = $this->container;
 
-        $this->helpers[$property] = function() use ($className, $container) {
+        $this->helpers[$property] = function () use ($className, $container) {
             return new $className($container);
         };
 

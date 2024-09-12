@@ -18,7 +18,7 @@ class WebNotification extends Base implements NotificationInterface
      *
      * @var string
      */
-    const TYPE = 'web';
+    public const TYPE = 'web';
 
     /**
      * Send notification to a user

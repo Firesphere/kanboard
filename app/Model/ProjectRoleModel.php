@@ -13,7 +13,7 @@ use Kanboard\Core\Security\Role;
  */
 class ProjectRoleModel extends Base
 {
-    const TABLE = 'project_has_roles';
+    public const TABLE = 'project_has_roles';
 
     /**
      * Get list of project roles
@@ -223,7 +223,7 @@ class ProjectRoleModel extends Base
             if (! $this->columnMoveRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
                 return false;
             }
-            
+
             if (! $this->projectRoleRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
                 return false;
             }

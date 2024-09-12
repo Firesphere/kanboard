@@ -17,17 +17,17 @@ class UserNotificationFilterModel extends Base
      *
      * @var string
      */
-    const PROJECT_TABLE = 'user_has_notifications';
+    public const PROJECT_TABLE = 'user_has_notifications';
 
     /**
      * User filters
      *
      * @var integer
      */
-    const FILTER_NONE      = 1;
-    const FILTER_ASSIGNEE  = 2;
-    const FILTER_CREATOR   = 3;
-    const FILTER_BOTH      = 4;
+    public const FILTER_NONE      = 1;
+    public const FILTER_ASSIGNEE  = 2;
+    public const FILTER_CREATOR   = 3;
+    public const FILTER_BOTH      = 4;
 
     /**
      * Get the list of filters

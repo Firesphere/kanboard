@@ -17,7 +17,7 @@ class CategoryModel extends Base
      *
      * @var string
      */
-    const TABLE = 'project_has_categories';
+    public const TABLE = 'project_has_categories';
 
     /**
      * Return true if a category exists for a given project

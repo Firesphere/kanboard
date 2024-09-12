@@ -10,5 +10,4 @@ namespace Kanboard\Core\Controller;
  */
 class AccessForbiddenException extends BaseException
 {
-
 }

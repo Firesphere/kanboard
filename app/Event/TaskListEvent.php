@@ -6,6 +6,6 @@ class TaskListEvent extends GenericEvent
 {
     public function setTasks(array &$tasks)
     {
-        $this->container['tasks'] =& $tasks;
+        $this->container['tasks'] = & $tasks;
     }
 }

@@ -46,7 +46,7 @@ abstract class NotificationTypeModel extends Base
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->classes = new Container;
+        $this->classes = new Container();
     }
 
     /**

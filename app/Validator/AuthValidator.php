@@ -104,7 +104,7 @@ class AuthValidator extends BaseValidator
             if (! session_exists('captcha')) {
                 $result = false;
             } else {
-                $builder = new CaptchaBuilder;
+                $builder = new CaptchaBuilder();
                 $builder->setPhrase(session_get('captcha'));
                 $result = $builder->testPhrase(isset($values['captcha']) ? $values['captcha'] : '');
 

@@ -8,7 +8,6 @@ use PDO;
 use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
 
-
 const VERSION = 3;
 
 function version_3(PDO $pdo)
@@ -18,7 +17,7 @@ function version_3(PDO $pdo)
 
 function version_2(PDO $pdo)
 {
-  $pdo->exec("ALTER TABLE dbo.users ADD theme nvarchar(50) DEFAULT N'light' NOT NULL");
+    $pdo->exec("ALTER TABLE dbo.users ADD theme nvarchar(50) DEFAULT N'light' NOT NULL");
 }
 
 function version_1(PDO $pdo)
@@ -667,7 +666,7 @@ function version_1(PDO $pdo)
     $rq = $pdo->prepare('INSERT INTO dbo.settings ([option],value) VALUES (?, ?);');
     $rq->execute(array('api_token', Token::getToken()));
     $rq->execute(array('application_url', defined('KANBOARD_URL') ? KANBOARD_URL : ''));
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48*60*60));
+    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
     $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
     $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
     $rq->execute(array('webhook_token', Token::getToken()));

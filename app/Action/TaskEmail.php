@@ -81,7 +81,7 @@ class TaskEmail extends Base
     {
         $user = $this->userModel->getById($this->getParam('user_id'));
         $subject = $this->getParam('subject');
-        
+
         foreach ($data["task"] as $key => $value) {
             if ($value !== null) {
                 $placeholder = sprintf('{{%s}}', $key);

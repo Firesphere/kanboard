@@ -41,7 +41,11 @@
             <?= $this->form->hidden('external_id_column', $values) ?>
 
             <?= $this->form->label(t('Name'), 'name') ?>
-            <?= $this->form->text('name', $values, $errors, array(
+            <?= $this->form->text(
+                'name',
+                $values,
+                $errors,
+                array(
                     'required',
                     'placeholder="'.t('Enter user name...').'"',
                     'title="'.t('Enter user name...').'"',
@@ -49,7 +53,8 @@
                     'data-dst-extra-fields="external_id,external_id_column,username"',
                     'data-search-url="'.$this->url->href('UserAjaxController', 'autocomplete').'"',
                 ),
-                'autocomplete') ?>
+                'autocomplete'
+            ) ?>
 
             <?= $this->form->select('role', $roles, $values, $errors, array('aria-label="'.t('Role').'"')) ?>
 

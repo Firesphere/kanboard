@@ -15,15 +15,15 @@ class TaskFileModel extends FileModel
      *
      * @var string
      */
-    const TABLE = 'task_has_files';
+    public const TABLE = 'task_has_files';
 
     /**
      * Events
      *
      * @var string
      */
-    const EVENT_CREATE = 'task.file.create';
-    const EVENT_DESTROY = 'task.file.destroy';
+    public const EVENT_CREATE = 'task.file.create';
+    public const EVENT_DESTROY = 'task.file.destroy';
 
     /**
      * Get the table

@@ -18,7 +18,7 @@ class Client extends Base
      *
      * @var string
      */
-    const HTTP_USER_AGENT = 'Kanboard';
+    public const HTTP_USER_AGENT = 'Kanboard';
 
     /**
      * Send a GET HTTP request

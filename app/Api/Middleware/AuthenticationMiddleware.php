@@ -29,7 +29,7 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
      */
     public function execute($username, $password, $procedureName)
     {
-        $this->dispatcher->dispatch(new Event, 'app.bootstrap');
+        $this->dispatcher->dispatch(new Event(), 'app.bootstrap');
         session_set('scope', 'API');
 
         if ($this->isUserAuthenticated($username, $password)) {
