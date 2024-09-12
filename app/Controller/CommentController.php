@@ -114,6 +114,7 @@ class CommentController extends BaseController
             }
 
             $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
+
             return;
         }
 

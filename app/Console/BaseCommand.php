@@ -11,26 +11,26 @@ use Symfony\Component\Console\Command\Command;
  * @package  console
  * @author   Frederic Guillot
  *
- * @property \PicoDb\Database                                   $db
- * @property \Kanboard\Validator\PasswordResetValidator         $passwordResetValidator
- * @property \Kanboard\Export\SubtaskExport                     $subtaskExport
- * @property \Kanboard\Export\TaskExport                        $taskExport
- * @property \Kanboard\Export\TransitionExport                  $transitionExport
- * @property \Kanboard\Model\NotificationModel                  $notificationModel
- * @property \Kanboard\Model\ProjectModel                       $projectModel
- * @property \Kanboard\Model\ProjectActivityModel               $projectActivityModel
- * @property \Kanboard\Model\ProjectPermissionModel             $projectPermissionModel
- * @property \Kanboard\Model\ProjectDailyColumnStatsModel       $projectDailyColumnStatsModel
- * @property \Kanboard\Model\ProjectDailyStatsModel             $projectDailyStatsModel
- * @property \Kanboard\Model\TaskModel                          $taskModel
- * @property \Kanboard\Model\TaskFinderModel                    $taskFinderModel
- * @property \Kanboard\Model\UserModel                          $userModel
- * @property \Kanboard\Model\UserNotificationModel              $userNotificationModel
- * @property \Kanboard\Model\UserNotificationFilterModel        $userNotificationFilterModel
- * @property \Kanboard\Model\ProjectUserRoleModel               $projectUserRoleModel
- * @property \Kanboard\Core\Plugin\Loader                       $pluginLoader
- * @property \Kanboard\Core\Http\Client                         $httpClient
- * @property \Kanboard\Core\Queue\QueueManager                  $queueManager
+ * @property \PicoDb\Database $db
+ * @property \Kanboard\Validator\PasswordResetValidator $passwordResetValidator
+ * @property \Kanboard\Export\SubtaskExport $subtaskExport
+ * @property \Kanboard\Export\TaskExport $taskExport
+ * @property \Kanboard\Export\TransitionExport $transitionExport
+ * @property \Kanboard\Model\NotificationModel $notificationModel
+ * @property \Kanboard\Model\ProjectModel $projectModel
+ * @property \Kanboard\Model\ProjectActivityModel $projectActivityModel
+ * @property \Kanboard\Model\ProjectPermissionModel $projectPermissionModel
+ * @property \Kanboard\Model\ProjectDailyColumnStatsModel $projectDailyColumnStatsModel
+ * @property \Kanboard\Model\ProjectDailyStatsModel $projectDailyStatsModel
+ * @property \Kanboard\Model\TaskModel $taskModel
+ * @property \Kanboard\Model\TaskFinderModel $taskFinderModel
+ * @property \Kanboard\Model\UserModel $userModel
+ * @property \Kanboard\Model\UserNotificationModel $userNotificationModel
+ * @property \Kanboard\Model\UserNotificationFilterModel $userNotificationFilterModel
+ * @property \Kanboard\Model\ProjectUserRoleModel $projectUserRoleModel
+ * @property \Kanboard\Core\Plugin\Loader $pluginLoader
+ * @property \Kanboard\Core\Http\Client $httpClient
+ * @property \Kanboard\Core\Queue\QueueManager $queueManager
  * @property \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher
  */
 abstract class BaseCommand extends Command
@@ -47,7 +47,7 @@ abstract class BaseCommand extends Command
      * Constructor
      *
      * @access public
-     * @param  \Pimple\Container   $container
+     * @param \Pimple\Container $container
      */
     public function __construct(Container $container)
     {
@@ -59,7 +59,7 @@ abstract class BaseCommand extends Command
      * Load automatically models
      *
      * @access public
-     * @param  string $name Model name
+     * @param string $name Model name
      * @return mixed
      */
     public function __get($name)

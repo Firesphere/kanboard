@@ -22,7 +22,7 @@
                     ]) ?>
                 </td>
                 <td>
-                    <?php if (! $this->user->isCurrentUser($user['id'])): ?>
+                    <?php if (!$this->user->isCurrentUser($user['id'])): ?>
                         <?= $this->url->icon('trash-o', t('Remove'), 'ProjectPermissionController', 'removeUser', ['project_id' => $project['id'], 'user_id' => $user['id']], true) ?>
                     <?php endif ?>
                 </td>
@@ -33,7 +33,9 @@
 
 <?php if ($project['is_private'] == 0): ?>
     <div class="panel">
-        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addUser', ['project_id' => $project['id']]) ?>" autocomplete="off" class="form-inline">
+        <form method="post"
+              action="<?= $this->url->href('ProjectPermissionController', 'addUser', ['project_id' => $project['id']]) ?>"
+              autocomplete="off" class="form-inline">
             <?= $this->form->csrf() ?>
             <?= $this->form->hidden('user_id', $values) ?>
             <?= $this->form->hidden('username', $values) ?>

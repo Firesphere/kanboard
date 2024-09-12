@@ -24,7 +24,7 @@ abstract class OAuthUserProvider implements UserProviderInterface
      * Constructor
      *
      * @access public
-     * @param  array $user
+     * @param array $user
      */
     public function __construct(array $user)
     {

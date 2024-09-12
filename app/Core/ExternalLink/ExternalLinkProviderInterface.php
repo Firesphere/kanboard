@@ -49,7 +49,7 @@ interface ExternalLinkProviderInterface
      * Set text entered by the user
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      */
     public function setUserTextInput($input);
 

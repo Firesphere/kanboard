@@ -2,7 +2,8 @@
     <h2><?= t('Choose an event') ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('ActionCreationController', 'params', ['project_id' => $project['id']]) ?>">
+<form method="post"
+      action="<?= $this->url->href('ActionCreationController', 'params', ['project_id' => $project['id']]) ?>">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->hidden('action_name', $values) ?>

@@ -28,6 +28,7 @@ class ActionParameterModel extends Base
     public function getAll()
     {
         $params = $this->db->table(self::TABLE)->findAll();
+
         return $this->toDictionary($params);
     }
 
@@ -35,12 +36,13 @@ class ActionParameterModel extends Base
      * Get all params for a list of actions
      *
      * @access public
-     * @param  array $action_ids
+     * @param array $action_ids
      * @return array
      */
     public function getAllByActions(array $action_ids)
     {
         $params = $this->db->table(self::TABLE)->in('action_id', $action_ids)->findAll();
+
         return $this->toDictionary($params);
     }
 
@@ -48,7 +50,7 @@ class ActionParameterModel extends Base
      * Build params dictionary
      *
      * @access private
-     * @param  array  $params
+     * @param array $params
      * @return array
      */
     private function toDictionary(array $params)
@@ -66,7 +68,7 @@ class ActionParameterModel extends Base
      * Get all action params for a given action
      *
      * @access public
-     * @param  integer $action_id
+     * @param integer $action_id
      * @return array
      */
     public function getAllByAction($action_id)
@@ -78,8 +80,8 @@ class ActionParameterModel extends Base
      * Insert new parameters for an action
      *
      * @access public
-     * @param  integer $action_id
-     * @param  array  $values
+     * @param integer $action_id
+     * @param array $values
      * @return boolean
      */
     public function create($action_id, array $values)
@@ -91,7 +93,7 @@ class ActionParameterModel extends Base
                 'value'     => $value,
             ];
 
-            if (! $this->db->table(self::TABLE)->save($param)) {
+            if (!$this->db->table(self::TABLE)->save($param)) {
                 return false;
             }
         }
@@ -103,9 +105,9 @@ class ActionParameterModel extends Base
      * Duplicate action parameters
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $action_id
-     * @param  array    $params
+     * @param integer $project_id
+     * @param integer $action_id
+     * @param array $params
      * @return boolean
      */
     public function duplicateParameters($project_id, $action_id, array $params)
@@ -115,6 +117,7 @@ class ActionParameterModel extends Base
 
             if ($value === false) {
                 $this->logger->error('ActionParameter::duplicateParameters => unable to resolve ' . $name . '=' . $value);
+
                 return false;
             }
 
@@ -124,7 +127,7 @@ class ActionParameterModel extends Base
                 'value'     => $value,
             ];
 
-            if (! $this->db->table(self::TABLE)->insert($values)) {
+            if (!$this->db->table(self::TABLE)->insert($values)) {
                 return false;
             }
         }
@@ -136,9 +139,9 @@ class ActionParameterModel extends Base
      * Resolve action parameter values according to another project
      *
      * @access private
-     * @param  integer $project_id
-     * @param  string  $name
-     * @param  string  $value
+     * @param integer $project_id
+     * @param string $name
+     * @param string $value
      * @return mixed
      */
     private function resolveParameter($project_id, $name, $value)
@@ -150,21 +153,25 @@ class ActionParameterModel extends Base
                 if ($value == 0) {
                     return 0;
                 }
+
                 return $this->categoryModel->getIdByName($project_id, $this->categoryModel->getNameById($value)) ?: false;
             case 'src_column_id':
             case 'dest_column_id':
             case 'dst_column_id':
             case 'column_id':
                 $column = $this->columnModel->getById($value);
+
                 return empty($column) ? false : ($this->columnModel->getColumnIdByTitle($project_id, $column['title']) ?: false);
             case 'user_id':
             case 'owner_id':
                 if ($value == 0) {
                     return 0;
                 }
+
                 return $this->projectPermissionModel->isAssignable($project_id, $value) ? $value : false;
             case 'swimlane_id':
                 $column = $this->swimlaneModel->getById($value);
+
                 return empty($column) ? false : ($this->swimlaneModel->getIdByName($project_id, $column['name']) ?: false);
             default:
                 return $value;

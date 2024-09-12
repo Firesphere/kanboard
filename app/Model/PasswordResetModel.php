@@ -30,7 +30,7 @@ class PasswordResetModel extends Base
      * Get all tokens
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getAll($user_id)
@@ -42,15 +42,15 @@ class PasswordResetModel extends Base
      * Generate a new reset token for a user
      *
      * @access public
-     * @param  string  $username
-     * @param  integer $expiration
+     * @param string $username
+     * @param integer $expiration
      * @return boolean|string
      */
     public function create($username, $expiration = 0)
     {
         $user_id = $this->db->table(UserModel::TABLE)->eq('username', $username)->neq('email', '')->notNull('email')->findOneColumn('id');
 
-        if (! $user_id) {
+        if (!$user_id) {
             return false;
         }
 
@@ -73,7 +73,7 @@ class PasswordResetModel extends Base
      * Get user id from the token
      *
      * @access public
-     * @param  string $token
+     * @param string $token
      * @return integer
      */
     public function getUserIdByToken($token)
@@ -85,7 +85,7 @@ class PasswordResetModel extends Base
      * Disable all tokens for a user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function disable($user_id)

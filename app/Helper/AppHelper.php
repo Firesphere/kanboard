@@ -40,8 +40,8 @@ class AppHelper extends Base
     /**
      * Render Javascript component
      *
-     * @param  string $name
-     * @param  array  $params
+     * @param string $name
+     * @param array $params
      * @return string
      */
     public function component($name, array $params = [])
@@ -53,8 +53,8 @@ class AppHelper extends Base
      * Get config variable
      *
      * @access public
-     * @param  string $param
-     * @param  mixed  $default
+     * @param string $param
+     * @param mixed $default
      * @return mixed
      */
     public function config($param, $default = '')
@@ -66,9 +66,9 @@ class AppHelper extends Base
      * Make sidebar menu active
      *
      * @access public
-     * @param  string $controller
-     * @param  string $action
-     * @param  string $plugin
+     * @param string $controller
+     * @param string $action
+     * @param string $plugin
      * @return string
      */
     public function checkMenuSelection($controller, $action = '', $plugin = '')
@@ -185,11 +185,11 @@ class AppHelper extends Base
         $success_message = $this->flash->getMessage('success');
         $failure_message = $this->flash->getMessage('failure');
 
-        if (! empty($success_message)) {
+        if (!empty($success_message)) {
             return '<div class="alert alert-success alert-fade-out">' . $this->helper->text->e($success_message) . '</div>';
         }
 
-        if (! empty($failure_message)) {
+        if (!empty($failure_message)) {
             return '<div class="alert alert-error">' . $this->helper->text->e($failure_message) . '</div>';
         }
 

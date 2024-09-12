@@ -8,4 +8,6 @@ namespace Kanboard\Core\ExternalTask;
  * @package Kanboard\Core\ExternalTask
  * @author  Frederic Guillot
  */
-class NotFoundException extends ExternalTaskException {}
+class NotFoundException extends ExternalTaskException
+{
+}

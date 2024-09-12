@@ -26,7 +26,7 @@
                 <strong><?= '#' . $task['id'] ?></strong>
             <?php endif ?>
 
-            <?php if (! empty($task['assignee_username'])): ?>
+            <?php if (!empty($task['assignee_username'])): ?>
                 <span title="<?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?>">
                     <?= $this->text->e($this->user->getInitials($task['assignee_name'] ?: $task['assignee_username'])) ?>
                 </span> -
@@ -35,7 +35,8 @@
         </div>
     <?php else: ?>
         <div class="task-board-expanded">
-            <div class="task-board-saving-icon" style="display: none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
+            <div class="task-board-saving-icon" style="display: none;"><i class="fa fa-spinner fa-pulse fa-2x"></i>
+            </div>
             <div class="task-board-header">
                 <?php if ($this->user->hasProjectAccess('TaskModificationController', 'edit', $task['project_id'])): ?>
                     <?= $this->render('task/dropdown', ['task' => $task, 'redirect' => 'board']) ?>
@@ -46,7 +47,7 @@
                     <strong><?= '#' . $task['id'] ?></strong>
                 <?php endif ?>
 
-                <?php if (! empty($task['owner_id'])): ?>
+                <?php if (!empty($task['owner_id'])): ?>
                     <span class="task-board-assignee">
                         <?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?>
                     </span>

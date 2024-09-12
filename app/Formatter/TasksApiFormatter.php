@@ -16,6 +16,7 @@ class TasksApiFormatter extends BaseFormatter implements FormatterInterface
     public function withTasks($tasks)
     {
         $this->tasks = $tasks;
+
         return $this;
     }
 
@@ -27,7 +28,7 @@ class TasksApiFormatter extends BaseFormatter implements FormatterInterface
      */
     public function format()
     {
-        if (! empty($this->tasks)) {
+        if (!empty($this->tasks)) {
             foreach ($this->tasks as &$task) {
                 $task = $this->taskApiFormatter->withTask($task)->format();
             }

@@ -2,7 +2,8 @@
     <div class="page-header">
         <h2><?= t('Two factor authentication') ?></h2>
     </div>
-    <form method="post" action="<?= $this->url->href('TwoFactorController', 'check', ['user_id' => $this->user->getId()]) ?>">
+    <form method="post"
+          action="<?= $this->url->href('TwoFactorController', 'check', ['user_id' => $this->user->getId()]) ?>">
         <?= $this->form->csrf() ?>
 
         <?= $this->form->label(t('Code'), 'code') ?>

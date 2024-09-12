@@ -21,8 +21,8 @@ class ProjectPermissionModel extends Base
      * Get query for project users overview
      *
      * @access public
-     * @param  array    $project_ids
-     * @param  string   $role
+     * @param array $project_ids
+     * @param string $role
      * @return \PicoDb\Table
      */
     public function getQueryByRole(array $project_ids, $role)
@@ -52,8 +52,8 @@ class ProjectPermissionModel extends Base
      * Get all usernames (fetch users from groups)
      *
      * @access public
-     * @param  integer $project_id
-     * @param  string  $input
+     * @param integer $project_id
+     * @param string $input
      * @return array
      */
     public function findUsernames($project_id, $input)
@@ -100,14 +100,16 @@ class ProjectPermissionModel extends Base
 
         $userMembers = array_column_index_unique($userMembers, 'username');
         $groupMembers = array_column_index_unique($groupMembers, 'username');
+
         return array_merge($userMembers, $groupMembers);
     }
 
     public function getMembersWithEmail($project_id)
     {
         $members = $this->getMembers($project_id);
+
         return array_filter($members, function (array $user) {
-            return ! empty($user['email']);
+            return !empty($user['email']);
         });
     }
 
@@ -125,15 +127,15 @@ class ProjectPermissionModel extends Base
         }
 
         return $this->userModel->isActive($user_id) &&
-               $this->isMember($project_id, $user_id);
+            $this->isMember($project_id, $user_id);
     }
 
     /**
      * Return true if the user is assignable
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $user_id
+     * @param integer $project_id
+     * @param integer $user_id
      * @return boolean
      */
     public function isAssignable($project_id, $user_id)
@@ -141,7 +143,7 @@ class ProjectPermissionModel extends Base
         if ($this->userModel->isActive($user_id)) {
             $role = $this->projectUserRoleModel->getUserRole($project_id, $user_id);
 
-            return ! empty($role) && $role !== Role::PROJECT_VIEWER;
+            return !empty($role) && $role !== Role::PROJECT_VIEWER;
         }
 
         return false;
@@ -151,20 +153,20 @@ class ProjectPermissionModel extends Base
      * Return true if the user is member
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $user_id
+     * @param integer $project_id
+     * @param integer $user_id
      * @return boolean
      */
     public function isMember($project_id, $user_id)
     {
-        return ! empty($this->projectUserRoleModel->getUserRole($project_id, $user_id));
+        return !empty($this->projectUserRoleModel->getUserRole($project_id, $user_id));
     }
 
     /**
      * Get active project ids by user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getActiveProjectIds($user_id)
@@ -176,7 +178,7 @@ class ProjectPermissionModel extends Base
      * Get all project ids by user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getProjectIds($user_id)
@@ -187,8 +189,8 @@ class ProjectPermissionModel extends Base
     /**
      * Copy permissions to another project
      *
-     * @param  integer  $project_src_id  Project Template
-     * @param  integer  $project_dst_id  Project that receives the copy
+     * @param integer $project_src_id Project Template
+     * @param integer $project_dst_id Project that receives the copy
      * @return boolean
      */
     public function duplicate($project_src_id, $project_dst_id)

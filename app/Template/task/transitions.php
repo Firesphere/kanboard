@@ -21,13 +21,13 @@
             <th><?= t('Time spent in the column') ?></th>
         </tr>
         <?php foreach ($transitions as $transition): ?>
-        <tr>
-            <td><?= $this->dt->datetime($transition['date']) ?></td>
-            <td><?= $this->text->e($transition['src_column']) ?></td>
-            <td><?= $this->text->e($transition['dst_column']) ?></td>
-            <td><?= $this->url->link($this->text->e($transition['name'] ?: $transition['username']), 'UserViewController', 'show', ['user_id' => $transition['user_id']]) ?></td>
-            <td><?= $this->dt->duration($transition['time_spent']) ?></td>
-        </tr>
+            <tr>
+                <td><?= $this->dt->datetime($transition['date']) ?></td>
+                <td><?= $this->text->e($transition['src_column']) ?></td>
+                <td><?= $this->text->e($transition['dst_column']) ?></td>
+                <td><?= $this->url->link($this->text->e($transition['name'] ?: $transition['username']), 'UserViewController', 'show', ['user_id' => $transition['user_id']]) ?></td>
+                <td><?= $this->dt->duration($transition['time_spent']) ?></td>
+            </tr>
         <?php endforeach ?>
     </table>
 <?php endif ?>

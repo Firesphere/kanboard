@@ -4,7 +4,9 @@
 <?php if (empty($projects_list)): ?>
     <p class="alert"><?= t('There is no available project.') ?></p>
 <?php else: ?>
-    <form method="post" action="<?= $this->url->href('ProjectActionDuplicationController', 'save', ['project_id' => $project['id']]) ?>" autocomplete="off">
+    <form method="post"
+          action="<?= $this->url->href('ProjectActionDuplicationController', 'save', ['project_id' => $project['id']]) ?>"
+          autocomplete="off">
         <?= $this->form->csrf() ?>
 
         <?= $this->form->label(t('Create from another project'), 'src_project_id') ?>

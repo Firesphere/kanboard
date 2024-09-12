@@ -24,12 +24,13 @@ class QueueManager extends Base
      * Set queue driver
      *
      * @access public
-     * @param  Queue $queue
+     * @param Queue $queue
      * @return $this
      */
     public function setQueue(Queue $queue)
     {
         $this->queue = $queue;
+
         return $this;
     }
 
@@ -37,7 +38,7 @@ class QueueManager extends Base
      * Send a new job to the queue
      *
      * @access public
-     * @param  BaseJob $job
+     * @param BaseJob $job
      * @return $this
      */
     public function push(BaseJob $job)

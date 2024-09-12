@@ -10,27 +10,27 @@ use Pimple\Container;
  * @package core
  * @author  Frederic Guillot
  *
- * @property \Kanboard\Helper\AppHelper               $app
- * @property \Kanboard\Helper\AssetHelper             $asset
- * @property \Kanboard\Helper\AvatarHelper            $avatar
- * @property \Kanboard\Helper\BoardHelper             $board
- * @property \Kanboard\Helper\CommentHelper           $comment
- * @property \Kanboard\Helper\DateHelper              $dt
- * @property \Kanboard\Helper\FileHelper              $file
- * @property \Kanboard\Helper\FormHelper              $form
- * @property \Kanboard\Helper\HookHelper              $hook
- * @property \Kanboard\Helper\ModalHelper             $modal
- * @property \Kanboard\Helper\ModelHelper             $model
- * @property \Kanboard\Helper\SubtaskHelper           $subtask
- * @property \Kanboard\Helper\TaskHelper              $task
- * @property \Kanboard\Helper\TextHelper              $text
- * @property \Kanboard\Helper\UrlHelper               $url
- * @property \Kanboard\Helper\UserHelper              $user
- * @property \Kanboard\Helper\LayoutHelper            $layout
- * @property \Kanboard\Helper\ProjectRoleHelper       $projectRole
- * @property \Kanboard\Helper\ProjectHeaderHelper     $projectHeader
- * @property \Kanboard\Helper\ProjectActivityHelper   $projectActivity
- * @property \Kanboard\Helper\MailHelper              $mail
+ * @property \Kanboard\Helper\AppHelper $app
+ * @property \Kanboard\Helper\AssetHelper $asset
+ * @property \Kanboard\Helper\AvatarHelper $avatar
+ * @property \Kanboard\Helper\BoardHelper $board
+ * @property \Kanboard\Helper\CommentHelper $comment
+ * @property \Kanboard\Helper\DateHelper $dt
+ * @property \Kanboard\Helper\FileHelper $file
+ * @property \Kanboard\Helper\FormHelper $form
+ * @property \Kanboard\Helper\HookHelper $hook
+ * @property \Kanboard\Helper\ModalHelper $modal
+ * @property \Kanboard\Helper\ModelHelper $model
+ * @property \Kanboard\Helper\SubtaskHelper $subtask
+ * @property \Kanboard\Helper\TaskHelper $task
+ * @property \Kanboard\Helper\TextHelper $text
+ * @property \Kanboard\Helper\UrlHelper $url
+ * @property \Kanboard\Helper\UserHelper $user
+ * @property \Kanboard\Helper\LayoutHelper $layout
+ * @property \Kanboard\Helper\ProjectRoleHelper $projectRole
+ * @property \Kanboard\Helper\ProjectHeaderHelper $projectHeader
+ * @property \Kanboard\Helper\ProjectActivityHelper $projectActivity
+ * @property \Kanboard\Helper\MailHelper $mail
  */
 class Helper
 {
@@ -54,7 +54,7 @@ class Helper
      * Constructor
      *
      * @access public
-     * @param  \Pimple\Container   $container
+     * @param \Pimple\Container $container
      */
     public function __construct(Container $container)
     {
@@ -66,7 +66,7 @@ class Helper
      * Expose helpers with magic getter
      *
      * @access public
-     * @param  string $helper
+     * @param string $helper
      * @return mixed
      */
     public function __get($helper)
@@ -78,7 +78,7 @@ class Helper
      * Expose helpers with method
      *
      * @access public
-     * @param  string $helper
+     * @param string $helper
      * @return mixed
      */
     public function getHelper($helper)
@@ -90,8 +90,8 @@ class Helper
      * Register a new Helper
      *
      * @access public
-     * @param  string $property
-     * @param  string $className
+     * @param string $property
+     * @param string $className
      * @return Helper
      */
     public function register($property, $className)

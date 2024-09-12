@@ -2,4 +2,6 @@
 
 namespace Kanboard\Event;
 
-class TaskFileEvent extends GenericEvent {}
+class TaskFileEvent extends GenericEvent
+{
+}

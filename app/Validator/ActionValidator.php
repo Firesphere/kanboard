@@ -17,7 +17,7 @@ class ActionValidator extends BaseValidator
      * Validate action creation
      *
      * @access public
-     * @param  array   $values           Required parameters to save an action
+     * @param array $values Required parameters to save an action
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)

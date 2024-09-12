@@ -28,6 +28,7 @@ class CronjobCommand extends BaseCommand
             $job = $this->getApplication()->find($command);
             $job->run(new ArrayInput(['command' => $command]), new NullOutput());
         }
+
         return 0;
     }
 }

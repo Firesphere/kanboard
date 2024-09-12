@@ -19,6 +19,7 @@ class DatabaseMigrationCommand extends DatabaseVersionCommand
     {
         parent::execute($input, $output);
         DatabaseProvider::runMigrations($this->container['db']);
+
         return 0;
     }
 }

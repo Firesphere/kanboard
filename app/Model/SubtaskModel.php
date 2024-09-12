@@ -43,7 +43,7 @@ class SubtaskModel extends Base
      * Get projectId from subtaskId
      *
      * @access public
-     * @param  integer $subtaskId
+     * @param integer $subtaskId
      * @return integer
      */
     public function getProjectId($subtaskId)
@@ -111,7 +111,7 @@ class SubtaskModel extends Base
      * Get all subtasks for a given task
      *
      * @access public
-     * @param  integer   $taskId
+     * @param integer $taskId
      * @return array
      */
     public function getAll($taskId)
@@ -141,8 +141,8 @@ class SubtaskModel extends Base
     /**
      * Get subtasks for a list of tasks and a given assignee
      *
-     * @param  array   $taskIds
-     * @param  integer $userId
+     * @param array $taskIds
+     * @param integer $userId
      * @return array
      */
     public function getAllByTaskIdsAndAssignee(array $taskIds, $userId)
@@ -160,7 +160,7 @@ class SubtaskModel extends Base
      * Get a subtask by the id
      *
      * @access public
-     * @param  integer   $subtaskId
+     * @param integer $subtaskId
      * @return array
      */
     public function getById($subtaskId)
@@ -171,7 +171,7 @@ class SubtaskModel extends Base
     /**
      * Get subtask with additional information
      *
-     * @param  integer $subtaskId
+     * @param integer $subtaskId
      * @return array|null
      */
     public function getByIdWithDetails($subtaskId)
@@ -180,7 +180,7 @@ class SubtaskModel extends Base
             ->withQuery($this->getQuery()->eq(self::TABLE . '.id', $subtaskId))
             ->format();
 
-        if (! empty($subtasks)) {
+        if (!empty($subtasks)) {
             return $subtasks[0];
         }
 
@@ -191,23 +191,23 @@ class SubtaskModel extends Base
      * Get the position of the last column for a given project
      *
      * @access public
-     * @param  integer  $taskId
+     * @param integer $taskId
      * @return integer
      */
     public function getLastPosition($taskId)
     {
-        return (int) $this->db
-                        ->table(self::TABLE)
-                        ->eq('task_id', $taskId)
-                        ->desc('position')
-                        ->findOneColumn('position');
+        return (int)$this->db
+            ->table(self::TABLE)
+            ->eq('task_id', $taskId)
+            ->desc('position')
+            ->findOneColumn('position');
     }
 
     /**
      * Create a new subtask
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      * @return bool|integer
      */
     public function create(array $values)
@@ -230,8 +230,8 @@ class SubtaskModel extends Base
      * Update a subtask
      *
      * @access public
-     * @param  array $values
-     * @param  bool  $fireEvent
+     * @param array $values
+     * @param bool $fireEvent
      * @return bool
      */
     public function update(array $values, $fireEvent = true)
@@ -261,7 +261,7 @@ class SubtaskModel extends Base
      * Remove
      *
      * @access public
-     * @param  integer $subtaskId
+     * @param integer $subtaskId
      * @return bool
      */
     public function remove($subtaskId)
@@ -280,8 +280,8 @@ class SubtaskModel extends Base
      * Duplicate all subtasks to another task
      *
      * @access public
-     * @param  integer $srcTaskId
-     * @param  integer $dstTaskId
+     * @param integer $srcTaskId
+     * @param integer $dstTaskId
      * @return bool
      */
     public function duplicate($srcTaskId, $dstTaskId)
@@ -296,7 +296,7 @@ class SubtaskModel extends Base
             foreach ($subtasks as &$subtask) {
                 $subtask['task_id'] = $dstTaskId;
 
-                if (! $db->table(SubtaskModel::TABLE)->save($subtask)) {
+                if (!$db->table(SubtaskModel::TABLE)->save($subtask)) {
                     return false;
                 }
             }
@@ -307,7 +307,7 @@ class SubtaskModel extends Base
      * Prepare data before insert/update
      *
      * @access protected
-     * @param  array    $values    Form values
+     * @param array $values Form values
      */
     protected function prepare(array &$values)
     {
@@ -320,7 +320,7 @@ class SubtaskModel extends Base
      * Prepare data before insert
      *
      * @access protected
-     * @param  array    $values    Form values
+     * @param array $values Form values
      */
     protected function prepareCreation(array &$values)
     {

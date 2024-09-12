@@ -59,6 +59,7 @@ class ProjectCreationController extends BaseController
 
             if ($project_id > 0) {
                 $this->flash->success(t('Your project has been created successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', ['project_id' => $project_id]));
             }
 
@@ -72,7 +73,7 @@ class ProjectCreationController extends BaseController
      * Create or duplicate a project
      *
      * @access private
-     * @param  array  $values
+     * @param array $values
      * @return boolean|integer
      */
     private function createOrDuplicate(array $values)
@@ -88,7 +89,7 @@ class ProjectCreationController extends BaseController
      * Save a new project
      *
      * @access private
-     * @param  array  $values
+     * @param array $values
      * @return boolean|integer
      */
     private function createNewProject(array $values)
@@ -108,7 +109,7 @@ class ProjectCreationController extends BaseController
      * Create from another project
      *
      * @access private
-     * @param  array  $values
+     * @param array $values
      * @return boolean|integer
      */
     private function duplicateNewProject(array $values)

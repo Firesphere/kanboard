@@ -23,9 +23,37 @@ class Logger extends AbstractLogger implements LoggerAwareInterface
     private $loggers = [];
 
     /**
+     * Sets a logger instance on the object
+     *
+     * @param LoggerInterface $logger
+     * @return null
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->loggers[] = $logger;
+    }
+
+    /**
+     * Proxy method to the real loggers
+     *
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return null
+     */
+    public function log($level, $message, array $context = [])
+    {
+        foreach ($this->loggers as $logger) {
+            if ($this->getLevelPriority($level) >= $this->getLevelPriority($logger->getLevel())) {
+                $logger->log($level, $message, $context);
+            }
+        }
+    }
+
+    /**
      * Get level priority
      *
-     * @param  mixed  $level
+     * @param mixed $level
      * @return integer
      */
     public function getLevelPriority($level)
@@ -48,34 +76,6 @@ class Logger extends AbstractLogger implements LoggerAwareInterface
         }
 
         return 100;
-    }
-
-    /**
-     * Sets a logger instance on the object
-     *
-     * @param  LoggerInterface $logger
-     * @return null
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->loggers[] = $logger;
-    }
-
-    /**
-     * Proxy method to the real loggers
-     *
-     * @param  mixed   $level
-     * @param  string  $message
-     * @param  array   $context
-     * @return null
-     */
-    public function log($level, $message, array $context = [])
-    {
-        foreach ($this->loggers as $logger) {
-            if ($this->getLevelPriority($level) >= $this->getLevelPriority($logger->getLevel())) {
-                $logger->log($level, $message, $context);
-            }
-        }
     }
 
     /**

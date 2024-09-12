@@ -34,13 +34,13 @@ class UserImport extends Base
     public function getColumnMapping()
     {
         return [
-            'username'         => 'Username',
-            'password'         => 'Password',
-            'email'            => 'Email',
-            'name'             => 'Full Name',
-            'is_admin'         => 'Administrator',
-            'is_manager'       => 'Manager',
-            'is_ldap_user'     => 'Remote User',
+            'username'     => 'Username',
+            'password'     => 'Password',
+            'email'        => 'Email',
+            'name'         => 'Full Name',
+            'is_admin'     => 'Administrator',
+            'is_manager'   => 'Manager',
+            'is_ldap_user' => 'Remote User',
         ];
     }
 
@@ -48,8 +48,8 @@ class UserImport extends Base
      * Import a single row
      *
      * @access public
-     * @param  array   $row
-     * @param  integer $line_number
+     * @param array $row
+     * @param integer $line_number
      */
     public function import(array $row, $line_number)
     {
@@ -71,7 +71,7 @@ class UserImport extends Base
      * Format row before validation
      *
      * @access public
-     * @param  array   $row
+     * @param array $row
      * @return array
      */
     public function prepare(array $row)
@@ -102,7 +102,7 @@ class UserImport extends Base
      * Validate user creation
      *
      * @access public
-     * @param  array   $values
+     * @param array $values
      * @return boolean
      */
     public function validateCreation(array $values)

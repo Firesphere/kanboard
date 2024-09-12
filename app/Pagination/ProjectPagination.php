@@ -18,9 +18,9 @@ class ProjectPagination extends Base
      * Get dashboard pagination
      *
      * @access public
-     * @param  integer $user_id
-     * @param  string  $method
-     * @param  integer $max
+     * @param integer $user_id
+     * @param string $method
+     * @param integer $max
      * @return Paginator
      */
     public function getDashboardPaginator($user_id, $method, $max)

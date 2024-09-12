@@ -31,7 +31,7 @@ class UserProfileSyncEvent extends Event
     /**
      * UserProfileSyncEvent constructor.
      *
-     * @param array                 $profile
+     * @param array $profile
      * @param UserProviderInterface $user
      */
     public function __construct(array $profile, UserProviderInterface $user)

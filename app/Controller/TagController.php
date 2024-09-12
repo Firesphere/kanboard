@@ -15,9 +15,9 @@ class TagController extends BaseController
     public function index()
     {
         $this->response->html($this->helper->layout->config('tag/index', [
-            'tags'    => $this->tagModel->getAllByProject(0),
-            'colors'  => $this->colorModel->getList(),
-            'title'   => t('Settings') . ' &gt; ' . t('Global tags management'),
+            'tags'   => $this->tagModel->getAllByProject(0),
+            'colors' => $this->colorModel->getList(),
+            'title'  => t('Settings') . ' &gt; ' . t('Global tags management'),
         ]));
     }
 
@@ -28,9 +28,9 @@ class TagController extends BaseController
         }
 
         $this->response->html($this->template->render('tag/create', [
-            'values'  => $values,
-            'colors'  => $this->colorModel->getList(),
-            'errors'  => $errors,
+            'values' => $values,
+            'colors' => $this->colorModel->getList(),
+            'errors' => $errors,
         ]));
     }
 
@@ -62,10 +62,10 @@ class TagController extends BaseController
         }
 
         $this->response->html($this->template->render('tag/edit', [
-            'tag'     => $tag,
-            'values'  => $values,
-            'colors'  => $this->colorModel->getList(),
-            'errors'  => $errors,
+            'tag'    => $tag,
+            'values' => $values,
+            'colors' => $this->colorModel->getList(),
+            'errors' => $errors,
         ]));
     }
 

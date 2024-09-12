@@ -14,7 +14,7 @@ interface GroupBackendProviderInterface
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return GroupProviderInterface[]
      */
     public function find($input);

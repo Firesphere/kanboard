@@ -22,7 +22,7 @@ interface OAuthAuthenticationProviderInterface extends AuthenticationProviderInt
      * Unlink user
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return bool
      */
     public function unlink($userId);
@@ -39,7 +39,7 @@ interface OAuthAuthenticationProviderInterface extends AuthenticationProviderInt
      * Set OAuth2 code
      *
      * @access public
-     * @param  string  $code
+     * @param string $code
      * @return OAuthAuthenticationProviderInterface
      */
     public function setCode($code);

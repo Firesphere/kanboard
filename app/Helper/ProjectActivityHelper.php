@@ -20,7 +20,7 @@ class ProjectActivityHelper extends Base
      * Search events
      *
      * @access public
-     * @param  string $search
+     * @param string $search
      * @return array
      */
     public function searchEvents($search)
@@ -34,8 +34,7 @@ class ProjectActivityHelper extends Base
                 ->withFilter(new ProjectActivityProjectIdsFilter(array_keys($projects)))
                 ->getQuery()
                 ->desc(ProjectActivityModel::TABLE . '.id')
-                ->limit(500)
-            ;
+                ->limit(500);
 
             $events = $queryBuilder->format($this->projectActivityEventFormatter);
         }
@@ -47,8 +46,8 @@ class ProjectActivityHelper extends Base
      * Get project activity events
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  int      $limit
+     * @param integer $project_id
+     * @param int $limit
      * @return array
      */
     public function getProjectEvents($project_id, $limit = 50)
@@ -58,8 +57,7 @@ class ProjectActivityHelper extends Base
 
         $queryBuilder->getQuery()
             ->desc(ProjectActivityModel::TABLE . '.id')
-            ->limit($limit)
-        ;
+            ->limit($limit);
 
         return $queryBuilder->format($this->projectActivityEventFormatter);
     }
@@ -68,8 +66,8 @@ class ProjectActivityHelper extends Base
      * Get projects activity events
      *
      * @access public
-     * @param  int[]    $project_ids
-     * @param  int      $limit
+     * @param int[] $project_ids
+     * @param int $limit
      * @return array
      */
     public function getProjectsEvents(array $project_ids, $limit = 50)
@@ -79,8 +77,7 @@ class ProjectActivityHelper extends Base
 
         $queryBuilder->getQuery()
             ->desc(ProjectActivityModel::TABLE . '.id')
-            ->limit($limit)
-        ;
+            ->limit($limit);
 
         return $queryBuilder->format($this->projectActivityEventFormatter);
     }
@@ -89,7 +86,7 @@ class ProjectActivityHelper extends Base
      * Get task activity events
      *
      * @access public
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return array
      */
     public function getTaskEvents($task_id)

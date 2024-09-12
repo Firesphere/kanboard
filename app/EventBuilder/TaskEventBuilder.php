@@ -48,48 +48,52 @@ class TaskEventBuilder extends BaseEventBuilder
     /**
      * Set TaskId
      *
-     * @param  int $taskId
+     * @param int $taskId
      * @return $this
      */
     public function withTaskId($taskId)
     {
         $this->taskId = $taskId;
+
         return $this;
     }
 
     /**
      * Set task
      *
-     * @param  array $task
+     * @param array $task
      * @return $this
      */
     public function withTask(array $task)
     {
         $this->task = $task;
+
         return $this;
     }
 
     /**
      * Set values
      *
-     * @param  array $values
+     * @param array $values
      * @return $this
      */
     public function withValues(array $values)
     {
         $this->values = $values;
+
         return $this;
     }
 
     /**
      * Set changes
      *
-     * @param  array $changes
+     * @param array $changes
      * @return $this
      */
     public function withChanges(array $changes)
     {
         $this->changes = $changes;
+
         return $this;
     }
 
@@ -107,10 +111,11 @@ class TaskEventBuilder extends BaseEventBuilder
 
         if (empty($eventData['task'])) {
             $this->logger->debug(__METHOD__ . ': Task not found');
+
             return null;
         }
 
-        if (! empty($this->changes)) {
+        if (!empty($this->changes)) {
             if (empty($this->task)) {
                 $this->task = $eventData['task'];
             }
@@ -126,9 +131,9 @@ class TaskEventBuilder extends BaseEventBuilder
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithAuthor($author, $eventName, array $eventData)
@@ -137,7 +142,7 @@ class TaskEventBuilder extends BaseEventBuilder
             case TaskModel::EVENT_ASSIGNEE_CHANGE:
                 $assignee = $eventData['task']['assignee_name'] ?: $eventData['task']['assignee_username'];
 
-                if (! empty($assignee)) {
+                if (!empty($assignee)) {
                     return e('%s changed the assignee of the task #%d to %s', $author, $eventData['task']['id'], $assignee);
                 }
 
@@ -196,8 +201,8 @@ class TaskEventBuilder extends BaseEventBuilder
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithoutAuthor($eventName, array $eventData)
@@ -223,6 +228,7 @@ class TaskEventBuilder extends BaseEventBuilder
                 return e('Assignee changed on task #%d', $eventData['task']['id']);
             case TaskModel::EVENT_OVERDUE:
                 $nb = count($eventData['tasks']);
+
                 return $nb > 1 ? e('%d overdue tasks', $nb) : e('Task #%d is overdue', $eventData['tasks'][0]['id']);
             case TaskModel::EVENT_USER_MENTION:
                 return e('You were mentioned in the task #%d', $eventData['task']['id']);

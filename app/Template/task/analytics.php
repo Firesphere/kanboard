@@ -29,10 +29,10 @@
         <th><?= t('Time spent') ?></th>
     </tr>
     <?php foreach ($time_spent_columns as $column): ?>
-    <tr>
-        <td><?= $this->text->e($column['title']) ?></td>
-        <td><?= $this->dt->duration($column['time_spent']) ?></td>
-    </tr>
+        <tr>
+            <td><?= $this->text->e($column['title']) ?></td>
+            <td><?= $this->dt->duration($column['time_spent']) ?></td>
+        </tr>
     <?php endforeach ?>
 </table>
 

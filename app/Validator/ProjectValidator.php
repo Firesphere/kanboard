@@ -32,9 +32,9 @@ class ProjectValidator extends BaseValidator
             new Validators\MaxLength('identifier', t('The maximum length is %d characters', 50), 50),
             new Validators\MaxLength('start_date', t('The maximum length is %d characters', 10), 10),
             new Validators\MaxLength('end_date', t('The maximum length is %d characters', 10), 10),
-            new Validators\AlphaNumeric('identifier', t('This value must be alphanumeric')) ,
+            new Validators\AlphaNumeric('identifier', t('This value must be alphanumeric')),
             new Validators\Unique('identifier', t('The identifier must be unique'), $this->db->getConnection(), ProjectModel::TABLE),
-            new Validators\Email('email', t('Email address invalid')) ,
+            new Validators\Email('email', t('Email address invalid')),
             new Validators\Unique('email', t('The project email must be unique across all projects'), $this->db->getConnection(), ProjectModel::TABLE),
         ];
     }
@@ -43,12 +43,12 @@ class ProjectValidator extends BaseValidator
      * Validate project creation
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)
     {
-        if (! empty($values['identifier'])) {
+        if (!empty($values['identifier'])) {
             $values['identifier'] = strtoupper($values['identifier']);
         }
 
@@ -68,12 +68,12 @@ class ProjectValidator extends BaseValidator
      * Validate project modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateModification(array $values)
     {
-        if (! empty($values['identifier'])) {
+        if (!empty($values['identifier'])) {
             $values['identifier'] = strtoupper($values['identifier']);
         }
 

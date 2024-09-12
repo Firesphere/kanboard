@@ -30,6 +30,7 @@ class TaskExportCommand extends BaseCommand
         if (is_array($data)) {
             Csv::output($data);
         }
+
         return 0;
     }
 }

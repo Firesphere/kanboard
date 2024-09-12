@@ -18,7 +18,7 @@ class SubtaskPagination extends Base
      * Get dashboard pagination
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return Paginator
      */
     public function getDashboardPaginator($userId)

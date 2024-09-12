@@ -24,13 +24,13 @@ class BoardAjaxController extends BaseController
         $this->checkReusableGETCSRFParam();
         $project_id = $this->request->getIntegerParam('project_id');
 
-        if (! $project_id || ! $this->request->isAjax()) {
+        if (!$project_id || !$this->request->isAjax()) {
             throw new AccessForbiddenException();
         }
 
         $values = $this->request->getJson();
 
-        if (! $this->helper->projectRole->canMoveTask($project_id, $values['src_column_id'], $values['dst_column_id'])) {
+        if (!$this->helper->projectRole->canMoveTask($project_id, $values['src_column_id'], $values['dst_column_id'])) {
             throw new AccessForbiddenException(e("You don't have the permission to move this task"));
         }
 
@@ -43,7 +43,7 @@ class BoardAjaxController extends BaseController
                 $values['swimlane_id'],
             );
 
-            if (! $result) {
+            if (!$result) {
                 $this->response->status(400);
             } else {
                 $this->response->html($this->renderBoard($project_id), 201);
@@ -63,9 +63,9 @@ class BoardAjaxController extends BaseController
         $project_id = $this->request->getIntegerParam('project_id');
         $timestamp = $this->request->getIntegerParam('timestamp');
 
-        if (! $project_id || ! $this->request->isAjax()) {
+        if (!$project_id || !$this->request->isAjax()) {
             throw new AccessForbiddenException();
-        } elseif (! $this->projectModel->isModifiedSince($project_id, $timestamp)) {
+        } elseif (!$this->projectModel->isModifiedSince($project_id, $timestamp)) {
             $this->response->status(304);
         } else {
             $this->response->html($this->renderBoard($project_id));
@@ -81,7 +81,7 @@ class BoardAjaxController extends BaseController
     {
         $project_id = $this->request->getIntegerParam('project_id');
 
-        if (! $project_id || ! $this->request->isAjax()) {
+        if (!$project_id || !$this->request->isAjax()) {
             throw new AccessForbiddenException();
         }
 
@@ -115,7 +115,7 @@ class BoardAjaxController extends BaseController
      * Change display mode
      *
      * @access private
-     * @param  int $mode
+     * @param int $mode
      */
     private function changeDisplayMode($mode)
     {
@@ -133,7 +133,7 @@ class BoardAjaxController extends BaseController
      * Render board
      *
      * @access protected
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return string
      */
     protected function renderBoard($project_id)

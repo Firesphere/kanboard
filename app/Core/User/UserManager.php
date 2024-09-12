@@ -22,12 +22,13 @@ class UserManager
      * Register a new group backend provider
      *
      * @access public
-     * @param  UserBackendProviderInterface $provider
+     * @param UserBackendProviderInterface $provider
      * @return $this
      */
     public function register(UserBackendProviderInterface $provider)
     {
         $this->providers[] = $provider;
+
         return $this;
     }
 
@@ -35,7 +36,7 @@ class UserManager
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return UserProviderInterface[]
      */
     public function find($input)
@@ -53,7 +54,7 @@ class UserManager
      * Remove duplicated users
      *
      * @access protected
-     * @param  array $users
+     * @param array $users
      * @return UserProviderInterface[]
      */
     protected function removeDuplicates(array $users)
@@ -61,7 +62,7 @@ class UserManager
         $result = [];
 
         foreach ($users as $user) {
-            if (! isset($result[$user->getUsername()])) {
+            if (!isset($result[$user->getUsername()])) {
                 $result[$user->getUsername()] = $user;
             }
         }

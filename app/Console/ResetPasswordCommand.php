@@ -14,8 +14,7 @@ class ResetPasswordCommand extends BaseCommand
         $this
             ->setName('user:reset-password')
             ->setDescription('Change user password')
-            ->addArgument('username', InputArgument::REQUIRED, 'Username')
-        ;
+            ->addArgument('username', InputArgument::REQUIRED, 'Username');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -38,6 +37,7 @@ class ResetPasswordCommand extends BaseCommand
         if ($this->validatePassword($output, $password, $confirmation)) {
             $this->resetPassword($output, $username, $password);
         }
+
         return 0;
     }
 
@@ -65,11 +65,13 @@ class ResetPasswordCommand extends BaseCommand
 
         if (empty($userId)) {
             $output->writeln('<error>User not found</error>');
+
             return false;
         }
 
         if (!$this->userModel->update(['id' => $userId, 'password' => $password])) {
             $output->writeln('<error>Unable to update password</error>');
+
             return false;
         }
 

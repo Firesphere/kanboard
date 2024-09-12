@@ -1,10 +1,10 @@
-<?php if (! $is_ajax): ?>
+<?php if (!$is_ajax): ?>
     <div class="page-header">
         <h2><?= t('Burndown chart') ?></h2>
     </div>
 <?php endif ?>
 
-<?php if (! $display_graph): ?>
+<?php if (!$display_graph): ?>
     <p class="alert"><?= t('You need at least 2 days of data to show the chart.') ?></p>
 <?php else: ?>
     <?= $this->app->component('chart-project-burndown', [
@@ -16,7 +16,9 @@
 
 <hr/>
 
-<form method="post" class="form-inline" action="<?= $this->url->href('AnalyticController', 'burndown', ['project_id' => $project['id']]) ?>" autocomplete="off">
+<form method="post" class="form-inline"
+      action="<?= $this->url->href('AnalyticController', 'burndown', ['project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
     <?= $this->form->date(t('Start date'), 'from', $values) ?>
     <?= $this->form->date(t('End date'), 'to', $values) ?>

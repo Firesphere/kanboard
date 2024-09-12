@@ -16,11 +16,6 @@ use LogicException;
  */
 class UserProcedure extends BaseProcedure
 {
-    public function getUser($user_id)
-    {
-        return $this->userModel->getById($user_id);
-    }
-
     public function getUserByName($username)
     {
         return $this->userModel->getByUsername($username);
@@ -62,7 +57,8 @@ class UserProcedure extends BaseProcedure
             'role'         => $role,
         ];
 
-        list($valid, ) = $this->userValidator->validateCreation($values);
+        list($valid,) = $this->userValidator->validateCreation($values);
+
         return $valid ? $this->userModel->create($values) : false;
     }
 
@@ -74,13 +70,14 @@ class UserProcedure extends BaseProcedure
      * User information will be fetched from the LDAP server
      *
      * @access public
-     * @param  string $username
+     * @param string $username
      * @return bool|int
      */
     public function createLdapUser($username)
     {
         if (LDAP_BIND_TYPE === 'user') {
             $this->logger->error('LDAP authentication "user" is not supported by this API call');
+
             return false;
         }
 
@@ -91,6 +88,7 @@ class UserProcedure extends BaseProcedure
 
             if ($user === null) {
                 $this->logger->info('User not found in LDAP server');
+
                 return false;
             }
 
@@ -109,8 +107,14 @@ class UserProcedure extends BaseProcedure
             return $this->userModel->create($values);
         } catch (LdapException $e) {
             $this->logger->error($e->getMessage());
+
             return false;
         }
+    }
+
+    public function getUser($user_id)
+    {
+        return $this->userModel->getById($user_id);
     }
 
     public function updateUser($id, $username = null, $name = null, $email = null, $role = null)
@@ -123,7 +127,8 @@ class UserProcedure extends BaseProcedure
             'role'     => $role,
         ]);
 
-        list($valid, ) = $this->userValidator->validateApiModification($values);
+        list($valid,) = $this->userValidator->validateApiModification($values);
+
         return $valid && $this->userModel->update($values);
     }
 }

@@ -68,7 +68,7 @@ class ActionController extends BaseController
         $project = $this->getProject();
         $action = $this->getAction($project);
 
-        if (! empty($action) && $this->actionModel->remove($action['id'])) {
+        if (!empty($action) && $this->actionModel->remove($action['id'])) {
             $this->flash->success(t('Action removed successfully.'));
         } else {
             $this->flash->failure(t('Unable to remove this action.'));

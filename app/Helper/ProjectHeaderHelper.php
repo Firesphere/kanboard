@@ -16,13 +16,14 @@ class ProjectHeaderHelper extends Base
      * Get current search query
      *
      * @access public
-     * @param  array  $project
+     * @param array $project
      * @return string
      */
     public function getSearchQuery(array $project)
     {
         $search = $this->request->getStringParam('search', $this->userSession->getFilters($project['id']));
         $this->userSession->setFilters($project['id'], $search);
+
         return rawurldecode($search);
     }
 
@@ -30,11 +31,11 @@ class ProjectHeaderHelper extends Base
      * Render project header (views switcher and search box)
      *
      * @access public
-     * @param  array  $project
-     * @param  string $controller
-     * @param  string $action
-     * @param  bool   $boardView
-     * @param  string $plugin
+     * @param array $project
+     * @param string $controller
+     * @param string $action
+     * @param bool $boardView
+     * @param string $plugin
      * @return string
      */
     public function render(array $project, $controller, $action, $boardView = false, $plugin = '')
@@ -61,7 +62,7 @@ class ProjectHeaderHelper extends Base
      * Get project description
      *
      * @access public
-     * @param  array  &$project
+     * @param array  &$project
      * @return string
      */
     public function getDescription(array &$project)
@@ -69,7 +70,7 @@ class ProjectHeaderHelper extends Base
         if ($project['owner_id'] > 0) {
             $description = t('Project owner: ') . '<strong>' . $this->helper->text->e($project['owner_name'] ?: $project['owner_username']) . '</strong>' . PHP_EOL . PHP_EOL;
 
-            if (! empty($project['description'])) {
+            if (!empty($project['description'])) {
                 $description .= '<hr>' . PHP_EOL . PHP_EOL;
                 $description .= $this->helper->text->markdown($project['description'] ?: '');
             }

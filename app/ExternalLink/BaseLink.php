@@ -35,7 +35,7 @@ abstract class BaseLink extends Base
      * Set link URL
      *
      * @access public
-     * @param  string $url
+     * @param string $url
      */
     public function setUrl($url)
     {

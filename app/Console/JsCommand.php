@@ -73,8 +73,7 @@ class JsCommand extends BaseCommand
     {
         $this
             ->setName('js')
-            ->setDescription('Minify Javascript files')
-        ;
+            ->setDescription('Minify Javascript files');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -86,6 +85,7 @@ class JsCommand extends BaseCommand
 
         file_put_contents('assets/js/app.min.js', $minifier->minify());
         file_put_contents('assets/js/vendor.min.js', $vendorBundle);
+
         return 0;
     }
 }

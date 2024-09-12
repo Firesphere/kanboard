@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= t('Add new tag') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ProjectTagController', 'save', ['project_id' => $project['id']]) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ProjectTagController', 'save', ['project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Name'), 'name') ?>

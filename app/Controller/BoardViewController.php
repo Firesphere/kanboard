@@ -33,8 +33,8 @@ class BoardViewController extends BaseController
             ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN);
 
         $this->response->html($this->helper->layout->app('board/view_public', [
-            'project'   => $project,
-            'swimlanes' => $this->boardFormatter
+            'project'                        => $project,
+            'swimlanes'                      => $this->boardFormatter
                 ->withProjectId($project['id'])
                 ->withQuery($query)
                 ->format()

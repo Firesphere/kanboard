@@ -17,14 +17,15 @@ class AvatarFileProvider extends Base implements AvatarProviderInterface
      * Render avatar html
      *
      * @access public
-     * @param  array $user
-     * @param  int   $size
+     * @param array $user
+     * @param int $size
      * @return string
      */
     public function render(array $user, $size)
     {
         $url = $this->helper->url->href('AvatarFileController', 'image', ['user_id' => $user['id'], 'hash' => md5($user['avatar_path'] . $size), 'size' => $size]);
         $title = $this->helper->text->e($user['name'] ?: $user['username']);
+
         return '<img src="' . $url . '" alt="' . $title . '" title="' . $title . '">';
     }
 
@@ -32,7 +33,7 @@ class AvatarFileProvider extends Base implements AvatarProviderInterface
      * Determine if the provider is active
      *
      * @access public
-     * @param  array $user
+     * @param array $user
      * @return boolean
      */
     public function isActive(array $user)

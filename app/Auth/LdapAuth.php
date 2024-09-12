@@ -68,6 +68,7 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
 
             if ($user === null) {
                 $this->logger->info('User (' . $this->username . ') not found in LDAP server');
+
                 return false;
             }
 
@@ -79,6 +80,7 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
 
             if ($client->authenticate($user->getDn(), $this->password)) {
                 $this->userInfo = $user;
+
                 return true;
             }
         } catch (LdapException $e) {
@@ -86,39 +88,6 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
         }
 
         return false;
-    }
-
-    /**
-     * Get user object
-     *
-     * @access public
-     * @return \Kanboard\User\LdapUserProvider
-     */
-    public function getUser()
-    {
-        return $this->userInfo;
-    }
-
-    /**
-     * Set username
-     *
-     * @access public
-     * @param  string $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * Set password
-     *
-     * @access public
-     * @param  string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     /**
@@ -140,6 +109,21 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
     }
 
     /**
+     * Get LDAP bind type
+     *
+     * @access public
+     * @return integer
+     */
+    public function getLdapBindType()
+    {
+        if (LDAP_BIND_TYPE !== 'user' && LDAP_BIND_TYPE !== 'proxy' && LDAP_BIND_TYPE !== 'anonymous') {
+            throw new LogicException('Wrong value for the parameter LDAP_BIND_TYPE');
+        }
+
+        return LDAP_BIND_TYPE;
+    }
+
+    /**
      * Get LDAP password (proxy auth)
      *
      * @access public
@@ -158,17 +142,35 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
     }
 
     /**
-     * Get LDAP bind type
+     * Get user object
      *
      * @access public
-     * @return integer
+     * @return \Kanboard\User\LdapUserProvider
      */
-    public function getLdapBindType()
+    public function getUser()
     {
-        if (LDAP_BIND_TYPE !== 'user' && LDAP_BIND_TYPE !== 'proxy' && LDAP_BIND_TYPE !== 'anonymous') {
-            throw new LogicException('Wrong value for the parameter LDAP_BIND_TYPE');
-        }
+        return $this->userInfo;
+    }
 
-        return LDAP_BIND_TYPE;
+    /**
+     * Set username
+     *
+     * @access public
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Set password
+     *
+     * @access public
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 }

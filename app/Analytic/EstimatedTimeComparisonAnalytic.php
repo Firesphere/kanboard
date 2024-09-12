@@ -17,7 +17,7 @@ class EstimatedTimeComparisonAnalytic extends Base
      * Build report
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function build($project_id)
@@ -29,7 +29,7 @@ class EstimatedTimeComparisonAnalytic extends Base
             ->findAll();
 
         $metrics = [
-            'open' => [
+            'open'   => [
                 'time_spent'     => 0,
                 'time_estimated' => 0,
             ],
@@ -41,8 +41,8 @@ class EstimatedTimeComparisonAnalytic extends Base
 
         foreach ($rows as $row) {
             $key = $row['is_active'] == TaskModel::STATUS_OPEN ? 'open' : 'closed';
-            $metrics[$key]['time_spent'] = (float) $row['time_spent'];
-            $metrics[$key]['time_estimated'] = (float) $row['time_estimated'];
+            $metrics[$key]['time_spent'] = (float)$row['time_spent'];
+            $metrics[$key]['time_estimated'] = (float)$row['time_estimated'];
         }
 
         return $metrics;

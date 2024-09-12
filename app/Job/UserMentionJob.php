@@ -16,23 +16,24 @@ class UserMentionJob extends BaseJob
     /**
      * Set job parameters
      *
-     * @param  string       $text
-     * @param  string       $eventName
-     * @param  GenericEvent $event
+     * @param string $text
+     * @param string $eventName
+     * @param GenericEvent $event
      * @return $this
      */
     public function withParams($text, $eventName, GenericEvent $event)
     {
         $this->jobParams = [$text, $eventName, $event->getAll()];
+
         return $this;
     }
 
     /**
      * Execute job
      *
-     * @param string       $text
-     * @param string       $eventName
-     * @param array        $eventData
+     * @param string $text
+     * @param string $eventName
+     * @param array $eventData
      */
     public function execute($text, $eventName, array $eventData)
     {
@@ -51,7 +52,7 @@ class UserMentionJob extends BaseJob
      * Get list of mentioned users
      *
      * @access public
-     * @param  string $text
+     * @param string $text
      * @return array
      */
     public function getMentionedUsers($text)
@@ -59,7 +60,9 @@ class UserMentionJob extends BaseJob
         $users = [];
 
         if ($text !== null && preg_match_all('/@([^\s,!:?]+)/', $text, $matches)) {
-            array_walk($matches[1], function (&$username) { $username = rtrim($username, '.'); });
+            array_walk($matches[1], function (&$username) {
+                $username = rtrim($username, '.');
+            });
             $users = $this->db->table(UserModel::TABLE)
                 ->columns('id', 'username', 'name', 'email', 'language')
                 ->eq('notifications_enabled', 1)

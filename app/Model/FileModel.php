@@ -47,7 +47,7 @@ abstract class FileModel extends Base
      *
      * @abstract
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     abstract protected function fireCreationEvent($file_id);
 
@@ -56,7 +56,7 @@ abstract class FileModel extends Base
      *
      * @abstract
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     abstract protected function fireDestructionEvent($file_id);
 
@@ -90,7 +90,7 @@ abstract class FileModel extends Base
      * Get a file by the id
      *
      * @access public
-     * @param  integer   $file_id    File id
+     * @param integer $file_id File id
      * @return array
      */
     public function getById($file_id)
@@ -99,6 +99,7 @@ abstract class FileModel extends Base
         if ($file) {
             $file['etag'] = md5($file['path']);
         }
+
         return $file;
     }
 
@@ -106,7 +107,7 @@ abstract class FileModel extends Base
      * Get all files
      *
      * @access public
-     * @param  integer   $id
+     * @param integer $id
      * @return array
      */
     public function getAll($id)
@@ -115,6 +116,7 @@ abstract class FileModel extends Base
         foreach ($files as &$file) {
             $file['etag'] = md5($file['path']);
         }
+
         return $files;
     }
 
@@ -122,7 +124,7 @@ abstract class FileModel extends Base
      * Get all images
      *
      * @access public
-     * @param  integer   $id
+     * @param integer $id
      * @return array
      */
     public function getAllImages($id)
@@ -131,6 +133,7 @@ abstract class FileModel extends Base
         foreach ($images as &$image) {
             $image['etag'] = md5($image['path']);
         }
+
         return $images;
     }
 
@@ -138,7 +141,7 @@ abstract class FileModel extends Base
      * Get all files without images
      *
      * @access public
-     * @param  integer   $id
+     * @param integer $id
      * @return array
      */
     public function getAllDocuments($id)
@@ -147,6 +150,7 @@ abstract class FileModel extends Base
         foreach ($files as &$file) {
             $file['etag'] = md5($file['path']);
         }
+
         return $files;
     }
 
@@ -154,10 +158,10 @@ abstract class FileModel extends Base
      * Create a file entry in the database
      *
      * @access public
-     * @param  integer $foreign_key_id Foreign key
-     * @param  string  $name           Filename
-     * @param  string  $path           Path on the disk
-     * @param  integer $size           File size
+     * @param integer $foreign_key_id Foreign key
+     * @param string $name Filename
+     * @param string $path Path on the disk
+     * @param integer $size File size
      * @return bool|integer
      */
     public function create($foreign_key_id, $name, $path, $size)
@@ -175,8 +179,9 @@ abstract class FileModel extends Base
         $result = $this->db->table($this->getTable())->insert($values);
 
         if ($result) {
-            $file_id = (int) $this->db->getLastId();
+            $file_id = (int)$this->db->getLastId();
             $this->fireCreationEvent($file_id);
+
             return $file_id;
         }
 
@@ -187,7 +192,7 @@ abstract class FileModel extends Base
      * Remove all files
      *
      * @access public
-     * @param  integer   $id
+     * @param integer $id
      * @return bool
      */
     public function removeAll($id)
@@ -199,14 +204,14 @@ abstract class FileModel extends Base
             $results[] = $this->remove($file_id);
         }
 
-        return ! in_array(false, $results, true);
+        return !in_array(false, $results, true);
     }
 
     /**
      * Remove a file
      *
      * @access public
-     * @param  integer   $file_id    File id
+     * @param integer $file_id File id
      * @return bool
      */
     public function remove($file_id)
@@ -229,6 +234,7 @@ abstract class FileModel extends Base
             return $this->db->table($this->getTable())->eq('id', $file['id'])->remove();
         } catch (ObjectStorageException $e) {
             $this->logger->error($e->getMessage());
+
             return false;
         }
     }
@@ -237,7 +243,7 @@ abstract class FileModel extends Base
      * Check if a filename is an image (file types that can be shown as thumbnail)
      *
      * @access public
-     * @param  string   $filename   Filename
+     * @param string $filename Filename
      * @return bool
      */
     public function isImage($filename)
@@ -257,7 +263,7 @@ abstract class FileModel extends Base
      * Generate the path for a thumbnails
      *
      * @access public
-     * @param  string  $key  Storage key
+     * @param string $key Storage key
      * @return string
      */
     public function getThumbnailPath($key)
@@ -269,8 +275,8 @@ abstract class FileModel extends Base
      * Generate the path for a new filename
      *
      * @access public
-     * @param  integer   $id            Foreign key
-     * @param  string    $filename      Filename
+     * @param integer $id Foreign key
+     * @param string $filename Filename
      * @return string
      */
     public function generatePath($id, $filename)
@@ -282,8 +288,8 @@ abstract class FileModel extends Base
      * Upload multiple files
      *
      * @access public
-     * @param  integer  $id
-     * @param  array    $files
+     * @param integer $id
+     * @param array $files
      * @return bool
      */
     public function uploadFiles($id, array $files)
@@ -307,6 +313,7 @@ abstract class FileModel extends Base
             return true;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
+
             return false;
         }
     }
@@ -315,8 +322,8 @@ abstract class FileModel extends Base
      * Upload a file
      *
      * @access public
-     * @param  integer $id
-     * @param  array   $file
+     * @param integer $id
+     * @param array $file
      * @throws Exception
      */
     public function uploadFile($id, array $file)
@@ -339,10 +346,10 @@ abstract class FileModel extends Base
      * Handle file upload (base64 encoded content)
      *
      * @access public
-     * @param  integer $id
-     * @param  string  $originalFilename
-     * @param  string  $data
-     * @param  bool    $isEncoded
+     * @param integer $id
+     * @param string $originalFilename
+     * @param string $data
+     * @param bool $isEncoded
      * @return bool|int
      */
     public function uploadContent($id, $originalFilename, $data, $isEncoded = true)
@@ -354,6 +361,7 @@ abstract class FileModel extends Base
 
             if (empty($data)) {
                 $this->logger->error(__METHOD__ . ': Content upload with no data');
+
                 return false;
             }
 
@@ -372,6 +380,7 @@ abstract class FileModel extends Base
             );
         } catch (ObjectStorageException $e) {
             $this->logger->error($e->getMessage());
+
             return false;
         }
     }
@@ -380,8 +389,8 @@ abstract class FileModel extends Base
      * Generate thumbnail from a blob
      *
      * @access public
-     * @param  string   $destination_filename
-     * @param  string   $data
+     * @param string $destination_filename
+     * @param string $data
      */
     public function generateThumbnailFromData($destination_filename, &$data)
     {
@@ -396,8 +405,8 @@ abstract class FileModel extends Base
      * Generate thumbnail from a local file
      *
      * @access public
-     * @param  string   $uploaded_filename
-     * @param  string   $destination_filename
+     * @param string $uploaded_filename
+     * @param string $destination_filename
      */
     public function generateThumbnailFromFile($uploaded_filename, $destination_filename)
     {

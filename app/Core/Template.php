@@ -8,20 +8,20 @@ namespace Kanboard\Core;
  * @package core
  * @author  Frederic Guillot
  *
- * @property \Kanboard\Helper\AppHelper               $app
- * @property \Kanboard\Helper\AssetHelper             $asset
- * @property \Kanboard\Helper\DateHelper              $dt
- * @property \Kanboard\Helper\FileHelper              $file
- * @property \Kanboard\Helper\FormHelper              $form
- * @property \Kanboard\Helper\HookHelper              $hook
- * @property \Kanboard\Helper\ModelHelper             $model
- * @property \Kanboard\Helper\SubtaskHelper           $subtask
- * @property \Kanboard\Helper\TaskHelper              $task
- * @property \Kanboard\Helper\TextHelper              $text
- * @property \Kanboard\Helper\UrlHelper               $url
- * @property \Kanboard\Helper\UserHelper              $user
- * @property \Kanboard\Helper\LayoutHelper            $layout
- * @property \Kanboard\Helper\ProjectHeaderHelper     $projectHeader
+ * @property \Kanboard\Helper\AppHelper $app
+ * @property \Kanboard\Helper\AssetHelper $asset
+ * @property \Kanboard\Helper\DateHelper $dt
+ * @property \Kanboard\Helper\FileHelper $file
+ * @property \Kanboard\Helper\FormHelper $form
+ * @property \Kanboard\Helper\HookHelper $hook
+ * @property \Kanboard\Helper\ModelHelper $model
+ * @property \Kanboard\Helper\SubtaskHelper $subtask
+ * @property \Kanboard\Helper\TaskHelper $task
+ * @property \Kanboard\Helper\TextHelper $text
+ * @property \Kanboard\Helper\UrlHelper $url
+ * @property \Kanboard\Helper\UserHelper $user
+ * @property \Kanboard\Helper\LayoutHelper $layout
+ * @property \Kanboard\Helper\ProjectHeaderHelper $projectHeader
  */
 class Template
 {
@@ -45,7 +45,7 @@ class Template
      * Template constructor
      *
      * @access public
-     * @param  Helper $helper
+     * @param Helper $helper
      */
     public function __construct(Helper $helper)
     {
@@ -56,7 +56,7 @@ class Template
      * Expose helpers with magic getter
      *
      * @access public
-     * @param  string $helper
+     * @param string $helper
      * @return mixed
      */
     public function __get($helper)
@@ -72,8 +72,8 @@ class Template
      * $template->render('template_name', ['bla' => 'value']);
      *
      * @access public
-     * @param  string   $__template_name   Template name
-     * @param  array    $__template_args   Key/Value map of template variables
+     * @param string $__template_name Template name
+     * @param array $__template_args Key/Value map of template variables
      * @return string
      */
     public function render($__template_name, array $__template_args = [])
@@ -81,6 +81,7 @@ class Template
         extract($__template_args);
         ob_start();
         include $this->getTemplateFile($__template_name);
+
         return ob_get_clean();
     }
 
@@ -88,8 +89,8 @@ class Template
      * Define a new template override
      *
      * @access public
-     * @param  string  $original_template
-     * @param  string  $new_template
+     * @param string $original_template
+     * @param string $new_template
      */
     public function setTemplateOverride($original_template, $new_template)
     {
@@ -103,7 +104,7 @@ class Template
      * Plugin template: 'myplugin:task/show'
      *
      * @access public
-     * @param  string  $template
+     * @param string $template
      * @return string
      */
     public function getTemplateFile($template)

@@ -42,6 +42,7 @@ class GroupModificationController extends BaseController
         if ($valid) {
             if ($this->groupModel->update($values) !== false) {
                 $this->flash->success(t('Group updated successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('GroupListController', 'index'), true);
             } else {
                 $this->flash->failure(t('Unable to update your group.'));

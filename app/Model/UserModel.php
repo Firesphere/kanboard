@@ -51,7 +51,7 @@ class UserModel extends Base
      * Return true if the user exists
      *
      * @access public
-     * @param  integer    $user_id   User id
+     * @param integer $user_id User id
      * @return boolean
      */
     public function exists($user_id)
@@ -63,7 +63,7 @@ class UserModel extends Base
      * Return true if the user is active
      *
      * @access public
-     * @param  integer    $user_id   User id
+     * @param integer $user_id User id
      * @return boolean
      */
     public function isActive($user_id)
@@ -86,24 +86,24 @@ class UserModel extends Base
      * Return true is the given user id is administrator
      *
      * @access public
-     * @param  integer   $user_id   User id
+     * @param integer $user_id User id
      * @return boolean
      */
     public function isAdmin($user_id)
     {
         return $this->userSession->isAdmin() ||  // Avoid SQL query if connected
-               $this->db
-                    ->table(UserModel::TABLE)
-                    ->eq('id', $user_id)
-                    ->eq('role', Role::APP_ADMIN)
-                    ->exists();
+            $this->db
+                ->table(UserModel::TABLE)
+                ->eq('id', $user_id)
+                ->eq('role', Role::APP_ADMIN)
+                ->exists();
     }
 
     /**
      * Get a specific user by id
      *
      * @access public
-     * @param  integer  $user_id  User id
+     * @param integer $user_id User id
      * @return array
      */
     public function getById($user_id)
@@ -115,8 +115,8 @@ class UserModel extends Base
      * Get a specific user by the Google id
      *
      * @access public
-     * @param  string  $column
-     * @param  string  $id
+     * @param string $column
+     * @param string $id
      * @return array|boolean
      */
     public function getByExternalId($column, $id)
@@ -132,7 +132,7 @@ class UserModel extends Base
      * Get a specific user by the username
      *
      * @access public
-     * @param  string  $username  Username
+     * @param string $username Username
      * @return array
      */
     public function getByUsername($username)
@@ -144,7 +144,7 @@ class UserModel extends Base
      * Get user_id by username
      *
      * @access public
-     * @param  string  $username  Username
+     * @param string $username Username
      * @return integer
      */
     public function getIdByUsername($username)
@@ -156,7 +156,7 @@ class UserModel extends Base
      * Get a specific user by the email address
      *
      * @access public
-     * @param  string  $email  Email
+     * @param string $email Email
      * @return array|boolean
      */
     public function getByEmail($email)
@@ -172,7 +172,7 @@ class UserModel extends Base
      * Fetch user by using the token
      *
      * @access public
-     * @param  string   $token    Token
+     * @param string $token Token
      * @return array|boolean
      */
     public function getByToken($token)
@@ -210,7 +210,7 @@ class UserModel extends Base
      * List all users (key-value pairs with id/username)
      *
      * @access public
-     * @param  boolean  $prepend  Prepend "All users"
+     * @param boolean $prepend Prepend "All users"
      * @return array
      */
     public function getActiveUsersList($prepend = false)
@@ -229,7 +229,7 @@ class UserModel extends Base
      * Common method to prepare a user list
      *
      * @access public
-     * @param  array     $users    Users list (from database)
+     * @param array $users Users list (from database)
      * @return array               Formated list
      */
     public function prepareList(array $users)
@@ -249,12 +249,12 @@ class UserModel extends Base
      * Prepare values before an update or a create
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      */
     public function prepare(array &$values)
     {
         if (isset($values['password'])) {
-            if (! empty($values['password'])) {
+            if (!empty($values['password'])) {
                 $values['password'] = \password_hash($values['password'], PASSWORD_BCRYPT);
             } else {
                 unset($values['password']);
@@ -275,12 +275,13 @@ class UserModel extends Base
      * Add a new user in the database
      *
      * @access public
-     * @param  array  $values  Form values
+     * @param array $values Form values
      * @return boolean|integer
      */
     public function create(array $values)
     {
         $this->prepare($values);
+
         return $this->db->table(self::TABLE)->persist($values);
     }
 
@@ -288,7 +289,7 @@ class UserModel extends Base
      * Modify a new user
      *
      * @access public
-     * @param  array  $values  Form values
+     * @param array $values Form values
      * @return boolean
      */
     public function update(array $values)
@@ -298,6 +299,7 @@ class UserModel extends Base
         unset($updates['id']);
         $result = $this->db->table(self::TABLE)->eq('id', $values['id'])->update($updates);
         $this->userSession->refresh($values['id']);
+
         return $result;
     }
 
@@ -305,7 +307,7 @@ class UserModel extends Base
      * Disable a specific user
      *
      * @access public
-     * @param  integer  $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function disable($user_id)
@@ -314,6 +316,7 @@ class UserModel extends Base
         $result1 = $this->db->table(self::TABLE)->eq('id', $user_id)->update(['is_active' => 0]);
         $result2 = $this->db->table(ProjectModel::TABLE)->eq('is_private', 1)->eq('owner_id', $user_id)->update(['is_active' => 0]);
         $this->db->closeTransaction();
+
         return $result1 && $result2;
     }
 
@@ -321,7 +324,7 @@ class UserModel extends Base
      * Enable a specific user
      *
      * @access public
-     * @param  integer  $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function enable($user_id)
@@ -333,7 +336,7 @@ class UserModel extends Base
      * Remove a specific user
      *
      * @access public
-     * @param  integer  $user_id  User id
+     * @param integer $user_id User id
      * @return boolean
      */
     public function remove($user_id)
@@ -342,17 +345,17 @@ class UserModel extends Base
 
         return $this->db->transaction(function (Database $db) use ($user_id) {
             // All assigned tasks are now unassigned (no foreign key)
-            if (! $db->table(TaskModel::TABLE)->eq('owner_id', $user_id)->update(['owner_id' => 0])) {
+            if (!$db->table(TaskModel::TABLE)->eq('owner_id', $user_id)->update(['owner_id' => 0])) {
                 return false;
             }
 
             // All assigned subtasks are now unassigned (no foreign key)
-            if (! $db->table(SubtaskModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
+            if (!$db->table(SubtaskModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
                 return false;
             }
 
             // All comments are not assigned anymore (no foreign key)
-            if (! $db->table(CommentModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
+            if (!$db->table(CommentModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
                 return false;
             }
 
@@ -363,12 +366,12 @@ class UserModel extends Base
                 ->join(ProjectUserRoleModel::TABLE, 'project_id', 'id')
                 ->findAllByColumn(ProjectModel::TABLE . '.id');
 
-            if (! empty($project_ids)) {
+            if (!empty($project_ids)) {
                 $db->table(ProjectModel::TABLE)->in('id', $project_ids)->remove();
             }
 
             // Finally remove the user
-            if (! $db->table(UserModel::TABLE)->eq('id', $user_id)->remove()) {
+            if (!$db->table(UserModel::TABLE)->eq('id', $user_id)->remove()) {
                 return false;
             }
         });
@@ -378,30 +381,30 @@ class UserModel extends Base
      * Enable public access for a user
      *
      * @access public
-     * @param  integer   $user_id   User id
+     * @param integer $user_id User id
      * @return bool
      */
     public function enablePublicAccess($user_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('id', $user_id)
-                    ->save(['token' => Token::getToken()]);
+            ->table(self::TABLE)
+            ->eq('id', $user_id)
+            ->save(['token' => Token::getToken()]);
     }
 
     /**
      * Disable public access for a user
      *
      * @access public
-     * @param  integer   $user_id    User id
+     * @param integer $user_id User id
      * @return bool
      */
     public function disablePublicAccess($user_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('id', $user_id)
-                    ->save(['token' => '']);
+            ->table(self::TABLE)
+            ->eq('id', $user_id)
+            ->save(['token' => '']);
     }
 
     public function getOrCreateExternalUserId($username, $name, $externalIdColumn, $externalId)

@@ -14,7 +14,7 @@ class LinkProcedure extends BaseProcedure
      * Get a link by id
      *
      * @access public
-     * @param  integer   $link_id   Link id
+     * @param integer $link_id Link id
      * @return array
      */
     public function getLinkById($link_id)
@@ -26,7 +26,7 @@ class LinkProcedure extends BaseProcedure
      * Get a link by name
      *
      * @access public
-     * @param  string $label
+     * @param string $label
      * @return array
      */
     public function getLinkByLabel($label)
@@ -38,7 +38,7 @@ class LinkProcedure extends BaseProcedure
      * Get the opposite link id
      *
      * @access public
-     * @param  integer   $link_id   Link id
+     * @param integer $link_id Link id
      * @return integer
      */
     public function getOppositeLinkId($link_id)
@@ -61,8 +61,8 @@ class LinkProcedure extends BaseProcedure
      * Create a new link label
      *
      * @access public
-     * @param  string   $label
-     * @param  string   $opposite_label
+     * @param string $label
+     * @param string $opposite_label
      * @return boolean|integer
      */
     public function createLink($label, $opposite_label = '')
@@ -72,7 +72,8 @@ class LinkProcedure extends BaseProcedure
             'opposite_label' => $opposite_label,
         ];
 
-        list($valid, ) = $this->linkValidator->validateCreation($values);
+        list($valid,) = $this->linkValidator->validateCreation($values);
+
         return $valid ? $this->linkModel->create($label, $opposite_label) : false;
     }
 
@@ -80,9 +81,9 @@ class LinkProcedure extends BaseProcedure
      * Update a link
      *
      * @access public
-     * @param  integer  $link_id
-     * @param  integer  $opposite_link_id
-     * @param  string   $label
+     * @param integer $link_id
+     * @param integer $opposite_link_id
+     * @param string $label
      * @return boolean
      */
     public function updateLink($link_id, $opposite_link_id, $label)
@@ -93,7 +94,8 @@ class LinkProcedure extends BaseProcedure
             'label'       => $label,
         ];
 
-        list($valid, ) = $this->linkValidator->validateModification($values);
+        list($valid,) = $this->linkValidator->validateModification($values);
+
         return $valid && $this->linkModel->update($values);
     }
 
@@ -101,7 +103,7 @@ class LinkProcedure extends BaseProcedure
      * Remove a link a the relation to its opposite
      *
      * @access public
-     * @param  integer  $link_id
+     * @param integer $link_id
      * @return boolean
      */
     public function removeLink($link_id)

@@ -85,7 +85,7 @@ class TaskModel extends Base
      * Remove a task
      *
      * @access public
-     * @param  integer $task_id Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function remove($task_id)
@@ -105,7 +105,7 @@ class TaskModel extends Base
      * Example: "Fix bug #1234" will return 1234
      *
      * @access public
-     * @param  string $message Text
+     * @param string $message Text
      * @return integer
      */
     public function getTaskIdFromText($message)
@@ -121,8 +121,8 @@ class TaskModel extends Base
      * Get task progress based on the column position
      *
      * @access public
-     * @param  array $task
-     * @param  array $columns
+     * @param array $task
+     * @param array $columns
      * @return integer
      */
     public function getProgress(array $task, array $columns)

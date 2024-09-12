@@ -5,35 +5,46 @@
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
+SET
+statement_timeout = 0;
+SET
+lock_timeout = 0;
+SET
+client_encoding = 'UTF8';
+SET
+standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
+SET
+check_function_bodies = false;
+SET
+client_min_messages = warning;
+SET
+row_security = off;
 
 --
 -- Name: SCHEMA "public"; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON SCHEMA "public" IS 'standard public schema';
+COMMENT
+ON SCHEMA "public" IS 'standard public schema';
 
 
-SET default_tablespace = '';
+SET
+default_tablespace = '';
 
-SET default_with_oids = false;
+SET
+default_with_oids = false;
 
 --
 -- Name: action_has_params; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."action_has_params" (
-    "id" integer NOT NULL,
+CREATE TABLE "public"."action_has_params"
+(
+    "id"        integer NOT NULL,
     "action_id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "value" "text" NOT NULL
+    "name"      "text"  NOT NULL,
+    "value"     "text"  NOT NULL
 );
 
 
@@ -46,8 +57,7 @@ CREATE SEQUENCE "public"."action_has_params_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -61,11 +71,12 @@ ALTER SEQUENCE "public"."action_has_params_id_seq" OWNED BY "public"."action_has
 -- Name: actions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."actions" (
-    "id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "event_name" "text" NOT NULL,
-    "action_name" "text" NOT NULL
+CREATE TABLE "public"."actions"
+(
+    "id"          integer NOT NULL,
+    "project_id"  integer NOT NULL,
+    "event_name"  "text"  NOT NULL,
+    "action_name" "text"  NOT NULL
 );
 
 
@@ -78,8 +89,7 @@ CREATE SEQUENCE "public"."actions_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -93,13 +103,14 @@ ALTER SEQUENCE "public"."actions_id_seq" OWNED BY "public"."actions"."id";
 -- Name: column_has_move_restrictions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."column_has_move_restrictions" (
+CREATE TABLE "public"."column_has_move_restrictions"
+(
     "restriction_id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "role_id" integer NOT NULL,
-    "src_column_id" integer NOT NULL,
-    "dst_column_id" integer NOT NULL,
-    "only_assigned" boolean DEFAULT false
+    "project_id"     integer NOT NULL,
+    "role_id"        integer NOT NULL,
+    "src_column_id"  integer NOT NULL,
+    "dst_column_id"  integer NOT NULL,
+    "only_assigned"  boolean DEFAULT false
 );
 
 
@@ -112,8 +123,7 @@ CREATE SEQUENCE "public"."column_has_move_restrictions_restriction_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -127,12 +137,13 @@ ALTER SEQUENCE "public"."column_has_move_restrictions_restriction_id_seq" OWNED 
 -- Name: column_has_restrictions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."column_has_restrictions" (
-    "restriction_id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "role_id" integer NOT NULL,
-    "column_id" integer NOT NULL,
-    "rule" character varying(255) NOT NULL
+CREATE TABLE "public"."column_has_restrictions"
+(
+    "restriction_id" integer                NOT NULL,
+    "project_id"     integer                NOT NULL,
+    "role_id"        integer                NOT NULL,
+    "column_id"      integer                NOT NULL,
+    "rule"           character varying(255) NOT NULL
 );
 
 
@@ -145,8 +156,7 @@ CREATE SEQUENCE "public"."column_has_restrictions_restriction_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -160,13 +170,14 @@ ALTER SEQUENCE "public"."column_has_restrictions_restriction_id_seq" OWNED BY "p
 -- Name: columns; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."columns" (
-    "id" integer NOT NULL,
-    "title" character varying(255) NOT NULL,
-    "position" integer,
-    "project_id" integer NOT NULL,
-    "task_limit" integer DEFAULT 0,
-    "description" "text",
+CREATE TABLE "public"."columns"
+(
+    "id"                integer                NOT NULL,
+    "title"             character varying(255) NOT NULL,
+    "position"          integer,
+    "project_id"        integer                NOT NULL,
+    "task_limit"        integer DEFAULT 0,
+    "description"       "text",
     "hide_in_dashboard" boolean DEFAULT false
 );
 
@@ -180,8 +191,7 @@ CREATE SEQUENCE "public"."columns_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -195,13 +205,14 @@ ALTER SEQUENCE "public"."columns_id_seq" OWNED BY "public"."columns"."id";
 -- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."comments" (
-    "id" integer NOT NULL,
-    "task_id" integer NOT NULL,
-    "user_id" integer DEFAULT 0,
-    "date_creation" bigint NOT NULL,
-    "comment" "text",
-    "reference" "text" DEFAULT ''::character varying,
+CREATE TABLE "public"."comments"
+(
+    "id"                integer NOT NULL,
+    "task_id"           integer NOT NULL,
+    "user_id"           integer DEFAULT 0,
+    "date_creation"     bigint  NOT NULL,
+    "comment"           "text",
+    "reference"         "text"  DEFAULT ''::character varying,
     "date_modification" bigint
 );
 
@@ -215,8 +226,7 @@ CREATE SEQUENCE "public"."comments_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -230,9 +240,10 @@ ALTER SEQUENCE "public"."comments_id_seq" OWNED BY "public"."comments"."id";
 -- Name: currencies; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."currencies" (
+CREATE TABLE "public"."currencies"
+(
     "currency" character(3) NOT NULL,
-    "rate" real DEFAULT 0
+    "rate"     real DEFAULT 0
 );
 
 
@@ -240,14 +251,15 @@ CREATE TABLE "public"."currencies" (
 -- Name: custom_filters; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."custom_filters" (
-    "id" integer NOT NULL,
-    "filter" "text" NOT NULL,
+CREATE TABLE "public"."custom_filters"
+(
+    "id"         integer NOT NULL,
+    "filter"     "text"  NOT NULL,
     "project_id" integer NOT NULL,
-    "user_id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "is_shared" boolean DEFAULT false,
-    "append" boolean DEFAULT false
+    "user_id"    integer NOT NULL,
+    "name"       "text"  NOT NULL,
+    "is_shared"  boolean DEFAULT false,
+    "append"     boolean DEFAULT false
 );
 
 
@@ -260,8 +272,7 @@ CREATE SEQUENCE "public"."custom_filters_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -275,9 +286,10 @@ ALTER SEQUENCE "public"."custom_filters_id_seq" OWNED BY "public"."custom_filter
 -- Name: group_has_users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."group_has_users" (
+CREATE TABLE "public"."group_has_users"
+(
     "group_id" integer NOT NULL,
-    "user_id" integer NOT NULL
+    "user_id"  integer NOT NULL
 );
 
 
@@ -285,10 +297,11 @@ CREATE TABLE "public"."group_has_users" (
 -- Name: groups; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."groups" (
-    "id" integer NOT NULL,
+CREATE TABLE "public"."groups"
+(
+    "id"          integer NOT NULL,
     "external_id" character varying(255) DEFAULT ''::character varying,
-    "name" "text" NOT NULL
+    "name"        "text"  NOT NULL
 );
 
 
@@ -301,8 +314,7 @@ CREATE SEQUENCE "public"."groups_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -316,10 +328,11 @@ ALTER SEQUENCE "public"."groups_id_seq" OWNED BY "public"."groups"."id";
 -- Name: invites; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."invites" (
-    "email" character varying(255) NOT NULL,
-    "project_id" integer NOT NULL,
-    "token" character varying(255) NOT NULL
+CREATE TABLE "public"."invites"
+(
+    "email"      character varying(255) NOT NULL,
+    "project_id" integer                NOT NULL,
+    "token"      character varying(255) NOT NULL
 );
 
 
@@ -327,12 +340,13 @@ CREATE TABLE "public"."invites" (
 -- Name: last_logins; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."last_logins" (
-    "id" integer NOT NULL,
-    "auth_type" character varying(25),
-    "user_id" integer,
-    "ip" character varying(45),
-    "user_agent" character varying(255),
+CREATE TABLE "public"."last_logins"
+(
+    "id"            integer NOT NULL,
+    "auth_type"     character varying(25),
+    "user_id"       integer,
+    "ip"            character varying(45),
+    "user_agent"    character varying(255),
     "date_creation" bigint
 );
 
@@ -346,8 +360,7 @@ CREATE SEQUENCE "public"."last_logins_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -361,9 +374,10 @@ ALTER SEQUENCE "public"."last_logins_id_seq" OWNED BY "public"."last_logins"."id
 -- Name: links; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."links" (
-    "id" integer NOT NULL,
-    "label" character varying(255) NOT NULL,
+CREATE TABLE "public"."links"
+(
+    "id"          integer                NOT NULL,
+    "label"       character varying(255) NOT NULL,
     "opposite_id" integer DEFAULT 0
 );
 
@@ -377,8 +391,7 @@ CREATE SEQUENCE "public"."links_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -392,14 +405,15 @@ ALTER SEQUENCE "public"."links_id_seq" OWNED BY "public"."links"."id";
 -- Name: password_reset; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."password_reset" (
-    "token" character varying(80) NOT NULL,
-    "user_id" integer NOT NULL,
-    "date_expiration" integer NOT NULL,
-    "date_creation" integer NOT NULL,
-    "ip" character varying(45) NOT NULL,
-    "user_agent" character varying(255) NOT NULL,
-    "is_active" boolean NOT NULL
+CREATE TABLE "public"."password_reset"
+(
+    "token"           character varying(80)  NOT NULL,
+    "user_id"         integer                NOT NULL,
+    "date_expiration" integer                NOT NULL,
+    "date_creation"   integer                NOT NULL,
+    "ip"              character varying(45)  NOT NULL,
+    "user_agent"      character varying(255) NOT NULL,
+    "is_active"       boolean                NOT NULL
 );
 
 
@@ -407,9 +421,10 @@ CREATE TABLE "public"."password_reset" (
 -- Name: plugin_schema_versions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."plugin_schema_versions" (
-    "plugin" character varying(80) NOT NULL,
-    "version" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."plugin_schema_versions"
+(
+    "plugin"  character varying(80) NOT NULL,
+    "version" integer DEFAULT 0     NOT NULL
 );
 
 
@@ -417,11 +432,12 @@ CREATE TABLE "public"."plugin_schema_versions" (
 -- Name: predefined_task_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."predefined_task_descriptions" (
-    "id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "title" "text" NOT NULL,
-    "description" "text" NOT NULL
+CREATE TABLE "public"."predefined_task_descriptions"
+(
+    "id"          integer NOT NULL,
+    "project_id"  integer NOT NULL,
+    "title"       "text"  NOT NULL,
+    "description" "text"  NOT NULL
 );
 
 
@@ -434,8 +450,7 @@ CREATE SEQUENCE "public"."predefined_task_descriptions_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -449,14 +464,15 @@ ALTER SEQUENCE "public"."predefined_task_descriptions_id_seq" OWNED BY "public".
 -- Name: project_activities; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_activities" (
-    "id" integer NOT NULL,
-    "date_creation" bigint NOT NULL,
-    "event_name" "text" NOT NULL,
-    "creator_id" integer,
-    "project_id" integer,
-    "task_id" integer,
-    "data" "text"
+CREATE TABLE "public"."project_activities"
+(
+    "id"            integer NOT NULL,
+    "date_creation" bigint  NOT NULL,
+    "event_name"    "text"  NOT NULL,
+    "creator_id"    integer,
+    "project_id"    integer,
+    "task_id"       integer,
+    "data"          "text"
 );
 
 
@@ -469,8 +485,7 @@ CREATE SEQUENCE "public"."project_activities_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -484,13 +499,14 @@ ALTER SEQUENCE "public"."project_activities_id_seq" OWNED BY "public"."project_a
 -- Name: project_daily_column_stats; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_daily_column_stats" (
-    "id" integer NOT NULL,
-    "day" character(10) NOT NULL,
-    "project_id" integer NOT NULL,
-    "column_id" integer NOT NULL,
-    "total" integer DEFAULT 0 NOT NULL,
-    "score" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."project_daily_column_stats"
+(
+    "id"         integer           NOT NULL,
+    "day"        character(10)     NOT NULL,
+    "project_id" integer           NOT NULL,
+    "column_id"  integer           NOT NULL,
+    "total"      integer DEFAULT 0 NOT NULL,
+    "score"      integer DEFAULT 0 NOT NULL
 );
 
 
@@ -498,11 +514,12 @@ CREATE TABLE "public"."project_daily_column_stats" (
 -- Name: project_daily_stats; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_daily_stats" (
-    "id" integer NOT NULL,
-    "day" character(10) NOT NULL,
-    "project_id" integer NOT NULL,
-    "avg_lead_time" integer DEFAULT 0 NOT NULL,
+CREATE TABLE "public"."project_daily_stats"
+(
+    "id"             integer           NOT NULL,
+    "day"            character(10)     NOT NULL,
+    "project_id"     integer           NOT NULL,
+    "avg_lead_time"  integer DEFAULT 0 NOT NULL,
     "avg_cycle_time" integer DEFAULT 0 NOT NULL
 );
 
@@ -516,8 +533,7 @@ CREATE SEQUENCE "public"."project_daily_stats_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -536,8 +552,7 @@ CREATE SEQUENCE "public"."project_daily_summaries_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -551,12 +566,13 @@ ALTER SEQUENCE "public"."project_daily_summaries_id_seq" OWNED BY "public"."proj
 -- Name: project_has_categories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_categories" (
-    "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "project_id" integer NOT NULL,
+CREATE TABLE "public"."project_has_categories"
+(
+    "id"          integer                NOT NULL,
+    "name"        character varying(255) NOT NULL,
+    "project_id"  integer                NOT NULL,
     "description" "text",
-    "color_id" character varying(50) DEFAULT NULL::character varying
+    "color_id"    character varying(50) DEFAULT NULL::character varying
 );
 
 
@@ -569,8 +585,7 @@ CREATE SEQUENCE "public"."project_has_categories_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -584,15 +599,16 @@ ALTER SEQUENCE "public"."project_has_categories_id_seq" OWNED BY "public"."proje
 -- Name: project_has_files; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_files" (
-    "id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "path" "text" NOT NULL,
-    "is_image" boolean DEFAULT false,
-    "size" integer DEFAULT 0 NOT NULL,
-    "user_id" integer DEFAULT 0 NOT NULL,
-    "date" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."project_has_files"
+(
+    "id"         integer           NOT NULL,
+    "project_id" integer           NOT NULL,
+    "name"       "text"            NOT NULL,
+    "path"       "text"            NOT NULL,
+    "is_image"   boolean DEFAULT false,
+    "size"       integer DEFAULT 0 NOT NULL,
+    "user_id"    integer DEFAULT 0 NOT NULL,
+    "date"       integer DEFAULT 0 NOT NULL
 );
 
 
@@ -605,8 +621,7 @@ CREATE SEQUENCE "public"."project_has_files_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -620,10 +635,11 @@ ALTER SEQUENCE "public"."project_has_files_id_seq" OWNED BY "public"."project_ha
 -- Name: project_has_groups; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_groups" (
-    "group_id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "role" character varying(255) NOT NULL
+CREATE TABLE "public"."project_has_groups"
+(
+    "group_id"   integer                NOT NULL,
+    "project_id" integer                NOT NULL,
+    "role"       character varying(255) NOT NULL
 );
 
 
@@ -631,12 +647,13 @@ CREATE TABLE "public"."project_has_groups" (
 -- Name: project_has_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_metadata" (
-    "project_id" integer NOT NULL,
-    "name" character varying(50) NOT NULL,
-    "value" character varying(255) DEFAULT ''::character varying,
-    "changed_by" integer DEFAULT 0 NOT NULL,
-    "changed_on" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."project_has_metadata"
+(
+    "project_id" integer                          NOT NULL,
+    "name"       character varying(50)            NOT NULL,
+    "value"      character varying(255) DEFAULT ''::character varying,
+    "changed_by" integer                DEFAULT 0 NOT NULL,
+    "changed_on" integer                DEFAULT 0 NOT NULL
 );
 
 
@@ -644,9 +661,10 @@ CREATE TABLE "public"."project_has_metadata" (
 -- Name: project_has_notification_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_notification_types" (
-    "id" integer NOT NULL,
-    "project_id" integer NOT NULL,
+CREATE TABLE "public"."project_has_notification_types"
+(
+    "id"                integer               NOT NULL,
+    "project_id"        integer               NOT NULL,
     "notification_type" character varying(50) NOT NULL
 );
 
@@ -660,8 +678,7 @@ CREATE SEQUENCE "public"."project_has_notification_types_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -675,10 +692,11 @@ ALTER SEQUENCE "public"."project_has_notification_types_id_seq" OWNED BY "public
 -- Name: project_has_roles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_roles" (
-    "role_id" integer NOT NULL,
-    "role" character varying(255) NOT NULL,
-    "project_id" integer NOT NULL
+CREATE TABLE "public"."project_has_roles"
+(
+    "role_id"    integer                NOT NULL,
+    "role"       character varying(255) NOT NULL,
+    "project_id" integer                NOT NULL
 );
 
 
@@ -691,8 +709,7 @@ CREATE SEQUENCE "public"."project_has_roles_role_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -706,10 +723,11 @@ ALTER SEQUENCE "public"."project_has_roles_role_id_seq" OWNED BY "public"."proje
 -- Name: project_has_users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_has_users" (
+CREATE TABLE "public"."project_has_users"
+(
     "project_id" integer NOT NULL,
-    "user_id" integer NOT NULL,
-    "role" character varying(255) DEFAULT 'project-viewer'::character varying NOT NULL
+    "user_id"    integer NOT NULL,
+    "role"       character varying(255) DEFAULT 'project-viewer'::character varying NOT NULL
 );
 
 
@@ -717,11 +735,12 @@ CREATE TABLE "public"."project_has_users" (
 -- Name: project_role_has_restrictions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."project_role_has_restrictions" (
-    "restriction_id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "role_id" integer NOT NULL,
-    "rule" character varying(255) NOT NULL
+CREATE TABLE "public"."project_role_has_restrictions"
+(
+    "restriction_id" integer                NOT NULL,
+    "project_id"     integer                NOT NULL,
+    "role_id"        integer                NOT NULL,
+    "rule"           character varying(255) NOT NULL
 );
 
 
@@ -734,8 +753,7 @@ CREATE SEQUENCE "public"."project_role_has_restrictions_restriction_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -749,23 +767,24 @@ ALTER SEQUENCE "public"."project_role_has_restrictions_restriction_id_seq" OWNED
 -- Name: projects; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."projects" (
-    "id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "is_active" boolean DEFAULT true,
-    "token" character varying(255),
-    "last_modified" bigint DEFAULT 0,
-    "is_public" boolean DEFAULT false,
-    "is_private" boolean DEFAULT false,
-    "description" "text",
-    "identifier" character varying(50) DEFAULT ''::character varying,
-    "start_date" character varying(10) DEFAULT ''::character varying,
-    "end_date" character varying(10) DEFAULT ''::character varying,
-    "owner_id" integer DEFAULT 0,
-    "priority_default" integer DEFAULT 0,
-    "priority_start" integer DEFAULT 0,
-    "priority_end" integer DEFAULT 3,
-    "email" "text",
+CREATE TABLE "public"."projects"
+(
+    "id"                        integer NOT NULL,
+    "name"                      "text"  NOT NULL,
+    "is_active"                 boolean               DEFAULT true,
+    "token"                     character varying(255),
+    "last_modified"             bigint                DEFAULT 0,
+    "is_public"                 boolean               DEFAULT false,
+    "is_private"                boolean               DEFAULT false,
+    "description"               "text",
+    "identifier"                character varying(50) DEFAULT ''::character varying,
+    "start_date"                character varying(10) DEFAULT ''::character varying,
+    "end_date"                  character varying(10) DEFAULT ''::character varying,
+    "owner_id"                  integer               DEFAULT 0,
+    "priority_default"          integer               DEFAULT 0,
+    "priority_start"            integer               DEFAULT 0,
+    "priority_end"              integer               DEFAULT 3,
+    "email"                     "text",
     "predefined_email_subjects" "text"
 );
 
@@ -779,8 +798,7 @@ CREATE SEQUENCE "public"."projects_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -794,14 +812,15 @@ ALTER SEQUENCE "public"."projects_id_seq" OWNED BY "public"."projects"."id";
 -- Name: remember_me; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."remember_me" (
-    "id" integer NOT NULL,
-    "user_id" integer,
-    "ip" character varying(45),
-    "user_agent" character varying(255),
-    "token" character varying(255),
-    "sequence" character varying(255),
-    "expiration" integer,
+CREATE TABLE "public"."remember_me"
+(
+    "id"            integer NOT NULL,
+    "user_id"       integer,
+    "ip"            character varying(45),
+    "user_agent"    character varying(255),
+    "token"         character varying(255),
+    "sequence"      character varying(255),
+    "expiration"    integer,
     "date_creation" bigint
 );
 
@@ -815,8 +834,7 @@ CREATE SEQUENCE "public"."remember_me_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -830,7 +848,8 @@ ALTER SEQUENCE "public"."remember_me_id_seq" OWNED BY "public"."remember_me"."id
 -- Name: schema_version; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."schema_version" (
+CREATE TABLE "public"."schema_version"
+(
     "version" integer DEFAULT 0
 );
 
@@ -839,10 +858,11 @@ CREATE TABLE "public"."schema_version" (
 -- Name: sessions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."sessions" (
-    "id" "text" NOT NULL,
+CREATE TABLE "public"."sessions"
+(
+    "id"        "text"  NOT NULL,
     "expire_at" integer NOT NULL,
-    "data" "text" DEFAULT ''::"text"
+    "data"      "text" DEFAULT ''::"text"
 );
 
 
@@ -850,11 +870,12 @@ CREATE TABLE "public"."sessions" (
 -- Name: settings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."settings" (
-    "option" character varying(100) NOT NULL,
-    "value" "text" DEFAULT ''::character varying,
-    "changed_by" integer DEFAULT 0 NOT NULL,
-    "changed_on" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."settings"
+(
+    "option"     character varying(100) NOT NULL,
+    "value"      "text"  DEFAULT ''::character varying,
+    "changed_by" integer DEFAULT 0      NOT NULL,
+    "changed_on" integer DEFAULT 0      NOT NULL
 );
 
 
@@ -862,13 +883,14 @@ CREATE TABLE "public"."settings" (
 -- Name: subtask_time_tracking; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."subtask_time_tracking" (
-    "id" integer NOT NULL,
-    "user_id" integer NOT NULL,
+CREATE TABLE "public"."subtask_time_tracking"
+(
+    "id"         integer NOT NULL,
+    "user_id"    integer NOT NULL,
     "subtask_id" integer NOT NULL,
-    "start" bigint DEFAULT 0,
-    "end" bigint DEFAULT 0,
-    "time_spent" real DEFAULT 0
+    "start"      bigint DEFAULT 0,
+    "end"        bigint DEFAULT 0,
+    "time_spent" real   DEFAULT 0
 );
 
 
@@ -881,8 +903,7 @@ CREATE SEQUENCE "public"."subtask_time_tracking_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -896,15 +917,16 @@ ALTER SEQUENCE "public"."subtask_time_tracking_id_seq" OWNED BY "public"."subtas
 -- Name: subtasks; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."subtasks" (
-    "id" integer NOT NULL,
-    "title" "text" NOT NULL,
-    "status" smallint DEFAULT 0,
+CREATE TABLE "public"."subtasks"
+(
+    "id"             integer NOT NULL,
+    "title"          "text"  NOT NULL,
+    "status"         smallint         DEFAULT 0,
     "time_estimated" double precision DEFAULT 0,
-    "time_spent" double precision DEFAULT 0,
-    "task_id" integer NOT NULL,
-    "user_id" integer,
-    "position" integer DEFAULT 1
+    "time_spent"     double precision DEFAULT 0,
+    "task_id"        integer NOT NULL,
+    "user_id"        integer,
+    "position"       integer          DEFAULT 1
 );
 
 
@@ -912,12 +934,13 @@ CREATE TABLE "public"."subtasks" (
 -- Name: swimlanes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."swimlanes" (
-    "id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "position" integer DEFAULT 1,
-    "is_active" boolean DEFAULT true,
-    "project_id" integer,
+CREATE TABLE "public"."swimlanes"
+(
+    "id"          integer NOT NULL,
+    "name"        "text"  NOT NULL,
+    "position"    integer DEFAULT 1,
+    "is_active"   boolean DEFAULT true,
+    "project_id"  integer,
     "description" "text"
 );
 
@@ -931,8 +954,7 @@ CREATE SEQUENCE "public"."swimlanes_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -946,11 +968,12 @@ ALTER SEQUENCE "public"."swimlanes_id_seq" OWNED BY "public"."swimlanes"."id";
 -- Name: tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."tags" (
-    "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "project_id" integer NOT NULL,
-    "color_id" character varying(50) DEFAULT NULL::character varying
+CREATE TABLE "public"."tags"
+(
+    "id"         integer                NOT NULL,
+    "name"       character varying(255) NOT NULL,
+    "project_id" integer                NOT NULL,
+    "color_id"   character varying(50) DEFAULT NULL::character varying
 );
 
 
@@ -963,8 +986,7 @@ CREATE SEQUENCE "public"."tags_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -978,16 +1000,17 @@ ALTER SEQUENCE "public"."tags_id_seq" OWNED BY "public"."tags"."id";
 -- Name: task_has_external_links; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."task_has_external_links" (
-    "id" integer NOT NULL,
-    "link_type" character varying(100) NOT NULL,
-    "dependency" character varying(100) NOT NULL,
-    "title" "text" NOT NULL,
-    "url" "text" NOT NULL,
-    "date_creation" integer NOT NULL,
-    "date_modification" integer NOT NULL,
-    "task_id" integer NOT NULL,
-    "creator_id" integer DEFAULT 0
+CREATE TABLE "public"."task_has_external_links"
+(
+    "id"                integer                NOT NULL,
+    "link_type"         character varying(100) NOT NULL,
+    "dependency"        character varying(100) NOT NULL,
+    "title"             "text"                 NOT NULL,
+    "url"               "text"                 NOT NULL,
+    "date_creation"     integer                NOT NULL,
+    "date_modification" integer                NOT NULL,
+    "task_id"           integer                NOT NULL,
+    "creator_id"        integer DEFAULT 0
 );
 
 
@@ -1000,8 +1023,7 @@ CREATE SEQUENCE "public"."task_has_external_links_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1015,15 +1037,16 @@ ALTER SEQUENCE "public"."task_has_external_links_id_seq" OWNED BY "public"."task
 -- Name: task_has_files; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."task_has_files" (
-    "id" integer NOT NULL,
-    "name" "text" NOT NULL,
-    "path" "text",
+CREATE TABLE "public"."task_has_files"
+(
+    "id"       integer           NOT NULL,
+    "name"     "text"            NOT NULL,
+    "path"     "text",
     "is_image" boolean DEFAULT false,
-    "task_id" integer NOT NULL,
-    "date" bigint DEFAULT 0 NOT NULL,
-    "user_id" integer DEFAULT 0 NOT NULL,
-    "size" integer DEFAULT 0 NOT NULL
+    "task_id"  integer           NOT NULL,
+    "date"     bigint  DEFAULT 0 NOT NULL,
+    "user_id"  integer DEFAULT 0 NOT NULL,
+    "size"     integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1036,8 +1059,7 @@ CREATE SEQUENCE "public"."task_has_files_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1051,10 +1073,11 @@ ALTER SEQUENCE "public"."task_has_files_id_seq" OWNED BY "public"."task_has_file
 -- Name: task_has_links; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."task_has_links" (
-    "id" integer NOT NULL,
-    "link_id" integer NOT NULL,
-    "task_id" integer NOT NULL,
+CREATE TABLE "public"."task_has_links"
+(
+    "id"               integer NOT NULL,
+    "link_id"          integer NOT NULL,
+    "task_id"          integer NOT NULL,
     "opposite_task_id" integer NOT NULL
 );
 
@@ -1068,8 +1091,7 @@ CREATE SEQUENCE "public"."task_has_links_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1083,12 +1105,13 @@ ALTER SEQUENCE "public"."task_has_links_id_seq" OWNED BY "public"."task_has_link
 -- Name: task_has_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."task_has_metadata" (
-    "task_id" integer NOT NULL,
-    "name" character varying(50) NOT NULL,
-    "value" character varying(255) DEFAULT ''::character varying,
-    "changed_by" integer DEFAULT 0 NOT NULL,
-    "changed_on" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."task_has_metadata"
+(
+    "task_id"    integer                          NOT NULL,
+    "name"       character varying(50)            NOT NULL,
+    "value"      character varying(255) DEFAULT ''::character varying,
+    "changed_by" integer                DEFAULT 0 NOT NULL,
+    "changed_on" integer                DEFAULT 0 NOT NULL
 );
 
 
@@ -1101,8 +1124,7 @@ CREATE SEQUENCE "public"."task_has_subtasks_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1116,9 +1138,10 @@ ALTER SEQUENCE "public"."task_has_subtasks_id_seq" OWNED BY "public"."subtasks".
 -- Name: task_has_tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."task_has_tags" (
+CREATE TABLE "public"."task_has_tags"
+(
     "task_id" integer NOT NULL,
-    "tag_id" integer NOT NULL
+    "tag_id"  integer NOT NULL
 );
 
 
@@ -1126,39 +1149,40 @@ CREATE TABLE "public"."task_has_tags" (
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."tasks" (
-    "id" integer NOT NULL,
-    "title" "text" NOT NULL,
-    "description" "text",
-    "date_creation" bigint,
-    "color_id" character varying(255),
-    "project_id" integer NOT NULL,
-    "column_id" integer NOT NULL,
-    "owner_id" integer DEFAULT 0,
-    "position" integer,
-    "is_active" boolean DEFAULT true,
-    "date_completed" bigint,
-    "score" integer,
-    "date_due" bigint,
-    "category_id" integer DEFAULT 0,
-    "creator_id" integer DEFAULT 0,
-    "date_modification" integer DEFAULT 0,
-    "reference" "text" DEFAULT ''::character varying,
-    "date_started" bigint,
-    "time_spent" double precision DEFAULT 0,
-    "time_estimated" double precision DEFAULT 0,
-    "swimlane_id" integer NOT NULL,
-    "date_moved" bigint DEFAULT 0,
-    "recurrence_status" integer DEFAULT 0 NOT NULL,
-    "recurrence_trigger" integer DEFAULT 0 NOT NULL,
-    "recurrence_factor" integer DEFAULT 0 NOT NULL,
-    "recurrence_timeframe" integer DEFAULT 0 NOT NULL,
-    "recurrence_basedate" integer DEFAULT 0 NOT NULL,
-    "recurrence_parent" integer,
-    "recurrence_child" integer,
-    "priority" integer DEFAULT 0,
-    "external_provider" character varying(255),
-    "external_uri" character varying(255)
+CREATE TABLE "public"."tasks"
+(
+    "id"                   integer                    NOT NULL,
+    "title"                "text"                     NOT NULL,
+    "description"          "text",
+    "date_creation"        bigint,
+    "color_id"             character varying(255),
+    "project_id"           integer                    NOT NULL,
+    "column_id"            integer                    NOT NULL,
+    "owner_id"             integer          DEFAULT 0,
+    "position"             integer,
+    "is_active"            boolean          DEFAULT true,
+    "date_completed"       bigint,
+    "score"                integer,
+    "date_due"             bigint,
+    "category_id"          integer          DEFAULT 0,
+    "creator_id"           integer          DEFAULT 0,
+    "date_modification"    integer          DEFAULT 0,
+    "reference"            "text"           DEFAULT ''::character varying,
+    "date_started"         bigint,
+    "time_spent"           double precision DEFAULT 0,
+    "time_estimated"       double precision DEFAULT 0,
+    "swimlane_id"          integer                    NOT NULL,
+    "date_moved"           bigint           DEFAULT 0,
+    "recurrence_status"    integer          DEFAULT 0 NOT NULL,
+    "recurrence_trigger"   integer          DEFAULT 0 NOT NULL,
+    "recurrence_factor"    integer          DEFAULT 0 NOT NULL,
+    "recurrence_timeframe" integer          DEFAULT 0 NOT NULL,
+    "recurrence_basedate"  integer          DEFAULT 0 NOT NULL,
+    "recurrence_parent"    integer,
+    "recurrence_child"     integer,
+    "priority"             integer          DEFAULT 0,
+    "external_provider"    character varying(255),
+    "external_uri"         character varying(255)
 );
 
 
@@ -1171,8 +1195,7 @@ CREATE SEQUENCE "public"."tasks_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1186,15 +1209,16 @@ ALTER SEQUENCE "public"."tasks_id_seq" OWNED BY "public"."tasks"."id";
 -- Name: transitions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."transitions" (
-    "id" integer NOT NULL,
-    "user_id" integer NOT NULL,
-    "project_id" integer NOT NULL,
-    "task_id" integer NOT NULL,
+CREATE TABLE "public"."transitions"
+(
+    "id"            integer NOT NULL,
+    "user_id"       integer NOT NULL,
+    "project_id"    integer NOT NULL,
+    "task_id"       integer NOT NULL,
     "src_column_id" integer NOT NULL,
     "dst_column_id" integer NOT NULL,
-    "date" bigint NOT NULL,
-    "time_spent" integer DEFAULT 0
+    "date"          bigint  NOT NULL,
+    "time_spent"    integer DEFAULT 0
 );
 
 
@@ -1207,8 +1231,7 @@ CREATE SEQUENCE "public"."transitions_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1222,12 +1245,13 @@ ALTER SEQUENCE "public"."transitions_id_seq" OWNED BY "public"."transitions"."id
 -- Name: user_has_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."user_has_metadata" (
-    "user_id" integer NOT NULL,
-    "name" character varying(50) NOT NULL,
-    "value" character varying(255) DEFAULT ''::character varying,
-    "changed_by" integer DEFAULT 0 NOT NULL,
-    "changed_on" integer DEFAULT 0 NOT NULL
+CREATE TABLE "public"."user_has_metadata"
+(
+    "user_id"    integer                          NOT NULL,
+    "name"       character varying(50)            NOT NULL,
+    "value"      character varying(255) DEFAULT ''::character varying,
+    "changed_by" integer                DEFAULT 0 NOT NULL,
+    "changed_on" integer                DEFAULT 0 NOT NULL
 );
 
 
@@ -1235,9 +1259,10 @@ CREATE TABLE "public"."user_has_metadata" (
 -- Name: user_has_notification_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."user_has_notification_types" (
-    "id" integer NOT NULL,
-    "user_id" integer NOT NULL,
+CREATE TABLE "public"."user_has_notification_types"
+(
+    "id"                integer NOT NULL,
+    "user_id"           integer NOT NULL,
     "notification_type" character varying(50)
 );
 
@@ -1251,8 +1276,7 @@ CREATE SEQUENCE "public"."user_has_notification_types_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1266,8 +1290,9 @@ ALTER SEQUENCE "public"."user_has_notification_types_id_seq" OWNED BY "public"."
 -- Name: user_has_notifications; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."user_has_notifications" (
-    "user_id" integer NOT NULL,
+CREATE TABLE "public"."user_has_notifications"
+(
+    "user_id"    integer NOT NULL,
     "project_id" integer
 );
 
@@ -1276,12 +1301,13 @@ CREATE TABLE "public"."user_has_notifications" (
 -- Name: user_has_unread_notifications; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."user_has_unread_notifications" (
-    "id" integer NOT NULL,
-    "user_id" integer NOT NULL,
-    "date_creation" bigint NOT NULL,
-    "event_name" "text" NOT NULL,
-    "event_data" "text" NOT NULL
+CREATE TABLE "public"."user_has_unread_notifications"
+(
+    "id"            integer NOT NULL,
+    "user_id"       integer NOT NULL,
+    "date_creation" bigint  NOT NULL,
+    "event_name"    "text"  NOT NULL,
+    "event_data"    "text"  NOT NULL
 );
 
 
@@ -1294,8 +1320,7 @@ CREATE SEQUENCE "public"."user_has_unread_notifications_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -1309,31 +1334,32 @@ ALTER SEQUENCE "public"."user_has_unread_notifications_id_seq" OWNED BY "public"
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE "public"."users" (
-    "id" integer NOT NULL,
-    "username" "text" NOT NULL,
-    "password" character varying(255),
-    "is_ldap_user" boolean DEFAULT false,
-    "name" character varying(255),
-    "email" character varying(255),
-    "google_id" character varying(255),
-    "github_id" character varying(30),
-    "notifications_enabled" boolean DEFAULT false,
-    "timezone" character varying(50),
-    "language" character varying(11),
-    "disable_login_form" boolean DEFAULT false,
-    "twofactor_activated" boolean DEFAULT false,
-    "twofactor_secret" character(16),
-    "token" character varying(255) DEFAULT ''::character varying,
-    "notifications_filter" integer DEFAULT 4,
-    "nb_failed_login" integer DEFAULT 0,
-    "lock_expiration_date" bigint DEFAULT 0,
-    "gitlab_id" integer,
-    "role" character varying(25) DEFAULT 'app-user'::character varying NOT NULL,
-    "is_active" boolean DEFAULT true,
-    "avatar_path" character varying(255),
-    "api_access_token" character varying(255) DEFAULT NULL::character varying,
-    "filter" "text" DEFAULT NULL::character varying
+CREATE TABLE "public"."users"
+(
+    "id"                    integer NOT NULL,
+    "username"              "text"  NOT NULL,
+    "password"              character varying(255),
+    "is_ldap_user"          boolean                DEFAULT false,
+    "name"                  character varying(255),
+    "email"                 character varying(255),
+    "google_id"             character varying(255),
+    "github_id"             character varying(30),
+    "notifications_enabled" boolean                DEFAULT false,
+    "timezone"              character varying(50),
+    "language"              character varying(11),
+    "disable_login_form"    boolean                DEFAULT false,
+    "twofactor_activated"   boolean                DEFAULT false,
+    "twofactor_secret"      character(16),
+    "token"                 character varying(255) DEFAULT ''::character varying,
+    "notifications_filter"  integer                DEFAULT 4,
+    "nb_failed_login"       integer                DEFAULT 0,
+    "lock_expiration_date"  bigint                 DEFAULT 0,
+    "gitlab_id"             integer,
+    "role"                  character varying(25)  DEFAULT 'app-user'::character varying NOT NULL,
+    "is_active"             boolean                DEFAULT true,
+    "avatar_path"           character varying(255),
+    "api_access_token"      character varying(255) DEFAULT NULL::character varying,
+    "filter"                "text"                 DEFAULT NULL::character varying
 );
 
 
@@ -1346,8 +1372,7 @@ CREATE SEQUENCE "public"."users_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+    NO MAXVALUE CACHE 1;
 
 
 --
@@ -2183,7 +2208,9 @@ CREATE UNIQUE INDEX "users_username_idx" ON "public"."users" USING "btree" ("use
 --
 
 ALTER TABLE ONLY "public"."action_has_params"
-    ADD CONSTRAINT "action_has_params_action_id_fkey" FOREIGN KEY ("action_id") REFERENCES "public"."actions"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "action_has_params_action_id_fkey" FOREIGN KEY ("action_id") REFERENCES "public"."actions"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2191,7 +2218,9 @@ ALTER TABLE ONLY "public"."action_has_params"
 --
 
 ALTER TABLE ONLY "public"."actions"
-    ADD CONSTRAINT "actions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "actions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2199,7 +2228,9 @@ ALTER TABLE ONLY "public"."actions"
 --
 
 ALTER TABLE ONLY "public"."column_has_move_restrictions"
-    ADD CONSTRAINT "column_has_move_restrictions_dst_column_id_fkey" FOREIGN KEY ("dst_column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_move_restrictions_dst_column_id_fkey" FOREIGN KEY ("dst_column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2207,7 +2238,9 @@ ALTER TABLE ONLY "public"."column_has_move_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_move_restrictions"
-    ADD CONSTRAINT "column_has_move_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_move_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2215,7 +2248,9 @@ ALTER TABLE ONLY "public"."column_has_move_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_move_restrictions"
-    ADD CONSTRAINT "column_has_move_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_move_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2223,7 +2258,9 @@ ALTER TABLE ONLY "public"."column_has_move_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_move_restrictions"
-    ADD CONSTRAINT "column_has_move_restrictions_src_column_id_fkey" FOREIGN KEY ("src_column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_move_restrictions_src_column_id_fkey" FOREIGN KEY ("src_column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2231,7 +2268,9 @@ ALTER TABLE ONLY "public"."column_has_move_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_restrictions"
-    ADD CONSTRAINT "column_has_restrictions_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_restrictions_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2239,7 +2278,9 @@ ALTER TABLE ONLY "public"."column_has_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_restrictions"
-    ADD CONSTRAINT "column_has_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2247,7 +2288,9 @@ ALTER TABLE ONLY "public"."column_has_restrictions"
 --
 
 ALTER TABLE ONLY "public"."column_has_restrictions"
-    ADD CONSTRAINT "column_has_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON DELETE CASCADE;
+    ADD CONSTRAINT "column_has_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2255,7 +2298,9 @@ ALTER TABLE ONLY "public"."column_has_restrictions"
 --
 
 ALTER TABLE ONLY "public"."columns"
-    ADD CONSTRAINT "columns_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "columns_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2263,7 +2308,9 @@ ALTER TABLE ONLY "public"."columns"
 --
 
 ALTER TABLE ONLY "public"."comments"
-    ADD CONSTRAINT "comments_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "comments_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2271,7 +2318,9 @@ ALTER TABLE ONLY "public"."comments"
 --
 
 ALTER TABLE ONLY "public"."group_has_users"
-    ADD CONSTRAINT "group_has_users_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "public"."groups"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "group_has_users_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "public"."groups"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2279,7 +2328,9 @@ ALTER TABLE ONLY "public"."group_has_users"
 --
 
 ALTER TABLE ONLY "public"."group_has_users"
-    ADD CONSTRAINT "group_has_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "group_has_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2287,7 +2338,9 @@ ALTER TABLE ONLY "public"."group_has_users"
 --
 
 ALTER TABLE ONLY "public"."last_logins"
-    ADD CONSTRAINT "last_logins_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "last_logins_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2295,7 +2348,9 @@ ALTER TABLE ONLY "public"."last_logins"
 --
 
 ALTER TABLE ONLY "public"."password_reset"
-    ADD CONSTRAINT "password_reset_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "password_reset_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2303,7 +2358,9 @@ ALTER TABLE ONLY "public"."password_reset"
 --
 
 ALTER TABLE ONLY "public"."predefined_task_descriptions"
-    ADD CONSTRAINT "predefined_task_descriptions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "predefined_task_descriptions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2311,7 +2368,9 @@ ALTER TABLE ONLY "public"."predefined_task_descriptions"
 --
 
 ALTER TABLE ONLY "public"."project_activities"
-    ADD CONSTRAINT "project_activities_creator_id_fkey" FOREIGN KEY ("creator_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_activities_creator_id_fkey" FOREIGN KEY ("creator_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2319,7 +2378,9 @@ ALTER TABLE ONLY "public"."project_activities"
 --
 
 ALTER TABLE ONLY "public"."project_activities"
-    ADD CONSTRAINT "project_activities_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_activities_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2327,7 +2388,9 @@ ALTER TABLE ONLY "public"."project_activities"
 --
 
 ALTER TABLE ONLY "public"."project_activities"
-    ADD CONSTRAINT "project_activities_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_activities_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2335,7 +2398,9 @@ ALTER TABLE ONLY "public"."project_activities"
 --
 
 ALTER TABLE ONLY "public"."project_daily_stats"
-    ADD CONSTRAINT "project_daily_stats_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_daily_stats_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2343,7 +2408,9 @@ ALTER TABLE ONLY "public"."project_daily_stats"
 --
 
 ALTER TABLE ONLY "public"."project_daily_column_stats"
-    ADD CONSTRAINT "project_daily_summaries_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_daily_summaries_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2351,7 +2418,9 @@ ALTER TABLE ONLY "public"."project_daily_column_stats"
 --
 
 ALTER TABLE ONLY "public"."project_daily_column_stats"
-    ADD CONSTRAINT "project_daily_summaries_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_daily_summaries_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2359,7 +2428,9 @@ ALTER TABLE ONLY "public"."project_daily_column_stats"
 --
 
 ALTER TABLE ONLY "public"."project_has_categories"
-    ADD CONSTRAINT "project_has_categories_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_categories_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2367,7 +2438,9 @@ ALTER TABLE ONLY "public"."project_has_categories"
 --
 
 ALTER TABLE ONLY "public"."project_has_files"
-    ADD CONSTRAINT "project_has_files_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_files_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2375,7 +2448,9 @@ ALTER TABLE ONLY "public"."project_has_files"
 --
 
 ALTER TABLE ONLY "public"."project_has_groups"
-    ADD CONSTRAINT "project_has_groups_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "public"."groups"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_groups_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "public"."groups"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2383,7 +2458,9 @@ ALTER TABLE ONLY "public"."project_has_groups"
 --
 
 ALTER TABLE ONLY "public"."project_has_groups"
-    ADD CONSTRAINT "project_has_groups_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_groups_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2391,7 +2468,9 @@ ALTER TABLE ONLY "public"."project_has_groups"
 --
 
 ALTER TABLE ONLY "public"."project_has_metadata"
-    ADD CONSTRAINT "project_has_metadata_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_metadata_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2399,7 +2478,9 @@ ALTER TABLE ONLY "public"."project_has_metadata"
 --
 
 ALTER TABLE ONLY "public"."project_has_notification_types"
-    ADD CONSTRAINT "project_has_notification_types_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_notification_types_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2407,7 +2488,9 @@ ALTER TABLE ONLY "public"."project_has_notification_types"
 --
 
 ALTER TABLE ONLY "public"."project_has_roles"
-    ADD CONSTRAINT "project_has_roles_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_roles_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2415,7 +2498,9 @@ ALTER TABLE ONLY "public"."project_has_roles"
 --
 
 ALTER TABLE ONLY "public"."project_has_users"
-    ADD CONSTRAINT "project_has_users_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_users_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2423,7 +2508,9 @@ ALTER TABLE ONLY "public"."project_has_users"
 --
 
 ALTER TABLE ONLY "public"."project_has_users"
-    ADD CONSTRAINT "project_has_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_has_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2431,7 +2518,9 @@ ALTER TABLE ONLY "public"."project_has_users"
 --
 
 ALTER TABLE ONLY "public"."project_role_has_restrictions"
-    ADD CONSTRAINT "project_role_has_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_role_has_restrictions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2439,7 +2528,9 @@ ALTER TABLE ONLY "public"."project_role_has_restrictions"
 --
 
 ALTER TABLE ONLY "public"."project_role_has_restrictions"
-    ADD CONSTRAINT "project_role_has_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON DELETE CASCADE;
+    ADD CONSTRAINT "project_role_has_restrictions_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."project_has_roles"("role_id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2447,7 +2538,9 @@ ALTER TABLE ONLY "public"."project_role_has_restrictions"
 --
 
 ALTER TABLE ONLY "public"."remember_me"
-    ADD CONSTRAINT "remember_me_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "remember_me_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2455,7 +2548,9 @@ ALTER TABLE ONLY "public"."remember_me"
 --
 
 ALTER TABLE ONLY "public"."subtask_time_tracking"
-    ADD CONSTRAINT "subtask_time_tracking_subtask_id_fkey" FOREIGN KEY ("subtask_id") REFERENCES "public"."subtasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "subtask_time_tracking_subtask_id_fkey" FOREIGN KEY ("subtask_id") REFERENCES "public"."subtasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2463,7 +2558,9 @@ ALTER TABLE ONLY "public"."subtask_time_tracking"
 --
 
 ALTER TABLE ONLY "public"."subtask_time_tracking"
-    ADD CONSTRAINT "subtask_time_tracking_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "subtask_time_tracking_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2471,7 +2568,9 @@ ALTER TABLE ONLY "public"."subtask_time_tracking"
 --
 
 ALTER TABLE ONLY "public"."swimlanes"
-    ADD CONSTRAINT "swimlanes_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "swimlanes_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2479,7 +2578,9 @@ ALTER TABLE ONLY "public"."swimlanes"
 --
 
 ALTER TABLE ONLY "public"."task_has_external_links"
-    ADD CONSTRAINT "task_has_external_links_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_external_links_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2487,7 +2588,9 @@ ALTER TABLE ONLY "public"."task_has_external_links"
 --
 
 ALTER TABLE ONLY "public"."task_has_files"
-    ADD CONSTRAINT "task_has_files_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_files_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2495,7 +2598,9 @@ ALTER TABLE ONLY "public"."task_has_files"
 --
 
 ALTER TABLE ONLY "public"."task_has_links"
-    ADD CONSTRAINT "task_has_links_link_id_fkey" FOREIGN KEY ("link_id") REFERENCES "public"."links"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_links_link_id_fkey" FOREIGN KEY ("link_id") REFERENCES "public"."links"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2503,7 +2608,9 @@ ALTER TABLE ONLY "public"."task_has_links"
 --
 
 ALTER TABLE ONLY "public"."task_has_links"
-    ADD CONSTRAINT "task_has_links_opposite_task_id_fkey" FOREIGN KEY ("opposite_task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_links_opposite_task_id_fkey" FOREIGN KEY ("opposite_task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2511,7 +2618,9 @@ ALTER TABLE ONLY "public"."task_has_links"
 --
 
 ALTER TABLE ONLY "public"."task_has_links"
-    ADD CONSTRAINT "task_has_links_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_links_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2519,7 +2628,9 @@ ALTER TABLE ONLY "public"."task_has_links"
 --
 
 ALTER TABLE ONLY "public"."task_has_metadata"
-    ADD CONSTRAINT "task_has_metadata_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_metadata_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2527,7 +2638,9 @@ ALTER TABLE ONLY "public"."task_has_metadata"
 --
 
 ALTER TABLE ONLY "public"."subtasks"
-    ADD CONSTRAINT "task_has_subtasks_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_subtasks_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2535,7 +2648,9 @@ ALTER TABLE ONLY "public"."subtasks"
 --
 
 ALTER TABLE ONLY "public"."task_has_tags"
-    ADD CONSTRAINT "task_has_tags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_tags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2543,7 +2658,9 @@ ALTER TABLE ONLY "public"."task_has_tags"
 --
 
 ALTER TABLE ONLY "public"."task_has_tags"
-    ADD CONSTRAINT "task_has_tags_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "task_has_tags_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2551,7 +2668,9 @@ ALTER TABLE ONLY "public"."task_has_tags"
 --
 
 ALTER TABLE ONLY "public"."tasks"
-    ADD CONSTRAINT "tasks_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "tasks_column_id_fkey" FOREIGN KEY ("column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2559,7 +2678,9 @@ ALTER TABLE ONLY "public"."tasks"
 --
 
 ALTER TABLE ONLY "public"."tasks"
-    ADD CONSTRAINT "tasks_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "tasks_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2567,7 +2688,9 @@ ALTER TABLE ONLY "public"."tasks"
 --
 
 ALTER TABLE ONLY "public"."tasks"
-    ADD CONSTRAINT "tasks_swimlane_id_fkey" FOREIGN KEY ("swimlane_id") REFERENCES "public"."swimlanes"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "tasks_swimlane_id_fkey" FOREIGN KEY ("swimlane_id") REFERENCES "public"."swimlanes"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2575,7 +2698,9 @@ ALTER TABLE ONLY "public"."tasks"
 --
 
 ALTER TABLE ONLY "public"."transitions"
-    ADD CONSTRAINT "transitions_dst_column_id_fkey" FOREIGN KEY ("dst_column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "transitions_dst_column_id_fkey" FOREIGN KEY ("dst_column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2583,7 +2708,9 @@ ALTER TABLE ONLY "public"."transitions"
 --
 
 ALTER TABLE ONLY "public"."transitions"
-    ADD CONSTRAINT "transitions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "transitions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2591,7 +2718,9 @@ ALTER TABLE ONLY "public"."transitions"
 --
 
 ALTER TABLE ONLY "public"."transitions"
-    ADD CONSTRAINT "transitions_src_column_id_fkey" FOREIGN KEY ("src_column_id") REFERENCES "public"."columns"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "transitions_src_column_id_fkey" FOREIGN KEY ("src_column_id") REFERENCES "public"."columns"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2599,7 +2728,9 @@ ALTER TABLE ONLY "public"."transitions"
 --
 
 ALTER TABLE ONLY "public"."transitions"
-    ADD CONSTRAINT "transitions_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "transitions_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2607,7 +2738,9 @@ ALTER TABLE ONLY "public"."transitions"
 --
 
 ALTER TABLE ONLY "public"."transitions"
-    ADD CONSTRAINT "transitions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "transitions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2615,7 +2748,9 @@ ALTER TABLE ONLY "public"."transitions"
 --
 
 ALTER TABLE ONLY "public"."user_has_metadata"
-    ADD CONSTRAINT "user_has_metadata_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_has_metadata_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2623,7 +2758,9 @@ ALTER TABLE ONLY "public"."user_has_metadata"
 --
 
 ALTER TABLE ONLY "public"."user_has_notification_types"
-    ADD CONSTRAINT "user_has_notification_types_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_has_notification_types_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2631,7 +2768,9 @@ ALTER TABLE ONLY "public"."user_has_notification_types"
 --
 
 ALTER TABLE ONLY "public"."user_has_notifications"
-    ADD CONSTRAINT "user_has_notifications_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_has_notifications_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2639,7 +2778,9 @@ ALTER TABLE ONLY "public"."user_has_notifications"
 --
 
 ALTER TABLE ONLY "public"."user_has_notifications"
-    ADD CONSTRAINT "user_has_notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_has_notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2647,7 +2788,9 @@ ALTER TABLE ONLY "public"."user_has_notifications"
 --
 
 ALTER TABLE ONLY "public"."user_has_unread_notifications"
-    ADD CONSTRAINT "user_has_unread_notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_has_unread_notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON
+DELETE
+CASCADE;
 
 
 --
@@ -2661,42 +2804,72 @@ ALTER TABLE ONLY "public"."user_has_unread_notifications"
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
+SET
+statement_timeout = 0;
+SET
+lock_timeout = 0;
+SET
+client_encoding = 'UTF8';
+SET
+standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
+SET
+check_function_bodies = false;
+SET
+client_min_messages = warning;
+SET
+row_security = off;
 
 --
 -- Data for Name: settings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('board_highlight_period', '172800', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('board_public_refresh_interval', '60', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('board_private_refresh_interval', '10', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('board_columns', '', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('webhook_token', '1a9fe6b6651d4f17db363279ec08b6b44c8ee4f205d0c9527848a648436c', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('api_token', '8e6d6c81e25529d4d83e8b30385922ce1a99af3908743e888aa87344f8f3', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_language', 'en_US', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_timezone', 'UTC', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_url', '', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_date_format', 'm/d/Y', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('project_categories', '', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('subtask_restriction', '0', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_stylesheet', '', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('application_currency', 'USD', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('integration_gravatar', '0', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('calendar_user_subtasks_time_tracking', '0', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('calendar_user_tasks', 'date_started', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('calendar_project_tasks', 'date_started', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('webhook_url', '', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('default_color', 'yellow', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('subtask_time_tracking', '1', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('cfd_include_closed_tasks', '1', 0, 0);
-INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('password_reset', '1', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('board_highlight_period', '172800', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('board_public_refresh_interval', '60', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('board_private_refresh_interval', '10', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('board_columns', '', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('webhook_token', '1a9fe6b6651d4f17db363279ec08b6b44c8ee4f205d0c9527848a648436c', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('api_token', '8e6d6c81e25529d4d83e8b30385922ce1a99af3908743e888aa87344f8f3', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_language', 'en_US', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_timezone', 'UTC', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_url', '', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_date_format', 'm/d/Y', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('project_categories', '', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('subtask_restriction', '0', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_stylesheet', '', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('application_currency', 'USD', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('integration_gravatar', '0', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('calendar_user_subtasks_time_tracking', '0', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('calendar_user_tasks', 'date_started', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('calendar_project_tasks', 'date_started', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('webhook_url', '', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('default_color', 'yellow', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('subtask_time_tracking', '1', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('cfd_include_closed_tasks', '1', 0, 0);
+INSERT INTO public.settings (option, value, changed_by, changed_on)
+VALUES ('password_reset', '1', 0, 0);
 
 
 --
@@ -2710,30 +2883,48 @@ INSERT INTO public.settings (option, value, changed_by, changed_on) VALUES ('pas
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
+SET
+statement_timeout = 0;
+SET
+lock_timeout = 0;
+SET
+client_encoding = 'UTF8';
+SET
+standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
+SET
+check_function_bodies = false;
+SET
+client_min_messages = warning;
+SET
+row_security = off;
 
 --
 -- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.links (id, label, opposite_id) VALUES (1, 'relates to', 0);
-INSERT INTO public.links (id, label, opposite_id) VALUES (2, 'blocks', 3);
-INSERT INTO public.links (id, label, opposite_id) VALUES (3, 'is blocked by', 2);
-INSERT INTO public.links (id, label, opposite_id) VALUES (4, 'duplicates', 5);
-INSERT INTO public.links (id, label, opposite_id) VALUES (5, 'is duplicated by', 4);
-INSERT INTO public.links (id, label, opposite_id) VALUES (6, 'is a child of', 7);
-INSERT INTO public.links (id, label, opposite_id) VALUES (7, 'is a parent of', 6);
-INSERT INTO public.links (id, label, opposite_id) VALUES (8, 'targets milestone', 9);
-INSERT INTO public.links (id, label, opposite_id) VALUES (9, 'is a milestone of', 8);
-INSERT INTO public.links (id, label, opposite_id) VALUES (10, 'fixes', 11);
-INSERT INTO public.links (id, label, opposite_id) VALUES (11, 'is fixed by', 10);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (1, 'relates to', 0);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (2, 'blocks', 3);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (3, 'is blocked by', 2);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (4, 'duplicates', 5);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (5, 'is duplicated by', 4);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (6, 'is a child of', 7);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (7, 'is a parent of', 6);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (8, 'targets milestone', 9);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (9, 'is a milestone of', 8);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (10, 'fixes', 11);
+INSERT INTO public.links (id, label, opposite_id)
+VALUES (11, 'is fixed by', 10);
 
 
 --
@@ -2747,5 +2938,7 @@ SELECT pg_catalog.setval('public.links_id_seq', 11, true);
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public.users (username, password, role) VALUES ('admin', '$2y$10$GzDCeQl/GdH.pCZfz4fWdO3qmayutRCmxEIY9U9t1k9q9F89VNDCm', 'app-admin');
-INSERT INTO public.schema_version VALUES ('111');
+INSERT INTO public.users (username, password, role)
+VALUES ('admin', '$2y$10$GzDCeQl/GdH.pCZfz4fWdO3qmayutRCmxEIY9U9t1k9q9F89VNDCm', 'app-admin');
+INSERT INTO public.schema_version
+VALUES ('111');

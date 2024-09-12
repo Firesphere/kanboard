@@ -20,7 +20,7 @@ class JobHandler extends Base
      * Serialize a job
      *
      * @access public
-     * @param  BaseJob $job
+     * @param BaseJob $job
      * @return Job
      */
     public function serializeJob(BaseJob $job)

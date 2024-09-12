@@ -13,8 +13,8 @@ class Version
     /**
      * Check plugin version compatibility with application version
      *
-     * @param  string $pluginCompatibleVersion
-     * @param  string $appVersion
+     * @param string $pluginCompatibleVersion
+     * @param string $appVersion
      * @return bool
      */
     public static function isCompatible($pluginCompatibleVersion, $appVersion = APP_VERSION)
@@ -29,6 +29,7 @@ class Version
         foreach (['>=', '>', '<=', '<'] as $operator) {
             if (strpos($pluginCompatibleVersion, $operator) === 0) {
                 $pluginVersion = substr($pluginCompatibleVersion, strlen($operator));
+
                 return version_compare($appVersion, $pluginVersion, $operator);
             }
         }

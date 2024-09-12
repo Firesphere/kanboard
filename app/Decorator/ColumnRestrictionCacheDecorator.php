@@ -28,8 +28,8 @@ class ColumnRestrictionCacheDecorator
     /**
      * ColumnMoveRestrictionDecorator constructor.
      *
-     * @param CacheInterface             $cache
-     * @param ColumnRestrictionModel     $columnMoveRestrictionModel
+     * @param CacheInterface $cache
+     * @param ColumnRestrictionModel $columnMoveRestrictionModel
      */
     public function __construct(CacheInterface $cache, ColumnRestrictionModel $columnMoveRestrictionModel)
     {
@@ -40,8 +40,8 @@ class ColumnRestrictionCacheDecorator
     /**
      * Proxy method to get sortable columns
      *
-     * @param  int    $project_id
-     * @param  string $role
+     * @param int $project_id
+     * @param string $role
      * @return array|mixed
      */
     public function getAllByRole($project_id, $role)

@@ -16,7 +16,7 @@ class TimezoneModel extends Base
      * Get available timezones
      *
      * @access public
-     * @param  boolean   $prepend  Prepend a default value
+     * @param boolean $prepend Prepend a default value
      * @return array
      */
     public function getTimezones($prepend = false)

@@ -38,6 +38,7 @@ class GroupCreationController extends BaseController
         if ($valid) {
             if ($this->groupModel->create($values['name']) !== false) {
                 $this->flash->success(t('Group created successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('GroupListController', 'index'), true);
             } else {
                 $this->flash->failure(t('Unable to create your group.'));

@@ -33,6 +33,7 @@ class ProjectActivityProjectNameFilter extends BaseFilter implements FilterInter
     public function apply()
     {
         $this->query->ilike(ProjectModel::TABLE . '.name', '%' . $this->value . '%');
+
         return $this;
     }
 }

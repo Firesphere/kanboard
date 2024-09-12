@@ -38,12 +38,13 @@ class AccessMap
      * Define the default role when nothing match
      *
      * @access public
-     * @param  string $role
+     * @param string $role
      * @return AccessMap
      */
     public function setDefaultRole($role)
     {
         $this->defaultRole = $role;
+
         return $this;
     }
 
@@ -51,8 +52,8 @@ class AccessMap
      * Define role hierarchy
      *
      * @access public
-     * @param  string $role
-     * @param  array  $subroles
+     * @param string $role
+     * @param array $subroles
      * @return AccessMap
      */
     public function setRoleHierarchy($role, array $subroles)
@@ -72,7 +73,7 @@ class AccessMap
      * Get computed role hierarchy
      *
      * @access public
-     * @param  string  $role
+     * @param string $role
      * @return array
      */
     public function getRoleHierarchy($role)
@@ -90,7 +91,7 @@ class AccessMap
      * Get the highest role from a list
      *
      * @access public
-     * @param  array  $roles
+     * @param array $roles
      * @return string
      */
     public function getHighestRole(array $roles)
@@ -110,9 +111,9 @@ class AccessMap
      * Add new access rules
      *
      * @access public
-     * @param  string $controller  Controller class name
-     * @param  mixed  $methods     List of method name or just one method
-     * @param  string $role        Lowest role required
+     * @param string $controller Controller class name
+     * @param mixed $methods List of method name or just one method
+     * @param string $role Lowest role required
      * @return AccessMap
      */
     public function add($controller, $methods, $role)
@@ -132,9 +133,9 @@ class AccessMap
      * Add new access rule
      *
      * @access private
-     * @param  string $controller
-     * @param  string $method
-     * @param  string $role
+     * @param string $controller
+     * @param string $method
+     * @param string $role
      * @return AccessMap
      */
     private function addRule($controller, $method, $role)
@@ -142,7 +143,7 @@ class AccessMap
         $controller = strtolower($controller);
         $method = strtolower($method);
 
-        if (! isset($this->map[$controller])) {
+        if (!isset($this->map[$controller])) {
             $this->map[$controller] = [];
         }
 
@@ -155,8 +156,8 @@ class AccessMap
      * Get roles that match the given controller/method
      *
      * @access public
-     * @param  string $controller
-     * @param  string $method
+     * @param string $controller
+     * @param string $method
      * @return array
      */
     public function getRoles($controller, $method)

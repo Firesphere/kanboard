@@ -24,11 +24,11 @@ class ProjectActivityModel extends Base
      * Add a new event for the project
      *
      * @access public
-     * @param  integer     $project_id      Project id
-     * @param  integer     $task_id         Task id
-     * @param  integer     $creator_id      User id
-     * @param  string      $event_name      Event name
-     * @param  array       $data            Event data (will be serialized)
+     * @param integer $project_id Project id
+     * @param integer $task_id Task id
+     * @param integer $creator_id User id
+     * @param string $event_name Event name
+     * @param array $data Event data (will be serialized)
      * @return boolean
      */
     public function createEvent($project_id, $task_id, $creator_id, $event_name, array $data)
@@ -70,7 +70,7 @@ class ProjectActivityModel extends Base
      * Remove old event entries to avoid large table
      *
      * @access public
-     * @param  integer $ts Timestamp
+     * @param integer $ts Timestamp
      */
     public function cleanup($ts)
     {

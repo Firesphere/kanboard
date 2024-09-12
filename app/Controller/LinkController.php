@@ -74,6 +74,7 @@ class LinkController extends BaseController
             if ($this->linkModel->create($values['label'], $values['opposite_label']) !== false) {
                 $this->flash->success(t('Link added successfully.'));
                 $this->response->redirect($this->helper->url->to('LinkController', 'show'), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to create your link.'));
@@ -87,8 +88,8 @@ class LinkController extends BaseController
      * Edit form
      *
      * @access public
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws PageNotFoundException
      */
     public function edit(array $values = [], array $errors = [])
@@ -118,6 +119,7 @@ class LinkController extends BaseController
             if ($this->linkModel->update($values)) {
                 $this->flash->success(t('Link updated successfully.'));
                 $this->response->redirect($this->helper->url->to('LinkController', 'show'), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to update your link.'));

@@ -25,7 +25,7 @@ interface CriteriaInterface
      * Set filter
      *
      * @access public
-     * @param  FilterInterface $filter
+     * @param FilterInterface $filter
      * @return CriteriaInterface
      */
     public function withFilter(FilterInterface $filter);

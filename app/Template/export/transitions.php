@@ -2,7 +2,9 @@
 
 <p class="alert alert-info"><?= t('This report contains all column moves for each task with the date, the user and the time spent for each transition.') ?></p>
 
-<form class="js-modal-ignore-form" method="post" action="<?= $this->url->href('ExportController', 'transitions', ['project_id' => $project['id']]) ?>" autocomplete="off">
+<form class="js-modal-ignore-form" method="post"
+      action="<?= $this->url->href('ExportController', 'transitions', ['project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('project_id', $values) ?>
     <?= $this->form->date(t('Start date'), 'from', $values) ?>

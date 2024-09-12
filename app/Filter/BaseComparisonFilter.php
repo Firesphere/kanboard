@@ -27,6 +27,7 @@ abstract class BaseComparisonFilter extends BaseFilter
         foreach ($operators as $operator => $method) {
             if (strpos($this->value, $operator) === 0) {
                 $this->value = substr($this->value, strlen($operator));
+
                 return $method;
             }
         }
@@ -38,7 +39,7 @@ abstract class BaseComparisonFilter extends BaseFilter
      * Apply a comparison filter
      *
      * @access protected
-     * @param  string $field
+     * @param string $field
      */
     protected function applyComparisonFilter($field)
     {

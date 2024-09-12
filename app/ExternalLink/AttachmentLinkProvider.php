@@ -99,7 +99,7 @@ class AttachmentLinkProvider extends BaseLinkProvider implements ExternalLinkPro
      * Check file extension
      *
      * @access protected
-     * @param  string $extension
+     * @param string $extension
      * @return boolean
      */
     protected function isValidExtension($extension)

@@ -7,9 +7,15 @@
 
     <div class="panel">
         <ul class="no-bullet">
-            <li><strong><?= $this->url->icon('share-alt', t('Public link'), 'BoardViewController', 'readonly', ['token' => $project['token']], false, '', '', true) ?></strong></li>
-            <li><strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'project', ['token' => $project['token']], false, '', '', true) ?></strong></li>
-            <li><strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'project', ['token' => $project['token']], false, '', '', true) ?></strong></li>
+            <li>
+                <strong><?= $this->url->icon('share-alt', t('Public link'), 'BoardViewController', 'readonly', ['token' => $project['token']], false, '', '', true) ?></strong>
+            </li>
+            <li>
+                <strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'project', ['token' => $project['token']], false, '', '', true) ?></strong>
+            </li>
+            <li>
+                <strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'project', ['token' => $project['token']], false, '', '', true) ?></strong>
+            </li>
         </ul>
     </div>
 

@@ -28,7 +28,7 @@ class ProjectAuthorization extends Base
 
         $role = $this->projectUserRoleModel->getUserRole($project_id, $this->userSession->getId());
 
-        if (! $this->apiProjectAuthorization->isAllowed($class, $method, $role)) {
+        if (!$this->apiProjectAuthorization->isAllowed($class, $method, $role)) {
             throw new AccessDeniedException('Project Access Denied');
         }
     }

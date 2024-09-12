@@ -4,17 +4,17 @@
 
 <form>
 
-<?= $this->app->component('task-move-position', [
-    'saveUrl'       => $this->url->href('TaskMovePositionController', 'save', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]),
-    'board'         => $board,
-    'task'          => $task,
-    'swimlaneLabel' => t('Swimlane'),
-    'columnLabel'   => t('Column'),
-    'positionLabel' => t('Position'),
-    'beforeLabel'   => t('Insert before this task'),
-    'afterLabel'    => t('Insert after this task'),
-]) ?>
+    <?= $this->app->component('task-move-position', [
+        'saveUrl'       => $this->url->href('TaskMovePositionController', 'save', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]),
+        'board'         => $board,
+        'task'          => $task,
+        'swimlaneLabel' => t('Swimlane'),
+        'columnLabel'   => t('Column'),
+        'positionLabel' => t('Position'),
+        'beforeLabel'   => t('Insert before this task'),
+        'afterLabel'    => t('Insert after this task'),
+    ]) ?>
 
-<?= $this->modal->submitButtons() ?>
+    <?= $this->modal->submitButtons() ?>
 
 </form>

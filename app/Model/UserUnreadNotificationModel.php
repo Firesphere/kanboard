@@ -23,9 +23,9 @@ class UserUnreadNotificationModel extends Base
      * Add unread notification to someone
      *
      * @access public
-     * @param  integer   $user_id
-     * @param  string    $event_name
-     * @param  array     $event_data
+     * @param integer $user_id
+     * @param string $event_name
+     * @param array $event_data
      */
     public function create($user_id, $event_name, array $event_data)
     {
@@ -40,14 +40,14 @@ class UserUnreadNotificationModel extends Base
     /**
      * Get one notification
      *
-     * @param  integer $notification_id
+     * @param integer $notification_id
      * @return array|null
      */
     public function getById($notification_id)
     {
         $notification = $this->db->table(self::TABLE)->eq('id', $notification_id)->findOne();
 
-        if (! empty($notification)) {
+        if (!empty($notification)) {
             $this->unserialize($notification);
         }
 
@@ -58,7 +58,7 @@ class UserUnreadNotificationModel extends Base
      * Get all notifications for a user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getAll($user_id)
@@ -76,8 +76,8 @@ class UserUnreadNotificationModel extends Base
      * Mark a notification as read
      *
      * @access public
-     * @param  integer $user_id
-     * @param  integer $notification_id
+     * @param integer $user_id
+     * @param integer $notification_id
      * @return boolean
      */
     public function markAsRead($user_id, $notification_id)
@@ -89,7 +89,7 @@ class UserUnreadNotificationModel extends Base
      * Mark all notifications as read for a user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function markAllAsRead($user_id)
@@ -101,7 +101,7 @@ class UserUnreadNotificationModel extends Base
      * Return true if the user as unread notifications
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function hasNotifications($user_id)

@@ -23,7 +23,7 @@ class OAuthController extends BaseController
         $code = $this->request->getStringParam('code');
         $state = $this->request->getStringParam('state');
 
-        if (! empty($code)) {
+        if (!empty($code)) {
             $this->step2($provider, $code, $state);
         } else {
             $this->response->redirect($this->authenticationManager->getProvider($provider)->getService()->getAuthorizationUrl());
@@ -64,11 +64,11 @@ class OAuthController extends BaseController
      * Link the account
      *
      * @access protected
-     * @param  OAuthAuthenticationProviderInterface $provider
+     * @param OAuthAuthenticationProviderInterface $provider
      */
     protected function link(OAuthAuthenticationProviderInterface $provider)
     {
-        if (! $provider->authenticate()) {
+        if (!$provider->authenticate()) {
             $this->flash->failure(t('External authentication failed'));
         } else {
             $this->userProfile->assign($this->userSession->getId(), $provider->getUser());
@@ -116,7 +116,7 @@ class OAuthController extends BaseController
      * Show login failure page
      *
      * @access protected
-     * @param  string $message
+     * @param string $message
      */
     protected function authenticationFailure($message)
     {

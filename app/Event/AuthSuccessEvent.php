@@ -24,7 +24,7 @@ class AuthSuccessEvent extends BaseEvent
      * Constructor
      *
      * @access public
-     * @param  string $authType
+     * @param string $authType
      */
     public function __construct($authType)
     {

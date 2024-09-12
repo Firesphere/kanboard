@@ -19,7 +19,7 @@ class DatabaseBackendUserProvider extends Base implements UserBackendProviderInt
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return DatabaseUserProvider[]
      */
     public function find($input)

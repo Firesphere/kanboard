@@ -2,7 +2,9 @@
     <h2><?= t('Swimlane modification for the project "%s"', $project['name']) ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('SwimlaneController', 'update', ['project_id' => $project['id'], 'swimlane_id' => $values['id']]) ?>" autocomplete="off">
+<form method="post"
+      action="<?= $this->url->href('SwimlaneController', 'update', ['project_id' => $project['id'], 'swimlane_id' => $values['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Name'), 'name') ?>

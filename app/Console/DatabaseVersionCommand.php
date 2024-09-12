@@ -19,6 +19,7 @@ class DatabaseVersionCommand extends BaseCommand
     {
         $output->writeln('<info>Current version: ' . DatabaseProvider::getSchemaVersion($this->container['db']) . '</info>');
         $output->writeln('<info>Last version: ' . \Schema\VERSION . '</info>');
+
         return 0;
     }
 }

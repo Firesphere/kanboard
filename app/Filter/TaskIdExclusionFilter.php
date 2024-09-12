@@ -33,6 +33,7 @@ class TaskIdExclusionFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->notin(TaskModel::TABLE . '.id', $this->value);
+
         return $this;
     }
 }

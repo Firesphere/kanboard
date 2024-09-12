@@ -33,6 +33,7 @@ class TaskSwimlaneFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->ilike(SwimlaneModel::TABLE . '.name', $this->value);
+
         return $this;
     }
 }

@@ -1,9 +1,10 @@
-<form method="post" action="<?= $this->url->href('TaskModificationController', 'update', ['task_id' => $task['id']]) ?>">
+<form method="post"
+      action="<?= $this->url->href('TaskModificationController', 'update', ['task_id' => $task['id']]) ?>">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('id', $values) ?>
     <?= $this->form->hidden('project_id', $values) ?>
 
-    <?php if (! empty($error_message)): ?>
+    <?php if (!empty($error_message)): ?>
         <p class="alert alert-error"><?= $this->text->e($error_message) ?></p>
     <?php else: ?>
         <?= $this->render($template, [

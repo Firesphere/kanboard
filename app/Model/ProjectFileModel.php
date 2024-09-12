@@ -65,7 +65,7 @@ class ProjectFileModel extends FileModel
      * Fire file creation event
      *
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     protected function fireCreationEvent($file_id)
     {
@@ -76,7 +76,7 @@ class ProjectFileModel extends FileModel
      * Fire file destruction event
      *
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     protected function fireDestructionEvent($file_id)
     {

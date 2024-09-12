@@ -20,36 +20,6 @@ class RememberMeCookie extends Base
     public const COOKIE_NAME = 'KB_RM';
 
     /**
-     * Encode the cookie
-     *
-     * @access public
-     * @param  string   $token        Session token
-     * @param  string   $sequence     Sequence token
-     * @return string
-     */
-    public function encode($token, $sequence)
-    {
-        return implode('|', [$token, $sequence]);
-    }
-
-    /**
-     * Decode the value of a cookie
-     *
-     * @access public
-     * @param  string   $value    Raw cookie data
-     * @return array
-     */
-    public function decode($value)
-    {
-        list($token, $sequence) = explode('|', $value);
-
-        return [
-            'token'    => $token,
-            'sequence' => $sequence,
-        ];
-    }
-
-    /**
      * Return true if the current user has a RememberMe cookie
      *
      * @access public
@@ -64,9 +34,9 @@ class RememberMeCookie extends Base
      * Write and encode the cookie
      *
      * @access public
-     * @param  string   $token        Session token
-     * @param  string   $sequence     Sequence token
-     * @param  string   $expiration   Cookie expiration
+     * @param string $token Session token
+     * @param string $sequence Sequence token
+     * @param string $expiration Cookie expiration
      * @return boolean
      */
     public function write($token, $sequence, $expiration)
@@ -80,6 +50,19 @@ class RememberMeCookie extends Base
             $this->request->isHTTPS(),
             true,
         );
+    }
+
+    /**
+     * Encode the cookie
+     *
+     * @access public
+     * @param string $token Session token
+     * @param string $sequence Sequence token
+     * @return string
+     */
+    public function encode($token, $sequence)
+    {
+        return implode('|', [$token, $sequence]);
     }
 
     /**
@@ -97,6 +80,23 @@ class RememberMeCookie extends Base
         }
 
         return $this->decode($cookie);
+    }
+
+    /**
+     * Decode the value of a cookie
+     *
+     * @access public
+     * @param string $value Raw cookie data
+     * @return array
+     */
+    public function decode($value)
+    {
+        list($token, $sequence) = explode('|', $value);
+
+        return [
+            'token'    => $token,
+            'sequence' => $sequence,
+        ];
     }
 
     /**

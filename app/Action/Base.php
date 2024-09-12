@@ -70,7 +70,7 @@ abstract class Base extends \Kanboard\Core\Base
      *
      * @abstract
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     abstract public function doAction(array $data);
@@ -106,7 +106,7 @@ abstract class Base extends \Kanboard\Core\Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     abstract public function hasRequiredCondition(array $data);
@@ -132,12 +132,13 @@ abstract class Base extends \Kanboard\Core\Base
      * Set project id
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return Base
      */
     public function setProjectId($project_id)
     {
         $this->projectId = $project_id;
+
         return $this;
     }
 
@@ -156,13 +157,14 @@ abstract class Base extends \Kanboard\Core\Base
      * Set an user defined parameter
      *
      * @access  public
-     * @param   string  $name    Parameter name
-     * @param   mixed   $value   Value
+     * @param string $name Parameter name
+     * @param mixed $value Value
      * @return  Base
      */
     public function setParam($name, $value)
     {
         $this->params[$name] = $value;
+
         return $this;
     }
 
@@ -170,8 +172,8 @@ abstract class Base extends \Kanboard\Core\Base
      * Get an user defined parameter
      *
      * @access public
-     * @param  string  $name            Parameter name
-     * @param  mixed   $default         Default value
+     * @param string $name Parameter name
+     * @param mixed $default Default value
      * @return mixed
      */
     public function getParam($name, $default = null)
@@ -183,23 +185,23 @@ abstract class Base extends \Kanboard\Core\Base
      * Check if an action is executable (right project and required parameters)
      *
      * @access public
-     * @param  array   $data
-     * @param  string  $eventName
+     * @param array $data
+     * @param string $eventName
      * @return bool
      */
     public function isExecutable(array $data, $eventName)
     {
         return $this->hasCompatibleEvent($eventName) &&
-               $this->hasRequiredProject($data) &&
-               $this->hasRequiredParameters($data) &&
-               $this->hasRequiredCondition($data);
+            $this->hasRequiredProject($data) &&
+            $this->hasRequiredParameters($data) &&
+            $this->hasRequiredCondition($data);
     }
 
     /**
      * Check if the event is compatible with the action
      *
      * @access public
-     * @param  string  $eventName
+     * @param string $eventName
      * @return bool
      */
     public function hasCompatibleEvent($eventName)
@@ -211,7 +213,7 @@ abstract class Base extends \Kanboard\Core\Base
      * Check if the event data has the required project
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredProject(array $data)
@@ -224,7 +226,7 @@ abstract class Base extends \Kanboard\Core\Base
      * Check if the event data has required parameters to execute the action
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if all keys are there
      */
     public function hasRequiredParameters(array $data, array $parameters = [])
@@ -234,7 +236,7 @@ abstract class Base extends \Kanboard\Core\Base
         foreach ($parameters as $key => $value) {
             if (is_array($value)) {
                 return isset($data[$key]) && $this->hasRequiredParameters($data[$key], $value);
-            } elseif (! isset($data[$value])) {
+            } elseif (!isset($data[$value])) {
                 return false;
             }
         }
@@ -246,8 +248,8 @@ abstract class Base extends \Kanboard\Core\Base
      * Execute the action
      *
      * @access public
-     * @param  \Kanboard\Event\GenericEvent   $event
-     * @param  string                         $eventName
+     * @param \Kanboard\Event\GenericEvent $event
+     * @param string $eventName
      * @return bool
      */
     public function execute(GenericEvent $event, $eventName)
@@ -278,8 +280,8 @@ abstract class Base extends \Kanboard\Core\Base
      * Register a new event for the automatic action
      *
      * @access public
-     * @param  string $event
-     * @param  string $description
+     * @param string $event
+     * @param string $description
      * @return Base
      */
     public function addEvent($event, $description = '')
@@ -289,6 +291,7 @@ abstract class Base extends \Kanboard\Core\Base
         }
 
         $this->compatibleEvents[] = $event;
+
         return $this;
     }
 

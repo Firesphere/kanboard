@@ -16,9 +16,9 @@ class TransitionExport extends Base
      * Get project export
      *
      * @access public
-     * @param  integer    $project_id      Project id
-     * @param  mixed      $from            Start date (timestamp or user formatted date)
-     * @param  mixed      $to              End date (timestamp or user formatted date)
+     * @param integer $project_id Project id
+     * @param mixed $from Start date (timestamp or user formatted date)
+     * @param mixed $to End date (timestamp or user formatted date)
      * @return array
      */
     public function export($project_id, $from, $to)
@@ -56,13 +56,13 @@ class TransitionExport extends Base
      * Format the output of a transition array
      *
      * @access protected
-     * @param  array     $transition
+     * @param array $transition
      * @return array
      */
     protected function format(array $transition)
     {
         $values = [
-            (int) $transition['id'],
+            (int)$transition['id'],
             $transition['title'],
             $transition['src_column'],
             $transition['dst_column'],

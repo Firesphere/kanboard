@@ -33,6 +33,7 @@ class TaskCompletionDateRangeFilter extends BaseDateRangeFilter implements Filte
     public function apply()
     {
         $this->applyDateFilter(TaskModel::TABLE . '.date_completed');
+
         return $this;
     }
 }

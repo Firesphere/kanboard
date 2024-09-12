@@ -23,6 +23,7 @@ class TaskImport extends Base
     public function setProjectId($projectId)
     {
         $this->projectId = $projectId;
+
         return $this;
     }
 
@@ -34,24 +35,24 @@ class TaskImport extends Base
     public function getColumnMapping()
     {
         return [
-            'reference'         => e('Reference'),
-            'title'             => e('Title'),
-            'description'       => e('Description'),
-            'assignee'          => e('Assignee Username'),
-            'creator'           => e('Creator Username'),
-            'color'             => e('Color Name'),
-            'column'            => e('Column Name'),
-            'category'          => e('Category Name'),
-            'swimlane'          => e('Swimlane Name'),
-            'score'             => e('Complexity'),
-            'time_estimated'    => e('Time Estimated'),
-            'time_spent'        => e('Time Spent'),
-            'date_started'      => e('Start Date'),
-            'date_due'          => e('Due Date'),
-            'priority'          => e('Priority'),
-            'is_active'         => e('Status'),
-            'tags'              => e('Tags'),
-            'external_link'     => e('External Link'),
+            'reference'      => e('Reference'),
+            'title'          => e('Title'),
+            'description'    => e('Description'),
+            'assignee'       => e('Assignee Username'),
+            'creator'        => e('Creator Username'),
+            'color'          => e('Color Name'),
+            'column'         => e('Column Name'),
+            'category'       => e('Category Name'),
+            'swimlane'       => e('Swimlane Name'),
+            'score'          => e('Complexity'),
+            'time_estimated' => e('Time Estimated'),
+            'time_spent'     => e('Time Spent'),
+            'date_started'   => e('Start Date'),
+            'date_due'       => e('Due Date'),
+            'priority'       => e('Priority'),
+            'is_active'      => e('Status'),
+            'tags'           => e('Tags'),
+            'external_link'  => e('External Link'),
         ];
     }
 
@@ -66,11 +67,11 @@ class TaskImport extends Base
                 $this->logger->debug(__METHOD__ . ': imported successfully line ' . $lineNumber);
                 $this->nbImportedTasks++;
 
-                if (! empty($row['tags'])) {
+                if (!empty($row['tags'])) {
                     $this->taskTagModel->save($this->projectId, $taskId, explode_csv_field($row['tags']));
                 }
 
-                if (! empty($row['external_link'])) {
+                if (!empty($row['external_link'])) {
                     $this->createExternalLink($taskId, $row['external_link']);
                 }
             } else {
@@ -89,40 +90,40 @@ class TaskImport extends Base
         $values['title'] = $row['title'];
         $values['description'] = $row['description'];
         $values['is_active'] = Csv::getBooleanValue($row['is_active']) == 1 ? 0 : 1;
-        $values['score'] = (int) $row['score'];
-        $values['priority'] = (int) $row['priority'];
-        $values['time_estimated'] = (float) $row['time_estimated'];
-        $values['time_spent'] = (float) $row['time_spent'];
+        $values['score'] = (int)$row['score'];
+        $values['priority'] = (int)$row['priority'];
+        $values['time_estimated'] = (float)$row['time_estimated'];
+        $values['time_spent'] = (float)$row['time_spent'];
 
-        if (! empty($row['assignee'])) {
+        if (!empty($row['assignee'])) {
             $values['owner_id'] = $this->userModel->getIdByUsername($row['assignee']);
         }
 
-        if (! empty($row['creator'])) {
+        if (!empty($row['creator'])) {
             $values['creator_id'] = $this->userModel->getIdByUsername($row['creator']);
         }
 
-        if (! empty($row['color'])) {
+        if (!empty($row['color'])) {
             $values['color_id'] = $this->colorModel->find($row['color']);
         }
 
-        if (! empty($row['column'])) {
+        if (!empty($row['column'])) {
             $values['column_id'] = $this->columnModel->getColumnIdByTitle($this->projectId, $row['column']);
         }
 
-        if (! empty($row['category'])) {
+        if (!empty($row['category'])) {
             $values['category_id'] = $this->categoryModel->getIdByName($this->projectId, $row['category']);
         }
 
-        if (! empty($row['swimlane'])) {
+        if (!empty($row['swimlane'])) {
             $values['swimlane_id'] = $this->swimlaneModel->getIdByName($this->projectId, $row['swimlane']);
         }
 
-        if (! empty($row['date_due'])) {
+        if (!empty($row['date_due'])) {
             $values['date_due'] = $this->dateParser->getTimestamp($row['date_due']);
         }
 
-        if (! empty($row['date_started'])) {
+        if (!empty($row['date_started'])) {
             $values['date_started'] = $this->dateParser->getTimestamp($row['date_started']);
         }
 

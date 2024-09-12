@@ -17,13 +17,13 @@ class VersionCommand extends BaseCommand
     {
         $this
             ->setName('version')
-            ->setDescription('Display Kanboard version')
-        ;
+            ->setDescription('Display Kanboard version');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln(APP_VERSION);
+
         return 0;
     }
 }

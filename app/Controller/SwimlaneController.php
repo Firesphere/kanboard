@@ -66,6 +66,7 @@ class SwimlaneController extends BaseController
             if ($this->swimlaneModel->create($project['id'], $values['name'], $values['description'], $values['task_limit']) !== false) {
                 $this->flash->success(t('Your swimlane has been created successfully.'));
                 $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $errors = ['name' => [t('Another swimlane with the same name exists in the project')]];
@@ -113,6 +114,7 @@ class SwimlaneController extends BaseController
         if ($valid) {
             if ($this->swimlaneModel->update($values['id'], $values)) {
                 $this->flash->success(t('Swimlane updated successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]));
             } else {
                 $errors = ['name' => [t('Another swimlane with the same name exists in the project')]];
@@ -209,7 +211,7 @@ class SwimlaneController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getJson();
 
-        if (! empty($values) && isset($values['swimlane_id']) && isset($values['position'])) {
+        if (!empty($values) && isset($values['swimlane_id']) && isset($values['position'])) {
             $result = $this->swimlaneModel->changePosition($project['id'], $values['swimlane_id'], $values['position']);
             $this->response->json(['result' => $result]);
         } else {

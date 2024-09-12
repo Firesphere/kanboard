@@ -31,7 +31,7 @@
     <?= $this->form->file('file', $errors) ?>
 
     <?php if ($max_size > 0): ?>
-    <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
+        <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
     <?php endif ?>
 
     <?= $this->modal->submitButtons(['submitLabel' => t('Import')]) ?>

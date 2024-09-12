@@ -16,7 +16,7 @@ class TaskAnalyticModel extends Base
      * Get the time between date_creation and date_completed or now if empty
      *
      * @access public
-     * @param  array   $task
+     * @param array $task
      * @return integer
      */
     public function getLeadTime(array $task)
@@ -28,7 +28,7 @@ class TaskAnalyticModel extends Base
      * Get the time between date_started and date_completed or now if empty
      *
      * @access public
-     * @param  array   $task
+     * @param array $task
      * @return integer
      */
     public function getCycleTime(array $task)
@@ -44,7 +44,7 @@ class TaskAnalyticModel extends Base
      * Get the average time spent in each column
      *
      * @access public
-     * @param  array   $task
+     * @param array $task
      * @return array
      */
     public function getTimeSpentByColumn(array $task)

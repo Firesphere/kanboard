@@ -62,6 +62,7 @@ class ActionCreationController extends BaseController
 
         if (empty($values['action_name']) || empty($values['event_name'])) {
             $this->create();
+
             return;
         }
 
@@ -106,13 +107,13 @@ class ActionCreationController extends BaseController
      * Common method to save the action
      *
      * @access private
-     * @param  array     $project   Project properties
-     * @param  array     $values    Form values
+     * @param array $project Project properties
+     * @param array $values Form values
      */
     private function doCreation(array $project, array $values)
     {
         $values['project_id'] = $project['id'];
-        list($valid, ) = $this->actionValidator->validateCreation($values);
+        list($valid,) = $this->actionValidator->validateCreation($values);
 
         if ($valid) {
             if ($this->actionModel->create($values) !== false) {

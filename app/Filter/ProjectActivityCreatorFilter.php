@@ -25,12 +25,13 @@ class ProjectActivityCreatorFilter extends BaseFilter implements FilterInterface
      * Set current user id
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return TaskAssigneeFilter
      */
     public function setCurrentUserId($userId)
     {
         $this->currentUserId = $userId;
+
         return $this;
     }
 

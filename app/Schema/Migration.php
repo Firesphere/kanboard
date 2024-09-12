@@ -25,7 +25,7 @@ function migrate_default_swimlane(PDO $pdo)
         $rq->execute([
             $project['id'],
             $project['default_swimlane'],
-            (int) $project['show_default_swimlane'],
+            (int)$project['show_default_swimlane'],
             $project['show_default_swimlane'] == 1 ? 1 : 0,
         ]);
 
@@ -64,6 +64,7 @@ function get_all_projects(PDO $pdo)
 {
     $rq = $pdo->prepare('SELECT * FROM projects');
     $rq->execute();
+
     return $rq->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -72,6 +73,7 @@ function get_last_insert_id(PDO $pdo)
     if (DB_DRIVER === 'postgres') {
         $rq = $pdo->prepare('SELECT LASTVAL()');
         $rq->execute();
+
         return $rq->fetchColumn();
     }
 

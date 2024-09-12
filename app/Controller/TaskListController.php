@@ -25,7 +25,8 @@ class TaskListController extends BaseController
         if ($this->request->getIntegerParam('show_subtasks') !== 0 ||
             $this->request->getIntegerParam('hide_subtasks') !== 0 ||
             $this->request->getStringParam('direction') !== '' ||
-            $this->request->getStringParam('order') !== '') {
+            $this->request->getStringParam('order') !== ''
+        ) {
             $this->checkReusableGETCSRFParam();
         }
 
@@ -54,9 +55,9 @@ class TaskListController extends BaseController
             ->setFormatter($formatter)
             ->setQuery(
                 $this->taskLexer
-                ->build($search)
-                ->withFilter(new TaskProjectFilter($project['id']))
-                ->getQuery(),
+                    ->build($search)
+                    ->withFilter(new TaskProjectFilter($project['id']))
+                    ->getQuery(),
             )
             ->calculate();
 

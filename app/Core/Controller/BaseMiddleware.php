@@ -25,12 +25,13 @@ abstract class BaseMiddleware extends Base
     /**
      * Set next middleware
      *
-     * @param  BaseMiddleware $nextMiddleware
+     * @param BaseMiddleware $nextMiddleware
      * @return BaseMiddleware
      */
     public function setNextMiddleware(BaseMiddleware $nextMiddleware)
     {
         $this->nextMiddleware = $nextMiddleware;
+
         return $this;
     }
 

@@ -10,4 +10,6 @@ use Kanboard\Core\Base;
  * @package subscriber
  * @author  Frederic Guillot
  */
-class BaseSubscriber extends Base {}
+class BaseSubscriber extends Base
+{
+}

@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= t('Tasks Importation') ?></h2>
 </div>
-<form action="<?= $this->url->href('TaskImportController', 'save', ['project_id' => $project['id']]) ?>" method="post" enctype="multipart/form-data">
+<form action="<?= $this->url->href('TaskImportController', 'save', ['project_id' => $project['id']]) ?>" method="post"
+      enctype="multipart/form-data">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Delimiter'), 'delimiter') ?>
@@ -14,7 +15,7 @@
     <?= $this->form->file('file', $errors) ?>
 
     <?php if ($max_size > 0): ?>
-    <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
+        <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
     <?php endif ?>
 
     <?= $this->modal->submitButtons(['submitLabel' => t('Import')]) ?>

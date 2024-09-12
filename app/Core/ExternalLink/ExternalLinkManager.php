@@ -49,12 +49,13 @@ class ExternalLinkManager extends Base
      * Providers are registered in a LIFO queue
      *
      * @access public
-     * @param  ExternalLinkProviderInterface $provider
+     * @param ExternalLinkProviderInterface $provider
      * @return ExternalLinkManager
      */
     public function register(ExternalLinkProviderInterface $provider)
     {
         array_unshift($this->providers, $provider);
+
         return $this;
     }
 
@@ -62,9 +63,9 @@ class ExternalLinkManager extends Base
      * Get provider
      *
      * @access public
-     * @param  string $type
-     * @throws ExternalLinkProviderNotFound
+     * @param string $type
      * @return ExternalLinkProviderInterface
+     * @throws ExternalLinkProviderNotFound
      */
     public function getProvider($type)
     {
@@ -100,14 +101,15 @@ class ExternalLinkManager extends Base
      * Get dependency label from a provider
      *
      * @access public
-     * @param  string $type
-     * @param  string $dependency
+     * @param string $type
+     * @param string $dependency
      * @return string
      */
     public function getDependencyLabel($type, $dependency)
     {
         $provider = $this->getProvider($type);
         $dependencies = $provider->getDependencies();
+
         return isset($dependencies[$dependency]) ? $dependencies[$dependency] : $dependency;
     }
 
@@ -115,8 +117,8 @@ class ExternalLinkManager extends Base
      * Find a provider that match
      *
      * @access public
-     * @throws ExternalLinkProviderNotFound
      * @return ExternalLinkProviderInterface
+     * @throws ExternalLinkProviderNotFound
      */
     public function find()
     {
@@ -126,7 +128,7 @@ class ExternalLinkManager extends Base
             $provider = $this->getProvider($this->userInputType);
             $provider->setUserTextInput($this->userInputText);
 
-            if (! $provider->match()) {
+            if (!$provider->match()) {
                 throw new ExternalLinkProviderNotFound('Unable to parse URL with selected provider');
             }
         }
@@ -142,13 +144,14 @@ class ExternalLinkManager extends Base
      * Set form values
      *
      * @access public
-     * @param  array $values
+     * @param array $values
      * @return ExternalLinkManager
      */
     public function setUserInput(array $values)
     {
         $this->userInputType = empty($values['type']) ? self::TYPE_AUTO : $values['type'];
         $this->userInputText = empty($values['text']) ? '' : trim($values['text']);
+
         return $this;
     }
 
@@ -156,23 +159,25 @@ class ExternalLinkManager extends Base
      * Set provider type
      *
      * @access public
-     * @param  string $userInputType
+     * @param string $userInputType
      * @return ExternalLinkManager
      */
     public function setUserInputType($userInputType)
     {
         $this->userInputType = $userInputType;
+
         return $this;
     }
 
     /**
      * Set external link
-     * @param  string $userInputText
+     * @param string $userInputText
      * @return ExternalLinkManager
      */
     public function setUserInputText($userInputText)
     {
         $this->userInputText = $userInputText;
+
         return $this;
     }
 

@@ -21,12 +21,12 @@ class Mail extends Base implements ClientInterface
      * Send a HTML email
      *
      * @access public
-     * @param  string $recipientEmail
-     * @param  string $recipientName
-     * @param  string $subject
-     * @param  string $html
-     * @param  string $authorName
-     * @param  string $authorEmail
+     * @param string $recipientEmail
+     * @param string $recipientName
+     * @param string $subject
+     * @param string $html
+     * @param string $authorName
+     * @param string $authorEmail
      */
     public function sendEmail($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail = '')
     {
@@ -36,7 +36,7 @@ class Mail extends Base implements ClientInterface
                 ->setFrom($this->helper->mail->getMailSenderAddress(), $authorName)
                 ->setTo([$recipientEmail => $recipientName]);
 
-            if (! empty(MAIL_BCC)) {
+            if (!empty(MAIL_BCC)) {
                 $message->setBcc(MAIL_BCC);
             }
 
@@ -45,7 +45,7 @@ class Mail extends Base implements ClientInterface
             // See https://tools.ietf.org/html/rfc3834#section-5
             $headers->addTextHeader('Auto-Submitted', 'auto-generated');
 
-            if (! empty($authorEmail)) {
+            if (!empty($authorEmail)) {
                 $message->setReplyTo($authorEmail);
             }
 

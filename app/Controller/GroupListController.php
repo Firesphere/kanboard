@@ -103,6 +103,7 @@ class GroupListController extends BaseController
         if (isset($values['group_id']) && isset($values['user_id'])) {
             if ($this->groupMemberModel->addUser($values['group_id'], $values['user_id'])) {
                 $this->flash->success(t('Group member added successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('GroupListController', 'users', ['group_id' => $values['group_id']]), true);
             } else {
                 $this->flash->failure(t('Unable to add group member.'));

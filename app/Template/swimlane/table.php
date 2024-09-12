@@ -1,24 +1,26 @@
 <table
-    class="swimlanes-table table-striped table-scrolling"
-    data-save-position-url="<?= $this->url->href('SwimlaneController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
+        class="swimlanes-table table-striped table-scrolling"
+        data-save-position-url="<?= $this->url->href('SwimlaneController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
     <thead>
-        <tr>
-            <th><?= t('Name') ?></th>
-            <th class="column-15"><?= t('Task limit') ?></th>
-            <th class="column-15"><?= t('Open tasks') ?></th>
-            <th class="column-15"><?= t('Closed tasks') ?></th>
-        </tr>
+    <tr>
+        <th><?= t('Name') ?></th>
+        <th class="column-15"><?= t('Task limit') ?></th>
+        <th class="column-15"><?= t('Open tasks') ?></th>
+        <th class="column-15"><?= t('Closed tasks') ?></th>
+    </tr>
     </thead>
     <tbody>
-        <?php foreach ($swimlanes as $swimlane): ?>
+    <?php foreach ($swimlanes as $swimlane): ?>
         <tr data-swimlane-id="<?= $swimlane['id'] ?>">
             <td>
-                <?php if (! isset($disable_handle)): ?>
-                    <i class="fa fa-arrows-alt draggable-row-handle" title="<?= t('Change column position') ?>" role="button" aria-label="<?= t('Change column position') ?>"></i>&nbsp;
+                <?php if (!isset($disable_handle)): ?>
+                    <i class="fa fa-arrows-alt draggable-row-handle" title="<?= t('Change column position') ?>"
+                       role="button" aria-label="<?= t('Change column position') ?>"></i>&nbsp;
                 <?php endif ?>
 
                 <div class="dropdown">
-                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
+                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i
+                                class="fa fa-caret-down"></i></a>
                     <ul>
                         <li>
                             <?= $this->modal->medium('edit', t('Edit'), 'SwimlaneController', 'edit', ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']]) ?>
@@ -40,7 +42,7 @@
 
                 <?= $this->text->e($swimlane['name']) ?>
 
-                <?php if (! empty($swimlane['description'])): ?>
+                <?php if (!empty($swimlane['description'])): ?>
                     <?= $this->app->tooltipMarkdown($swimlane['description']) ?>
                 <?php endif ?>
             </td>
@@ -54,6 +56,6 @@
                 <?= $swimlane['nb_closed_tasks'] ?>
             </td>
         </tr>
-        <?php endforeach ?>
+    <?php endforeach ?>
     </tbody>
 </table>

@@ -34,8 +34,8 @@ class Markdown extends Parsedown
      * Constructor
      *
      * @access public
-     * @param  Container  $container
-     * @param  boolean    $isPublicLink
+     * @param Container $container
+     * @param boolean $isPublicLink
      */
     public function __construct(Container $container, $isPublicLink)
     {
@@ -52,7 +52,7 @@ class Markdown extends Parsedown
         if (preg_match('!#(\d+)!i', $Line['text'], $matches)) {
             $link = $this->buildTaskLink($matches[1]);
 
-            if (! empty($link)) {
+            if (!empty($link)) {
                 return [
                     'extent'  => strlen($matches[0]),
                     'element' => [
@@ -73,7 +73,7 @@ class Markdown extends Parsedown
      * Replace "#123" by a link to the task
      *
      * @access public
-     * @param  array  $Excerpt
+     * @param array $Excerpt
      * @return array|null
      */
     protected function inlineTaskLink(array $Excerpt)
@@ -81,7 +81,7 @@ class Markdown extends Parsedown
         if (preg_match('!#(\d+)!i', $Excerpt['text'], $matches)) {
             $link = $this->buildTaskLink($matches[1]);
 
-            if (! empty($link)) {
+            if (!empty($link)) {
                 return [
                     'extent'  => strlen($matches[0]),
                     'element' => [
@@ -102,16 +102,16 @@ class Markdown extends Parsedown
      * Replace "@username" by a link to the user
      *
      * @access public
-     * @param  array  $Excerpt
+     * @param array $Excerpt
      * @return array|null
      */
     protected function inlineUserLink(array $Excerpt)
     {
-        if (! $this->isPublicLink && preg_match('/^@([^\s,!:?]+)/', $Excerpt['text'], $matches)) {
+        if (!$this->isPublicLink && preg_match('/^@([^\s,!:?]+)/', $Excerpt['text'], $matches)) {
             $username = rtrim($matches[1], '.');
             $user = $this->container['userCacheDecorator']->getByUsername($username);
 
-            if (! empty($user)) {
+            if (!empty($user)) {
                 $url = $this->container['helper']->url->to('UserViewController', 'profile', ['user_id' => $user['id']]);
                 $name = $user['name'] ?: $user['username'];
 
@@ -138,7 +138,7 @@ class Markdown extends Parsedown
      * Build task link
      *
      * @access private
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return string
      */
     private function buildTaskLink($task_id)
@@ -146,7 +146,7 @@ class Markdown extends Parsedown
         if ($this->isPublicLink) {
             $token = $this->container['memoryCache']->proxy($this->container['taskFinderModel'], 'getProjectToken', $task_id);
 
-            if (! empty($token)) {
+            if (!empty($token)) {
                 return $this->container['helper']->url->to(
                     'TaskViewController',
                     'readonly',
@@ -181,6 +181,7 @@ class Markdown extends Parsedown
         if (is_array($Inline)) {
             array_push($Inline['element']['nonNestables'], 'TaskLink', 'UserLink');
         }
+
         return $Inline;
     }
 }

@@ -25,7 +25,7 @@ class Group
      * Constructor
      *
      * @access public
-     * @param  Query   $query
+     * @param Query $query
      */
     public function __construct(Query $query)
     {
@@ -37,13 +37,14 @@ class Group
      *
      * @static
      * @access public
-     * @param  Client    $client
-     * @param  string    $query
+     * @param Client $client
+     * @param string $query
      * @return LdapGroupProvider[]
      */
     public static function getGroups(Client $client, $query)
     {
         $self = new static(new Query($client));
+
         return $self->find($query);
     }
 
@@ -51,7 +52,7 @@ class Group
      * Find groups
      *
      * @access public
-     * @param  string    $query
+     * @param string $query
      * @return array
      */
     public function find($query)
@@ -67,20 +68,18 @@ class Group
     }
 
     /**
-     * Build groups list
+     * Get LDAP group base DN
      *
-     * @access protected
-     * @return array
+     * @access public
+     * @return string
      */
-    protected function build()
+    public function getBaseDn()
     {
-        $groups = [];
-
-        foreach ($this->query->getEntries()->getAll() as $entry) {
-            $groups[] = new LdapGroupProvider($entry->getDn(), $entry->getFirstValue($this->getAttributeName()));
+        if (!LDAP_GROUP_BASE_DN) {
+            throw new LogicException('LDAP group base DN empty, check the parameter LDAP_GROUP_BASE_DN');
         }
 
-        return $groups;
+        return LDAP_GROUP_BASE_DN;
     }
 
     /**
@@ -106,7 +105,7 @@ class Group
      */
     public function getAttributeName()
     {
-        if (! LDAP_GROUP_ATTRIBUTE_NAME) {
+        if (!LDAP_GROUP_ATTRIBUTE_NAME) {
             throw new LogicException('LDAP full name attribute empty, check the parameter LDAP_GROUP_ATTRIBUTE_NAME');
         }
 
@@ -114,17 +113,19 @@ class Group
     }
 
     /**
-     * Get LDAP group base DN
+     * Build groups list
      *
-     * @access public
-     * @return string
+     * @access protected
+     * @return array
      */
-    public function getBaseDn()
+    protected function build()
     {
-        if (! LDAP_GROUP_BASE_DN) {
-            throw new LogicException('LDAP group base DN empty, check the parameter LDAP_GROUP_BASE_DN');
+        $groups = [];
+
+        foreach ($this->query->getEntries()->getAll() as $entry) {
+            $groups[] = new LdapGroupProvider($entry->getDn(), $entry->getFirstValue($this->getAttributeName()));
         }
 
-        return LDAP_GROUP_BASE_DN;
+        return $groups;
     }
 }

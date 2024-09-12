@@ -1,4 +1,4 @@
-<?php if (! $is_ajax): ?>
+<?php if (!$is_ajax): ?>
     <div class="page-header">
         <h2><?= t('Average time spent in each column') ?></h2>
     </div>

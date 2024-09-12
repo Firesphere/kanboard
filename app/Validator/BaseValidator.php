@@ -17,8 +17,8 @@ abstract class BaseValidator extends Base
      * Execute multiple validators
      *
      * @access public
-     * @param  array  $validators       List of validators
-     * @param  array  $values           Form values
+     * @param array $validators List of validators
+     * @param array $values Form values
      * @return array  $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function executeValidators(array $validators, array $values)
@@ -29,7 +29,7 @@ abstract class BaseValidator extends Base
         foreach ($validators as $method) {
             list($result, $errors) = $this->$method($values);
 
-            if (! $result) {
+            if (!$result) {
                 break;
             }
         }

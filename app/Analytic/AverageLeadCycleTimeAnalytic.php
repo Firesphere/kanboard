@@ -17,7 +17,7 @@ class AverageLeadCycleTimeAnalytic extends Base
      * Build report
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function build($project_id)
@@ -48,14 +48,14 @@ class AverageLeadCycleTimeAnalytic extends Base
      * Calculate average
      *
      * @access private
-     * @param  array  &$stats
-     * @param  string $field
+     * @param array  &$stats
+     * @param string $field
      * @return float
      */
     private function calculateAverage(array &$stats, $field)
     {
         if ($stats['count'] > 0) {
-            return (int) ($stats[$field] / $stats['count']);
+            return (int)($stats[$field] / $stats['count']);
         }
 
         return 0;
@@ -65,7 +65,7 @@ class AverageLeadCycleTimeAnalytic extends Base
      * Calculate lead time
      *
      * @access private
-     * @param  array  &$task
+     * @param array  &$task
      * @return integer
      */
     private function calculateLeadTime(array &$task)
@@ -80,13 +80,13 @@ class AverageLeadCycleTimeAnalytic extends Base
      * Calculate cycle time
      *
      * @access private
-     * @param  array  &$task
+     * @param array  &$task
      * @return integer
      */
     private function calculateCycleTime(array &$task)
     {
-        $end = (int) $task['date_completed'] ?: time();
-        $start = (int) $task['date_started'];
+        $end = (int)$task['date_completed'] ?: time();
+        $start = (int)$task['date_started'];
 
         // Start date can be in the future when defined with the Gantt chart
         if ($start > 0 && $end > $start) {
@@ -100,7 +100,7 @@ class AverageLeadCycleTimeAnalytic extends Base
      * Get the 1000 last created tasks
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function getTasks($project_id)

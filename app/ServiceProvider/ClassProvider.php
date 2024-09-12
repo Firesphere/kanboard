@@ -18,7 +18,7 @@ use Pimple\ServiceProviderInterface;
 class ClassProvider implements ServiceProviderInterface
 {
     private $classes = [
-        'Analytic' => [
+        'Analytic'      => [
             'TaskDistributionAnalytic',
             'UserDistributionAnalytic',
             'EstimatedTimeComparisonAnalytic',
@@ -26,7 +26,7 @@ class ClassProvider implements ServiceProviderInterface
             'AverageTimeSpentColumnAnalytic',
             'EstimatedActualColumnAnalytic',
         ],
-        'Model' => [
+        'Model'         => [
             'ActionModel',
             'ActionParameterModel',
             'AvatarFileModel',
@@ -100,7 +100,7 @@ class ClassProvider implements ServiceProviderInterface
             'UserUnreadNotificationModel',
             'UserMetadataModel',
         ],
-        'Validator' => [
+        'Validator'     => [
             'ActionValidator',
             'AuthValidator',
             'CategoryValidator',
@@ -124,41 +124,41 @@ class ClassProvider implements ServiceProviderInterface
             'UserValidator',
             'PredefinedTaskDescriptionValidator',
         ],
-        'Import' => [
+        'Import'        => [
             'UserImport',
         ],
-        'Export' => [
+        'Export'        => [
             'SubtaskExport',
             'TaskExport',
             'TransitionExport',
         ],
-        'Pagination' => [
+        'Pagination'    => [
             'DashboardPagination',
             'ProjectPagination',
             'SubtaskPagination',
             'TaskPagination',
             'UserPagination',
         ],
-        'Core' => [
+        'Core'          => [
             'DateParser',
             'Lexer',
         ],
-        'Core\Event' => [
+        'Core\Event'    => [
             'EventManager',
         ],
-        'Core\Http' => [
+        'Core\Http'     => [
             'Request',
             'Response',
             'RememberMeCookie',
         ],
-        'Core\Plugin' => [
+        'Core\Plugin'   => [
             'Hook',
         ],
         'Core\Security' => [
             'Token',
             'Role',
         ],
-        'Core\User' => [
+        'Core\User'     => [
             'GroupSync',
             'UserSync',
             'UserSession',

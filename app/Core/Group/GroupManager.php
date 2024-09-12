@@ -22,12 +22,13 @@ class GroupManager
      * Register a new group backend provider
      *
      * @access public
-     * @param  GroupBackendProviderInterface $provider
+     * @param GroupBackendProviderInterface $provider
      * @return GroupManager
      */
     public function register(GroupBackendProviderInterface $provider)
     {
         $this->providers[] = $provider;
+
         return $this;
     }
 
@@ -35,7 +36,7 @@ class GroupManager
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return GroupProviderInterface[]
      */
     public function find($input)
@@ -53,7 +54,7 @@ class GroupManager
      * Remove duplicated groups
      *
      * @access protected
-     * @param  array $groups
+     * @param array $groups
      * @return GroupProviderInterface[]
      */
     protected function removeDuplicates(array $groups)
@@ -61,7 +62,7 @@ class GroupManager
         $result = [];
 
         foreach ($groups as $group) {
-            if (! isset($result[$group->getName()])) {
+            if (!isset($result[$group->getName()])) {
                 $result[$group->getName()] = $group;
             }
         }

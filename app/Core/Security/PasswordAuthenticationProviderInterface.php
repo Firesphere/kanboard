@@ -22,7 +22,7 @@ interface PasswordAuthenticationProviderInterface extends AuthenticationProvider
      * Set username
      *
      * @access public
-     * @param  string $username
+     * @param string $username
      */
     public function setUsername($username);
 
@@ -30,7 +30,7 @@ interface PasswordAuthenticationProviderInterface extends AuthenticationProvider
      * Set password
      *
      * @access public
-     * @param  string $password
+     * @param string $password
      */
     public function setPassword($password);
 }

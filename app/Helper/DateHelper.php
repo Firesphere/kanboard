@@ -17,7 +17,7 @@ class DateHelper extends Base
      * Get formatted time
      *
      * @access public
-     * @param  integer $value
+     * @param integer $value
      * @return string
      */
     public function time($value)
@@ -29,7 +29,7 @@ class DateHelper extends Base
      * Get formatted date
      *
      * @access public
-     * @param  integer $value
+     * @param integer $value
      * @return string
      */
     public function date($value)
@@ -38,7 +38,7 @@ class DateHelper extends Base
             return '';
         }
 
-        if (! ctype_digit((string) $value)) {
+        if (!ctype_digit((string)$value)) {
             $value = strtotime($value);
         }
 
@@ -49,7 +49,7 @@ class DateHelper extends Base
      * Get formatted  datetime
      *
      * @access public
-     * @param  integer $value
+     * @param integer $value
      * @return string
      */
     public function datetime($value)
@@ -61,7 +61,7 @@ class DateHelper extends Base
      * Get duration in seconds into human format
      *
      * @access public
-     * @param  integer  $seconds
+     * @param integer $seconds
      * @return string
      */
     public function duration($seconds)
@@ -74,6 +74,7 @@ class DateHelper extends Base
         $dtT = new DateTime("@$seconds");
 
         $format = sprintf("%%a %s, %%h %s, %%i %s, %%s %s", t('days'), t('hours'), t('minutes'), t('seconds'));
+
         return $dtF->diff($dtT)->format($format);
     }
 
@@ -81,7 +82,7 @@ class DateHelper extends Base
      * Get duration in hours into human format
      *
      * @access public
-     * @param  float  $hours
+     * @param float $hours
      * @return string
      */
     public function durationHours($hours)
@@ -94,8 +95,8 @@ class DateHelper extends Base
      * It's in this format: <1h , NNh, NNd
      *
      * @access public
-     * @param  integer    $timestamp    Unix timestamp of the artifact for which age will be calculated
-     * @param  integer    $now          Compare with this timestamp (Default value is the current unix timestamp)
+     * @param integer $timestamp Unix timestamp of the artifact for which age will be calculated
+     * @param integer $now Compare with this timestamp (Default value is the current unix timestamp)
      * @return string
      */
     public function age($timestamp, $now = null)
@@ -161,7 +162,7 @@ class DateHelper extends Base
      * Get the localized day name from the day number
      *
      * @access public
-     * @param  integer   $day  Day number
+     * @param integer $day Day number
      * @return string
      */
     public function getWeekDay($day)

@@ -2,7 +2,9 @@
     <h2><?= t('Category modification for the project "%s"', $project['name']) ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('CategoryController', 'update', ['project_id' => $project['id'], 'category_id' => $values['id']]) ?>" autocomplete="off">
+<form method="post"
+      action="<?= $this->url->href('CategoryController', 'update', ['project_id' => $project['id'], 'category_id' => $values['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Category Name'), 'name') ?>

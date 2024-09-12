@@ -15,21 +15,22 @@ class TaskLinkEventJob extends BaseJob
     /**
      * Set job params
      *
-     * @param  int    $taskLinkId
-     * @param  string $eventName
+     * @param int $taskLinkId
+     * @param string $eventName
      * @return $this
      */
     public function withParams($taskLinkId, $eventName)
     {
         $this->jobParams = [$taskLinkId, $eventName];
+
         return $this;
     }
 
     /**
      * Execute job
      *
-     * @param  int    $taskLinkId
-     * @param  string $eventName
+     * @param int $taskLinkId
+     * @param string $eventName
      */
     public function execute($taskLinkId, $eventName)
     {

@@ -42,12 +42,13 @@ class FormatterProvider implements ServiceProviderInterface
     /**
      * Registers services on the given container.
      *
-     * @param  Container $container
+     * @param Container $container
      * @return Container
      */
     public function register(Container $container)
     {
         Tool::buildFactories($container, $this->formatters);
+
         return $container;
     }
 }

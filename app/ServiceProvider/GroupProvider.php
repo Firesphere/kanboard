@@ -20,7 +20,7 @@ class GroupProvider implements ServiceProviderInterface
      * Register providers
      *
      * @access public
-     * @param  \Pimple\Container $container
+     * @param \Pimple\Container $container
      * @return \Pimple\Container
      */
     public function register(Container $container)

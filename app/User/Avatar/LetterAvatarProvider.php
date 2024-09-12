@@ -24,8 +24,8 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * Render avatar html
      *
      * @access public
-     * @param  array $user
-     * @param  int   $size
+     * @param array $user
+     * @param int $size
      * @return string
      */
     public function render(array $user, $size)
@@ -49,7 +49,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * Determine if the provider is active
      *
      * @access public
-     * @param  array $user
+     * @param array $user
      * @return boolean
      */
     public function isActive(array $user)
@@ -60,12 +60,13 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
     /**
      * Get background color based on a string
      *
-     * @param  string $str
+     * @param string $str
      * @return array
      */
     public function getBackgroundColor($str)
     {
         $hsl = $this->getHSL($str);
+
         return $this->getRGB($hsl[0], $hsl[1], $hsl[2]);
     }
 
@@ -73,9 +74,9 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * Convert HSL to RGB
      *
      * @access protected
-     * @param  integer  $hue         Hue ∈ [0, 360)
-     * @param  integer  $saturation  Saturation ∈ [0, 1]
-     * @param  integer  $lightness   Lightness ∈ [0, 1]
+     * @param integer $hue Hue ∈ [0, 360)
+     * @param integer $saturation Saturation ∈ [0, 1]
+     * @param integer $lightness Lightness ∈ [0, 1]
      * @return array
      */
     protected function getRGB($hue, $saturation, $lightness)
@@ -112,7 +113,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * Note that H ∈ [0, 360); S ∈ [0, 1]; L ∈ [0, 1];
      *
      * @access protected
-     * @param  string $str
+     * @param string $str
      * @return array
      */
     protected function getHSL($str)
@@ -133,7 +134,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * BKDR Hash (modified version)
      *
      * @access protected
-     * @param  string $str
+     * @param string $str
      * @return integer
      */
     protected function hash($str)
@@ -161,12 +162,13 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
      * Backport of Javascript function charCodeAt()
      *
      * @access protected
-     * @param  string $c
+     * @param string $c
      * @return integer
      */
     protected function getCharCode($c)
     {
         list(, $ord) = unpack('N', mb_convert_encoding($c, 'UCS-4BE', 'UTF-8'));
+
         return $ord;
     }
 }

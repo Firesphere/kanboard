@@ -73,6 +73,7 @@ class CommandProvider implements ServiceProviderInterface
         $application->add(new JsCommand($container));
 
         $container['cli'] = $application;
+
         return $container;
     }
 }

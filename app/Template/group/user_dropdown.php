@@ -1,5 +1,6 @@
 <div class="dropdown">
-    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $user['id'] ?> <i class="fa fa-caret-down"></i></strong></a>
+    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $user['id'] ?> <i
+                    class="fa fa-caret-down"></i></strong></a>
     <ul>
         <li>
             <?= $this->url->icon('user', t('View profile'), 'UserViewController', 'show', ['user_id' => $user['id']]) ?>

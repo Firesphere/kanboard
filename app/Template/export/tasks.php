@@ -2,7 +2,9 @@
 
 <p class="alert alert-info"><?= t('This report contains all tasks information for the given date range.') ?></p>
 
-<form class="js-modal-ignore-form" method="post" action="<?= $this->url->href('ExportController', 'tasks', ['project_id' => $project['id']]) ?>" autocomplete="off">
+<form class="js-modal-ignore-form" method="post"
+      action="<?= $this->url->href('ExportController', 'tasks', ['project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('project_id', $values) ?>
     <?= $this->form->date(t('Start date'), 'from', $values) ?>

@@ -25,13 +25,13 @@ class Lexer
      * @var array
      */
     private $tokenMap = [
-        '/^(\s+)/'                                       => 'T_WHITESPACE',
-        '/^([<=>]{0,2}[0-9]{4}-[0-9]{2}-[0-9]{2})/'      => 'T_STRING',
-        '/^([<=>]{1,2}\w+)/u'                            => 'T_STRING',
-        '/^([<=>]{1,2}".+")/'                            => 'T_STRING',
-        '/^("(.*?)")/'                                   => 'T_STRING',
-        '/^(\S+)/u'                                      => 'T_STRING',
-        '/^(#\d+)/'                                      => 'T_STRING',
+        '/^(\s+)/'                                  => 'T_WHITESPACE',
+        '/^([<=>]{0,2}[0-9]{4}-[0-9]{2}-[0-9]{2})/' => 'T_STRING',
+        '/^([<=>]{1,2}\w+)/u'                       => 'T_STRING',
+        '/^([<=>]{1,2}".+")/'                       => 'T_STRING',
+        '/^("(.*?)")/'                              => 'T_STRING',
+        '/^(\S+)/u'                                 => 'T_STRING',
+        '/^(#\d+)/'                                 => 'T_STRING',
     ];
 
     /**
@@ -46,13 +46,14 @@ class Lexer
      * Add token
      *
      * @access public
-     * @param  string $regex
-     * @param  string $token
+     * @param string $regex
+     * @param string $token
      * @return $this
      */
     public function addToken($regex, $token)
     {
         $this->tokenMap = [$regex => $token] + $this->tokenMap;
+
         return $this;
     }
 
@@ -60,12 +61,13 @@ class Lexer
      * Set default token
      *
      * @access public
-     * @param  string $token
+     * @param string $token
      * @return $this
      */
     public function setDefaultToken($token)
     {
         $this->defaultToken = $token;
+
         return $this;
     }
 
@@ -73,7 +75,7 @@ class Lexer
      * Tokenize input string
      *
      * @access public
-     * @param  string  $input
+     * @param string $input
      * @return array
      */
     public function tokenize($input)
@@ -99,7 +101,7 @@ class Lexer
      * Find a token that match and move the offset
      *
      * @access protected
-     * @param  string  $string
+     * @param string $string
      * @return array|boolean
      */
     protected function match($string)
@@ -122,7 +124,7 @@ class Lexer
      * Build map of tokens and matches
      *
      * @access protected
-     * @param  array  $tokens
+     * @param array $tokens
      * @return array
      */
     protected function map(array $tokens)

@@ -70,7 +70,7 @@ class TaskBulkChangePropertyController extends BaseController
                 $changes['score'] = $values['score'];
             }
 
-            if (! empty($changes)) {
+            if (!empty($changes)) {
                 $changes['id'] = $taskID;
                 $this->taskModificationModel->update($changes);
             }

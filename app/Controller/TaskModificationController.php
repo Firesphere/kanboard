@@ -20,11 +20,11 @@ class TaskModificationController extends BaseController
         $task = $this->getTask();
         $values = ['id' => $task['id'], 'owner_id' => $this->userSession->getId()];
 
-        if (! $this->helper->projectRole->canUpdateTask($task)) {
+        if (!$this->helper->projectRole->canUpdateTask($task)) {
             throw new AccessForbiddenException(t('You are not allowed to update tasks assigned to someone else.'));
         }
 
-        if (! $this->helper->projectRole->canChangeAssignee($task)) {
+        if (!$this->helper->projectRole->canChangeAssignee($task)) {
             throw new AccessForbiddenException(t('You are not allowed to change the assignee.'));
         }
 
@@ -43,7 +43,7 @@ class TaskModificationController extends BaseController
         $task = $this->getTask();
         $values = ['id' => $task['id'], 'date_started' => time()];
 
-        if (! $this->helper->projectRole->canUpdateTask($task)) {
+        if (!$this->helper->projectRole->canUpdateTask($task)) {
             throw new AccessForbiddenException(t('You are not allowed to update tasks assigned to someone else.'));
         }
 
@@ -84,7 +84,7 @@ class TaskModificationController extends BaseController
     {
         $task = $this->getTask();
 
-        if (! $this->helper->projectRole->canUpdateTask($task)) {
+        if (!$this->helper->projectRole->canUpdateTask($task)) {
             throw new AccessForbiddenException(t('You are not allowed to update tasks assigned to someone else.'));
         }
 
@@ -158,13 +158,13 @@ class TaskModificationController extends BaseController
             throw new AccessForbiddenException(t('You are not allowed to change the assignee.'));
         }
 
-        if (! $this->helper->projectRole->canUpdateTask($task)) {
+        if (!$this->helper->projectRole->canUpdateTask($task)) {
             throw new AccessForbiddenException(t('You are not allowed to update tasks assigned to someone else.'));
         }
 
         $result = $this->taskModificationModel->update($values);
 
-        if ($result && ! empty($task['external_uri'])) {
+        if ($result && !empty($task['external_uri'])) {
             try {
                 $taskProvider = $this->externalTaskManager->getProvider($task['external_provider']);
                 $result = $taskProvider->save($task['external_uri'], $values, $errors);

@@ -34,7 +34,7 @@ abstract class MetadataModel extends Base
      * Get all metadata for the entity
      *
      * @access public
-     * @param  integer  $entity_id
+     * @param integer $entity_id
      * @return array
      */
     public function getAll($entity_id)
@@ -50,9 +50,9 @@ abstract class MetadataModel extends Base
      * Get a metadata for the given entity
      *
      * @access public
-     * @param  integer  $entity_id
-     * @param  string   $name
-     * @param  string   $default
+     * @param integer $entity_id
+     * @param string $name
+     * @param string $default
      * @return mixed
      */
     public function get($entity_id, $name, $default = '')
@@ -68,8 +68,8 @@ abstract class MetadataModel extends Base
      * Return true if a metadata exists
      *
      * @access public
-     * @param  integer  $entity_id
-     * @param  string   $name
+     * @param integer $entity_id
+     * @param string $name
      * @return boolean
      */
     public function exists($entity_id, $name)
@@ -85,8 +85,8 @@ abstract class MetadataModel extends Base
      * Update or insert new metadata
      *
      * @access public
-     * @param  integer  $entity_id
-     * @param  array    $values
+     * @param integer $entity_id
+     * @param array $values
      * @return boolean
      */
     public function save($entity_id, array $values)
@@ -119,15 +119,16 @@ abstract class MetadataModel extends Base
         }
 
         $this->db->closeTransaction();
-        return ! in_array(false, $results, true);
+
+        return !in_array(false, $results, true);
     }
 
     /**
      * Remove a metadata
      *
      * @access public
-     * @param  integer $entity_id
-     * @param  string  $name
+     * @param integer $entity_id
+     * @param string $name
      * @return bool
      */
     public function remove($entity_id, $name)

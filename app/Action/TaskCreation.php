@@ -62,12 +62,12 @@ class TaskCreation extends Base
      * Execute the action (create a new task)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
-        return (bool) $this->taskCreationModel->create([
+        return (bool)$this->taskCreationModel->create([
             'project_id'  => $data['project_id'],
             'title'       => $data['title'],
             'reference'   => $data['reference'],
@@ -79,7 +79,7 @@ class TaskCreation extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)

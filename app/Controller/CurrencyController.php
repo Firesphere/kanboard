@@ -55,6 +55,7 @@ class CurrencyController extends BaseController
             if ($this->currencyModel->create($values['currency'], $values['rate'])) {
                 $this->flash->success(t('The currency rate has been added successfully.'));
                 $this->response->redirect($this->helper->url->to('CurrencyController', 'show'), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to add this currency rate.'));

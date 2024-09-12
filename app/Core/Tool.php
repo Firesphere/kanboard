@@ -19,8 +19,8 @@ class Tool
      *
      * @static
      * @access public
-     * @param  string $directory
-     * @param  bool   $removeDirectory
+     * @param string $directory
+     * @param bool $removeDirectory
      */
     public static function removeAllFiles($directory, $removeDirectory = true)
     {
@@ -45,8 +45,8 @@ class Tool
      *
      * @static
      * @access public
-     * @param  Container  $container
-     * @param  array      $namespaces
+     * @param Container $container
+     * @param array $namespaces
      * @return Container
      */
     public static function buildDIC(Container $container, array $namespaces)
@@ -68,8 +68,8 @@ class Tool
      *
      * @static
      * @access public
-     * @param  Container  $container
-     * @param  array      $namespaces
+     * @param Container $container
+     * @param array $namespaces
      * @return Container
      */
     public static function buildFactories(Container $container, array $namespaces)
@@ -91,8 +91,8 @@ class Tool
      *
      * @static
      * @access public
-     * @param  Container  $container
-     * @param  array      $namespaces
+     * @param Container $container
+     * @param array $namespaces
      * @return Container
      */
     public static function buildDICHelpers(Container $container, array $namespaces)

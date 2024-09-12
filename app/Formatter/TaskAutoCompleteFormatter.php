@@ -25,6 +25,7 @@ class TaskAutoCompleteFormatter extends BaseFormatter implements FormatterInterf
     public function withLimit($limit)
     {
         $this->limit = $limit;
+
         return $this;
     }
 

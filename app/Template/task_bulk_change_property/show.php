@@ -2,7 +2,8 @@
     <h2><?= t('Edit tasks in bulk') ?></h2>
 </div>
 
-<form action="<?= $this->url->href('TaskBulkChangePropertyController', 'save', ['project_id' => $project['id']]) ?>" method="post">
+<form action="<?= $this->url->href('TaskBulkChangePropertyController', 'save', ['project_id' => $project['id']]) ?>"
+      method="post">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('task_ids', $values) ?>
 

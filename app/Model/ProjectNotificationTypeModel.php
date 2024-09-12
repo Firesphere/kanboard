@@ -21,7 +21,7 @@ class ProjectNotificationTypeModel extends NotificationTypeModel
      * Get selected notification types for a given project
      *
      * @access public
-     * @param integer  $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getSelectedTypes($project_id)
@@ -39,8 +39,8 @@ class ProjectNotificationTypeModel extends NotificationTypeModel
      * Save notification types for a given project
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  string[] $types
+     * @param integer $project_id
+     * @param string[] $types
      * @return boolean
      */
     public function saveSelectedTypes($project_id, array $types)
@@ -52,6 +52,6 @@ class ProjectNotificationTypeModel extends NotificationTypeModel
             $results[] = $this->db->table(self::TABLE)->insert(['project_id' => $project_id, 'notification_type' => $type]);
         }
 
-        return ! in_array(false, $results, true);
+        return !in_array(false, $results, true);
     }
 }

@@ -16,8 +16,8 @@ class TaskFinderModel extends Base
      * Get query for project user overview
      *
      * @access public
-     * @param array    $project_ids
-     * @param integer  $is_active
+     * @param array $project_ids
+     * @param integer $is_active
      * @return \PicoDb\Table
      */
     public function getProjectUserOverviewQuery(array $project_ids, $is_active)
@@ -27,46 +27,46 @@ class TaskFinderModel extends Base
         }
 
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->columns(
-                        TaskModel::TABLE . '.id',
-                        TaskModel::TABLE . '.title',
-                        TaskModel::TABLE . '.date_due',
-                        TaskModel::TABLE . '.date_started',
-                        TaskModel::TABLE . '.project_id',
-                        TaskModel::TABLE . '.color_id',
-                        TaskModel::TABLE . '.priority',
-                        TaskModel::TABLE . '.time_spent',
-                        TaskModel::TABLE . '.time_estimated',
-                        ProjectModel::TABLE . '.name AS project_name',
-                        ColumnModel::TABLE . '.title AS column_name',
-                        UserModel::TABLE . '.username AS assignee_username',
-                        UserModel::TABLE . '.name AS assignee_name',
-                    )
-                    ->eq(TaskModel::TABLE . '.is_active', $is_active)
-                    ->in(ProjectModel::TABLE . '.id', $project_ids)
-                    ->join(ProjectModel::TABLE, 'id', 'project_id')
-                    ->join(ColumnModel::TABLE, 'id', 'column_id', TaskModel::TABLE)
-                    ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE);
+            ->table(TaskModel::TABLE)
+            ->columns(
+                TaskModel::TABLE . '.id',
+                TaskModel::TABLE . '.title',
+                TaskModel::TABLE . '.date_due',
+                TaskModel::TABLE . '.date_started',
+                TaskModel::TABLE . '.project_id',
+                TaskModel::TABLE . '.color_id',
+                TaskModel::TABLE . '.priority',
+                TaskModel::TABLE . '.time_spent',
+                TaskModel::TABLE . '.time_estimated',
+                ProjectModel::TABLE . '.name AS project_name',
+                ColumnModel::TABLE . '.title AS column_name',
+                UserModel::TABLE . '.username AS assignee_username',
+                UserModel::TABLE . '.name AS assignee_name',
+            )
+            ->eq(TaskModel::TABLE . '.is_active', $is_active)
+            ->in(ProjectModel::TABLE . '.id', $project_ids)
+            ->join(ProjectModel::TABLE, 'id', 'project_id')
+            ->join(ColumnModel::TABLE, 'id', 'column_id', TaskModel::TABLE)
+            ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE);
     }
 
     /**
      * Get query for assigned user tasks
      *
      * @access public
-     * @param  integer    $user_id       User id
+     * @param integer $user_id User id
      * @return \PicoDb\Table
      */
     public function getUserQuery($user_id)
     {
         return $this->getExtendedQuery()
-                    ->beginOr()
-                    ->eq(TaskModel::TABLE . '.owner_id', $user_id)
-                    ->addCondition(TaskModel::TABLE . ".id IN (SELECT task_id FROM " . SubtaskModel::TABLE . " WHERE " . SubtaskModel::TABLE . ".user_id='$user_id')")
-                    ->closeOr()
-                    ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
-                    ->eq(ProjectModel::TABLE . '.is_active', ProjectModel::ACTIVE)
-                    ->eq(ColumnModel::TABLE . '.hide_in_dashboard', 0);
+            ->beginOr()
+            ->eq(TaskModel::TABLE . '.owner_id', $user_id)
+            ->addCondition(TaskModel::TABLE . ".id IN (SELECT task_id FROM " . SubtaskModel::TABLE . " WHERE " . SubtaskModel::TABLE . ".user_id='$user_id')")
+            ->closeOr()
+            ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
+            ->eq(ProjectModel::TABLE . '.is_active', ProjectModel::ACTIVE)
+            ->eq(ColumnModel::TABLE . '.hide_in_dashboard', 0);
     }
 
     /**
@@ -142,36 +142,36 @@ class TaskFinderModel extends Base
      * Get all tasks for a given project and status
      *
      * @access public
-     * @param  integer   $project_id      Project id
-     * @param  integer   $status_id       Status id
+     * @param integer $project_id Project id
+     * @param integer $status_id Status id
      * @return array
      */
     public function getAll($project_id, $status_id = TaskModel::STATUS_OPEN)
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq(TaskModel::TABLE . '.project_id', $project_id)
-                    ->eq(TaskModel::TABLE . '.is_active', $status_id)
-                    ->asc(TaskModel::TABLE . '.id')
-                    ->findAll();
+            ->table(TaskModel::TABLE)
+            ->eq(TaskModel::TABLE . '.project_id', $project_id)
+            ->eq(TaskModel::TABLE . '.is_active', $status_id)
+            ->asc(TaskModel::TABLE . '.id')
+            ->findAll();
     }
 
     /**
      * Get all tasks for a given project and status
      *
      * @access public
-     * @param  integer   $project_id
-     * @param  array     $status
+     * @param integer $project_id
+     * @param array $status
      * @return array
      */
     public function getAllIds($project_id, array $status = [TaskModel::STATUS_OPEN])
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq(TaskModel::TABLE . '.project_id', $project_id)
-                    ->in(TaskModel::TABLE . '.is_active', $status)
-                    ->asc(TaskModel::TABLE . '.id')
-                    ->findAllByColumn(TaskModel::TABLE . '.id');
+            ->table(TaskModel::TABLE)
+            ->eq(TaskModel::TABLE . '.project_id', $project_id)
+            ->in(TaskModel::TABLE . '.is_active', $status)
+            ->asc(TaskModel::TABLE . '.id')
+            ->findAllByColumn(TaskModel::TABLE . '.id');
     }
 
     /**
@@ -183,23 +183,23 @@ class TaskFinderModel extends Base
     public function getOverdueTasksQuery()
     {
         return $this->db->table(TaskModel::TABLE)
-                    ->columns(
-                        TaskModel::TABLE . '.id',
-                        TaskModel::TABLE . '.title',
-                        TaskModel::TABLE . '.date_due',
-                        TaskModel::TABLE . '.project_id',
-                        TaskModel::TABLE . '.creator_id',
-                        TaskModel::TABLE . '.owner_id',
-                        ProjectModel::TABLE . '.name AS project_name',
-                        UserModel::TABLE . '.username AS assignee_username',
-                        UserModel::TABLE . '.name AS assignee_name',
-                    )
-                    ->join(ProjectModel::TABLE, 'id', 'project_id')
-                    ->join(UserModel::TABLE, 'id', 'owner_id')
-                    ->eq(ProjectModel::TABLE . '.is_active', 1)
-                    ->eq(TaskModel::TABLE . '.is_active', 1)
-                    ->neq(TaskModel::TABLE . '.date_due', 0)
-                    ->lte(TaskModel::TABLE . '.date_due', time());
+            ->columns(
+                TaskModel::TABLE . '.id',
+                TaskModel::TABLE . '.title',
+                TaskModel::TABLE . '.date_due',
+                TaskModel::TABLE . '.project_id',
+                TaskModel::TABLE . '.creator_id',
+                TaskModel::TABLE . '.owner_id',
+                ProjectModel::TABLE . '.name AS project_name',
+                UserModel::TABLE . '.username AS assignee_username',
+                UserModel::TABLE . '.name AS assignee_name',
+            )
+            ->join(ProjectModel::TABLE, 'id', 'project_id')
+            ->join(UserModel::TABLE, 'id', 'owner_id')
+            ->eq(ProjectModel::TABLE . '.is_active', 1)
+            ->eq(TaskModel::TABLE . '.is_active', 1)
+            ->neq(TaskModel::TABLE . '.date_due', 0)
+            ->lte(TaskModel::TABLE . '.date_due', time());
     }
 
     /**
@@ -217,7 +217,7 @@ class TaskFinderModel extends Base
      * Get a list of overdue tasks by project
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getOverdueTasksByProject($project_id)
@@ -229,7 +229,7 @@ class TaskFinderModel extends Base
      * Get a list of overdue tasks by user
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getOverdueTasksByUser($user_id)
@@ -241,19 +241,19 @@ class TaskFinderModel extends Base
      * Get project id for a given task
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return integer
      */
     public function getProjectId($task_id)
     {
-        return (int) $this->db->table(TaskModel::TABLE)->eq('id', $task_id)->findOneColumn('project_id') ?: 0;
+        return (int)$this->db->table(TaskModel::TABLE)->eq('id', $task_id)->findOneColumn('project_id') ?: 0;
     }
 
     /**
      * Fetch a task by the id
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function getById($task_id)
@@ -265,8 +265,8 @@ class TaskFinderModel extends Base
      * Fetch a task by the reference (external id)
      *
      * @access public
-     * @param  integer  $project_id  Project id
-     * @param  string   $reference   Task reference
+     * @param integer $project_id Project id
+     * @param string $reference Task reference
      * @return array
      */
     public function getByReference($project_id, $reference)
@@ -278,7 +278,7 @@ class TaskFinderModel extends Base
      * Get task details (fetch more information from other tables)
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function getDetails($task_id)
@@ -333,63 +333,63 @@ class TaskFinderModel extends Base
      * Count all tasks for a given project and status
      *
      * @access public
-     * @param  integer   $project_id   Project id
-     * @param  array     $status       List of status id
+     * @param integer $project_id Project id
+     * @param array $status List of status id
      * @return integer
      */
     public function countByProjectId($project_id, array $status = [TaskModel::STATUS_OPEN, TaskModel::STATUS_CLOSED])
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq('project_id', $project_id)
-                    ->in('is_active', $status)
-                    ->count();
+            ->table(TaskModel::TABLE)
+            ->eq('project_id', $project_id)
+            ->in('is_active', $status)
+            ->count();
     }
 
     /**
      * Count the number of tasks for a given column and status
      *
      * @access public
-     * @param  integer $project_id Project id
-     * @param  integer $column_id Column id
-     * @param  array   $status
+     * @param integer $project_id Project id
+     * @param integer $column_id Column id
+     * @param array $status
      * @return int
      */
     public function countByColumnId($project_id, $column_id, array $status = [TaskModel::STATUS_OPEN])
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq('project_id', $project_id)
-                    ->eq('column_id', $column_id)
-                    ->in('is_active', $status)
-                    ->count();
+            ->table(TaskModel::TABLE)
+            ->eq('project_id', $project_id)
+            ->eq('column_id', $column_id)
+            ->in('is_active', $status)
+            ->count();
     }
 
     /**
      * Count the number of tasks for a given column and swimlane
      *
      * @access public
-     * @param  integer   $project_id     Project id
-     * @param  integer   $column_id      Column id
-     * @param  integer   $swimlane_id    Swimlane id
+     * @param integer $project_id Project id
+     * @param integer $column_id Column id
+     * @param integer $swimlane_id Swimlane id
      * @return integer
      */
     public function countByColumnAndSwimlaneId($project_id, $column_id, $swimlane_id)
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq('project_id', $project_id)
-                    ->eq('column_id', $column_id)
-                    ->eq('swimlane_id', $swimlane_id)
-                    ->eq('is_active', 1)
-                    ->count();
+            ->table(TaskModel::TABLE)
+            ->eq('project_id', $project_id)
+            ->eq('column_id', $column_id)
+            ->eq('swimlane_id', $swimlane_id)
+            ->eq('is_active', 1)
+            ->count();
     }
 
     /**
      * Return true if the task exists
      *
      * @access public
-     * @param  integer    $task_id   Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function exists($task_id)
@@ -401,7 +401,7 @@ class TaskFinderModel extends Base
      * Get project token
      *
      * @access public
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return string
      */
     public function getProjectToken($task_id)

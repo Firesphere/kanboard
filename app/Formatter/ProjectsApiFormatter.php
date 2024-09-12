@@ -16,6 +16,7 @@ class ProjectsApiFormatter extends BaseFormatter implements FormatterInterface
     public function withProjects($projects)
     {
         $this->projects = $projects;
+
         return $this;
     }
 
@@ -27,7 +28,7 @@ class ProjectsApiFormatter extends BaseFormatter implements FormatterInterface
      */
     public function format()
     {
-        if (! empty($this->projects)) {
+        if (!empty($this->projects)) {
             foreach ($this->projects as &$project) {
                 $project = $this->projectApiFormatter->withProject($project)->format();
             }

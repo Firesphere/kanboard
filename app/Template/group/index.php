@@ -27,7 +27,8 @@
             </div>
             <div class="table-list-header-menu">
                 <div class="dropdown">
-                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong><?= t('Sort') ?> <i class="fa fa-caret-down"></i></strong></a>
+                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong><?= t('Sort') ?> <i
+                                    class="fa fa-caret-down"></i></strong></a>
                     <ul>
                         <li>
                             <?= $paginator->order(t('Group ID'), \Kanboard\Model\GroupModel::TABLE . '.id') ?>
@@ -44,26 +45,26 @@
         </div>
 
         <?php foreach ($paginator->getCollection() as $group): ?>
-        <div class="table-list-row table-border-left">
+            <div class="table-list-row table-border-left">
             <span class="table-list-title">
                 <?= $this->render('group/dropdown', ['group' => $group]) ?>
                 <?= $this->url->link($this->text->e($group['name']), 'GroupListController', 'users', ['group_id' => $group['id']]) ?>
             </span>
 
-            <div class="table-list-details">
-                <ul>
-                    <?php if ($group['nb_users'] > 1): ?>
-                        <li><?= t('%d users', $group['nb_users']) ?></li>
-                    <?php else: ?>
-                        <li><?= t('%d user', $group['nb_users']) ?></li>
-                    <?php endif ?>
+                <div class="table-list-details">
+                    <ul>
+                        <?php if ($group['nb_users'] > 1): ?>
+                            <li><?= t('%d users', $group['nb_users']) ?></li>
+                        <?php else: ?>
+                            <li><?= t('%d user', $group['nb_users']) ?></li>
+                        <?php endif ?>
 
-                    <?php if (! empty($group['external_id'])): ?>
-                        <li><?= $this->text->e($group['external_id']) ?></li>
-                    <?php endif ?>
-                </ul>
+                        <?php if (!empty($group['external_id'])): ?>
+                            <li><?= $this->text->e($group['external_id']) ?></li>
+                        <?php endif ?>
+                    </ul>
+                </div>
             </div>
-        </div>
         <?php endforeach ?>
     </div>
 

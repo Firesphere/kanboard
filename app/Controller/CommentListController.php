@@ -31,7 +31,7 @@ class CommentListController extends BaseController
         $values['task_id'] = $task['id'];
         $values['user_id'] = $this->userSession->getId();
 
-        list($valid, ) = $this->commentValidator->validateCreation($values);
+        list($valid,) = $this->commentValidator->validateCreation($values);
 
         if ($valid && $this->commentModel->create($values) !== false) {
             $this->flash->success(t('Comment added successfully.'));

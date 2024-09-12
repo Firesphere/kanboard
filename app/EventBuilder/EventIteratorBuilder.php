@@ -19,12 +19,13 @@ class EventIteratorBuilder implements Iterator
      * Set builder
      *
      * @access public
-     * @param  BaseEventBuilder $builder
+     * @param BaseEventBuilder $builder
      * @return $this
      */
     public function withBuilder(BaseEventBuilder $builder)
     {
         $this->builders[] = $builder;
+
         return $this;
     }
 

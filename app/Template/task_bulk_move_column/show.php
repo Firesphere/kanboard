@@ -2,7 +2,8 @@
     <h2><?= t('Move selected tasks to another column or swimlane') ?></h2>
 </div>
 
-<form action="<?= $this->url->href('TaskBulkMoveColumnController', 'save', ['project_id' => $project['id']]) ?>" method="post">
+<form action="<?= $this->url->href('TaskBulkMoveColumnController', 'save', ['project_id' => $project['id']]) ?>"
+      method="post">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('task_ids', $values) ?>
 

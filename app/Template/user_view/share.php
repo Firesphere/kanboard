@@ -2,11 +2,15 @@
     <h2><?= t('Public access') ?></h2>
 </div>
 
-<?php if (! empty($user['token'])): ?>
+<?php if (!empty($user['token'])): ?>
     <div class="panel">
         <ul class="no-bullet">
-            <li><strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong></li>
-            <li><strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong></li>
+            <li>
+                <strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong>
+            </li>
+            <li>
+                <strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong>
+            </li>
         </ul>
     </div>
     <?= $this->url->link(t('Disable public access'), 'UserViewController', 'share', ['user_id' => $user['id'], 'switch' => 'disable'], true, 'btn btn-red js-modal-replace') ?>

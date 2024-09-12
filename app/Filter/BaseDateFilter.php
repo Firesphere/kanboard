@@ -24,12 +24,13 @@ abstract class BaseDateFilter extends BaseFilter
      * Set DateParser object
      *
      * @access public
-     * @param  DateParser $dateParser
+     * @param DateParser $dateParser
      * @return $this
      */
     public function setDateParser(DateParser $dateParser)
     {
         $this->dateParser = $dateParser;
+
         return $this;
     }
 
@@ -51,6 +52,7 @@ abstract class BaseDateFilter extends BaseFilter
         foreach ($operators as $operator => $method) {
             if (strpos($this->value, $operator) === 0) {
                 $this->value = substr($this->value, strlen($operator));
+
                 return $method;
             }
         }
@@ -62,7 +64,7 @@ abstract class BaseDateFilter extends BaseFilter
      * Apply a date filter
      *
      * @access protected
-     * @param  string $field
+     * @param string $field
      */
     protected function applyDateFilter($field)
     {
@@ -81,8 +83,8 @@ abstract class BaseDateFilter extends BaseFilter
      * Get timestamp from the operator
      *
      * @access public
-     * @param  string  $method
-     * @param  integer $timestamp
+     * @param string $method
+     * @param integer $timestamp
      * @return integer
      */
     protected function getTimestampFromOperator($method, $timestamp)

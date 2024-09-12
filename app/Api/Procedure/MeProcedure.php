@@ -28,6 +28,7 @@ class MeProcedure extends BaseProcedure
     public function getMyActivityStream()
     {
         $project_ids = $this->projectPermissionModel->getActiveProjectIds($this->userSession->getId());
+
         return $this->helper->projectActivity->getProjectsEvents($project_ids, 100);
     }
 
@@ -43,13 +44,14 @@ class MeProcedure extends BaseProcedure
             'is_private'  => 1,
         ];
 
-        list($valid, ) = $this->projectValidator->validateCreation($values);
+        list($valid,) = $this->projectValidator->validateCreation($values);
+
         return $valid ? $this->projectModel->create($values, $this->userSession->getId(), true) : false;
     }
 
     public function getMyProjectsList()
     {
-        return (object) $this->projectUserRoleModel->getProjectsByUser($this->userSession->getId());
+        return (object)$this->projectUserRoleModel->getProjectsByUser($this->userSession->getId());
     }
 
     public function getMyOverdueTasks()

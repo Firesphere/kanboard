@@ -23,7 +23,7 @@ class AuthController extends BaseController
             $this->response->redirect($this->helper->url->to('DashboardController', 'show'));
         } else {
             $this->response->html($this->helper->layout->app('auth/index', [
-                'captcha'   => ! empty($values['username']) && $this->userLockingModel->hasCaptcha($values['username']),
+                'captcha'   => !empty($values['username']) && $this->userLockingModel->hasCaptcha($values['username']),
                 'errors'    => $errors,
                 'values'    => $values,
                 'no_layout' => true,
@@ -40,7 +40,7 @@ class AuthController extends BaseController
     public function check()
     {
         $values = $this->request->getValues();
-        session_set('hasRememberMe', ! empty($values['remember_me']));
+        session_set('hasRememberMe', !empty($values['remember_me']));
         list($valid, $errors) = $this->authValidator->validateForm($values);
 
         if ($valid) {
@@ -57,7 +57,7 @@ class AuthController extends BaseController
      */
     public function logout()
     {
-        if (! DISABLE_LOGOUT) {
+        if (!DISABLE_LOGOUT) {
             $this->sessionManager->close();
             $this->response->redirect($this->helper->url->to('AuthController', 'login'));
         } else {

@@ -25,9 +25,9 @@ abstract class BaseEventBuilder extends Base
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     abstract public function buildTitleWithAuthor($author, $eventName, array $eventData);
@@ -36,8 +36,8 @@ abstract class BaseEventBuilder extends Base
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     abstract public function buildTitleWithoutAuthor($eventName, array $eventData);

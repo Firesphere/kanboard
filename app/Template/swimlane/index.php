@@ -18,11 +18,11 @@
     ]) ?>
 <?php endif ?>
 
-<?php if (! empty($inactive_swimlanes)): ?>
+<?php if (!empty($inactive_swimlanes)): ?>
     <h3><?= t('Inactive swimlanes') ?></h3>
     <?= $this->render('swimlane/table', [
-        'swimlanes'       => $inactive_swimlanes,
-        'project'         => $project,
-        'disable_handle'  => true,
+        'swimlanes'      => $inactive_swimlanes,
+        'project'        => $project,
+        'disable_handle' => true,
     ]) ?>
 <?php endif ?>

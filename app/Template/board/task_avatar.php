@@ -1,5 +1,5 @@
-<?php if (! empty($task['owner_id'])): ?>
-<div class="task-board-avatars">
+<?php if (!empty($task['owner_id'])): ?>
+    <div class="task-board-avatars">
     <span
         <?php if ($this->user->hasProjectAccess('TaskModificationController', 'edit', $task['project_id'])): ?>
         class="task-board-assignee task-board-change-assignee"
@@ -16,5 +16,5 @@
             'avatar-inline',
         ) ?>
     </span>
-</div>
+    </div>
 <?php endif ?>

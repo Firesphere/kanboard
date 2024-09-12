@@ -26,13 +26,14 @@ class EventManager
      * Add new event
      *
      * @access public
-     * @param  string  $event
-     * @param  string  $description
+     * @param string $event
+     * @param string $description
      * @return EventManager
      */
     public function register($event, $description)
     {
         $this->events[$event] = $description;
+
         return $this;
     }
 

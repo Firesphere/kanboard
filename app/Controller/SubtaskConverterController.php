@@ -26,9 +26,10 @@ class SubtaskConverterController extends BaseController
         $task = $this->getTask();
         $subtask = $this->getSubtask($task);
 
-        if (! $this->helper->projectRole->canCreateTaskInColumn($task['project_id'], $task['column_id'])) {
+        if (!$this->helper->projectRole->canCreateTaskInColumn($task['project_id'], $task['column_id'])) {
             $this->flash->failure(t('You cannot create tasks in this column.'));
             $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
+
             return;
         }
 

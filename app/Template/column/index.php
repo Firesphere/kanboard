@@ -11,8 +11,8 @@
     <p class="alert alert-error"><?= t('Your board doesn\'t have any columns!') ?></p>
 <?php else: ?>
     <table
-        class="columns-table table-striped"
-        data-save-position-url="<?= $this->url->href('ColumnController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
+            class="columns-table table-striped"
+            data-save-position-url="<?= $this->url->href('ColumnController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
         <thead>
         <tr>
             <th><?= t('Column') ?></th>
@@ -24,40 +24,42 @@
         </thead>
         <tbody>
         <?php foreach ($columns as $column): ?>
-        <tr data-column-id="<?= $column['id'] ?>">
-            <td>
-                <i class="fa fa-arrows-alt draggable-row-handle" title="<?= t('Change column position') ?>" role="button" aria-label="<?= t('Change column position') ?>"></i>&nbsp;
-                <div class="dropdown">
-                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
-                    <ul>
-                        <li>
-                            <?= $this->modal->medium('edit', t('Edit'), 'ColumnController', 'edit', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
-                        </li>
-                        <?php if ($column['nb_open_tasks'] == 0 && $column['nb_closed_tasks'] == 0): ?>
+            <tr data-column-id="<?= $column['id'] ?>">
+                <td>
+                    <i class="fa fa-arrows-alt draggable-row-handle" title="<?= t('Change column position') ?>"
+                       role="button" aria-label="<?= t('Change column position') ?>"></i>&nbsp;
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i
+                                    class="fa fa-caret-down"></i></a>
+                        <ul>
                             <li>
-                                <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnController', 'confirm', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
+                                <?= $this->modal->medium('edit', t('Edit'), 'ColumnController', 'edit', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
                             </li>
-                        <?php endif ?>
-                    </ul>
-                </div>
-                <?= $this->text->e($column['title']) ?>
-                <?php if (! empty($column['description'])): ?>
-                    <?= $this->app->tooltipMarkdown($column['description']) ?>
-                <?php endif ?>
-            </td>
-            <td>
-                <?= $column['task_limit'] ?: '∞' ?>
-            </td>
-            <td>
-                <?= $column['hide_in_dashboard'] == 0 ? t('Yes') : t('No') ?>
-            </td>
-            <td>
-                <?= $column['nb_open_tasks'] ?>
-            </td>
-            <td>
-                <?= $column['nb_closed_tasks'] ?>
-            </td>
-        </tr>
+                            <?php if ($column['nb_open_tasks'] == 0 && $column['nb_closed_tasks'] == 0): ?>
+                                <li>
+                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnController', 'confirm', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
+                                </li>
+                            <?php endif ?>
+                        </ul>
+                    </div>
+                    <?= $this->text->e($column['title']) ?>
+                    <?php if (!empty($column['description'])): ?>
+                        <?= $this->app->tooltipMarkdown($column['description']) ?>
+                    <?php endif ?>
+                </td>
+                <td>
+                    <?= $column['task_limit'] ?: '∞' ?>
+                </td>
+                <td>
+                    <?= $column['hide_in_dashboard'] == 0 ? t('Yes') : t('No') ?>
+                </td>
+                <td>
+                    <?= $column['nb_open_tasks'] ?>
+                </td>
+                <td>
+                    <?= $column['nb_closed_tasks'] ?>
+                </td>
+            </tr>
         <?php endforeach ?>
         </tbody>
     </table>

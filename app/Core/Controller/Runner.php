@@ -92,11 +92,11 @@ class Runner extends Base
             $className = '\Kanboard\Controller\\' . $this->router->getController();
         }
 
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             throw new RuntimeException('Controller not found');
         }
 
-        if (! method_exists($className, $this->router->getAction())) {
+        if (!method_exists($className, $this->router->getAction())) {
             throw new RuntimeException('Action not implemented');
         }
 

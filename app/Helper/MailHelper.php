@@ -16,7 +16,7 @@ class MailHelper extends Base
      * Filter mail subject
      *
      * @access public
-     * @param  string $subject
+     * @param string $subject
      * @return string
      */
     public function filterSubject($subject)
@@ -39,7 +39,7 @@ class MailHelper extends Base
         if (MAIL_CONFIGURATION) {
             $email = $this->configModel->get('mail_sender_address');
 
-            if (! empty($email)) {
+            if (!empty($email)) {
                 return $email;
             }
         }
@@ -58,7 +58,7 @@ class MailHelper extends Base
         if (MAIL_CONFIGURATION) {
             $transport = $this->configModel->get('mail_transport');
 
-            if (! empty($transport)) {
+            if (!empty($transport)) {
                 return $transport;
             }
         }

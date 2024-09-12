@@ -68,6 +68,7 @@ class CustomFilterController extends BaseController
             if ($this->customFilterModel->create($values) !== false) {
                 $this->flash->success(t('Your custom filter has been created successfully.'));
                 $this->response->redirect($this->helper->url->to('CustomFilterController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to create your custom filter.'));
@@ -120,8 +121,8 @@ class CustomFilterController extends BaseController
      * Edit a custom filter (display the form)
      *
      * @access public
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws AccessForbiddenException
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
@@ -157,11 +158,11 @@ class CustomFilterController extends BaseController
         $values['id'] = $filter['id'];
         $values['project_id'] = $project['id'];
 
-        if (! isset($values['is_shared'])) {
+        if (!isset($values['is_shared'])) {
             $values += ['is_shared' => 0];
         }
 
-        if (! isset($values['append'])) {
+        if (!isset($values['append'])) {
             $values += ['append' => 0];
         }
 
@@ -171,6 +172,7 @@ class CustomFilterController extends BaseController
             if ($this->customFilterModel->update($values)) {
                 $this->flash->success(t('Your custom filter has been updated successfully.'));
                 $this->response->redirect($this->helper->url->to('CustomFilterController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to update custom filter.'));
@@ -185,7 +187,7 @@ class CustomFilterController extends BaseController
         $userID = $this->userSession->getId();
 
         if ($filter['user_id'] != $userID) {
-            if ($this->projectUserRoleModel->getUserRole($project['id'], $userID) !== Role::PROJECT_MANAGER && ! $this->userSession->isAdmin()) {
+            if ($this->projectUserRoleModel->getUserRole($project['id'], $userID) !== Role::PROJECT_MANAGER && !$this->userSession->isAdmin()) {
                 throw new AccessForbiddenException();
             }
         }

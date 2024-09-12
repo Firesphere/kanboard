@@ -24,7 +24,7 @@ class AuthFailureEvent extends BaseEvent
      * Constructor
      *
      * @access public
-     * @param  string $username
+     * @param string $username
      */
     public function __construct($username = '')
     {

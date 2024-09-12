@@ -98,8 +98,7 @@ class CssCommand extends BaseCommand
     {
         $this
             ->setName('css')
-            ->setDescription('Minify CSS files')
-        ;
+            ->setDescription('Minify CSS files');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -111,6 +110,7 @@ class CssCommand extends BaseCommand
 
         $vendorBundle = concat_files($this->vendorFiles);
         file_put_contents('assets/css/vendor.min.css', $vendorBundle);
+
         return 0;
     }
 
@@ -120,7 +120,7 @@ class CssCommand extends BaseCommand
 
         foreach ($files as $file) {
             $filename = $folder . $file;
-            if (! file_exists($filename)) {
+            if (!file_exists($filename)) {
                 die("$filename not found\n");
             }
             $minifier->add($filename);

@@ -10,7 +10,7 @@ class TaskReorderController extends BaseController
     {
         $project = $this->getProject();
 
-        if (! $this->helper->user->hasProjectAccess('TaskModificationController', 'update', $project['id'])) {
+        if (!$this->helper->user->hasProjectAccess('TaskModificationController', 'update', $project['id'])) {
             throw new AccessForbiddenException();
         }
 

@@ -22,7 +22,7 @@ class Authorization
      * Constructor
      *
      * @access public
-     * @param  AccessMap  $accessMap
+     * @param AccessMap $accessMap
      */
     public function __construct(AccessMap $accessMap)
     {
@@ -33,14 +33,15 @@ class Authorization
      * Check if the given role is allowed to access to the specified resource
      *
      * @access public
-     * @param  string  $controller
-     * @param  string  $method
-     * @param  string  $role
+     * @param string $controller
+     * @param string $method
+     * @param string $role
      * @return boolean
      */
     public function isAllowed($controller, $method, $role)
     {
         $roles = $this->accessMap->getRoles($controller, $method);
+
         return in_array($role, $roles);
     }
 }

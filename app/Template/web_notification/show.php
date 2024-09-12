@@ -1,31 +1,31 @@
 <div class="page-header">
     <h2><?= t('My notifications') ?></h2>
 
-    <?php if (! empty($notifications)): ?>
-    <ul>
-        <li>
-            <?= $this->modal->replaceIconLink('check-square-o', t('Mark all as read'), 'WebNotificationController', 'flush', ['user_id' => $user['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
-        </li>
-    </ul>
+    <?php if (!empty($notifications)): ?>
+        <ul>
+            <li>
+                <?= $this->modal->replaceIconLink('check-square-o', t('Mark all as read'), 'WebNotificationController', 'flush', ['user_id' => $user['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
+            </li>
+        </ul>
     <?php endif ?>
 </div>
 
 <?php if (empty($notifications)): ?>
     <p class="alert"><?= t('No notification.') ?></p>
 <?php else: ?>
-<div class="table-list">
-    <div class="table-list-header">
-        <div class="table-list-header-count">
-            <?php if ($nb_notifications > 1): ?>
-                <?= t('%d notifications', $nb_notifications) ?>
-            <?php else: ?>
-                <?= t('%d notification', $nb_notifications) ?>
-            <?php endif ?>
+    <div class="table-list">
+        <div class="table-list-header">
+            <div class="table-list-header-count">
+                <?php if ($nb_notifications > 1): ?>
+                    <?= t('%d notifications', $nb_notifications) ?>
+                <?php else: ?>
+                    <?= t('%d notification', $nb_notifications) ?>
+                <?php endif ?>
+            </div>
+            &nbsp;
         </div>
-        &nbsp;
-    </div>
-    <?php foreach ($notifications as $notification): ?>
-    <div class="table-list-row table-border-left">
+        <?php foreach ($notifications as $notification): ?>
+            <div class="table-list-row table-border-left">
         <span class="table-list-title">
             <?php if ($this->text->contains($notification['event_name'], 'subtask')): ?>
                 <i class="fa fa-tasks fa-fw"></i>
@@ -58,11 +58,11 @@
                 <?= $this->url->link($notification['title'], 'WebNotificationController', 'redirect', ['notification_id' => $notification['id'], 'user_id' => $user['id']]) ?>
             <?php endif ?>
         </span>
-        <div class="table-list-details">
-            <?= $this->dt->datetime($notification['date_creation']) ?>
-            <?= $this->modal->replaceIconLink('check', t('Mark as read'), 'WebNotificationController', 'remove', ['user_id' => $user['id'], 'notification_id' => $notification['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
-        </div>
+                <div class="table-list-details">
+                    <?= $this->dt->datetime($notification['date_creation']) ?>
+                    <?= $this->modal->replaceIconLink('check', t('Mark as read'), 'WebNotificationController', 'remove', ['user_id' => $user['id'], 'notification_id' => $notification['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
+                </div>
+            </div>
+        <?php endforeach ?>
     </div>
-    <?php endforeach ?>
-</div>
 <?php endif ?>

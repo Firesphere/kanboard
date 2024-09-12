@@ -44,7 +44,7 @@ class UserImportController extends BaseController
 
         $filename = $this->request->getFilePath('file');
 
-        if (! file_exists($filename)) {
+        if (!file_exists($filename)) {
             $this->flash->failure(t('Unable to read your file'));
         } else {
             $this->importFile($values, $filename);

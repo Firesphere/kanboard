@@ -15,8 +15,7 @@ class PluginUpgradeCommand extends BaseCommand
     {
         $this
             ->setName('plugin:upgrade')
-            ->setDescription('Update all installed plugins')
-        ;
+            ->setDescription('Update all installed plugins');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -40,6 +39,7 @@ class PluginUpgradeCommand extends BaseCommand
                 $output->writeln('<info>* Plugin up to date: ' . $installedPlugin->getPluginName() . '</info>');
             }
         }
+
         return 0;
     }
 

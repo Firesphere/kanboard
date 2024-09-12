@@ -8,4 +8,6 @@ namespace Kanboard\Core\Controller;
  * @package Kanboard\Core\Controller
  * @author  Frederic Guillot
  */
-class PageNotFoundException extends BaseException {}
+class PageNotFoundException extends BaseException
+{
+}

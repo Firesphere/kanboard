@@ -65,6 +65,7 @@ class CategoryController extends BaseController
             if ($this->categoryModel->create($values) !== false) {
                 $this->flash->success(t('Your category has been created successfully.'));
                 $this->response->redirect($this->helper->url->to('CategoryController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $errors = ['name' => [t('Another category with the same name exists in this project')]];
@@ -78,8 +79,8 @@ class CategoryController extends BaseController
      * Edit a category (display the form)
      *
      * @access public
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws PageNotFoundException
      */
     public function edit(array $values = [], array $errors = [])
@@ -114,6 +115,7 @@ class CategoryController extends BaseController
         if ($valid) {
             if ($this->categoryModel->update($values)) {
                 $this->flash->success(t('This category has been updated successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('CategoryController', 'index', ['project_id' => $project['id']]));
             } else {
                 $this->flash->failure(t('Unable to update this category.'));

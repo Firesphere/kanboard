@@ -17,7 +17,7 @@ class EstimatedActualColumnAnalytic extends Base
      * Build report
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function build($project_id)
@@ -40,8 +40,8 @@ class EstimatedActualColumnAnalytic extends Base
         }
 
         foreach ($rows as $row) {
-            $metrics[$row['column_id']]['hours_spent'] = (float) $row['hours_spent'];
-            $metrics[$row['column_id']]['hours_estimated'] = (float) $row['hours_estimated'];
+            $metrics[$row['column_id']]['hours_spent'] = (float)$row['hours_spent'];
+            $metrics[$row['column_id']]['hours_estimated'] = (float)$row['hours_estimated'];
         }
 
         return $metrics;

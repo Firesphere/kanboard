@@ -47,6 +47,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
     public function setCalendar(Calendar $vCalendar)
     {
         $this->vCalendar = $vCalendar;
+
         return $this;
     }
 
@@ -54,9 +55,9 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
      * Transform results to iCal events
      *
      * @access public
-     * @param  Table  $query
-     * @param  string $startColumn
-     * @param  string $endColumn
+     * @param Table $query
+     * @param string $startColumn
+     * @param string $endColumn
      * @return $this
      */
     public function addTasksWithStartAndDueDate(Table $query, $startColumn, $endColumn)
@@ -82,7 +83,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
      * Transform results to all day iCal events
      *
      * @access public
-     * @param  Table $query
+     * @param Table $query
      * @return $this
      */
     public function addTasksWithDueDateOnly(Table $query)
@@ -109,8 +110,8 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
      * Get common events for task iCal events
      *
      * @access protected
-     * @param  array   $task
-     * @param  string  $uid
+     * @param array $task
+     * @param string $uid
      * @return Event
      */
     protected function getTaskIcalEvent(array &$task, $uid)
@@ -130,7 +131,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
         $vEvent->setDescriptionHTML($this->helper->text->markdown($task['description']));
         $vEvent->setUrl($this->helper->url->base() . $this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
 
-        if (! empty($task['owner_id'])) {
+        if (!empty($task['owner_id'])) {
             $attendees = new Attendees();
             $attendees->add(
                 'MAILTO:' . ($task['assignee_email'] ?: $task['assignee_username'] . '@kanboard.local'),
@@ -139,7 +140,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
             $vEvent->setAttendees($attendees);
         }
 
-        if (! empty($task['creator_id'])) {
+        if (!empty($task['creator_id'])) {
             $vEvent->setOrganizer(new Organizer(
                 'MAILTO:' . $task['creator_email'] ?: $task['creator_username'] . '@kanboard.local',
                 ['CN' => $task['creator_name'] ?: $task['creator_username']],

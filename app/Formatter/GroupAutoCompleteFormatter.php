@@ -25,12 +25,13 @@ class GroupAutoCompleteFormatter extends BaseFormatter implements FormatterInter
      * Set groups
      *
      * @access public
-     * @param  GroupProviderInterface[] $groups
+     * @param GroupProviderInterface[] $groups
      * @return $this
      */
     public function withGroups(array $groups)
     {
         $this->groups = $groups;
+
         return $this;
     }
 

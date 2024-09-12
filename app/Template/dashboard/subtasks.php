@@ -1,5 +1,6 @@
 <div class="page-header">
-    <h2><?= $this->url->link(t('My subtasks'), 'DashboardController', 'subtasks', ['user_id' => $user['id']]) ?> (<?= $nb_subtasks ?>)</h2>
+    <h2><?= $this->url->link(t('My subtasks'), 'DashboardController', 'subtasks', ['user_id' => $user['id']]) ?>
+        (<?= $nb_subtasks ?>)</h2>
 </div>
 <?php if ($nb_subtasks == 0): ?>
     <p class="alert"><?= t('There is nothing assigned to you.') ?></p>
@@ -15,7 +16,8 @@
             </div>
             <div class="table-list-header-menu">
                 <div class="dropdown">
-                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong><?= t('Sort') ?> <i class="fa fa-caret-down"></i></strong></a>
+                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong><?= t('Sort') ?> <i
+                                    class="fa fa-caret-down"></i></strong></a>
                     <ul>
                         <li>
                             <?= $paginator->order(t('Task ID'), \Kanboard\Model\TaskModel::TABLE . '.id') ?>

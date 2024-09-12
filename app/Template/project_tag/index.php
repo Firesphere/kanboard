@@ -19,15 +19,16 @@
             <tr>
                 <td>
                     <div class="dropdown">
-                        <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i
+                                    class="fa fa-caret-down"></i></a>
                         <ul>
                             <li>
                                 <?= $this->modal->medium('edit', t('Edit'), 'ProjectTagController', 'edit', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
                             </li>
                             <?php if ($this->user->isAdmin()): ?>
-                            <li>
-                                <?= $this->modal->confirm('globe', t('Change to global tag'), 'ProjectTagController', 'confirmMakeGlobalTag', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
-                            </li>
+                                <li>
+                                    <?= $this->modal->confirm('globe', t('Change to global tag'), 'ProjectTagController', 'confirmMakeGlobalTag', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
+                                </li>
                             <?php endif ?>
                             <li>
                                 <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectTagController', 'confirm', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
@@ -47,9 +48,11 @@
 </div>
 
 <div class="panel">
-    <form method="post" action="<?= $this->url->href('ProjectTagController', 'updateSettings', ['project_id' => $project['id']]) ?>" autocomplete="off">
+    <form method="post"
+          action="<?= $this->url->href('ProjectTagController', 'updateSettings', ['project_id' => $project['id']]) ?>"
+          autocomplete="off">
         <?= $this->form->csrf() ?>
-        
+
         <?= $this->form->checkbox('enable_global_tags', t('Enable global tags for this project'), 1, $project['enable_global_tags'] == 1) ?>
 
         <?= $this->modal->submitButtons() ?>

@@ -19,8 +19,7 @@ class JobCommand extends BaseCommand
     {
         $this
             ->setName('job')
-            ->setDescription('Execute individual job (read payload from stdin)')
-        ;
+            ->setDescription('Execute individual job (read payload from stdin)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -31,6 +30,7 @@ class JobCommand extends BaseCommand
         $job->unserialize($payload);
 
         JobHandler::getInstance($this->container)->executeJob($job);
+
         return 0;
     }
 }

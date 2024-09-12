@@ -38,21 +38,21 @@ interface ExternalTaskProviderInterface
      * Retrieve task from external system or cache
      *
      * @access public
-     * @throws \Kanboard\Core\ExternalTask\ExternalTaskException
-     * @param  string $uri
-     * @param  int    $projectID
+     * @param string $uri
+     * @param int $projectID
      * @return ExternalTaskInterface
+     * @throws \Kanboard\Core\ExternalTask\ExternalTaskException
      */
     public function fetch($uri, $projectID);
 
     /**
      * Save external task to another system
      *
-     * @throws \Kanboard\Core\ExternalTask\ExternalTaskException
-     * @param  string $uri
-     * @param  array  $formValues
-     * @param  array  $formErrors
+     * @param string $uri
+     * @param array $formValues
+     * @param array $formErrors
      * @return bool
+     * @throws \Kanboard\Core\ExternalTask\ExternalTaskException
      */
     public function save($uri, array $formValues, array &$formErrors);
 
@@ -87,7 +87,7 @@ interface ExternalTaskProviderInterface
     /**
      * Build external task URI based on import form values
      *
-     * @param  array $formValues
+     * @param array $formValues
      * @return string
      */
     public function buildTaskUri(array $formValues);

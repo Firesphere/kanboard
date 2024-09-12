@@ -14,7 +14,7 @@ interface ObjectStorageInterface
      * Fetch object contents
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      * @return string
      */
     public function get($key);
@@ -23,8 +23,8 @@ interface ObjectStorageInterface
      * Save object
      *
      * @access public
-     * @param  string  $key
-     * @param  string  $blob
+     * @param string $key
+     * @param string $blob
      */
     public function put($key, &$blob);
 
@@ -32,7 +32,7 @@ interface ObjectStorageInterface
      * Output directly object content
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      */
     public function output($key);
 
@@ -40,8 +40,8 @@ interface ObjectStorageInterface
      * Move local file to object storage
      *
      * @access public
-     * @param  string  $filename
-     * @param  string  $key
+     * @param string $filename
+     * @param string $key
      * @return boolean
      */
     public function moveFile($filename, $key);
@@ -50,8 +50,8 @@ interface ObjectStorageInterface
      * Move uploaded file to object storage
      *
      * @access public
-     * @param  string  $filename
-     * @param  string  $key
+     * @param string $filename
+     * @param string $key
      * @return boolean
      */
     public function moveUploadedFile($filename, $key);
@@ -60,7 +60,7 @@ interface ObjectStorageInterface
      * Remove object
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      * @return boolean
      */
     public function remove($key);

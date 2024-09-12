@@ -25,12 +25,12 @@ class OAuth2 extends Base
      * Create OAuth2 service
      *
      * @access public
-     * @param  string  $clientId
-     * @param  string  $secret
-     * @param  string  $callbackUrl
-     * @param  string  $authUrl
-     * @param  string  $tokenUrl
-     * @param  array   $scopes
+     * @param string $clientId
+     * @param string $secret
+     * @param string $callbackUrl
+     * @param string $authUrl
+     * @param string $tokenUrl
+     * @param array $scopes
      * @return OAuth2
      */
     public function createService($clientId, $secret, $callbackUrl, $authUrl, $tokenUrl, array $scopes)
@@ -46,6 +46,18 @@ class OAuth2 extends Base
     }
 
     /**
+     * Check the validity of the state (CSRF token)
+     *
+     * @access public
+     * @param string $state
+     * @return bool
+     */
+    public function isValidateState($state)
+    {
+        return $state === $this->getState();
+    }
+
+    /**
      * Generate OAuth2 state and return the token value
      *
      * @access public
@@ -53,23 +65,11 @@ class OAuth2 extends Base
      */
     public function getState()
     {
-        if (! session_exists('oauthState')) {
+        if (!session_exists('oauthState')) {
             session_set('oauthState', $this->token->getToken());
         }
 
         return session_get('oauthState');
-    }
-
-    /**
-     * Check the validity of the state (CSRF token)
-     *
-     * @access public
-     * @param  string $state
-     * @return bool
-     */
-    public function isValidateState($state)
-    {
-        return $state === $this->getState();
     }
 
     /**
@@ -110,12 +110,12 @@ class OAuth2 extends Base
      * Get access token
      *
      * @access public
-     * @param  string  $code
+     * @param string $code
      * @return string
      */
     public function getAccessToken($code)
     {
-        if (empty($this->accessToken) && ! empty($code)) {
+        if (empty($this->accessToken) && !empty($code)) {
             $params = [
                 'code'          => $code,
                 'client_id'     => $this->clientId,
@@ -138,14 +138,15 @@ class OAuth2 extends Base
      * Set access token
      *
      * @access public
-     * @param  string  $token
-     * @param  string  $type
+     * @param string $token
+     * @param string $type
      * @return $this
      */
     public function setAccessToken($token, $type = 'bearer')
     {
         $this->accessToken = $token;
         $this->tokenType = $type;
+
         return $this;
     }
 }

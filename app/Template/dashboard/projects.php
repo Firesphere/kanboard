@@ -1,5 +1,6 @@
 <div class="page-header">
-    <h2><?= $this->url->link(t('My projects'), 'DashboardController', 'projects', ['user_id' => $user['id']]) ?> (<?= $paginator->getTotal() ?>)</h2>
+    <h2><?= $this->url->link(t('My projects'), 'DashboardController', 'projects', ['user_id' => $user['id']]) ?>
+        (<?= $paginator->getTotal() ?>)</h2>
 </div>
 <?php if ($paginator->isEmpty()): ?>
     <p class="alert"><?= t('You are not a member of any project.') ?></p>

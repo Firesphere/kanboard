@@ -1,4 +1,4 @@
-<?php if (! empty($incompatible_plugins)): ?>
+<?php if (!empty($incompatible_plugins)): ?>
     <div class="page-header">
         <h2><?= t('Incompatible Plugins') ?></h2>
     </div>
@@ -17,7 +17,8 @@
             <tr>
                 <td>
                     <?php if ($plugin->getPluginHomepage()): ?>
-                        <a href="<?= $plugin->getPluginHomepage() ?>" target="_blank" rel="noopener noreferrer"><?= $this->text->e($plugin->getPluginName()) ?></a>
+                        <a href="<?= $plugin->getPluginHomepage() ?>" target="_blank"
+                           rel="noopener noreferrer"><?= $this->text->e($plugin->getPluginName()) ?></a>
                     <?php else: ?>
                         <?= $this->text->e($plugin->getPluginName()) ?>
                     <?php endif ?>
@@ -55,26 +56,27 @@
             <?php endif ?>
         </tr>
 
-    <?php foreach ($plugins as $pluginFolder => $plugin): ?>
-    <tr>
-        <td>
-            <?php if ($plugin->getPluginHomepage()): ?>
-                <a href="<?= $plugin->getPluginHomepage() ?>" target="_blank" rel="noopener noreferrer"><?= $this->text->e($plugin->getPluginName()) ?></a>
-            <?php else: ?>
-                <?= $this->text->e($plugin->getPluginName()) ?>
-            <?php endif ?>
-        </td>
-        <td><?= $this->text->e($plugin->getPluginAuthor()) ?></td>
-        <td><?= $this->text->e($plugin->getPluginVersion()) ?></td>
-        <?php if ($is_configured): ?>
-            <td>
-                <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', ['pluginId' => $pluginFolder]) ?>
-            </td>
-        <?php endif ?>
-    </tr>
-    <tr>
-        <td colspan="<?= $is_configured ? 4 : 3 ?>"><?= $this->text->e($plugin->getPluginDescription()) ?></td>
-    </tr>
-    <?php endforeach ?>
+        <?php foreach ($plugins as $pluginFolder => $plugin): ?>
+            <tr>
+                <td>
+                    <?php if ($plugin->getPluginHomepage()): ?>
+                        <a href="<?= $plugin->getPluginHomepage() ?>" target="_blank"
+                           rel="noopener noreferrer"><?= $this->text->e($plugin->getPluginName()) ?></a>
+                    <?php else: ?>
+                        <?= $this->text->e($plugin->getPluginName()) ?>
+                    <?php endif ?>
+                </td>
+                <td><?= $this->text->e($plugin->getPluginAuthor()) ?></td>
+                <td><?= $this->text->e($plugin->getPluginVersion()) ?></td>
+                <?php if ($is_configured): ?>
+                    <td>
+                        <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', ['pluginId' => $pluginFolder]) ?>
+                    </td>
+                <?php endif ?>
+            </tr>
+            <tr>
+                <td colspan="<?= $is_configured ? 4 : 3 ?>"><?= $this->text->e($plugin->getPluginDescription()) ?></td>
+            </tr>
+        <?php endforeach ?>
     </table>
 <?php endif ?>

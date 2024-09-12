@@ -15,23 +15,24 @@ class SubtaskEventJob extends BaseJob
     /**
      * Set job params
      *
-     * @param  int   $subtaskId
-     * @param  array $eventNames
-     * @param  array $values
+     * @param int $subtaskId
+     * @param array $eventNames
+     * @param array $values
      * @return $this
      */
     public function withParams($subtaskId, array $eventNames, array $values = [])
     {
         $this->jobParams = [$subtaskId, $eventNames, $values];
+
         return $this;
     }
 
     /**
      * Execute job
      *
-     * @param  int   $subtaskId
-     * @param  array $eventNames
-     * @param  array $values
+     * @param int $subtaskId
+     * @param array $eventNames
+     * @param array $values
      */
     public function execute($subtaskId, array $eventNames, array $values = [])
     {

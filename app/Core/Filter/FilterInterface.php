@@ -16,7 +16,7 @@ interface FilterInterface
      * BaseFilter constructor
      *
      * @access public
-     * @param  mixed $value
+     * @param mixed $value
      */
     public function __construct($value = null);
 
@@ -24,7 +24,7 @@ interface FilterInterface
      * Set the value
      *
      * @access public
-     * @param  string $value
+     * @param string $value
      * @return FilterInterface
      */
     public function withValue($value);
@@ -33,7 +33,7 @@ interface FilterInterface
      * Set query
      *
      * @access public
-     * @param  Table $query
+     * @param Table $query
      * @return FilterInterface
      */
     public function withQuery(Table $query);

@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= $this->text->e($project['name']) ?> &gt; <?= $this->text->e($task['title']) ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('TaskModificationController', 'update', ['task_id' => $task['id']]) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('TaskModificationController', 'update', ['task_id' => $task['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <div class="task-form-container">

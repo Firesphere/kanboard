@@ -18,7 +18,7 @@ class AuthValidator extends BaseValidator
      * Validate user login form
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateForm(array $values)
@@ -30,7 +30,7 @@ class AuthValidator extends BaseValidator
      * Validate credentials syntax
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     protected function validateFields(array $values)
@@ -51,7 +51,7 @@ class AuthValidator extends BaseValidator
      * Validate user locking
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     protected function validateLocking(array $values)
@@ -72,7 +72,7 @@ class AuthValidator extends BaseValidator
      * Validate password syntax
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     protected function validateCredentials(array $values)
@@ -80,7 +80,7 @@ class AuthValidator extends BaseValidator
         $result = true;
         $errors = [];
 
-        if (! $this->authenticationManager->passwordAuthentication($values['username'], $values['password'])) {
+        if (!$this->authenticationManager->passwordAuthentication($values['username'], $values['password'])) {
             $result = false;
             $errors['login'] = t('Bad username or password');
         }
@@ -92,7 +92,7 @@ class AuthValidator extends BaseValidator
      * Validate captcha
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array
      */
     protected function validateCaptcha(array $values)
@@ -101,14 +101,14 @@ class AuthValidator extends BaseValidator
         $errors = [];
 
         if ($this->userLockingModel->hasCaptcha($values['username'])) {
-            if (! session_exists('captcha')) {
+            if (!session_exists('captcha')) {
                 $result = false;
             } else {
                 $builder = new CaptchaBuilder();
                 $builder->setPhrase(session_get('captcha'));
                 $result = $builder->testPhrase(isset($values['captcha']) ? $values['captcha'] : '');
 
-                if (! $result) {
+                if (!$result) {
                     $errors['login'] = t('Invalid captcha');
                 }
             }

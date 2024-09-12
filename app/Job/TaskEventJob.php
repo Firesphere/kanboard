@@ -15,29 +15,13 @@ use Kanboard\Model\TaskModel;
 class TaskEventJob extends BaseJob
 {
     /**
-     * Set job params
-     *
-     * @param  int    $taskId
-     * @param  array  $eventNames
-     * @param  array  $changes
-     * @param  array  $values
-     * @param  array  $task
-     * @return $this
-     */
-    public function withParams($taskId, array $eventNames, array $changes = [], array $values = [], array $task = [])
-    {
-        $this->jobParams = [$taskId, $eventNames, $changes, $values, $task];
-        return $this;
-    }
-
-    /**
      * Execute job
      *
-     * @param  int    $taskId
-     * @param  array  $eventNames
-     * @param  array  $changes
-     * @param  array  $values
-     * @param  array  $task
+     * @param int $taskId
+     * @param array $eventNames
+     * @param array $changes
+     * @param array $values
+     * @param array $task
      */
     public function execute($taskId, array $eventNames, array $changes = [], array $values = [], array $task = [])
     {
@@ -59,8 +43,8 @@ class TaskEventJob extends BaseJob
      * Trigger event
      *
      * @access protected
-     * @param  string    $eventName
-     * @param  TaskEvent $event
+     * @param string $eventName
+     * @param TaskEvent $event
      */
     protected function fireEvent($eventName, TaskEvent $event)
     {
@@ -71,5 +55,22 @@ class TaskEventJob extends BaseJob
             $userMentionJob = $this->userMentionJob->withParams($event['task']['description'], TaskModel::EVENT_USER_MENTION, $event);
             $this->queueManager->push($userMentionJob);
         }
+    }
+
+    /**
+     * Set job params
+     *
+     * @param int $taskId
+     * @param array $eventNames
+     * @param array $changes
+     * @param array $values
+     * @param array $task
+     * @return $this
+     */
+    public function withParams($taskId, array $eventNames, array $changes = [], array $values = [], array $task = [])
+    {
+        $this->jobParams = [$taskId, $eventNames, $changes, $values, $task];
+
+        return $this;
     }
 }

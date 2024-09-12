@@ -1,19 +1,19 @@
 <div class="page-header">
     <?php if ($this->user->hasAccess('UserCreationController', 'show')): ?>
-    <ul>
-        <li>
-            <?= $this->modal->medium('plus', t('New user'), 'UserCreationController', 'show') ?>
-        </li>
-        <li>
-            <?= $this->modal->medium('paper-plane', t('Invite people'), 'UserInviteController', 'show') ?>
-        </li>
-        <li>
-            <?= $this->modal->medium('upload', t('Import'), 'UserImportController', 'show') ?>
-        </li>
-        <li>
-            <?= $this->url->icon('users', t('View all groups'), 'GroupListController', 'index') ?>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <?= $this->modal->medium('plus', t('New user'), 'UserCreationController', 'show') ?>
+            </li>
+            <li>
+                <?= $this->modal->medium('paper-plane', t('Invite people'), 'UserInviteController', 'show') ?>
+            </li>
+            <li>
+                <?= $this->modal->medium('upload', t('Import'), 'UserImportController', 'show') ?>
+            </li>
+            <li>
+                <?= $this->url->icon('users', t('View all groups'), 'GroupListController', 'index') ?>
+            </li>
+        </ul>
     <?php endif ?>
 </div>
 
@@ -27,7 +27,7 @@
 
 <?php if ($paginator->isEmpty()): ?>
     <p class="alert"><?= t('No users found.') ?></p>
-<?php elseif (! $paginator->isEmpty()): ?>
+<?php elseif (!$paginator->isEmpty()): ?>
     <div class="table-list">
         <?= $this->render('user_list/header', ['paginator' => $paginator]) ?>
         <?php foreach ($paginator->getCollection() as $user): ?>

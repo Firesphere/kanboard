@@ -39,12 +39,13 @@ class TaskTagFilter extends BaseFilter implements FilterInterface
      * Set database object
      *
      * @access public
-     * @param  Database $db
+     * @param Database $db
      * @return $this
      */
     public function setDatabase(Database $db)
     {
         $this->db = $db;
+
         return $this;
     }
 

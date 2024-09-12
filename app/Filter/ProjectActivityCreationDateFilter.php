@@ -33,6 +33,7 @@ class ProjectActivityCreationDateFilter extends BaseDateFilter implements Filter
     public function apply()
     {
         $this->applyDateFilter(ProjectActivityModel::TABLE . '.date_creation');
+
         return $this;
     }
 }

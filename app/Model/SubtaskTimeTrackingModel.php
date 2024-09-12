@@ -24,24 +24,25 @@ class SubtaskTimeTrackingModel extends Base
      * Get query to check if a timer is started for the given user and subtask
      *
      * @access public
-     * @param  integer    $user_id   User id
+     * @param integer $user_id User id
      * @return string
      */
     public function getTimerQuery($user_id)
     {
         $sql = $this->db
-                    ->table(self::TABLE)
-                    ->columns('start')
-                    ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id)
-                    ->eq($this->db->escapeIdentifier('end', self::TABLE), 0)
-                    ->eq($this->db->escapeIdentifier('subtask_id', self::TABLE), SubtaskModel::TABLE . '.id')
-                    ->limit(1)
-                    ->buildSelectQuery();
+            ->table(self::TABLE)
+            ->columns('start')
+            ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id)
+            ->eq($this->db->escapeIdentifier('end', self::TABLE), 0)
+            ->eq($this->db->escapeIdentifier('subtask_id', self::TABLE), SubtaskModel::TABLE . '.id')
+            ->limit(1)
+            ->buildSelectQuery();
         // need to interpolate values into the SQL text for use as a subquery
         // in SubtaskModel::getQuery()
         $sql = substr_replace($sql, $user_id, strpos($sql, '?'), 1);
         $sql = substr_replace($sql, 0, strpos($sql, '?'), 1);
         $sql = substr_replace($sql, SubtaskModel::TABLE . '.id', strpos($sql, '?'), 1);
+
         return $sql;
     }
 
@@ -49,81 +50,81 @@ class SubtaskTimeTrackingModel extends Base
      * Get query for user timesheet (pagination)
      *
      * @access public
-     * @param  integer    $user_id   User id
+     * @param integer $user_id User id
      * @return \PicoDb\Table
      */
     public function getUserQuery($user_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->columns(
-                        $this->db->escapeIdentifier('id', self::TABLE),
-                        $this->db->escapeIdentifier('subtask_id', self::TABLE),
-                        $this->db->escapeIdentifier('end', self::TABLE),
-                        $this->db->escapeIdentifier('start', self::TABLE),
-                        $this->db->escapeIdentifier('time_spent', self::TABLE),
-                        $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
-                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
-                        $this->db->escapeIdentifier('title', TaskModel::TABLE) . ' AS task_title',
-                        $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
-                        $this->db->escapeIdentifier('color_id', TaskModel::TABLE),
-                    )
-                    ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
-                    ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
-                    ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id);
+            ->table(self::TABLE)
+            ->columns(
+                $this->db->escapeIdentifier('id', self::TABLE),
+                $this->db->escapeIdentifier('subtask_id', self::TABLE),
+                $this->db->escapeIdentifier('end', self::TABLE),
+                $this->db->escapeIdentifier('start', self::TABLE),
+                $this->db->escapeIdentifier('time_spent', self::TABLE),
+                $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
+                $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
+                $this->db->escapeIdentifier('title', TaskModel::TABLE) . ' AS task_title',
+                $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
+                $this->db->escapeIdentifier('color_id', TaskModel::TABLE),
+            )
+            ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
+            ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
+            ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id);
     }
 
     /**
      * Get query for task timesheet (pagination)
      *
      * @access public
-     * @param  integer    $task_id    Task id
+     * @param integer $task_id Task id
      * @return \PicoDb\Table
      */
     public function getTaskQuery($task_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->columns(
-                        $this->db->escapeIdentifier('id', self::TABLE),
-                        $this->db->escapeIdentifier('subtask_id', self::TABLE),
-                        $this->db->escapeIdentifier('end', self::TABLE),
-                        $this->db->escapeIdentifier('start', self::TABLE),
-                        $this->db->escapeIdentifier('time_spent', self::TABLE),
-                        $this->db->escapeIdentifier('user_id', self::TABLE),
-                        $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
-                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
-                        $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
-                        $this->db->escapeIdentifier('username', UserModel::TABLE),
-                        $this->db->escapeIdentifier('name', UserModel::TABLE) . ' AS user_fullname',
-                    )
-                    ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
-                    ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
-                    ->join(UserModel::TABLE, 'id', 'user_id', self::TABLE)
-                    ->eq($this->db->escapeIdentifier('id', TaskModel::TABLE), $task_id);
+            ->table(self::TABLE)
+            ->columns(
+                $this->db->escapeIdentifier('id', self::TABLE),
+                $this->db->escapeIdentifier('subtask_id', self::TABLE),
+                $this->db->escapeIdentifier('end', self::TABLE),
+                $this->db->escapeIdentifier('start', self::TABLE),
+                $this->db->escapeIdentifier('time_spent', self::TABLE),
+                $this->db->escapeIdentifier('user_id', self::TABLE),
+                $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
+                $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
+                $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
+                $this->db->escapeIdentifier('username', UserModel::TABLE),
+                $this->db->escapeIdentifier('name', UserModel::TABLE) . ' AS user_fullname',
+            )
+            ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
+            ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
+            ->join(UserModel::TABLE, 'id', 'user_id', self::TABLE)
+            ->eq($this->db->escapeIdentifier('id', TaskModel::TABLE), $task_id);
     }
 
     /**
      * Get all recorded time slots for a given user
      *
      * @access public
-     * @param  integer    $user_id       User id
+     * @param integer $user_id User id
      * @return array
      */
     public function getUserTimesheet($user_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('user_id', $user_id)
-                    ->findAll();
+            ->table(self::TABLE)
+            ->eq('user_id', $user_id)
+            ->findAll();
     }
 
     /**
      * Return true if a timer is started for this use and subtask
      *
      * @access public
-     * @param  integer  $subtask_id
-     * @param  integer  $user_id
+     * @param integer $subtask_id
+     * @param integer $user_id
      * @return boolean
      */
     public function hasTimer($subtask_id, $user_id)
@@ -135,9 +136,9 @@ class SubtaskTimeTrackingModel extends Base
      * Start or stop timer according to subtask status
      *
      * @access public
-     * @param  integer $subtask_id
-     * @param  integer $user_id
-     * @param  integer $status
+     * @param integer $subtask_id
+     * @param integer $user_id
+     * @param integer $status
      * @return boolean
      */
     public function toggleTimer($subtask_id, $user_id, $status)
@@ -157,14 +158,14 @@ class SubtaskTimeTrackingModel extends Base
      * Log start time
      *
      * @access public
-     * @param  integer   $subtask_id
-     * @param  integer   $user_id
+     * @param integer $subtask_id
+     * @param integer $user_id
      * @return boolean
      */
     public function logStartTime($subtask_id, $user_id)
     {
         return
-            ! $this->hasTimer($subtask_id, $user_id) &&
+            !$this->hasTimer($subtask_id, $user_id) &&
             $this->db
                 ->table(self::TABLE)
                 ->insert(['subtask_id' => $subtask_id, 'user_id' => $user_id, 'start' => time(), 'end' => 0]);
@@ -174,8 +175,8 @@ class SubtaskTimeTrackingModel extends Base
      * Log end time
      *
      * @access public
-     * @param  integer   $subtask_id
-     * @param  integer   $user_id
+     * @param integer $subtask_id
+     * @param integer $user_id
      * @return boolean
      */
     public function logEndTime($subtask_id, $user_id)
@@ -187,22 +188,22 @@ class SubtaskTimeTrackingModel extends Base
         }
 
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('subtask_id', $subtask_id)
-                    ->eq('user_id', $user_id)
-                    ->eq('end', 0)
-                    ->update([
-                        'end'        => time(),
-                        'time_spent' => $time_spent,
-                    ]);
+            ->table(self::TABLE)
+            ->eq('subtask_id', $subtask_id)
+            ->eq('user_id', $user_id)
+            ->eq('end', 0)
+            ->update([
+                'end'        => time(),
+                'time_spent' => $time_spent,
+            ]);
     }
 
     /**
      * Calculate the time spent when the clock is stopped
      *
      * @access public
-     * @param  integer   $subtask_id
-     * @param  integer   $user_id
+     * @param integer $subtask_id
+     * @param integer $user_id
      * @return float
      */
     public function getTimeSpent($subtask_id, $user_id)
@@ -238,8 +239,8 @@ class SubtaskTimeTrackingModel extends Base
      * Update subtask time spent
      *
      * @access public
-     * @param  integer   $subtask_id
-     * @param  float     $time_spent
+     * @param integer $subtask_id
+     * @param float $time_spent
      * @return bool
      */
     public function updateSubtaskTimeSpent($subtask_id, $time_spent)
@@ -257,7 +258,7 @@ class SubtaskTimeTrackingModel extends Base
      * Update task time tracking based on subtasks time tracking
      *
      * @access public
-     * @param  integer   $task_id    Task id
+     * @param integer $task_id Task id
      * @return bool
      */
     public function updateTaskTimeTracking($task_id)
@@ -265,27 +266,27 @@ class SubtaskTimeTrackingModel extends Base
         $values = $this->calculateSubtaskTime($task_id);
 
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq('id', $task_id)
-                    ->update($values);
+            ->table(TaskModel::TABLE)
+            ->eq('id', $task_id)
+            ->update($values);
     }
 
     /**
      * Sum time spent and time estimated for all subtasks
      *
      * @access public
-     * @param  integer   $task_id    Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function calculateSubtaskTime($task_id)
     {
         return $this->db
-                    ->table(SubtaskModel::TABLE)
-                    ->eq('task_id', $task_id)
-                    ->columns(
-                        'SUM(time_spent) AS time_spent',
-                        'SUM(time_estimated) AS time_estimated',
-                    )
-                    ->findOne();
+            ->table(SubtaskModel::TABLE)
+            ->eq('task_id', $task_id)
+            ->columns(
+                'SUM(time_spent) AS time_spent',
+                'SUM(time_estimated) AS time_estimated',
+            )
+            ->findOne();
     }
 }

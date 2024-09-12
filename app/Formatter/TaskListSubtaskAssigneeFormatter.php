@@ -16,18 +16,20 @@ class TaskListSubtaskAssigneeFormatter extends TaskListFormatter
     /**
      * Set assignee
      *
-     * @param  integer $userId
+     * @param integer $userId
      * @return $this
      */
     public function withUserId($userId)
     {
         $this->userId = $userId;
+
         return $this;
     }
 
     public function withoutEmptyTasks()
     {
         $this->withoutEmptyTasks = true;
+
         return $this;
     }
 

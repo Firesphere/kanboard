@@ -22,7 +22,7 @@ class Entries
      * Constructor
      *
      * @access public
-     * @param  array $entries
+     * @param array $entries
      */
     public function __construct(array $entries)
     {
@@ -39,7 +39,7 @@ class Entries
     {
         $entities = [];
 
-        if (! isset($this->entries['count'])) {
+        if (!isset($this->entries['count'])) {
             return $entities;
         }
 

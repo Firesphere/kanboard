@@ -46,6 +46,7 @@ class ProjectEditController extends BaseController
         if ($valid) {
             if ($this->projectModel->update($values)) {
                 $this->flash->success(t('Project updated successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('ProjectEditController', 'show', ['project_id' => $project['id']]), true);
             } else {
                 $this->flash->failure(t('Unable to update this project.'));
@@ -59,8 +60,8 @@ class ProjectEditController extends BaseController
      * Prepare form values
      *
      * @access private
-     * @param  array  $project
-     * @param  array  $values
+     * @param array $project
+     * @param array $values
      * @return array
      */
     private function prepareValues(array $project, array $values)
@@ -68,10 +69,10 @@ class ProjectEditController extends BaseController
         $values['id'] = $project['id'];
 
         if (isset($values['is_private'])) {
-            if (! $this->helper->user->hasProjectAccess('ProjectCreationController', 'create', $project['id'])) {
+            if (!$this->helper->user->hasProjectAccess('ProjectCreationController', 'create', $project['id'])) {
                 unset($values['is_private']);
             }
-        } elseif ($project['is_private'] == 1 && ! isset($values['is_private'])) {
+        } elseif ($project['is_private'] == 1 && !isset($values['is_private'])) {
             if ($this->helper->user->hasProjectAccess('ProjectCreationController', 'create', $project['id'])) {
                 $values += ['is_private' => 0];
             }

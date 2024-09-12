@@ -21,12 +21,13 @@ class BoardTaskFormatter extends BaseFormatter implements FormatterInterface
      * Set tags
      *
      * @access public
-     * @param  array $tags
+     * @param array $tags
      * @return $this
      */
     public function withTags(array $tags)
     {
         $this->tags = $tags;
+
         return $this;
     }
 
@@ -34,12 +35,13 @@ class BoardTaskFormatter extends BaseFormatter implements FormatterInterface
      * Set tasks
      *
      * @access public
-     * @param  array $tasks
+     * @param array $tasks
      * @return $this
      */
     public function withTasks(array $tasks)
     {
         $this->tasks = $tasks;
+
         return $this;
     }
 
@@ -47,12 +49,13 @@ class BoardTaskFormatter extends BaseFormatter implements FormatterInterface
      * Set columnId
      *
      * @access public
-     * @param  integer $columnId
+     * @param integer $columnId
      * @return $this
      */
     public function withColumnId($columnId)
     {
         $this->columnId = $columnId;
+
         return $this;
     }
 
@@ -60,12 +63,13 @@ class BoardTaskFormatter extends BaseFormatter implements FormatterInterface
      * Set swimlaneId
      *
      * @access public
-     * @param  integer $swimlaneId
+     * @param integer $swimlaneId
      * @return $this
      */
     public function withSwimlaneId($swimlaneId)
     {
         $this->swimlaneId = $swimlaneId;
+
         return $this;
     }
 
@@ -91,7 +95,7 @@ class BoardTaskFormatter extends BaseFormatter implements FormatterInterface
      * Keep only tasks of the given column and swimlane
      *
      * @access protected
-     * @param  array $task
+     * @param array $task
      * @return bool
      */
     protected function filterTasks(array $task)

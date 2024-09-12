@@ -19,7 +19,7 @@ class BaseException extends Exception
      *
      * @static
      * @access public
-     * @param  string $message
+     * @param string $message
      * @return static
      */
     public static function getInstance($message = '')
@@ -36,6 +36,7 @@ class BaseException extends Exception
     public function withoutLayout()
     {
         $this->withoutLayout = true;
+
         return $this;
     }
 

@@ -41,7 +41,7 @@ abstract class NotificationTypeModel extends Base
      * Constructor
      *
      * @access public
-     * @param  \Pimple\Container   $container
+     * @param \Pimple\Container $container
      */
     public function __construct(Container $container)
     {
@@ -53,10 +53,10 @@ abstract class NotificationTypeModel extends Base
      * Add a new notification type
      *
      * @access public
-     * @param  string  $type
-     * @param  string  $label
-     * @param  string  $class
-     * @param  boolean $hidden
+     * @param string $type
+     * @param string $label
+     * @param string $class
+     * @param boolean $hidden
      * @return NotificationTypeModel
      */
     public function setType($type, $label, $class, $hidden = false)
@@ -80,7 +80,7 @@ abstract class NotificationTypeModel extends Base
      * Get mail notification type instance
      *
      * @access public
-     * @param  string  $type
+     * @param string $type
      * @return \Kanboard\Core\Notification\NotificationInterface
      */
     public function getType($type)
@@ -114,7 +114,7 @@ abstract class NotificationTypeModel extends Base
      * Keep only loaded notification types
      *
      * @access public
-     * @param  string[] $types
+     * @param string[] $types
      * @return array
      */
     public function filterTypes(array $types)

@@ -8,23 +8,25 @@
             <th><?= t('Columns') ?></th>
         </tr>
         <?php foreach ($paginator->getCollection() as $project): ?>
-        <tr>
-            <td>
-                <?= $this->text->e($this->user->getFullname($project)) ?>
-            </td>
-            <td>
-                <?= $this->url->link('<i class="fa fa-th"></i>', 'BoardViewController', 'show', ['project_id' => $project['id']], false, 'dashboard-table-link', t('Board')) ?>
-                <?= $this->url->link('<i class="fa fa-cog fa-fw"></i>', 'ProjectViewController', 'show', ['project_id' => $project['id']], false, 'dashboard-table-link', t('Project settings')) ?>
+            <tr>
+                <td>
+                    <?= $this->text->e($this->user->getFullname($project)) ?>
+                </td>
+                <td>
+                    <?= $this->url->link('<i class="fa fa-th"></i>', 'BoardViewController', 'show', ['project_id' => $project['id']], false, 'dashboard-table-link', t('Board')) ?>
+                    <?= $this->url->link('<i class="fa fa-cog fa-fw"></i>', 'ProjectViewController', 'show', ['project_id' => $project['id']], false, 'dashboard-table-link', t('Project settings')) ?>
 
-                <?= $this->text->e($project['project_name']) ?>
-            </td>
-            <td class="dashboard-project-stats">
-                <?php foreach ($project['columns'] as $column): ?>
-                    <strong title="<?= t('Task count') ?>"><span class="ui-helper-hidden-accessible"><?= t('Task count') ?> </span><?= $column['nb_open_tasks'] ?></strong>
-                    <span><?= $this->text->e($column['title']) ?></span>
-                <?php endforeach ?>
-            </td>
-        </tr>
+                    <?= $this->text->e($project['project_name']) ?>
+                </td>
+                <td class="dashboard-project-stats">
+                    <?php foreach ($project['columns'] as $column): ?>
+                        <strong title="<?= t('Task count') ?>"><span
+                                    class="ui-helper-hidden-accessible"><?= t('Task count') ?> </span><?= $column['nb_open_tasks'] ?>
+                        </strong>
+                        <span><?= $this->text->e($column['title']) ?></span>
+                    <?php endforeach ?>
+                </td>
+            </tr>
         <?php endforeach ?>
     </table>
 

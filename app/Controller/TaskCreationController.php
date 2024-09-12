@@ -16,8 +16,8 @@ class TaskCreationController extends BaseController
      * Display a form to create a new task
      *
      * @access public
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws PageNotFoundException
      */
     public function show(array $values = [], array $errors = [])
@@ -53,10 +53,10 @@ class TaskCreationController extends BaseController
 
         list($valid, $errors) = $this->taskValidator->validateCreation($values);
 
-        if (! $valid) {
+        if (!$valid) {
             $this->flash->failure(t('Unable to create your task.'));
             $this->show($values, $errors);
-        } elseif (! $this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
+        } elseif (!$this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
             $this->flash->failure(t('You cannot create tasks in this column.'));
             $this->response->redirect($this->helper->url->to('BoardViewController', 'show', ['project_id' => $project['id']]), true);
         } else {
@@ -94,8 +94,8 @@ class TaskCreationController extends BaseController
     /**
      * Executed after the task is saved
      *
-     * @param array   $project
-     * @param array   $values
+     * @param array $project
+     * @param array $values
      * @param integer $task_id
      */
     protected function afterSave(array $project, array &$values, $task_id)
@@ -120,8 +120,8 @@ class TaskCreationController extends BaseController
      * Prepare form values
      *
      * @access protected
-     * @param  bool  $isPrivateProject
-     * @param  array $swimlanesList
+     * @param bool $isPrivateProject
+     * @param array $swimlanesList
      * @return array
      */
     protected function prepareValues($isPrivateProject, array $swimlanesList)

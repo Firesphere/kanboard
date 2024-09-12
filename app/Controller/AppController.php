@@ -16,8 +16,8 @@ class AppController extends Base
      * Forbidden page
      *
      * @access public
-     * @param  bool   $withoutLayout
-     * @param  string $message
+     * @param bool $withoutLayout
+     * @param string $message
      */
     public function accessForbidden($withoutLayout = false, $message = '')
     {
@@ -35,7 +35,7 @@ class AppController extends Base
      * Page not found
      *
      * @access public
-     * @param  boolean $withoutLayout
+     * @param boolean $withoutLayout
      */
     public function notFound($withoutLayout = false)
     {

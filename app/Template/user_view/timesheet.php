@@ -15,13 +15,13 @@
             <th class="column-10"><?= $subtask_paginator->order(t('Time spent'), 'time_spent') ?></th>
         </tr>
         <?php foreach ($subtask_paginator->getCollection() as $record): ?>
-        <tr>
-            <td><?= $this->url->link($this->text->e($record['task_title']), 'TaskViewController', 'show', ['task_id' => $record['task_id']]) ?></td>
-            <td><?= $this->url->link($this->text->e($record['subtask_title']), 'TaskViewController', 'show', ['task_id' => $record['task_id']]) ?></td>
-            <td><?= $this->dt->datetime($record['start']) ?></td>
-            <td><?= $this->dt->datetime($record['end']) ?></td>
-            <td><?= n($record['time_spent']) . ' ' . t('hours') ?></td>
-        </tr>
+            <tr>
+                <td><?= $this->url->link($this->text->e($record['task_title']), 'TaskViewController', 'show', ['task_id' => $record['task_id']]) ?></td>
+                <td><?= $this->url->link($this->text->e($record['subtask_title']), 'TaskViewController', 'show', ['task_id' => $record['task_id']]) ?></td>
+                <td><?= $this->dt->datetime($record['start']) ?></td>
+                <td><?= $this->dt->datetime($record['end']) ?></td>
+                <td><?= n($record['time_spent']) . ' ' . t('hours') ?></td>
+            </tr>
         <?php endforeach ?>
     </table>
 

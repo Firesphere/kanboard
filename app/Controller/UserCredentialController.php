@@ -43,7 +43,7 @@ class UserCredentialController extends BaseController
 
         list($valid, $errors) = $this->userValidator->validatePasswordModification($values);
 
-        if (! $this->userSession->isAdmin()) {
+        if (!$this->userSession->isAdmin()) {
             $values = [
                 'id'           => $this->userSession->getId(),
                 'password'     => isset($values['password']) ? $values['password'] : '',
@@ -56,6 +56,7 @@ class UserCredentialController extends BaseController
                 $this->flash->success(t('Password modified successfully.'));
                 $this->userLockingModel->resetFailedLogin($user['username']);
                 $this->response->redirect($this->helper->url->to('UserViewController', 'show', ['user_id' => $user['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to change the password.'));
@@ -106,6 +107,7 @@ class UserCredentialController extends BaseController
             if ($this->userModel->update($values)) {
                 $this->flash->success(t('User updated successfully.'));
                 $this->response->redirect($this->helper->url->to('UserCredentialController', 'changeAuthentication', ['user_id' => $user['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this user.'));

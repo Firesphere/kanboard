@@ -47,7 +47,7 @@ class UserModificationController extends BaseController
         $user = $this->getUser();
         $values = $this->request->getValues();
 
-        if (! $this->userSession->isAdmin()) {
+        if (!$this->userSession->isAdmin()) {
             $values = [
                 'id'       => $this->userSession->getId(),
                 'username' => isset($values['username']) ? $values['username'] : '',
@@ -66,6 +66,7 @@ class UserModificationController extends BaseController
             if ($this->userModel->update($values)) {
                 $this->flash->success(t('User updated successfully.'));
                 $this->response->redirect($this->helper->url->to('UserViewController', 'show', ['user_id' => $user['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this user.'));

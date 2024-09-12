@@ -16,8 +16,8 @@ class FileCache extends BaseCache
      * Store an item in the cache
      *
      * @access public
-     * @param  string $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      */
     public function set($key, $value)
     {
@@ -26,10 +26,37 @@ class FileCache extends BaseCache
     }
 
     /**
+     * Create cache folder if missing
+     *
+     * @access protected
+     * @throws LogicException
+     */
+    protected function createCacheFolder()
+    {
+        if (!is_dir(CACHE_DIR)) {
+            if (!mkdir(CACHE_DIR, 0755)) {
+                throw new LogicException('Unable to create cache directory: ' . CACHE_DIR);
+            }
+        }
+    }
+
+    /**
+     * Get absolute filename from the key
+     *
+     * @access protected
+     * @param string $key
+     * @return string
+     */
+    protected function getFilenameFromKey($key)
+    {
+        return CACHE_DIR . DIRECTORY_SEPARATOR . $key;
+    }
+
+    /**
      * Retrieve an item from the cache by key
      *
      * @access public
-     * @param  string $key
+     * @param string $key
      * @return mixed            Null when not found, cached value otherwise
      */
     public function get($key)
@@ -58,7 +85,7 @@ class FileCache extends BaseCache
      * Remove an item from the cache
      *
      * @access public
-     * @param  string $key
+     * @param string $key
      */
     public function remove($key)
     {
@@ -66,33 +93,6 @@ class FileCache extends BaseCache
 
         if (file_exists($filename)) {
             unlink($filename);
-        }
-    }
-
-    /**
-     * Get absolute filename from the key
-     *
-     * @access protected
-     * @param  string $key
-     * @return string
-     */
-    protected function getFilenameFromKey($key)
-    {
-        return CACHE_DIR . DIRECTORY_SEPARATOR . $key;
-    }
-
-    /**
-     * Create cache folder if missing
-     *
-     * @access protected
-     * @throws LogicException
-     */
-    protected function createCacheFolder()
-    {
-        if (! is_dir(CACHE_DIR)) {
-            if (! mkdir(CACHE_DIR, 0755)) {
-                throw new LogicException('Unable to create cache directory: ' . CACHE_DIR);
-            }
         }
     }
 }

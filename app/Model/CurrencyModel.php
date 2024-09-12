@@ -71,8 +71,8 @@ class CurrencyModel extends Base
      * Calculate the price for the reference currency
      *
      * @access public
-     * @param  string  $currency
-     * @param  double  $price
+     * @param string $currency
+     * @param double $price
      * @return double
      */
     public function getPrice($currency, $price)
@@ -94,8 +94,8 @@ class CurrencyModel extends Base
      * Add a new currency rate
      *
      * @access public
-     * @param  string    $currency
-     * @param  float     $rate
+     * @param string $currency
+     * @param float $rate
      * @return boolean|integer
      */
     public function create($currency, $rate)
@@ -111,8 +111,8 @@ class CurrencyModel extends Base
      * Update a currency rate
      *
      * @access public
-     * @param  string    $currency
-     * @param  float     $rate
+     * @param string $currency
+     * @param float $rate
      * @return boolean
      */
     public function update($currency, $rate)

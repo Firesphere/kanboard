@@ -24,7 +24,7 @@ class SubtaskRestrictionController extends BaseController
         $subtaskInProgress = $this->subtaskStatusModel->getSubtaskInProgress($this->userSession->getId());
 
         $this->response->html($this->template->render('subtask_restriction/show', [
-            'status_list' => [
+            'status_list'        => [
                 SubtaskModel::STATUS_TODO => 'Todo',
                 SubtaskModel::STATUS_DONE => 'Done',
             ],
@@ -45,17 +45,17 @@ class SubtaskRestrictionController extends BaseController
         $subtask = $this->getSubtask($task);
         $values = $this->request->getValues();
 
-        if (! empty($values)) {
+        if (!empty($values)) {
             // Change status of the previous "in progress" subtask
             $this->subtaskModel->update([
-                'id'      => $values['id'],
-                'status'  => $values['status'],
+                'id'     => $values['id'],
+                'status' => $values['status'],
             ]);
 
             // Set the current subtask to "in progress"
             $this->subtaskModel->update([
-                'id'      => $subtask['id'],
-                'status'  => SubtaskModel::STATUS_INPROGRESS,
+                'id'     => $subtask['id'],
+                'status' => SubtaskModel::STATUS_INPROGRESS,
             ]);
         }
 

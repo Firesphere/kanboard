@@ -27,9 +27,11 @@ class TaskDuplicationController extends BaseController
 
             if ($task_id > 0) {
                 $this->flash->success(t('Task created successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task_id]));
             } else {
                 $this->flash->failure(t('Unable to create this task.'));
+
                 return $this->response->redirect($this->helper->url->to('TaskDuplicationController', 'duplicate', ['task_id' => $task['id']]), true);
             }
         }
@@ -50,10 +52,10 @@ class TaskDuplicationController extends BaseController
 
         if ($this->request->isPost()) {
             $values = $this->request->getValues();
-            list($valid, ) = $this->taskValidator->validateProjectModification($values);
+            list($valid,) = $this->taskValidator->validateProjectModification($values);
 
             if ($valid) {
-                if (! $this->projectPermissionModel->isUserAllowed($values['project_id'], $this->userSession->getId())) {
+                if (!$this->projectPermissionModel->isUserAllowed($values['project_id'], $this->userSession->getId())) {
                     throw new AccessForbiddenException();
                 }
 
@@ -64,8 +66,10 @@ class TaskDuplicationController extends BaseController
                     $values['column_id'],
                     $values['category_id'],
                     $values['owner_id'],
-                )) {
+                )
+                ) {
                     $this->flash->success(t('Task updated successfully.'));
+
                     return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
                 }
             }
@@ -87,10 +91,10 @@ class TaskDuplicationController extends BaseController
 
         if ($this->request->isPost()) {
             $values = $this->request->getValues();
-            list($valid, ) = $this->taskValidator->validateProjectModification($values);
+            list($valid,) = $this->taskValidator->validateProjectModification($values);
 
             if ($valid) {
-                if (! $this->projectPermissionModel->isUserAllowed($values['project_id'], $this->userSession->getId())) {
+                if (!$this->projectPermissionModel->isUserAllowed($values['project_id'], $this->userSession->getId())) {
                     throw new AccessForbiddenException();
                 }
 
@@ -105,6 +109,7 @@ class TaskDuplicationController extends BaseController
 
                 if ($task_id > 0) {
                     $this->flash->success(t('Task created successfully.'));
+
                     return $this->response->redirect($this->helper->url->to('BoardViewController', 'show', ['project_id' => $task['project_id']]), true);
                 }
             }
@@ -119,8 +124,8 @@ class TaskDuplicationController extends BaseController
      * Choose destination when move/copy task to another project
      *
      * @access private
-     * @param  array   $task
-     * @param  string  $template
+     * @param array $task
+     * @param string $template
      */
     private function chooseDestination(array $task, $template)
     {
@@ -129,7 +134,7 @@ class TaskDuplicationController extends BaseController
 
         unset($projects_list[$task['project_id']]);
 
-        if (! empty($projects_list)) {
+        if (!empty($projects_list)) {
             $dst_project_id = $this->request->getIntegerParam('dst_project_id', key($projects_list));
 
             $swimlanes_list = $this->swimlaneModel->getList($dst_project_id, false, true);

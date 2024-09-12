@@ -87,7 +87,7 @@ class WebNotificationController extends BaseController
     {
         $user_id = $this->request->getIntegerParam('user_id');
 
-        if (! $this->userSession->isAdmin() && $user_id != $this->userSession->getId()) {
+        if (!$this->userSession->isAdmin() && $user_id != $this->userSession->getId()) {
             $user_id = $this->userSession->getId();
         }
 

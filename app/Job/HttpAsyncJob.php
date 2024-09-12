@@ -17,13 +17,14 @@ class HttpAsyncJob extends BaseJob
      * @param string $method
      * @param string $url
      * @param string $content
-     * @param array  $headers
-     * @param bool   $raiseForErrors
+     * @param array $headers
+     * @param bool $raiseForErrors
      * @return $this
      */
     public function withParams($method, $url, $content, array $headers, $raiseForErrors = false)
     {
         $this->jobParams = [$method, $url, $content, $headers, $raiseForErrors];
+
         return $this;
     }
 
@@ -34,8 +35,8 @@ class HttpAsyncJob extends BaseJob
      * @param string $method
      * @param string $url
      * @param string $content
-     * @param array  $headers
-     * @param bool   $raiseForErrors
+     * @param array $headers
+     * @param bool $raiseForErrors
      */
     public function execute($method, $url, $content, array $headers, $raiseForErrors = false)
     {

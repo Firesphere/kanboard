@@ -56,48 +56,10 @@ class LexerBuilder
     }
 
     /**
-     * Add a filter
-     *
-     * @access public
-     * @param  FilterInterface $filter
-     * @param  bool            $default
-     * @return LexerBuilder
-     */
-    public function withFilter(FilterInterface $filter, $default = false)
-    {
-        $attributes = $filter->getAttributes();
-
-        foreach ($attributes as $attribute) {
-            $this->filters[$attribute] = $filter;
-            $this->lexer->addToken(sprintf("/^(%s:)/i", $attribute), $attribute);
-
-            if ($default) {
-                $this->lexer->setDefaultToken($attribute);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set the query
-     *
-     * @access public
-     * @param  Table $query
-     * @return LexerBuilder
-     */
-    public function withQuery(Table $query)
-    {
-        $this->query = $query;
-        $this->queryBuilder->withQuery($this->query);
-        return $this;
-    }
-
-    /**
      * Parse the input and build the query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return QueryBuilder
      */
     public function build($input)
@@ -117,8 +79,8 @@ class LexerBuilder
      * Apply filters to the query
      *
      * @access protected
-     * @param  FilterInterface $filter
-     * @param  array           $values
+     * @param FilterInterface $filter
+     * @param array $values
      */
     protected function applyFilters(FilterInterface $filter, array $values)
     {
@@ -137,6 +99,45 @@ class LexerBuilder
         } elseif ($len === 1) {
             $this->queryBuilder->withFilter($filter->withValue($values[0]));
         }
+    }
+
+    /**
+     * Set the query
+     *
+     * @access public
+     * @param Table $query
+     * @return LexerBuilder
+     */
+    public function withQuery(Table $query)
+    {
+        $this->query = $query;
+        $this->queryBuilder->withQuery($this->query);
+
+        return $this;
+    }
+
+    /**
+     * Add a filter
+     *
+     * @access public
+     * @param FilterInterface $filter
+     * @param bool $default
+     * @return LexerBuilder
+     */
+    public function withFilter(FilterInterface $filter, $default = false)
+    {
+        $attributes = $filter->getAttributes();
+
+        foreach ($attributes as $attribute) {
+            $this->filters[$attribute] = $filter;
+            $this->lexer->addToken(sprintf("/^(%s:)/i", $attribute), $attribute);
+
+            if ($default) {
+                $this->lexer->setDefaultToken($attribute);
+            }
+        }
+
+        return $this;
     }
 
     /**

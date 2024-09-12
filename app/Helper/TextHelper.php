@@ -16,32 +16,35 @@ class TextHelper extends Base
     /**
      * HTML escaping
      *
-     * @param  string   $value    Value to escape
+     * @param string $value Value to escape
      * @return string
      */
     public function e($value)
     {
-        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', false);
+        return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8', false);
     }
 
     /**
      * Join with HTML escaping
      *
      * @param  $glue
-     * @param  array $list
+     * @param array $list
      * @return string
      */
     public function implode($glue, array $list)
     {
-        array_walk($list, function (&$value) { $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false); });
+        array_walk($list, function (&$value) {
+            $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
+        });
+
         return implode($glue, $list);
     }
 
     /**
      * Markdown transformation
      *
-     * @param  string    $text
-     * @param  boolean   $isPublicLink
+     * @param string $text
+     * @param boolean $isPublicLink
      * @return string
      */
     public function markdown($text, $isPublicLink = false)
@@ -49,14 +52,15 @@ class TextHelper extends Base
         $parser = new Markdown($this->container, $isPublicLink);
         $parser->setMarkupEscaped(MARKDOWN_ESCAPE_HTML);
         $parser->setBreaksEnabled(true);
+
         return $parser->text($text ?: '');
     }
 
     /**
      * Reply transformation
      *
-     * @param  string   $username
-     * @param  string   $text
+     * @param string $username
+     * @param string $text
      * @return string
      */
     public function reply($username, $text)
@@ -71,8 +75,8 @@ class TextHelper extends Base
     /**
      * Format a file size
      *
-     * @param  integer  $size        Size in bytes
-     * @param  integer  $precision   Precision
+     * @param integer $size Size in bytes
+     * @param integer $precision Precision
      * @return string
      */
     public function bytes($size, $precision = 2)
@@ -84,14 +88,14 @@ class TextHelper extends Base
         $base = log($size) / log(1024);
         $suffixes = ['', 'k', 'M', 'G', 'T'];
 
-        return round(pow(1024, $base - floor($base)), $precision) . $suffixes[(int) floor($base)];
+        return round(pow(1024, $base - floor($base)), $precision) . $suffixes[(int)floor($base)];
     }
 
     /**
      * Return true if needle is contained in the haystack
      *
-     * @param  string   $haystack   Haystack
-     * @param  string   $needle     Needle
+     * @param string $haystack Haystack
+     * @param string $needle Needle
      * @return boolean
      */
     public function contains($haystack, $needle)
@@ -102,9 +106,9 @@ class TextHelper extends Base
     /**
      * Return a value from a dictionary
      *
-     * @param  mixed   $id              Key
-     * @param  array   $listing         Dictionary
-     * @param  string  $default_value   Value displayed when the key doesn't exists
+     * @param mixed $id Key
+     * @param array $listing Dictionary
+     * @param string $default_value Value displayed when the key doesn't exists
      * @return string
      */
     public function in($id, array $listing, $default_value = '?')

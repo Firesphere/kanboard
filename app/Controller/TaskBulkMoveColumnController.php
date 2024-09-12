@@ -32,7 +32,7 @@ class TaskBulkMoveColumnController extends BaseController
         foreach ($taskIDs as $taskID) {
             $task = $this->taskFinderModel->getById($taskID);
 
-            if (! $this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $values['column_id'])) {
+            if (!$this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $values['column_id'])) {
                 throw new AccessForbiddenException(e('You are not allowed to move this task.'));
             }
 

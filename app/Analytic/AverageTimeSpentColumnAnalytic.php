@@ -17,7 +17,7 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Build report
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function build($project_id)
@@ -34,7 +34,7 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Initialize default values for each column
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function initialize($project_id)
@@ -58,8 +58,8 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Calculate time spent for each tasks for each columns
      *
      * @access private
-     * @param  array   $stats
-     * @param  integer $project_id
+     * @param array $stats
+     * @param integer $project_id
      */
     private function processTasks(array &$stats, $project_id)
     {
@@ -79,7 +79,7 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Calculate averages
      *
      * @access private
-     * @param  array   $stats
+     * @param array $stats
      */
     private function calculateAverage(array &$stats)
     {
@@ -92,12 +92,12 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Calculate column average
      *
      * @access private
-     * @param  array   $column
+     * @param array $column
      */
     private function calculateColumnAverage(array &$column)
     {
         if ($column['count'] > 0) {
-            $column['average'] = (int) ($column['time_spent'] / $column['count']);
+            $column['average'] = (int)($column['time_spent'] / $column['count']);
         }
     }
 
@@ -105,14 +105,14 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Get time spent for each column for a given task
      *
      * @access private
-     * @param  array   $task
+     * @param array $task
      * @return array
      */
     private function getTaskTimeByColumns(array &$task)
     {
         $columns = $this->transitionModel->getTimeSpentByTask($task['id']);
 
-        if (! isset($columns[$task['column_id']])) {
+        if (!isset($columns[$task['column_id']])) {
             $columns[$task['column_id']] = 0;
         }
 
@@ -125,12 +125,13 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Calculate time spent of a task in the current column
      *
      * @access private
-     * @param  array   $task
+     * @param array $task
      * @return integer
      */
     private function getTaskTimeSpentInCurrentColumn(array &$task)
     {
         $end = $task['date_completed'] ?: time();
+
         return $end - $task['date_moved'];
     }
 
@@ -138,7 +139,7 @@ class AverageTimeSpentColumnAnalytic extends Base
      * Fetch the last 1000 tasks
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function getTasks($project_id)

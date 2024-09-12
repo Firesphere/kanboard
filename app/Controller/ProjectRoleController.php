@@ -29,8 +29,8 @@ class ProjectRoleController extends BaseController
     /**
      * Show form to create new role
      *
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws AccessForbiddenException
      */
     public function create(array $values = [], array $errors = [])
@@ -72,8 +72,8 @@ class ProjectRoleController extends BaseController
     /**
      * Show form to change existing role
      *
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws AccessForbiddenException
      */
     public function edit(array $values = [], array $errors = [])
@@ -157,6 +157,7 @@ class ProjectRoleController extends BaseController
     protected function getRole($project_id)
     {
         $role_id = $this->request->getIntegerParam('role_id');
+
         return $this->projectRoleModel->getById($project_id, $role_id);
     }
 }

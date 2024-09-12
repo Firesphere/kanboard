@@ -23,6 +23,7 @@ class UserMentionFormatter extends BaseFormatter implements FormatterInterface
     public function withUsers(array $users)
     {
         $this->users = $users;
+
         return $this;
     }
 
@@ -48,7 +49,7 @@ class UserMentionFormatter extends BaseFormatter implements FormatterInterface
 
             $html .= ' ' . $this->helper->text->e($user['username']);
 
-            if (! empty($user['name'])) {
+            if (!empty($user['name'])) {
                 $html .= ' <small aria-hidden="true">' . $this->helper->text->e($user['name']) . '</small>';
             }
 

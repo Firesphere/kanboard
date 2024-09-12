@@ -14,12 +14,13 @@ class ProjectMetricJob extends BaseJob
      * Set job parameters
      *
      * @access public
-     * @param  integer $projectId
+     * @param integer $projectId
      * @return $this
      */
     public function withParams($projectId)
     {
         $this->jobParams = [$projectId];
+
         return $this;
     }
 
@@ -27,7 +28,7 @@ class ProjectMetricJob extends BaseJob
      * Execute job
      *
      * @access public
-     * @param  integer $projectId
+     * @param integer $projectId
      */
     public function execute($projectId)
     {

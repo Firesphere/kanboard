@@ -21,6 +21,7 @@ class FileLink extends BaseLink implements ExternalLinkInterface
     public function getTitle()
     {
         $path = parse_url($this->url, PHP_URL_PATH);
+
         return basename(str_replace('\\', '/', $path));
     }
 }

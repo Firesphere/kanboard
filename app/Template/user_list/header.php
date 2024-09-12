@@ -1,4 +1,3 @@
-
 <div class="table-list-header">
     <div class="table-list-header-count">
         <?php if ($paginator->getTotal() > 1): ?>

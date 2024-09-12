@@ -33,11 +33,12 @@
             <li><?= t('Search by description: ') ?><strong>description:"Something to find"</strong></li>
             <li><?= t('Search by due date: ') ?><strong>due:2015-07-01</strong></li>
         </ul>
-        <p><i class="fa fa-external-link fa-fw"></i><?= $this->url->doc(t('View advanced search syntax'), 'search') ?></p>
+        <p><i class="fa fa-external-link fa-fw"></i><?= $this->url->doc(t('View advanced search syntax'), 'search') ?>
+        </p>
     </div>
-<?php elseif (! empty($values['search']) && $paginator->isEmpty()): ?>
+<?php elseif (!empty($values['search']) && $paginator->isEmpty()): ?>
     <p class="alert"><?= t('Nothing found.') ?></p>
-<?php elseif (! $paginator->isEmpty()): ?>
+<?php elseif (!$paginator->isEmpty()): ?>
     <?= $this->render('search/results', [
         'paginator' => $paginator,
     ]) ?>

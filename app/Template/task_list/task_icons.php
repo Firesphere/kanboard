@@ -17,20 +17,20 @@
         </span>
     <?php endif ?>
 
-    <?php if (! empty($task['time_estimated']) || ! empty($task['time_spent'])): ?>
+    <?php if (!empty($task['time_estimated']) || !empty($task['time_spent'])): ?>
         <span class="task-time-estimated" title="<?= t('Time spent and estimated') ?>">
             <span class="ui-helper-hidden-accessible"><?= t('Time spent and estimated') ?> </span><?= $this->text->e($task['time_spent']) ?>/<?= $this->text->e($task['time_estimated']) ?>h
         </span>
     <?php endif ?>
 
-    <?php if (! empty($task['date_started'])): ?>
+    <?php if (!empty($task['date_started'])): ?>
         <span title="<?= t('Start date') ?>" class="task-date">
             <i class="fa fa-clock-o" role="img" aria-label="<?= t('Start date') ?>"></i>
             <?= $this->dt->date($task['date_started']) ?>
         </span>
     <?php endif ?>
 
-    <?php if (! empty($task['date_due'])): ?>
+    <?php if (!empty($task['date_due'])): ?>
         <span title="<?= t('Due date') ?>" class="task-date
             <?php if (time() > $task['date_due']): ?>
                  task-date-overdue
@@ -51,19 +51,19 @@
         <?= $this->app->tooltipLink('<i class="fa fa-refresh fa-rotate-90 fa-inverse"></i>', $this->url->href('BoardTooltipController', 'recurrence', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
-    <?php if (! empty($task['nb_links'])): ?>
+    <?php if (!empty($task['nb_links'])): ?>
         <?= $this->app->tooltipLink('<i class="fa fa-code-fork fa-fw"></i>' . $task['nb_links'], $this->url->href('BoardTooltipController', 'tasklinks', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
-    <?php if (! empty($task['nb_external_links'])): ?>
+    <?php if (!empty($task['nb_external_links'])): ?>
         <?= $this->app->tooltipLink('<i class="fa fa-external-link fa-fw"></i>' . $task['nb_external_links'], $this->url->href('BoardTooltipController', 'externallinks', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
-    <?php if (! empty($task['nb_subtasks'])): ?>
+    <?php if (!empty($task['nb_subtasks'])): ?>
         <?= $this->app->tooltipLink('<i class="fa fa-bars fa-fw"></i>' . round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0) . '%', $this->url->href('BoardTooltipController', 'subtasks', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
-    <?php if (! empty($task['nb_files'])): ?>
+    <?php if (!empty($task['nb_files'])): ?>
         <?= $this->app->tooltipLink('<i class="fa fa-paperclip fa-fw"></i>' . $task['nb_files'], $this->url->href('BoardTooltipController', 'attachments', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
@@ -83,16 +83,19 @@
         <?php endif ?>
     <?php endif ?>
 
-    <?php if (! empty($task['description'])): ?>
+    <?php if (!empty($task['description'])): ?>
         <?= $this->app->tooltipLink('<i class="fa fa-file-text-o"></i>', $this->url->href('BoardTooltipController', 'description', ['task_id' => $task['id']])) ?>
     <?php endif ?>
 
-    <span title="<?= t('Position') ?>">(<span class="ui-helper-hidden-accessible"><?= t('Position') ?> </span><?= $task['position'] ?>)</span>
+    <span title="<?= t('Position') ?>">(<span
+                class="ui-helper-hidden-accessible"><?= t('Position') ?> </span><?= $task['position'] ?>)</span>
 
     <?php if ($task['is_active'] == 1): ?>
         <div class="task-icon-age">
-            <span title="<?= t('Task age in days')?>" class="task-icon-age-total"><span class="ui-helper-hidden-accessible"><?= t('Task age in days') ?> </span><?= $this->dt->age($task['date_creation']) ?></span>
-            <span title="<?= t('Days in this column')?>" class="task-icon-age-column"><span class="ui-helper-hidden-accessible"><?= t('Days in this column') ?> </span><?= $this->dt->age($task['date_moved']) ?></span>
+            <span title="<?= t('Task age in days') ?>" class="task-icon-age-total"><span
+                        class="ui-helper-hidden-accessible"><?= t('Task age in days') ?> </span><?= $this->dt->age($task['date_creation']) ?></span>
+            <span title="<?= t('Days in this column') ?>" class="task-icon-age-column"><span
+                        class="ui-helper-hidden-accessible"><?= t('Days in this column') ?> </span><?= $this->dt->age($task['date_moved']) ?></span>
         </div>
     <?php else: ?>
         <span class="task-board-closed"><i class="fa fa-ban fa-fw"></i><?= t('Closed') ?></span>

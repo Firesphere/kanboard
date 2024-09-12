@@ -49,7 +49,7 @@ class UserNotificationFilterModel extends Base
      * Get user selected filter
      *
      * @access public
-     * @param  integer  $user_id
+     * @param integer $user_id
      * @return integer
      */
     public function getSelectedFilter($user_id)
@@ -61,8 +61,8 @@ class UserNotificationFilterModel extends Base
      * Save selected filter for a user
      *
      * @access public
-     * @param  integer  $user_id
-     * @param  string   $filter
+     * @param integer $user_id
+     * @param string $filter
      * @return boolean
      */
     public function saveFilter($user_id, $filter)
@@ -76,7 +76,7 @@ class UserNotificationFilterModel extends Base
      * Get user selected projects
      *
      * @access public
-     * @param  integer  $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getSelectedProjects($user_id)
@@ -88,8 +88,8 @@ class UserNotificationFilterModel extends Base
      * Save selected projects for a user
      *
      * @access public
-     * @param  integer    $user_id
-     * @param  integer[]  $project_ids
+     * @param integer $user_id
+     * @param integer[] $project_ids
      * @return boolean
      */
     public function saveSelectedProjects($user_id, array $project_ids)
@@ -111,8 +111,8 @@ class UserNotificationFilterModel extends Base
      * Return true if the user should receive notification
      *
      * @access public
-     * @param  array  $user
-     * @param  array  $event_data
+     * @param array $user
+     * @param array $event_data
      * @return boolean
      */
     public function shouldReceiveNotification(array $user, array $event_data)
@@ -137,7 +137,7 @@ class UserNotificationFilterModel extends Base
      * Return true if the user will receive all notifications
      *
      * @access public
-     * @param  array  $user
+     * @param array $user
      * @return boolean
      */
     public function filterNone(array $user)
@@ -149,8 +149,8 @@ class UserNotificationFilterModel extends Base
      * Return true if the user is the assignee and selected the filter "assignee"
      *
      * @access public
-     * @param  array  $user
-     * @param  array  $event_data
+     * @param array $user
+     * @param array $event_data
      * @return boolean
      */
     public function filterAssignee(array $user, array $event_data)
@@ -162,8 +162,8 @@ class UserNotificationFilterModel extends Base
      * Return true if the user is the creator and enabled the filter "creator"
      *
      * @access public
-     * @param  array  $user
-     * @param  array  $event_data
+     * @param array $user
+     * @param array $event_data
      * @return boolean
      */
     public function filterCreator(array $user, array $event_data)
@@ -175,29 +175,29 @@ class UserNotificationFilterModel extends Base
      * Return true if the user is the assignee or the creator and selected the filter "both"
      *
      * @access public
-     * @param  array  $user
-     * @param  array  $event_data
+     * @param array $user
+     * @param array $event_data
      * @return boolean
      */
     public function filterBoth(array $user, array $event_data)
     {
         return $user['notifications_filter'] == self::FILTER_BOTH &&
-               ($event_data['task']['creator_id'] == $user['id'] || $event_data['task']['owner_id'] == $user['id']);
+            ($event_data['task']['creator_id'] == $user['id'] || $event_data['task']['owner_id'] == $user['id']);
     }
 
     /**
      * Return true if the user want to receive notification for the selected project
      *
      * @access public
-     * @param  array  $user
-     * @param  array  $event_data
+     * @param array $user
+     * @param array $event_data
      * @return boolean
      */
     public function filterProject(array $user, array $event_data)
     {
         $projects = $this->getSelectedProjects($user['id']);
 
-        if (! empty($projects)) {
+        if (!empty($projects)) {
             return in_array($event_data['task']['project_id'], $projects);
         }
 

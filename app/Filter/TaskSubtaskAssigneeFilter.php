@@ -37,12 +37,13 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
      * Set current user id
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return TaskSubtaskAssigneeFilter
      */
     public function setCurrentUserId($userId)
     {
         $this->currentUserId = $userId;
+
         return $this;
     }
 
@@ -50,12 +51,13 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
      * Set database object
      *
      * @access public
-     * @param  Database $db
+     * @param Database $db
      * @return TaskSubtaskAssigneeFilter
      */
     public function setDatabase(Database $db)
     {
         $this->db = $db;
+
         return $this;
     }
 
@@ -101,12 +103,12 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
      * Apply subquery filter
      *
      * @access protected
-     * @param  Table $subquery
+     * @param Table $subquery
      * @return Table
      */
     protected function applySubQueryFilter(Table $subquery)
     {
-        if (is_int($this->value) || ctype_digit((string) $this->value)) {
+        if (is_int($this->value) || ctype_digit((string)$this->value)) {
             $subquery->eq(SubtaskModel::TABLE . '.user_id', $this->value);
         } else {
             switch ($this->value) {

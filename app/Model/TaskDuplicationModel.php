@@ -45,7 +45,7 @@ class TaskDuplicationModel extends Base
      * Duplicate a task to the same project
      *
      * @access public
-     * @param  integer             $task_id      Task id
+     * @param integer $task_id Task id
      * @return boolean|integer                   Duplicated task id
      */
     public function duplicate($task_id)
@@ -82,13 +82,13 @@ class TaskDuplicationModel extends Base
      * Check if the assignee and the category are available in the destination project
      *
      * @access public
-     * @param  array      $values
+     * @param array $values
      * @return array
      */
     public function checkDestinationProjectValues(array &$values)
     {
         // Check if the assigned user is allowed for the destination project
-        if ($values['owner_id'] > 0 && ! $this->projectPermissionModel->isUserAllowed($values['project_id'], $values['owner_id'])) {
+        if ($values['owner_id'] > 0 && !$this->projectPermissionModel->isUserAllowed($values['project_id'], $values['owner_id'])) {
             $values['owner_id'] = 0;
         }
 
@@ -133,7 +133,7 @@ class TaskDuplicationModel extends Base
      * Duplicate fields for the new task
      *
      * @access protected
-     * @param  integer       $task_id      Task id
+     * @param integer $task_id Task id
      * @return array
      */
     protected function copyFields($task_id)
@@ -152,8 +152,8 @@ class TaskDuplicationModel extends Base
      * Create the new task and duplicate subtasks
      *
      * @access protected
-     * @param  integer            $task_id      Task id
-     * @param  array              $values       Form values
+     * @param integer $task_id Task id
+     * @param array $values Form values
      * @return boolean|integer
      */
     protected function save($task_id, array $values)

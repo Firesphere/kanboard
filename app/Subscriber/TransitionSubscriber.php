@@ -21,7 +21,7 @@ class TransitionSubscriber extends BaseSubscriber implements EventSubscriberInte
 
         $user_id = $this->userSession->getId();
 
-        if (! empty($user_id)) {
+        if (!empty($user_id)) {
             $this->transitionModel->save($user_id, $event->getAll());
         }
     }

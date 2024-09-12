@@ -29,9 +29,11 @@ class PluginInstallCommand extends BaseCommand
             $installer = new Installer($this->container);
             $installer->install($input->getArgument('url'));
             $output->writeln('<info>Plugin installed successfully</info>');
+
             return 0;
         } catch (PluginInstallerException $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
+
             return 1;
         }
     }

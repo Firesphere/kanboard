@@ -16,7 +16,7 @@ class Directory extends BaseCore
      * Get all plugins available
      *
      * @access public
-     * @param  string $url
+     * @param string $url
      * @return array
      */
     public function getAvailablePlugins($url = PLUGIN_API_URL)
@@ -24,13 +24,14 @@ class Directory extends BaseCore
         $plugins = $this->httpClient->getJson($url);
         $plugins = array_filter($plugins, [$this, 'isCompatible']);
         $plugins = array_filter($plugins, [$this, 'isInstallable']);
+
         return $plugins;
     }
 
     /**
      * Filter plugins
      *
-     * @param array  $plugin
+     * @param array $plugin
      * @param string $appVersion
      * @return bool
      */
@@ -42,7 +43,7 @@ class Directory extends BaseCore
     /**
      * Filter plugins
      *
-     * @param array  $plugin
+     * @param array $plugin
      * @return bool
      */
     public function isInstallable(array $plugin)

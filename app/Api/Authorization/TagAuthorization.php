@@ -15,7 +15,7 @@ class TagAuthorization extends ProjectAuthorization
         if ($this->userSession->isLogged()) {
             $tag = $this->tagModel->getById($tag_id);
 
-            if (! empty($tag)) {
+            if (!empty($tag)) {
                 $this->checkProjectPermission($class, $method, $tag['project_id']);
             }
         }

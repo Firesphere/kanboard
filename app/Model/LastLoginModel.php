@@ -30,10 +30,10 @@ class LastLoginModel extends Base
      * Create a new record
      *
      * @access public
-     * @param  string   $auth_type   Authentication method
-     * @param  integer  $user_id     User id
-     * @param  string   $ip          IP Address
-     * @param  string   $user_agent  User Agent
+     * @param string $auth_type Authentication method
+     * @param integer $user_id User id
+     * @param string $ip IP Address
+     * @param string $user_agent User Agent
      * @return boolean
      */
     public function create($auth_type, $user_id, $ip, $user_agent)
@@ -55,15 +55,15 @@ class LastLoginModel extends Base
      * Cleanup login history
      *
      * @access public
-     * @param  integer $user_id
+     * @param integer $user_id
      */
     public function cleanup($user_id)
     {
         $connections = $this->db
-                            ->table(self::TABLE)
-                            ->eq('user_id', $user_id)
-                            ->desc('id')
-                            ->findAllByColumn('id');
+            ->table(self::TABLE)
+            ->eq('user_id', $user_id)
+            ->desc('id')
+            ->findAllByColumn('id');
 
         if (count($connections) >= self::NB_LOGINS) {
             $this->db->table(self::TABLE)
@@ -77,16 +77,16 @@ class LastLoginModel extends Base
      * Get the last connections for a given user
      *
      * @access public
-     * @param  integer  $user_id  User id
+     * @param integer $user_id User id
      * @return array
      */
     public function getAll($user_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('user_id', $user_id)
-                    ->desc('id')
-                    ->columns('id', 'auth_type', 'ip', 'user_agent', 'date_creation')
-                    ->findAll();
+            ->table(self::TABLE)
+            ->eq('user_id', $user_id)
+            ->desc('id')
+            ->columns('id', 'auth_type', 'ip', 'user_agent', 'date_creation')
+            ->findAll();
     }
 }

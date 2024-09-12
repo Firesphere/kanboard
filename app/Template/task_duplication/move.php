@@ -9,7 +9,9 @@
     </div>
 <?php else: ?>
 
-    <form method="post" action="<?= $this->url->href('TaskDuplicationController', 'move', ['task_id' => $task['id']]) ?>" autocomplete="off">
+    <form method="post"
+          action="<?= $this->url->href('TaskDuplicationController', 'move', ['task_id' => $task['id']]) ?>"
+          autocomplete="off">
 
         <?= $this->form->csrf() ?>
         <?= $this->form->hidden('id', $values) ?>

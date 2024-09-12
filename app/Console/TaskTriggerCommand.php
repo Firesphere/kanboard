@@ -27,6 +27,7 @@ class TaskTriggerCommand extends BaseCommand
                 $this->sendEvent($tasks, $project_id);
             }
         }
+
         return 0;
     }
 

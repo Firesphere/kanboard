@@ -36,7 +36,7 @@ class UserValidator extends BaseValidator
      * Validate user creation
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)
@@ -61,7 +61,7 @@ class UserValidator extends BaseValidator
      * Validate user modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateModification(array $values)
@@ -83,7 +83,7 @@ class UserValidator extends BaseValidator
      * Validate user API modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateApiModification(array $values)
@@ -104,7 +104,7 @@ class UserValidator extends BaseValidator
      * Validate password modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validatePasswordModification(array $values)
@@ -117,7 +117,7 @@ class UserValidator extends BaseValidator
         $v = new Validator($values, array_merge($rules, $this->commonPasswordValidationRules()));
 
         if ($v->execute()) {
-            if (! $this->userSession->isAdmin() && $values['id'] != $this->userSession->getId()) {
+            if (!$this->userSession->isAdmin() && $values['id'] != $this->userSession->getId()) {
                 return [false, ['current_password' => ['Invalid User ID']]];
             }
 

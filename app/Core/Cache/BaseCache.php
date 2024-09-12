@@ -16,8 +16,8 @@ abstract class BaseCache implements CacheInterface
      * Note: Arguments must be scalar types
      *
      * @access public
-     * @param  string    $class        Class instance
-     * @param  string    $method       Container method
+     * @param string $class Class instance
+     * @param string $method Container method
      * @return mixed
      */
     public function proxy($class, $method)

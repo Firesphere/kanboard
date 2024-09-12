@@ -16,9 +16,9 @@ class SubtaskPositionModel extends Base
      * Change subtask position
      *
      * @access public
-     * @param  integer  $task_id
-     * @param  integer  $subtask_id
-     * @param  integer  $position
+     * @param integer $task_id
+     * @param integer $subtask_id
+     * @param integer $position
      * @return boolean
      */
     public function changePosition($task_id, $subtask_id, $position)

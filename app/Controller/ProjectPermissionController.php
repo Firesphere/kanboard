@@ -17,7 +17,7 @@ class ProjectPermissionController extends BaseController
      * Permissions are only available for team projects
      *
      * @access protected
-     * @param  integer      $project_id    Default project id
+     * @param integer $project_id Default project id
      * @return array
      * @throws AccessForbiddenException
      */
@@ -71,7 +71,7 @@ class ProjectPermissionController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getValues();
 
-        if (empty($values['user_id']) && ! empty($values['external_id']) && ! empty($values['external_id_column'])) {
+        if (empty($values['user_id']) && !empty($values['external_id']) && !empty($values['external_id_column'])) {
             $values['user_id'] = $this->userModel->getOrCreateExternalUserId($values['username'], $values['name'], $values['external_id_column'], $values['external_id']);
         }
 
@@ -120,6 +120,7 @@ class ProjectPermissionController extends BaseController
             empty($values)
         ) {
             $this->response->json(['status' => 'error'], 500);
+
             return;
         }
 
@@ -131,6 +132,7 @@ class ProjectPermissionController extends BaseController
             count($usersGroupedByRole['project-manager']) <= 1
         ) {
             $this->response->json(['status' => 'error'], 500);
+
             return;
         }
 
@@ -151,7 +153,7 @@ class ProjectPermissionController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getValues();
 
-        if (empty($values['group_id']) && ! empty($values['external_id'])) {
+        if (empty($values['group_id']) && !empty($values['external_id'])) {
             $values['group_id'] = $this->groupModel->getOrCreateExternalGroupId($values['name'], $values['external_id']);
         }
 
@@ -198,7 +200,7 @@ class ProjectPermissionController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getJson();
 
-        if (! empty($project) && ! empty($values) && $this->projectGroupRoleModel->changeGroupRole($project['id'], $values['id'], $values['role'])) {
+        if (!empty($project) && !empty($values) && $this->projectGroupRoleModel->changeGroupRole($project['id'], $values['id'], $values['role'])) {
             $this->response->json(['status' => 'ok']);
         } else {
             $this->response->json(['status' => 'error']);

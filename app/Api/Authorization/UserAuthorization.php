@@ -15,7 +15,7 @@ class UserAuthorization extends Base
 {
     public function check($class, $method)
     {
-        if ($this->userSession->isLogged() && ! $this->apiAuthorization->isAllowed($class, $method, $this->userSession->getRole())) {
+        if ($this->userSession->isLogged() && !$this->apiAuthorization->isAllowed($class, $method, $this->userSession->getRole())) {
             throw new AccessDeniedException('You are not allowed to access to this resource');
         }
     }

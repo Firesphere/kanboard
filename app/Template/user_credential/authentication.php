@@ -1,7 +1,9 @@
 <div class="page-header">
     <h2><?= t('Authentication Parameters') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('UserCredentialController', 'saveAuthentication', ['user_id' => $user['id']]) ?>" autocomplete="off">
+<form method="post"
+      action="<?= $this->url->href('UserCredentialController', 'saveAuthentication', ['user_id' => $user['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>

@@ -45,6 +45,7 @@ class Route extends Base
     public function enable()
     {
         $this->activated = true;
+
         return $this;
     }
 
@@ -52,10 +53,10 @@ class Route extends Base
      * Add route
      *
      * @access public
-     * @param  string   $path
-     * @param  string   $controller
-     * @param  string   $action
-     * @param  string   $plugin
+     * @param string $path
+     * @param string $controller
+     * @param string $action
+     * @param string $plugin
      * @return Route
      */
     public function addRoute($path, $controller, $action, $plugin = '')
@@ -84,10 +85,30 @@ class Route extends Base
     }
 
     /**
+     * Find url params
+     *
+     * @access public
+     * @param array $items
+     * @return array
+     */
+    public function findParams(array $items)
+    {
+        $params = [];
+
+        foreach ($items as $item) {
+            if ($item !== '' && $item[0] === ':') {
+                $params[substr($item, 1)] = true;
+            }
+        }
+
+        return $params;
+    }
+
+    /**
      * Find a route according to the given path
      *
      * @access public
-     * @param  string   $path
+     * @param string $path
      * @return array
      */
     public function findRoute($path)
@@ -109,6 +130,7 @@ class Route extends Base
 
                 if ($i === $count) {
                     $this->request->setParams($params);
+
                     return [
                         'controller' => $route['controller'],
                         'action'     => $route['action'],
@@ -129,10 +151,10 @@ class Route extends Base
      * Find route url
      *
      * @access public
-     * @param  string   $controller
-     * @param  string   $action
-     * @param  array    $params
-     * @param  string   $plugin
+     * @param string $controller
+     * @param string $action
+     * @param array $params
+     * @param string $plugin
      * @return string
      */
     public function findUrl($controller, $action, array $params = [], $plugin = '')
@@ -142,7 +164,7 @@ class Route extends Base
             unset($params['plugin']);
         }
 
-        if (! isset($this->urls[$plugin][$controller][$action])) {
+        if (!isset($this->urls[$plugin][$controller][$action])) {
             return '';
         }
 
@@ -164,25 +186,5 @@ class Route extends Base
         }
 
         return '';
-    }
-
-    /**
-     * Find url params
-     *
-     * @access public
-     * @param  array $items
-     * @return array
-     */
-    public function findParams(array $items)
-    {
-        $params = [];
-
-        foreach ($items as $item) {
-            if ($item !== '' && $item[0] === ':') {
-                $params[substr($item, 1)] = true;
-            }
-        }
-
-        return $params;
     }
 }

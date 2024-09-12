@@ -22,17 +22,6 @@ abstract class Base extends AbstractLogger
     private $level = LogLevel::DEBUG;
 
     /**
-     * Set minimum log level
-     *
-     * @access public
-     * @param  string  $level
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-    }
-
-    /**
      * Get minimum log level
      *
      * @access public
@@ -41,6 +30,17 @@ abstract class Base extends AbstractLogger
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set minimum log level
+     *
+     * @access public
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
     }
 
     /**
@@ -54,11 +54,24 @@ abstract class Base extends AbstractLogger
     }
 
     /**
+     * Format log message
+     *
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return string
+     */
+    protected function formatMessage($level, $message, array $context = [])
+    {
+        return '[' . date('Y-m-d H:i:s') . '] [' . $level . '] ' . $this->interpolate($message, $context) . PHP_EOL;
+    }
+
+    /**
      * Interpolates context values into the message placeholders.
      *
      * @access protected
-     * @param  string $message
-     * @param  array $context
+     * @param string $message
+     * @param array $context
      * @return string
      */
     protected function interpolate($message, array $context = [])
@@ -72,18 +85,5 @@ abstract class Base extends AbstractLogger
 
         // interpolate replacement values into the message and return
         return strtr($message, $replace);
-    }
-
-    /**
-     * Format log message
-     *
-     * @param  mixed  $level
-     * @param  string $message
-     * @param  array  $context
-     * @return string
-     */
-    protected function formatMessage($level, $message, array $context = [])
-    {
-        return '[' . date('Y-m-d H:i:s') . '] [' . $level . '] ' . $this->interpolate($message, $context) . PHP_EOL;
     }
 }

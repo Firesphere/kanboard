@@ -19,42 +19,42 @@ class ColorModel extends Base
      * @var array
      */
     protected $default_colors = [
-        'yellow' => [
+        'yellow'      => [
             'name'       => 'Yellow',
             'background' => 'rgb(245, 247, 196)',
             'border'     => 'rgb(223, 227, 45)',
         ],
-        'blue' => [
+        'blue'        => [
             'name'       => 'Blue',
             'background' => 'rgb(219, 235, 255)',
             'border'     => 'rgb(168, 207, 255)',
         ],
-        'green' => [
+        'green'       => [
             'name'       => 'Green',
             'background' => 'rgb(189, 244, 203)',
             'border'     => 'rgb(74, 227, 113)',
         ],
-        'purple' => [
+        'purple'      => [
             'name'       => 'Purple',
             'background' => 'rgb(223, 176, 255)',
             'border'     => 'rgb(205, 133, 254)',
         ],
-        'red' => [
+        'red'         => [
             'name'       => 'Red',
             'background' => 'rgb(255, 187, 187)',
             'border'     => 'rgb(255, 151, 151)',
         ],
-        'orange' => [
+        'orange'      => [
             'name'       => 'Orange',
             'background' => 'rgb(255, 215, 179)',
             'border'     => 'rgb(255, 172, 98)',
         ],
-        'grey' => [
+        'grey'        => [
             'name'       => 'Grey',
             'background' => 'rgb(238, 238, 238)',
             'border'     => 'rgb(204, 204, 204)',
         ],
-        'brown' => [
+        'brown'       => [
             'name'       => 'Brown',
             'background' => '#d7ccc8',
             'border'     => '#4e342e',
@@ -64,27 +64,27 @@ class ColorModel extends Base
             'background' => '#ffab91',
             'border'     => '#e64a19',
         ],
-        'dark_grey' => [
+        'dark_grey'   => [
             'name'       => 'Dark Grey',
             'background' => '#cfd8dc',
             'border'     => '#455a64',
         ],
-        'pink' => [
+        'pink'        => [
             'name'       => 'Pink',
             'background' => '#f48fb1',
             'border'     => '#d81b60',
         ],
-        'teal' => [
+        'teal'        => [
             'name'       => 'Teal',
             'background' => '#80cbc4',
             'border'     => '#00695c',
         ],
-        'cyan' => [
+        'cyan'        => [
             'name'       => 'Cyan',
             'background' => '#b2ebf2',
             'border'     => '#00bcd4',
         ],
-        'lime' => [
+        'lime'        => [
             'name'       => 'Lime',
             'background' => '#e6ee9c',
             'border'     => '#afb42b',
@@ -94,7 +94,7 @@ class ColorModel extends Base
             'background' => '#dcedc8',
             'border'     => '#689f38',
         ],
-        'amber' => [
+        'amber'       => [
             'name'       => 'Amber',
             'background' => '#ffe082',
             'border'     => '#ffa000',
@@ -105,7 +105,7 @@ class ColorModel extends Base
      * Find a color id from the name or the id
      *
      * @access public
-     * @param  string  $color
+     * @param string $color
      * @return string
      */
     public function find($color)
@@ -127,7 +127,7 @@ class ColorModel extends Base
      * Get color properties
      *
      * @access public
-     * @param  string  $color_id
+     * @param string $color_id
      * @return array
      */
     public function getColorProperties($color_id)
@@ -143,7 +143,7 @@ class ColorModel extends Base
      * Get available colors
      *
      * @access public
-     * @param  bool $prepend
+     * @param bool $prepend
      * @return array
      */
     public function getList($prepend = false)
@@ -185,12 +185,13 @@ class ColorModel extends Base
      * Get border color from string
      *
      * @access public
-     * @param  string   $color_id   Color id
+     * @param string $color_id Color id
      * @return string
      */
     public function getBorderColor($color_id)
     {
         $color = $this->getColorProperties($color_id);
+
         return $color['border'];
     }
 
@@ -198,12 +199,13 @@ class ColorModel extends Base
      * Get background color from the color_id
      *
      * @access public
-     * @param  string   $color_id   Color id
+     * @param string $color_id Color id
      * @return string
      */
     public function getBackgroundColor($color_id)
     {
         $color = $this->getColorProperties($color_id);
+
         return $color['background'];
     }
 

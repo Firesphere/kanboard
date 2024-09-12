@@ -25,6 +25,7 @@ class TaskSuggestMenuFormatter extends BaseFormatter implements FormatterInterfa
     public function withLimit($limit)
     {
         $this->limit = $limit;
+
         return $this;
     }
 
@@ -53,7 +54,7 @@ class TaskSuggestMenuFormatter extends BaseFormatter implements FormatterInterfa
             $html .= '<small>' . $this->helper->text->e($task['project_name']) . '</small>';
 
             $result[] = [
-                'value' => (string) $task['id'],
+                'value' => (string)$task['id'],
                 'html'  => $html,
             ];
         }

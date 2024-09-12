@@ -17,13 +17,13 @@ class WorkerCommand extends BaseCommand
     {
         $this
             ->setName('worker')
-            ->setDescription('Execute queue worker')
-        ;
+            ->setDescription('Execute queue worker');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->queueManager->listen();
+
         return 0;
     }
 }

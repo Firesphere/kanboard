@@ -16,12 +16,12 @@ class UserLockingModel extends Base
      * Get the number of failed login for the user
      *
      * @access public
-     * @param  string  $username
+     * @param string $username
      * @return integer
      */
     public function getFailedLogin($username)
     {
-        return (int) $this->db->table(UserModel::TABLE)
+        return (int)$this->db->table(UserModel::TABLE)
             ->eq('username', $username)
             ->findOneColumn('nb_failed_login');
     }
@@ -30,7 +30,7 @@ class UserLockingModel extends Base
      * Reset to 0 the counter of failed login
      *
      * @access public
-     * @param  string  $username
+     * @param string $username
      * @return boolean
      */
     public function resetFailedLogin($username)
@@ -47,7 +47,7 @@ class UserLockingModel extends Base
      * Increment failed login counter
      *
      * @access public
-     * @param  string  $username
+     * @param string $username
      * @return boolean
      */
     public function incrementFailedLogin($username)
@@ -61,7 +61,7 @@ class UserLockingModel extends Base
      * Check if the account is locked
      *
      * @access public
-     * @param  string  $username
+     * @param string $username
      * @return boolean
      */
     public function isLocked($username)
@@ -77,8 +77,8 @@ class UserLockingModel extends Base
      * Lock the account for the specified duration
      *
      * @access public
-     * @param  string   $username   Username
-     * @param  integer  $duration   Duration in minutes
+     * @param string $username Username
+     * @param integer $duration Duration in minutes
      * @return boolean
      */
     public function lock($username, $duration = 15)
@@ -94,8 +94,8 @@ class UserLockingModel extends Base
      * Return true if the captcha must be shown
      *
      * @access public
-     * @param  string  $username
-     * @param  integer $tries
+     * @param string $username
+     * @param integer $tries
      * @return boolean
      */
     public function hasCaptcha($username, $tries = BRUTEFORCE_CAPTCHA)

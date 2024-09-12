@@ -23,8 +23,8 @@ class TaskTagModel extends Base
      * Get all tags not available in a project
      *
      * @access public
-     * @param  integer $task_id
-     * @param  integer $project_id
+     * @param integer $task_id
+     * @param integer $project_id
      * @return array
      */
     public function getTagsByTaskNotAvailableInProject($task_id, $project_id)
@@ -40,7 +40,7 @@ class TaskTagModel extends Base
      * Get all tags associated to a task
      *
      * @access public
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return array
      */
     public function getTagsByTask($task_id)
@@ -56,7 +56,7 @@ class TaskTagModel extends Base
      * Get all tags associated to a list of tasks
      *
      * @access public
-     * @param  integer[] $task_ids
+     * @param integer[] $task_ids
      * @return array
      */
     public function getTagsByTaskIds($task_ids)
@@ -79,12 +79,13 @@ class TaskTagModel extends Base
      * Get dictionary of tags
      *
      * @access public
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return array
      */
     public function getList($task_id)
     {
         $tags = $this->getTagsByTask($task_id);
+
         return array_column($tags, 'name', 'id');
     }
 
@@ -92,9 +93,9 @@ class TaskTagModel extends Base
      * Add or update a list of tags to a task
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $task_id
-     * @param  string[] $tags
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param string[] $tags
      * @return boolean
      */
     public function save($project_id, $task_id, array $tags)
@@ -110,8 +111,8 @@ class TaskTagModel extends Base
      * Associate a tag to a task
      *
      * @access public
-     * @param  integer  $task_id
-     * @param  integer  $tag_id
+     * @param integer $task_id
+     * @param integer $tag_id
      * @return boolean
      */
     public function associateTag($task_id, $tag_id)
@@ -126,8 +127,8 @@ class TaskTagModel extends Base
      * Dissociate a tag from a task
      *
      * @access public
-     * @param  integer  $task_id
-     * @param  integer  $tag_id
+     * @param integer $task_id
+     * @param integer $tag_id
      * @return boolean
      */
     public function dissociateTag($task_id, $tag_id)
@@ -142,10 +143,10 @@ class TaskTagModel extends Base
      * Associate missing tags
      *
      * @access protected
-     * @param  integer  $project_id
-     * @param  integer  $task_id
-     * @param  array    $task_tags
-     * @param  string[] $tags
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param array $task_tags
+     * @param string[] $tags
      * @return bool
      */
     protected function associateTags($project_id, $task_id, $task_tags, $tags)
@@ -153,7 +154,7 @@ class TaskTagModel extends Base
         foreach ($tags as $tag) {
             $tag_id = $this->tagModel->findOrCreateTag($project_id, $tag);
 
-            if (! isset($task_tags[$tag_id]) && ! $this->associateTag($task_id, $tag_id)) {
+            if (!isset($task_tags[$tag_id]) && !$this->associateTag($task_id, $tag_id)) {
                 return false;
             }
         }
@@ -165,16 +166,16 @@ class TaskTagModel extends Base
      * Dissociate removed tags
      *
      * @access protected
-     * @param  integer  $task_id
-     * @param  array    $task_tags
-     * @param  string[] $tags
+     * @param integer $task_id
+     * @param array $task_tags
+     * @param string[] $tags
      * @return bool
      */
     protected function dissociateTags($task_id, $task_tags, $tags)
     {
         foreach ($task_tags as $tag_id => $tag) {
-            if (! in_array($tag, $tags)) {
-                if (! $this->dissociateTag($task_id, $tag_id)) {
+            if (!in_array($tag, $tags)) {
+                if (!$this->dissociateTag($task_id, $tag_id)) {
                     return false;
                 }
             }

@@ -33,7 +33,7 @@ class TaskCategoryFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        if (is_int($this->value) || ctype_digit((string) $this->value)) {
+        if (is_int($this->value) || ctype_digit((string)$this->value)) {
             $this->query->beginOr();
             $this->query->eq(TaskModel::TABLE . '.category_id', $this->value);
             $this->query->eq(CategoryModel::TABLE . '.name', $this->value);

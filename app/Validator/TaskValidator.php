@@ -67,7 +67,7 @@ class TaskValidator extends BaseValidator
      * Validate task creation
      *
      * @access public
-     * @param  array    $values           Form values
+     * @param array $values Form values
      * @return array    $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)
@@ -92,7 +92,7 @@ class TaskValidator extends BaseValidator
      * Validate task creation
      *
      * @access public
-     * @param  array    $values           Form values
+     * @param array $values Form values
      * @return array    $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateBulkCreation(array $values)
@@ -117,7 +117,7 @@ class TaskValidator extends BaseValidator
      * Validate edit recurrence
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateEditRecurrence(array $values)
@@ -139,7 +139,7 @@ class TaskValidator extends BaseValidator
      * Validate task modification (form)
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateModification(array $values)
@@ -164,7 +164,7 @@ class TaskValidator extends BaseValidator
      * Validate task modification (Api)
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateApiModification(array $values)
@@ -188,7 +188,7 @@ class TaskValidator extends BaseValidator
      * Validate project modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateProjectModification(array $values)
@@ -210,7 +210,7 @@ class TaskValidator extends BaseValidator
      * Validate task email creation
      *
      * @access public
-     * @param  array   $values           Required parameters to save an action
+     * @param array $values Required parameters to save an action
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateEmailCreation(array $values)

@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= t('Add a new column') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ColumnController', 'save', ['project_id' => $project['id']]) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ColumnController', 'save', ['project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Title'), 'title') ?>

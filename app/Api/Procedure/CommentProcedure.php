@@ -17,6 +17,7 @@ class CommentProcedure extends BaseProcedure
     public function getComment($comment_id)
     {
         CommentAuthorization::getInstance($this->container)->check($this->getClassName(), 'getComment', $comment_id);
+
         return $this->commentModel->getById($comment_id);
     }
 
@@ -85,7 +86,7 @@ class CommentProcedure extends BaseProcedure
             'visibility' => $visibility,
         ];
 
-        list($valid, ) = $this->commentValidator->validateCreation($values);
+        list($valid,) = $this->commentValidator->validateCreation($values);
 
         return $valid ? $this->commentModel->create($values) : false;
     }
@@ -107,7 +108,8 @@ class CommentProcedure extends BaseProcedure
             'comment' => $content,
         ];
 
-        list($valid, ) = $this->commentValidator->validateModification($values);
+        list($valid,) = $this->commentValidator->validateModification($values);
+
         return $valid && $this->commentModel->update($values);
     }
 }

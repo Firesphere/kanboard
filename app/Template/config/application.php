@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= t('Application settings') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ConfigController', 'save', ['redirect' => 'application']) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ConfigController', 'save', ['redirect' => 'application']) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>

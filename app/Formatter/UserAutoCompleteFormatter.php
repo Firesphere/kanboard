@@ -25,12 +25,13 @@ class UserAutoCompleteFormatter extends BaseFormatter implements FormatterInterf
      * Set users
      *
      * @access public
-     * @param  UserProviderInterface[] $users
+     * @param UserProviderInterface[] $users
      * @return $this
      */
     public function withUsers(array $users)
     {
         $this->users = $users;
+
         return $this;
     }
 

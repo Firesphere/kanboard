@@ -14,12 +14,12 @@ class TaskProjectDuplicationModel extends TaskDuplicationModel
      * Duplicate a task to another project
      *
      * @access public
-     * @param  integer    $task_id
-     * @param  integer    $project_id
-     * @param  integer    $swimlane_id
-     * @param  integer    $column_id
-     * @param  integer    $category_id
-     * @param  integer    $owner_id
+     * @param integer $task_id
+     * @param integer $project_id
+     * @param integer $swimlane_id
+     * @param integer $column_id
+     * @param integer $category_id
+     * @param integer $owner_id
      * @return boolean|integer
      */
     public function duplicateToProject($task_id, $project_id, $swimlane_id = null, $column_id = null, $category_id = null, $owner_id = null)
@@ -51,7 +51,7 @@ class TaskProjectDuplicationModel extends TaskDuplicationModel
             }
         }
 
-        $hook_values = [ 'source_task_id' => $task_id, 'destination_task_id' => $new_task_id];
+        $hook_values = ['source_task_id' => $task_id, 'destination_task_id' => $new_task_id];
         $this->hook->reference('model:task:project_duplication:aftersave', $hook_values);
 
         return $new_task_id;
@@ -61,12 +61,12 @@ class TaskProjectDuplicationModel extends TaskDuplicationModel
      * Prepare values before duplication
      *
      * @access protected
-     * @param  integer $task_id
-     * @param  integer $project_id
-     * @param  integer $swimlane_id
-     * @param  integer $column_id
-     * @param  integer $category_id
-     * @param  integer $owner_id
+     * @param integer $task_id
+     * @param integer $project_id
+     * @param integer $swimlane_id
+     * @param integer $column_id
+     * @param integer $category_id
+     * @param integer $owner_id
      * @return array
      */
     protected function prepare($task_id, $project_id, $swimlane_id, $column_id, $category_id, $owner_id)
@@ -77,6 +77,7 @@ class TaskProjectDuplicationModel extends TaskDuplicationModel
         $values['swimlane_id'] = $swimlane_id !== null ? $swimlane_id : $values['swimlane_id'];
         $values['category_id'] = $category_id !== null ? $category_id : $values['category_id'];
         $values['owner_id'] = $owner_id !== null ? $owner_id : $values['owner_id'];
+
         return $values;
     }
 }

@@ -16,7 +16,7 @@ class TaskStatusModel extends Base
      * Return true if the task is closed
      *
      * @access public
-     * @param  integer    $task_id     Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function isClosed($task_id)
@@ -28,7 +28,7 @@ class TaskStatusModel extends Base
      * Return true if the task is open
      *
      * @access public
-     * @param  integer    $task_id     Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function isOpen($task_id)
@@ -40,12 +40,13 @@ class TaskStatusModel extends Base
      * Mark a task closed
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function close($task_id)
     {
         $this->subtaskStatusModel->closeAll($task_id);
+
         return $this->changeStatus($task_id, TaskModel::STATUS_CLOSED, time(), TaskModel::EVENT_CLOSE);
     }
 
@@ -53,7 +54,7 @@ class TaskStatusModel extends Base
      * Mark a task open
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return boolean
      */
     public function open($task_id)
@@ -65,7 +66,7 @@ class TaskStatusModel extends Base
      * Close multiple tasks
      *
      * @access public
-     * @param  array   $task_ids
+     * @param array $task_ids
      */
     public function closeMultipleTasks(array $task_ids)
     {
@@ -78,8 +79,8 @@ class TaskStatusModel extends Base
      * Close all tasks within a column/swimlane
      *
      * @access public
-     * @param  integer $swimlane_id
-     * @param  integer $column_id
+     * @param integer $swimlane_id
+     * @param integer $column_id
      */
     public function closeTasksBySwimlaneAndColumn($swimlane_id, $column_id)
     {
@@ -97,26 +98,26 @@ class TaskStatusModel extends Base
      * Common method to change the status of task
      *
      * @access private
-     * @param  integer   $task_id             Task id
-     * @param  integer   $status              Task status
-     * @param  integer   $date_completed      Timestamp
-     * @param  string    $event_name          Event name
+     * @param integer $task_id Task id
+     * @param integer $status Task status
+     * @param integer $date_completed Timestamp
+     * @param string $event_name Event name
      * @return boolean
      */
     private function changeStatus($task_id, $status, $date_completed, $event_name)
     {
-        if (! $this->taskFinderModel->exists($task_id)) {
+        if (!$this->taskFinderModel->exists($task_id)) {
             return false;
         }
 
         $result = $this->db
-                        ->table(TaskModel::TABLE)
-                        ->eq('id', $task_id)
-                        ->update([
-                            'is_active'         => $status,
-                            'date_completed'    => $date_completed,
-                            'date_modification' => time(),
-                        ]);
+            ->table(TaskModel::TABLE)
+            ->eq('id', $task_id)
+            ->update([
+                'is_active'         => $status,
+                'date_completed'    => $date_completed,
+                'date_modification' => time(),
+            ]);
 
         if ($result) {
             $this->queueManager->push($this->taskEventJob->withParams($task_id, [$event_name]));
@@ -129,16 +130,16 @@ class TaskStatusModel extends Base
      * Check the status of a task
      *
      * @access private
-     * @param  integer   $task_id   Task id
-     * @param  integer   $status    Task status
+     * @param integer $task_id Task id
+     * @param integer $status Task status
      * @return boolean
      */
     private function checkStatus($task_id, $status)
     {
         return $this->db
-                    ->table(TaskModel::TABLE)
-                    ->eq('id', $task_id)
-                    ->eq('is_active', $status)
-                    ->exists();
+            ->table(TaskModel::TABLE)
+            ->eq('id', $task_id)
+            ->eq('is_active', $status)
+            ->exists();
     }
 }

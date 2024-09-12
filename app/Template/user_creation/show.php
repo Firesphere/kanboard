@@ -50,7 +50,7 @@
 
                 <?= $this->form->label(t('Language'), 'language') ?>
                 <?= $this->form->select('language', $languages, $values, $errors) ?>
-                
+
                 <?= $this->form->label(t('Filter'), 'filter') ?>
                 <?= $this->form->text('filter', $values, $errors) ?>
 

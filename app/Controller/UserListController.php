@@ -38,20 +38,20 @@ class UserListController extends BaseController
         $search = $this->request->getStringParam('search');
         $paginator = $this->userPagination->getListingPaginator();
 
-        if ($search !== '' && ! $paginator->isEmpty()) {
+        if ($search !== '' && !$paginator->isEmpty()) {
             $paginator = $paginator
                 ->setUrl('UserListController', 'search', ['search' => $search])
                 ->setQuery(
                     $this->userQuery
-                    ->withFilter(new UserNameFilter($search))
-                    ->getQuery(),
+                        ->withFilter(new UserNameFilter($search))
+                        ->getQuery(),
                 )
                 ->calculate();
         }
 
         $this->response->html($this->helper->layout->app('user_list/listing', [
-            'title'  => t('Users') . ' (' . $paginator->getTotal() . ')',
-            'values' => [
+            'title'     => t('Users') . ' (' . $paginator->getTotal() . ')',
+            'values'    => [
                 'search' => $search,
             ],
             'paginator' => $paginator,

@@ -27,8 +27,8 @@ class FormHelper extends Base
      * Display a hidden form field
      *
      * @access public
-     * @param  string  $name    Field name
-     * @param  array   $values  Form values
+     * @param string $name Field name
+     * @param array $values Form values
      * @return string
      */
     public function hidden($name, array $values = [])
@@ -40,12 +40,12 @@ class FormHelper extends Base
      * Display a select field
      *
      * @access public
-     * @param  string $name Field name
-     * @param  array $options Options
-     * @param  array $values Form values
-     * @param  array $errors Form errors
-     * @param  array $attributes
-     * @param  string $class CSS class
+     * @param string $name Field name
+     * @param array $options Options
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes
+     * @param string $class CSS class
      * @return string
      */
     public function select($name, array $options, array $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -75,8 +75,8 @@ class FormHelper extends Base
      * Display a color select field
      *
      * @access public
-     * @param  string $name Field name
-     * @param  array $values Form values
+     * @param string $name Field name
+     * @param array $values Form values
      * @return string
      */
     public function colorSelect($name, array $values)
@@ -84,6 +84,7 @@ class FormHelper extends Base
         $colors = $this->colorModel->getList();
         $html = $this->label(t('Color'), $name);
         $html .= $this->select($name, $colors, $values, [], ['tabindex="4"'], 'color-picker');
+
         return $html;
     }
 
@@ -91,9 +92,9 @@ class FormHelper extends Base
      * Display a radio field group
      *
      * @access public
-     * @param  string  $name     Field name
-     * @param  array   $options  Options
-     * @param  array   $values   Form values
+     * @param string $name Field name
+     * @param array $options Options
+     * @param array $values Form values
      * @return string
      */
     public function radios($name, array $options, array $values = [])
@@ -111,11 +112,11 @@ class FormHelper extends Base
      * Display a radio field
      *
      * @access public
-     * @param  string  $name      Field name
-     * @param  string  $label     Form label
-     * @param  string  $value     Form value
-     * @param  boolean $selected  Field selected or not
-     * @param  string  $class     CSS class
+     * @param string $name Field name
+     * @param string $label Form label
+     * @param string $value Form value
+     * @param boolean $selected Field selected or not
+     * @param string $class CSS class
      * @return string
      */
     public function radio($name, $label, $value, $selected = false, $class = '')
@@ -127,9 +128,9 @@ class FormHelper extends Base
      * Display a checkboxes group
      *
      * @access public
-     * @param  string  $name     Field name
-     * @param  array   $options  Options
-     * @param  array   $values   Form values
+     * @param string $name Field name
+     * @param array $options Options
+     * @param array $values Form values
      * @return string
      */
     public function checkboxes($name, array $options, array $values = [])
@@ -147,12 +148,12 @@ class FormHelper extends Base
      * Display a checkbox field
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  string  $label       Form label
-     * @param  string  $value       Form value
-     * @param  boolean $checked     Field selected or not
-     * @param  string  $class       CSS class
-     * @param  array   $attributes
+     * @param string $name Field name
+     * @param string $label Form label
+     * @param string $value Form value
+     * @param boolean $checked Field selected or not
+     * @param string $class CSS class
+     * @param array $attributes
      * @return string
      */
     public function checkbox($name, $label, $value, $checked = false, $class = '', array $attributes = [])
@@ -181,9 +182,9 @@ class FormHelper extends Base
      * Display a form label
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  string  $label       Form label
-     * @param  array   $attributes  HTML attributes
+     * @param string $name Field name
+     * @param string $label Form label
+     * @param array $attributes HTML attributes
      * @return string
      */
     public function label($label, $name, array $attributes = [])
@@ -195,11 +196,11 @@ class FormHelper extends Base
      * Display a textarea
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function textarea($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -219,10 +220,10 @@ class FormHelper extends Base
      * Display a markdown editor
      *
      * @access public
-     * @param  string  $name     Field name
-     * @param  array   $values   Form values
-     * @param  array   $errors   Form errors
-     * @param  array   $attributes
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes
      * @return string
      */
     public function textEditor($name, $values = [], array $errors = [], array $attributes = [])
@@ -262,9 +263,9 @@ class FormHelper extends Base
      * Display file field
      *
      * @access public
-     * @param  string  $name
-     * @param  array   $errors
-     * @param  boolean $multiple
+     * @param string $name
+     * @param array $errors
+     * @param boolean $multiple
      * @return string
      */
     public function file($name, array $errors = [], $multiple = false)
@@ -279,12 +280,12 @@ class FormHelper extends Base
      * Display a input field
      *
      * @access public
-     * @param  string  $type        HMTL input tag type
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $type HMTL input tag type
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function input($type, $name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -307,11 +308,11 @@ class FormHelper extends Base
      * Display a text field
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function text($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -323,11 +324,11 @@ class FormHelper extends Base
      * Display a password field
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function password($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -339,11 +340,11 @@ class FormHelper extends Base
      * Display an email field
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function email($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -355,11 +356,11 @@ class FormHelper extends Base
      * Display a number field
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function number($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -371,11 +372,11 @@ class FormHelper extends Base
      * Display a numeric field (allow decimal number)
      *
      * @access public
-     * @param  string  $name        Field name
-     * @param  array   $values      Form values
-     * @param  array   $errors      Form errors
-     * @param  array   $attributes  HTML attributes
-     * @param  string  $class       CSS class
+     * @param string $name Field name
+     * @param array $values Form values
+     * @param array $errors Form errors
+     * @param array $attributes HTML attributes
+     * @param string $class CSS class
      * @return string
      */
     public function numeric($name, $values = [], array $errors = [], array $attributes = [], $class = '')
@@ -387,11 +388,11 @@ class FormHelper extends Base
      * Date field
      *
      * @access public
-     * @param  string $label
-     * @param  string $name
-     * @param  array  $values
-     * @param  array  $errors
-     * @param  array  $attributes
+     * @param string $label
+     * @param string $name
+     * @param array $values
+     * @param array $errors
+     * @param array $attributes
      * @return string
      */
     public function date($label, $name, array $values, array $errors = [], array $attributes = [])
@@ -408,11 +409,11 @@ class FormHelper extends Base
      * Datetime field
      *
      * @access public
-     * @param  string $label
-     * @param  string $name
-     * @param  array  $values
-     * @param  array  $errors
-     * @param  array  $attributes
+     * @param string $label
+     * @param string $name
+     * @param array $values
+     * @param array $errors
+     * @param array $attributes
      * @return string
      */
     public function datetime($label, $name, array $values, array $errors = [], array $attributes = [])
@@ -429,21 +430,21 @@ class FormHelper extends Base
      * Display the form error class
      *
      * @access private
-     * @param array   $errors   Error list
-     * @param string  $name     Field name
+     * @param array $errors Error list
+     * @param string $name Field name
      * @return string
      */
     private function errorClass(array $errors, $name)
     {
-        return ! isset($errors[$name]) ? '' : ' form-error';
+        return !isset($errors[$name]) ? '' : ' form-error';
     }
 
     /**
      * Display a list of form errors
      *
      * @access private
-     * @param array   $errors   List of errors
-     * @param string  $name     Field name
+     * @param array $errors List of errors
+     * @param string $name Field name
      * @return string
      */
     private function errorList(array $errors, $name)
@@ -467,8 +468,8 @@ class FormHelper extends Base
      * Get an escaped form value
      *
      * @access private
-     * @param  mixed  $values  Values
-     * @param  string $name    Field name
+     * @param mixed $values Values
+     * @param string $name Field name
      * @return string
      */
     private function formValue($values, $name)

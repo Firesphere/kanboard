@@ -26,12 +26,13 @@ class TaskAssigneeFilter extends BaseFilter implements FilterInterface
      * Set current user id
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return TaskAssigneeFilter
      */
     public function setCurrentUserId($userId)
     {
         $this->currentUserId = $userId;
+
         return $this;
     }
 
@@ -54,7 +55,7 @@ class TaskAssigneeFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        if (is_int($this->value) || ctype_digit((string) $this->value)) {
+        if (is_int($this->value) || ctype_digit((string)$this->value)) {
             $this->query->eq(TaskModel::TABLE . '.owner_id', $this->value);
         } else {
             switch ($this->value) {

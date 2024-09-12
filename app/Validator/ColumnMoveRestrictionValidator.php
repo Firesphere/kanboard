@@ -17,7 +17,7 @@ class ColumnMoveRestrictionValidator extends BaseValidator
      * Validate creation
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)

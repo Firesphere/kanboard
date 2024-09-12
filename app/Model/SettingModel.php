@@ -24,7 +24,7 @@ abstract class SettingModel extends Base
      *
      * @abstract
      * @access public
-     * @param  array $values
+     * @param array $values
      * @return array
      */
     abstract public function prepare(array $values);
@@ -44,8 +44,8 @@ abstract class SettingModel extends Base
      * Get a setting value
      *
      * @access public
-     * @param  string   $name
-     * @param  string   $default
+     * @param string $name
+     * @param string $default
      * @return mixed
      */
     public function getOption($name, $default = '')
@@ -62,7 +62,7 @@ abstract class SettingModel extends Base
      * Return true if a setting exists
      *
      * @access public
-     * @param  string   $name
+     * @param string $name
      * @return boolean
      */
     public function exists($name)
@@ -77,7 +77,7 @@ abstract class SettingModel extends Base
      * Update or insert new settings
      *
      * @access public
-     * @param  array    $values
+     * @param array $values
      * @return boolean
      */
     public function save(array $values)
@@ -108,14 +108,14 @@ abstract class SettingModel extends Base
 
         $this->db->closeTransaction();
 
-        return ! in_array(false, $results, true);
+        return !in_array(false, $results, true);
     }
 
     /**
      * Remove a setting
      *
      * @access public
-     * @param  string  $option
+     * @param string $option
      * @return bool
      */
     public function remove($option)

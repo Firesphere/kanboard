@@ -65,7 +65,7 @@ class TaskFileModel extends FileModel
      * Get projectId from fileId
      *
      * @access public
-     * @param  integer $file_id
+     * @param integer $file_id
      * @return integer
      */
     public function getProjectId($file_id)
@@ -81,13 +81,14 @@ class TaskFileModel extends FileModel
      * Handle screenshot upload
      *
      * @access public
-     * @param  integer  $task_id      Task id
-     * @param  string   $blob         Base64 encoded image
+     * @param integer $task_id Task id
+     * @param string $blob Base64 encoded image
      * @return bool|integer
      */
     public function uploadScreenshot($task_id, $blob)
     {
         $original_filename = e('Screenshot taken %s', $this->helper->dt->datetime(time())) . '.png';
+
         return $this->uploadContent($task_id, $original_filename, $blob);
     }
 
@@ -95,7 +96,7 @@ class TaskFileModel extends FileModel
      * Fire file creation event
      *
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     protected function fireCreationEvent($file_id)
     {
@@ -106,7 +107,7 @@ class TaskFileModel extends FileModel
      * Fire file destruction event
      *
      * @access protected
-     * @param  integer $file_id
+     * @param integer $file_id
      */
     protected function fireDestructionEvent($file_id)
     {

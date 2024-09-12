@@ -33,6 +33,7 @@ class TaskPriorityFilter extends BaseComparisonFilter implements FilterInterface
     public function apply()
     {
         $this->applyComparisonFilter(TaskModel::TABLE . '.priority');
+
         return $this;
     }
 }

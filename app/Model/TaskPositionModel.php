@@ -26,7 +26,7 @@ class TaskPositionModel extends Base
             ->findOne();
 
         $position = 1;
-        if (! empty($result)) {
+        if (!empty($result)) {
             $position = $result['pos'] + 1;
         }
 
@@ -54,13 +54,13 @@ class TaskPositionModel extends Base
      * Move a task to another column or to another position
      *
      * @access public
-     * @param  integer $project_id  Project id
-     * @param  integer $task_id     Task id
-     * @param  integer $column_id   Column id
-     * @param  integer $position    Position (must be >= 1)
-     * @param  integer $swimlane_id Swimlane id
-     * @param  boolean $fire_events Fire events
-     * @param  bool    $onlyOpen    Do not move closed tasks
+     * @param integer $project_id Project id
+     * @param integer $task_id Task id
+     * @param integer $column_id Column id
+     * @param integer $position Position (must be >= 1)
+     * @param integer $swimlane_id Swimlane id
+     * @param boolean $fire_events Fire events
+     * @param bool $onlyOpen Do not move closed tasks
      * @return bool
      */
     public function movePosition($project_id, $task_id, $column_id, $position, $swimlane_id = 0, $fire_events = true, $onlyOpen = true)
@@ -100,13 +100,13 @@ class TaskPositionModel extends Base
      * Move a task to another swimlane
      *
      * @access private
-     * @param  integer    $project_id
-     * @param  integer    $task_id
-     * @param  integer    $position
-     * @param  integer    $original_column_id
-     * @param  integer    $new_column_id
-     * @param  integer    $original_swimlane_id
-     * @param  integer    $new_swimlane_id
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param integer $position
+     * @param integer $original_column_id
+     * @param integer $new_column_id
+     * @param integer $original_swimlane_id
+     * @param integer $new_swimlane_id
      * @return boolean
      */
     private function saveSwimlaneChange($project_id, $task_id, $position, $original_column_id, $new_column_id, $original_swimlane_id, $new_swimlane_id)
@@ -124,12 +124,12 @@ class TaskPositionModel extends Base
      * Move a task to another column
      *
      * @access private
-     * @param  integer    $project_id
-     * @param  integer    $task_id
-     * @param  integer    $position
-     * @param  integer    $swimlane_id
-     * @param  integer    $original_column_id
-     * @param  integer    $new_column_id
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param integer $position
+     * @param integer $swimlane_id
+     * @param integer $original_column_id
+     * @param integer $new_column_id
      * @return boolean
      */
     private function saveColumnChange($project_id, $task_id, $position, $swimlane_id, $original_column_id, $new_column_id)
@@ -147,11 +147,11 @@ class TaskPositionModel extends Base
      * Move a task to another position in the same column
      *
      * @access private
-     * @param  integer    $project_id
-     * @param  integer    $task_id
-     * @param  integer    $position
-     * @param  integer    $column_id
-     * @param  integer    $swimlane_id
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param integer $position
+     * @param integer $column_id
+     * @param integer $swimlane_id
      * @return boolean
      */
     private function savePositionChange($project_id, $task_id, $position, $column_id, $swimlane_id)
@@ -167,11 +167,11 @@ class TaskPositionModel extends Base
      * Save all task positions for one column
      *
      * @access private
-     * @param  integer    $project_id
-     * @param  integer    $task_id
-     * @param  integer    $position
-     * @param  integer    $column_id
-     * @param  integer    $swimlane_id
+     * @param integer $project_id
+     * @param integer $task_id
+     * @param integer $position
+     * @param integer $column_id
+     * @param integer $swimlane_id
      * @return boolean
      */
     private function saveTaskPositions($project_id, $task_id, $position, $column_id, $swimlane_id)
@@ -191,14 +191,14 @@ class TaskPositionModel extends Base
         foreach ($tasks_ids as $current_task_id) {
             // Insert the new task
             if ($position == $offset) {
-                if (! $this->saveTaskPosition($task_id, $offset, $column_id, $swimlane_id)) {
+                if (!$this->saveTaskPosition($task_id, $offset, $column_id, $swimlane_id)) {
                     return false;
                 }
                 $offset++;
             }
 
             // Rewrite other tasks position
-            if (! $this->saveTaskPosition($current_task_id, $offset, $column_id, $swimlane_id)) {
+            if (!$this->saveTaskPosition($current_task_id, $offset, $column_id, $swimlane_id)) {
                 return false;
             }
 
@@ -206,7 +206,7 @@ class TaskPositionModel extends Base
         }
 
         // Insert the new task at the bottom and normalize bad position
-        if ($position >= $offset && ! $this->saveTaskPosition($task_id, $offset, $column_id, $swimlane_id)) {
+        if ($position >= $offset && !$this->saveTaskPosition($task_id, $offset, $column_id, $swimlane_id)) {
             return false;
         }
 
@@ -217,7 +217,7 @@ class TaskPositionModel extends Base
      * Update task timestamps
      *
      * @access private
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return bool
      */
     private function saveTaskTimestamps($task_id)
@@ -234,10 +234,10 @@ class TaskPositionModel extends Base
      * Save new task position
      *
      * @access private
-     * @param  integer    $task_id
-     * @param  integer    $position
-     * @param  integer    $column_id
-     * @param  integer    $swimlane_id
+     * @param integer $task_id
+     * @param integer $position
+     * @param integer $column_id
+     * @param integer $swimlane_id
      * @return boolean
      */
     private function saveTaskPosition($task_id, $position, $column_id, $swimlane_id)
@@ -248,8 +248,9 @@ class TaskPositionModel extends Base
             'swimlane_id' => $swimlane_id,
         ]);
 
-        if (! $result) {
+        if (!$result) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
@@ -260,10 +261,10 @@ class TaskPositionModel extends Base
      * Fire events
      *
      * @access private
-     * @param  array     $task
-     * @param  integer   $new_column_id
-     * @param  integer   $new_position
-     * @param  integer   $new_swimlane_id
+     * @param array $task
+     * @param integer $new_column_id
+     * @param integer $new_position
+     * @param integer $new_swimlane_id
      */
     private function fireEvents(array $task, $new_column_id, $new_position, $new_swimlane_id)
     {

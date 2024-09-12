@@ -18,7 +18,7 @@ class ProjectRoleModel extends Base
     /**
      * Get list of project roles
      *
-     * @param  int $project_id
+     * @param int $project_id
      * @return array
      */
     public function getList($project_id)
@@ -35,8 +35,8 @@ class ProjectRoleModel extends Base
     /**
      * Get a role
      *
-     * @param  int $project_id
-     * @param  int $role_id
+     * @param int $project_id
+     * @param int $role_id
      * @return array|null
      */
     public function getById($project_id, $role_id)
@@ -50,7 +50,7 @@ class ProjectRoleModel extends Base
     /**
      * Get all project roles
      *
-     * @param  int $project_id
+     * @param int $project_id
      * @return array
      */
     public function getAll($project_id)
@@ -64,7 +64,7 @@ class ProjectRoleModel extends Base
     /**
      * Get all project roles with restrictions
      *
-     * @param  int $project_id
+     * @param int $project_id
      * @return array
      */
     public function getAllWithRestrictions($project_id)
@@ -89,8 +89,8 @@ class ProjectRoleModel extends Base
     /**
      * Create a new project role
      *
-     * @param  int $project_id
-     * @param  string $role
+     * @param int $project_id
+     * @param string $role
      * @return bool|int
      */
     public function create($project_id, $role)
@@ -106,9 +106,9 @@ class ProjectRoleModel extends Base
     /**
      * Update a project role
      *
-     * @param  int $role_id
-     * @param  int $project_id
-     * @param  string $role
+     * @param int $role_id
+     * @param int $project_id
+     * @param string $role
      * @return bool
      */
     public function update($role_id, $project_id, $role)
@@ -143,18 +143,20 @@ class ProjectRoleModel extends Base
 
         if ($r1 && $r2 && $r3) {
             $this->db->closeTransaction();
+
             return true;
         }
 
         $this->db->cancelTransaction();
+
         return false;
     }
 
     /**
      * Remove a project role
      *
-     * @param  int $project_id
-     * @param  int $role_id
+     * @param int $project_id
+     * @param int $role_id
      * @return bool
      */
     public function remove($project_id, $role_id)
@@ -187,18 +189,20 @@ class ProjectRoleModel extends Base
 
         if ($r1 && $r2 && $r3) {
             $this->db->closeTransaction();
+
             return true;
         }
 
         $this->db->cancelTransaction();
+
         return false;
     }
 
     /**
      * Copy project custom_roles from a project to another one
      *
-     * @param  integer $project_src_id
-     * @param  integer $project_dst_id
+     * @param integer $project_src_id
+     * @param integer $project_dst_id
      * @return boolean
      */
     public function duplicate($project_src_id, $project_dst_id)
@@ -212,19 +216,19 @@ class ProjectRoleModel extends Base
                 'role'       => $row['role'],
             ]);
 
-            if (! $role_dst_id) {
+            if (!$role_dst_id) {
                 return false;
             }
 
-            if (! $this->columnRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
+            if (!$this->columnRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
                 return false;
             }
 
-            if (! $this->columnMoveRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
+            if (!$this->columnMoveRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
                 return false;
             }
 
-            if (! $this->projectRoleRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
+            if (!$this->projectRoleRestrictionModel->duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)) {
                 return false;
             }
         }

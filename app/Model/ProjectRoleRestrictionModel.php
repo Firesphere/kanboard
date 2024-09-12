@@ -41,8 +41,8 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Get a single restriction
      *
-     * @param  integer $project_id
-     * @param  integer $restriction_id
+     * @param integer $project_id
+     * @param integer $restriction_id
      * @return array|null
      */
     public function getById($project_id, $restriction_id)
@@ -57,7 +57,7 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Get restrictions
      *
-     * @param  int    $project_id
+     * @param int $project_id
      * @return array
      */
     public function getAll($project_id)
@@ -84,8 +84,8 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Get restrictions
      *
-     * @param  int    $project_id
-     * @param  string $role
+     * @param int $project_id
+     * @param string $role
      * @return array
      */
     public function getAllByRole($project_id, $role)
@@ -108,9 +108,9 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Create a new restriction
      *
-     * @param  int $project_id
-     * @param  int $role_id
-     * @param  string $rule
+     * @param int $project_id
+     * @param int $role_id
+     * @param string $rule
      * @return bool|int
      */
     public function create($project_id, $role_id, $rule)
@@ -126,7 +126,7 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Remove a restriction
      *
-     * @param  integer $restriction_id
+     * @param integer $restriction_id
      * @return bool
      */
     public function remove($restriction_id)
@@ -137,10 +137,10 @@ class ProjectRoleRestrictionModel extends Base
     /**
      * Copy role restriction models from a custome_role in the src project to the dst custom_role of the dst project
      *
-     * @param  integer $project_src_id
-     * @param  integer $project_dst_id
-     * @param  integer $role_src_id
-     * @param  integer $role_dst_id
+     * @param integer $project_src_id
+     * @param integer $project_dst_id
+     * @param integer $role_src_id
+     * @param integer $role_dst_id
      * @return boolean
      */
     public function duplicate($project_src_id, $project_dst_id, $role_src_id, $role_dst_id)
@@ -157,7 +157,7 @@ class ProjectRoleRestrictionModel extends Base
                 'rule'       => $row['rule'],
             ]);
 
-            if (! $result) {
+            if (!$result) {
                 return false;
             }
         }

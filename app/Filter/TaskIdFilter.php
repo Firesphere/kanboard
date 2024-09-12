@@ -33,6 +33,7 @@ class TaskIdFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->eq(TaskModel::TABLE . '.id', $this->value);
+
         return $this;
     }
 }

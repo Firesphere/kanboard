@@ -17,12 +17,13 @@ class TaskLinkProcedure extends BaseProcedure
      * Get a task link
      *
      * @access public
-     * @param  integer   $task_link_id   Task link id
+     * @param integer $task_link_id Task link id
      * @return array
      */
     public function getTaskLinkById($task_link_id)
     {
         TaskLinkAuthorization::getInstance($this->container)->check($this->getClassName(), 'getTaskLinkById', $task_link_id);
+
         return $this->taskLinkModel->getById($task_link_id);
     }
 
@@ -30,12 +31,13 @@ class TaskLinkProcedure extends BaseProcedure
      * Get all links attached to a task
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function getAllTaskLinks($task_id)
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'getAllTaskLinks', $task_id);
+
         return $this->taskLinkModel->getAll($task_id);
     }
 
@@ -43,9 +45,9 @@ class TaskLinkProcedure extends BaseProcedure
      * Create a new link
      *
      * @access public
-     * @param  integer   $task_id            Task id
-     * @param  integer   $opposite_task_id   Opposite task id
-     * @param  integer   $link_id            Link id
+     * @param integer $task_id Task id
+     * @param integer $opposite_task_id Opposite task id
+     * @param integer $link_id Link id
      * @return integer                       Task link id
      */
     public function createTaskLink($task_id, $opposite_task_id, $link_id)
@@ -55,7 +57,7 @@ class TaskLinkProcedure extends BaseProcedure
         if ($this->userSession->isLogged()) {
             $opposite_task = $this->taskFinderModel->getById($opposite_task_id);
 
-            if (! $this->projectPermissionModel->isUserAllowed($opposite_task['project_id'], $this->userSession->getId())) {
+            if (!$this->projectPermissionModel->isUserAllowed($opposite_task['project_id'], $this->userSession->getId())) {
                 return false;
             }
         }
@@ -67,10 +69,10 @@ class TaskLinkProcedure extends BaseProcedure
      * Update a task link
      *
      * @access public
-     * @param  integer   $task_link_id          Task link id
-     * @param  integer   $task_id               Task id
-     * @param  integer   $opposite_task_id      Opposite task id
-     * @param  integer   $link_id               Link id
+     * @param integer $task_link_id Task link id
+     * @param integer $task_id Task id
+     * @param integer $opposite_task_id Opposite task id
+     * @param integer $link_id Link id
      * @return boolean
      */
     public function updateTaskLink($task_link_id, $task_id, $opposite_task_id, $link_id)
@@ -80,7 +82,7 @@ class TaskLinkProcedure extends BaseProcedure
         if ($this->userSession->isLogged()) {
             $opposite_task = $this->taskFinderModel->getById($opposite_task_id);
 
-            if (! $this->projectPermissionModel->isUserAllowed($opposite_task['project_id'], $this->userSession->getId())) {
+            if (!$this->projectPermissionModel->isUserAllowed($opposite_task['project_id'], $this->userSession->getId())) {
                 return false;
             }
         }
@@ -92,12 +94,13 @@ class TaskLinkProcedure extends BaseProcedure
      * Remove a link between two tasks
      *
      * @access public
-     * @param  integer   $task_link_id
+     * @param integer $task_link_id
      * @return boolean
      */
     public function removeTaskLink($task_link_id)
     {
         TaskLinkAuthorization::getInstance($this->container)->check($this->getClassName(), 'removeTaskLink', $task_link_id);
+
         return $this->taskLinkModel->remove($task_link_id);
     }
 }

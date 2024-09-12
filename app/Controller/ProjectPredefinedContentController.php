@@ -39,6 +39,7 @@ class ProjectPredefinedContentController extends BaseController
         if ($valid) {
             if ($this->projectModel->update($values)) {
                 $this->flash->success(t('Project updated successfully.'));
+
                 return $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', ['project_id' => $project['id']]), true);
             } else {
                 $this->flash->failure(t('Unable to update this project.'));

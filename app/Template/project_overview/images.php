@@ -1,4 +1,4 @@
-<?php if (! empty($images)): ?>
+<?php if (!empty($images)): ?>
     <div class="file-thumbnails">
         <?php foreach ($images as $file): ?>
             <div class="file-thumbnail">
@@ -17,7 +17,9 @@
                 <div class="file-thumbnail-content">
                     <div class="file-thumbnail-title">
                         <div class="dropdown">
-                            <a href="#" class="dropdown-menu dropdown-menu-link-text"><?= $this->text->e($file['name']) ?> <i class="fa fa-caret-down"></i></a>
+                            <a href="#"
+                               class="dropdown-menu dropdown-menu-link-text"><?= $this->text->e($file['name']) ?> <i
+                                        class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li>
                                     <?= $this->url->icon('external-link', t('View file'), 'FileViewerController', 'image', ['project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']], false, '', '', true) ?>
@@ -36,7 +38,7 @@
                     </div>
                     <div class="file-thumbnail-description">
                         <?= $this->app->tooltipMarkdown(t('Uploaded: %s', $this->dt->datetime($file['date'])) . "\n\n" . t('Size: %s', $this->text->bytes($file['size']))) ?>
-                        <?php if (! empty($file['user_id'])): ?>
+                        <?php if (!empty($file['user_id'])): ?>
                             <?= t('Uploaded by %s', $file['user_name'] ?: $file['username']) ?>
                         <?php else: ?>
                             <?= t('Uploaded: %s', $this->dt->datetime($file['date'])) ?>

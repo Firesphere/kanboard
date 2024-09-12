@@ -16,7 +16,7 @@ class FileViewerController extends BaseController
      * Get file content from object storage
      *
      * @access protected
-     * @param  array $file
+     * @param array $file
      * @return string
      */
     protected function getFileContent(array $file)

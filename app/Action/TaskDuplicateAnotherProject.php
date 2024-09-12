@@ -73,13 +73,14 @@ class TaskDuplicateAnotherProject extends Base
      * Execute the action (duplicate the task to another project)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
         $destination_column_id = $this->columnModel->getFirstColumnId($this->getParam('project_id'));
-        return (bool) $this->taskProjectDuplicationModel->duplicateToProject(
+
+        return (bool)$this->taskProjectDuplicationModel->duplicateToProject(
             $data['task_id'],
             $this->getParam('project_id'),
             null,
@@ -91,7 +92,7 @@ class TaskDuplicateAnotherProject extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)

@@ -34,10 +34,10 @@ class TaskStatusController extends BaseController
      * Common method to change status
      *
      * @access private
-     * @param  string $method
-     * @param  string $template
-     * @param  string $success_message
-     * @param  string $failure_message
+     * @param string $method
+     * @param string $template
+     * @param string $success_message
+     * @param string $failure_message
      */
     private function changeStatus($method, $template, $success_message, $failure_message)
     {

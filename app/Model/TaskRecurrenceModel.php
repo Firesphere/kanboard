@@ -75,7 +75,7 @@ class TaskRecurrenceModel extends TaskDuplicationModel
      * Duplicate recurring task
      *
      * @access public
-     * @param  integer             $task_id      Task id
+     * @param integer $task_id Task id
      * @return boolean|integer                   Recurrence task id
      */
     public function duplicateRecurringTask($task_id)
@@ -125,11 +125,11 @@ class TaskRecurrenceModel extends TaskDuplicationModel
      * Calculate new due date for new recurrence task
      *
      * @access public
-     * @param  array   $values   Task fields
+     * @param array $values Task fields
      */
     public function calculateRecurringTaskDueDate(array &$values)
     {
-        if (! empty($values['date_due']) && $values['recurrence_factor'] != 0) {
+        if (!empty($values['date_due']) && $values['recurrence_factor'] != 0) {
             if ($values['recurrence_basedate'] == TaskModel::RECURRING_BASEDATE_TRIGGERDATE) {
                 $values['date_due'] = time();
             }

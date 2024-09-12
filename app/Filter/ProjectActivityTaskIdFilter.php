@@ -33,6 +33,7 @@ class ProjectActivityTaskIdFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->eq(ProjectActivityModel::TABLE . '.task_id', $this->value);
+
         return $this;
     }
 }

@@ -18,7 +18,7 @@ class DashboardPagination extends Base
      * Get user listing pagination
      *
      * @access public
-     * @param  integer $userId
+     * @param integer $userId
      * @return array
      */
     public function getOverview($userId)

@@ -14,7 +14,7 @@ interface UserBackendProviderInterface
      * Find a user from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return UserProviderInterface[]
      */
     public function find($input);

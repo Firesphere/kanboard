@@ -67,7 +67,7 @@ class TaskHelper extends Base
     {
         $templates = $this->predefinedTaskDescriptionModel->getAll($projectId);
 
-        if (! empty($templates)) {
+        if (!empty($templates)) {
             $html = '<div class="dropdown dropdown-smaller">';
             $html .= '<a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>' . t('Template for the task description') . ' <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
             $html .= '<ul>';
@@ -81,6 +81,7 @@ class TaskHelper extends Base
             }
 
             $html .= '</ul></div>';
+
             return $html;
         }
 
@@ -112,12 +113,13 @@ class TaskHelper extends Base
     public function renderColorField(array $values)
     {
         $html = $this->helper->form->colorSelect('color_id', $values);
+
         return $html;
     }
 
     public function renderAssigneeField(array $users, array $values, array $errors = [], array $attributes = [])
     {
-        if (isset($values['project_id']) && ! $this->helper->projectRole->canChangeAssignee($values)) {
+        if (isset($values['project_id']) && !$this->helper->projectRole->canChangeAssignee($values)) {
             return '';
         }
 
@@ -138,7 +140,7 @@ class TaskHelper extends Base
         $attributes = array_merge(['tabindex="6"'], $attributes);
         $html = '';
 
-        if (! (! $allow_one_item && count($categories) === 1 && key($categories) == 0)) {
+        if (!(!$allow_one_item && count($categories) === 1 && key($categories) == 0)) {
             $html .= $this->helper->form->label(t('Category'), 'category_id');
             $html .= $this->helper->form->select('category_id', $categories, $values, $errors, $attributes);
         }
@@ -226,12 +228,14 @@ class TaskHelper extends Base
     public function renderStartDateField(array $values, array $errors = [], array $attributes = [])
     {
         $attributes = array_merge(['tabindex="11"'], $attributes);
+
         return $this->helper->form->datetime(t('Start Date'), 'date_started', $values, $errors, $attributes);
     }
 
     public function renderDueDateField(array $values, array $errors = [], array $attributes = [])
     {
         $attributes = array_merge(['tabindex="10"'], $attributes);
+
         return $this->helper->form->datetime(t('Due Date'), 'date_due', $values, $errors, $attributes);
     }
 
@@ -247,7 +251,7 @@ class TaskHelper extends Base
 
     public function renderReference(array $task)
     {
-        if (! empty($task['reference'])) {
+        if (!empty($task['reference'])) {
             $reference = $this->helper->text->e($task['reference']);
 
             if (filter_var($task['reference'], FILTER_VALIDATE_URL) !== false) {
@@ -262,7 +266,7 @@ class TaskHelper extends Base
 
     public function getProgress($task)
     {
-        if (! isset($this->columns[$task['project_id']])) {
+        if (!isset($this->columns[$task['project_id']])) {
             $this->columns[$task['project_id']] = $this->columnModel->getList($task['project_id']);
         }
 

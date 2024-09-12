@@ -21,6 +21,13 @@ abstract class BaseProcedure extends Base
         UserAuthorization::getInstance($this->container)->check($this->getClassName(), $procedure);
     }
 
+    protected function getClassName()
+    {
+        $reflection = new ReflectionClass(get_called_class());
+
+        return $reflection->getShortName();
+    }
+
     protected function filterValues(array $values)
     {
         foreach ($values as $key => $value) {
@@ -30,11 +37,5 @@ abstract class BaseProcedure extends Base
         }
 
         return $values;
-    }
-
-    protected function getClassName()
-    {
-        $reflection = new ReflectionClass(get_called_class());
-        return $reflection->getShortName();
     }
 }

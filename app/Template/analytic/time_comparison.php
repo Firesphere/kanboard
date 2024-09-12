@@ -1,4 +1,4 @@
-<?php if (! $is_ajax): ?>
+<?php if (!$is_ajax): ?>
     <div class="page-header">
         <h2><?= t('Estimated vs actual time') ?></h2>
     </div>
@@ -16,7 +16,7 @@
 <?php else: ?>
     <?php if ($paginator->isEmpty()): ?>
         <p class="alert"><?= t('No tasks found.') ?></p>
-    <?php elseif (! $paginator->isEmpty()): ?>
+    <?php elseif (!$paginator->isEmpty()): ?>
         <?= $this->app->component('chart-project-time-comparison', [
             'metrics'        => $metrics,
             'labelSpent'     => t('Hours Spent'),
@@ -34,27 +34,27 @@
                 <th class="column-12"><?= $paginator->order(t('Actual Time'), 'tasks.time_spent') ?></th>
             </tr>
             <?php foreach ($paginator->getCollection() as $task): ?>
-            <tr>
-                <td class="task-table color-<?= $task['color_id'] ?>">
-                    <?= $this->url->link('#' . $this->text->e($task['id']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
-                </td>
-                <td>
-                    <?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
-                </td>
-                <td>
-                    <?php if ($task['is_active'] == \Kanboard\Model\TaskModel::STATUS_OPEN): ?>
-                        <?= t('Open') ?>
-                    <?php else: ?>
-                        <?= t('Closed') ?>
-                    <?php endif ?>
-                </td>
-                <td>
-                    <?= $this->text->e($task['time_estimated']) ?>
-                </td>
-                <td>
-                    <?= $this->text->e($task['time_spent']) ?>
-                </td>
-            </tr>
+                <tr>
+                    <td class="task-table color-<?= $task['color_id'] ?>">
+                        <?= $this->url->link('#' . $this->text->e($task['id']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
+                    </td>
+                    <td>
+                        <?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
+                    </td>
+                    <td>
+                        <?php if ($task['is_active'] == \Kanboard\Model\TaskModel::STATUS_OPEN): ?>
+                            <?= t('Open') ?>
+                        <?php else: ?>
+                            <?= t('Closed') ?>
+                        <?php endif ?>
+                    </td>
+                    <td>
+                        <?= $this->text->e($task['time_estimated']) ?>
+                    </td>
+                    <td>
+                        <?= $this->text->e($task['time_spent']) ?>
+                    </td>
+                </tr>
             <?php endforeach ?>
         </table>
 

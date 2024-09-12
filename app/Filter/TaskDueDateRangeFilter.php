@@ -39,6 +39,7 @@ class TaskDueDateRangeFilter extends BaseFilter implements FilterInterface
 
         $this->query->gte(TaskModel::TABLE . '.date_due', is_numeric($this->value[0]) ? $this->value[0] : strtotime($this->value[0]));
         $this->query->lte(TaskModel::TABLE . '.date_due', is_numeric($this->value[1]) ? $this->value[1] : strtotime($this->value[1]));
+
         return $this;
     }
 }

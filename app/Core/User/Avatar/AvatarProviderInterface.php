@@ -14,8 +14,8 @@ interface AvatarProviderInterface
      * Render avatar html
      *
      * @access public
-     * @param  array $user
-     * @param  int   $size
+     * @param array $user
+     * @param int $size
      */
     public function render(array $user, $size);
 
@@ -23,7 +23,7 @@ interface AvatarProviderInterface
      * Determine if the provider is active
      *
      * @access public
-     * @param  array $user
+     * @param array $user
      * @return boolean
      */
     public function isActive(array $user);

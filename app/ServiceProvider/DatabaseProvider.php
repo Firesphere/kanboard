@@ -20,7 +20,7 @@ class DatabaseProvider implements ServiceProviderInterface
      * Register provider
      *
      * @access public
-     * @param  Container $container
+     * @param Container $container
      * @return Container
      */
     public function register(Container $container)
@@ -34,8 +34,7 @@ class DatabaseProvider implements ServiceProviderInterface
         if (DEBUG) {
             $container['db']->getStatementHandler()
                 ->withLogging()
-                ->withStopWatch()
-            ;
+                ->withStopWatch();
         }
 
         return $container;
@@ -80,7 +79,7 @@ class DatabaseProvider implements ServiceProviderInterface
      *
      * @static
      * @access public
-     * @param  Database $db
+     * @param Database $db
      * @return int
      */
     public static function getSchemaVersion(Database $db)
@@ -93,13 +92,13 @@ class DatabaseProvider implements ServiceProviderInterface
      *
      * @static
      * @access public
-     * @throws RuntimeException
-     * @param  Database $db
+     * @param Database $db
      * @return bool
+     * @throws RuntimeException
      */
     public static function runMigrations(Database $db)
     {
-        if (! $db->schema()->check(\Schema\VERSION)) {
+        if (!$db->schema()->check(\Schema\VERSION)) {
             $messages = $db->getLogMessages();
             throw new RuntimeException('Unable to run SQL migrations: ' . implode(', ', $messages) . ' (You may have to fix it manually)');
         }

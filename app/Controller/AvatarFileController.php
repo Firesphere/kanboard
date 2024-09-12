@@ -33,12 +33,12 @@ class AvatarFileController extends BaseController
         $this->checkCSRFParam();
         $user = $this->getUser();
 
-        if (! $this->request->getFileInfo('avatar')['name']) {
+        if (!$this->request->getFileInfo('avatar')['name']) {
             $this->flash->failure(t('You must select a file to upload as your avatar!'));
-        } elseif (! $this->avatarFileModel->isAvatarImage($this->request->getFileInfo('avatar')['name'])) {
+        } elseif (!$this->avatarFileModel->isAvatarImage($this->request->getFileInfo('avatar')['name'])) {
             $this->flash->failure(t('The file you uploaded is not a valid image! (Only *.gif, *.jpg, *.jpeg and *.png are allowed!)'));
         } else {
-            if (! $this->avatarFileModel->uploadImageFile($user['id'], $this->request->getFileInfo('avatar'))) {
+            if (!$this->avatarFileModel->uploadImageFile($user['id'], $this->request->getFileInfo('avatar'))) {
                 $this->flash->failure(t('Unable to upload files, check the permissions of your data folder.'));
             }
         }
@@ -69,6 +69,7 @@ class AvatarFileController extends BaseController
 
         if ($size > 100) {
             $this->response->status(400);
+
             return;
         }
 
@@ -77,6 +78,7 @@ class AvatarFileController extends BaseController
 
         if ($hash !== $etag) {
             $this->response->status(404);
+
             return;
         }
 
@@ -95,8 +97,8 @@ class AvatarFileController extends BaseController
      * Render thumbnail from object storage
      *
      * @access private
-     * @param  string  $filename
-     * @param  integer $size
+     * @param string $filename
+     * @param integer $size
      */
     private function render($filename, $size)
     {

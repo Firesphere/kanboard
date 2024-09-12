@@ -34,7 +34,7 @@ class TagModel extends Base
      * Get all tags by project
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getAllByProject($project_id)
@@ -45,8 +45,8 @@ class TagModel extends Base
     /**
      * Get assignable tags for a project
      *
-     * @param  integer $project_id          Project Id
-     * @param  bool    $include_global_tags Flag to include global tags
+     * @param integer $project_id Project Id
+     * @param bool $include_global_tags Flag to include global tags
      * @return array
      */
     public function getAssignableList($project_id, $include_global_tags = true)
@@ -73,7 +73,7 @@ class TagModel extends Base
      * Get one tag
      *
      * @access public
-     * @param  integer $tag_id
+     * @param integer $tag_id
      * @return array|null
      */
     public function getById($tag_id)
@@ -85,8 +85,8 @@ class TagModel extends Base
      * Get tag id from tag name
      *
      * @access public
-     * @param  int    $project_id
-     * @param  string $tag
+     * @param int $project_id
+     * @param string $tag
      * @return integer
      */
     public function getIdByName($project_id, $tag)
@@ -106,9 +106,9 @@ class TagModel extends Base
      * Return true if the tag exists
      *
      * @access public
-     * @param  integer $project_id
-     * @param  string  $tag
-     * @param  integer $tag_id
+     * @param integer $project_id
+     * @param string $tag
+     * @param integer $tag_id
      * @return boolean
      */
     public function exists($project_id, $tag, $tag_id = 0)
@@ -129,8 +129,8 @@ class TagModel extends Base
      * Return tag id and create a new tag if necessary
      *
      * @access public
-     * @param  int    $project_id
-     * @param  string $tag
+     * @param int $project_id
+     * @param string $tag
      * @return bool|int
      */
     public function findOrCreateTag($project_id, $tag)
@@ -148,8 +148,8 @@ class TagModel extends Base
      * Add a new tag
      *
      * @access public
-     * @param  int    $project_id
-     * @param  string $tag
+     * @param int $project_id
+     * @param string $tag
      * @return bool|int
      */
     public function create($project_id, $tag, $color_id = null)
@@ -165,8 +165,8 @@ class TagModel extends Base
      * Update a tag
      *
      * @access public
-     * @param  integer $tag_id
-     * @param  string  $tag
+     * @param integer $tag_id
+     * @param string $tag
      * @return bool
      */
     public function update($tag_id, $tag, $color_id = null, $project_id = null)
@@ -189,7 +189,7 @@ class TagModel extends Base
      * Remove a tag
      *
      * @access public
-     * @param  integer $tag_id
+     * @param integer $tag_id
      * @return bool
      */
     public function remove($tag_id)

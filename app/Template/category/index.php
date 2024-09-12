@@ -15,28 +15,29 @@
             <th><?= t('Color') ?></th>
         </tr>
         <?php foreach ($categories as $category): ?>
-        <tr>
-            <td>
-                <div class="dropdown">
-                    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
-                    <ul>
-                        <li>
-                            <?= $this->modal->medium('edit', t('Edit'), 'CategoryController', 'edit', ['project_id' => $project['id'], 'category_id' => $category['id']]) ?>
-                        </li>
-                        <li>
-                            <?= $this->modal->confirm('trash-o', t('Remove'), 'CategoryController', 'confirm', ['project_id' => $project['id'], 'category_id' => $category['id']]) ?>
-                        </li>
-                    </ul>
-                </div>
+            <tr>
+                <td>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i
+                                    class="fa fa-caret-down"></i></a>
+                        <ul>
+                            <li>
+                                <?= $this->modal->medium('edit', t('Edit'), 'CategoryController', 'edit', ['project_id' => $project['id'], 'category_id' => $category['id']]) ?>
+                            </li>
+                            <li>
+                                <?= $this->modal->confirm('trash-o', t('Remove'), 'CategoryController', 'confirm', ['project_id' => $project['id'], 'category_id' => $category['id']]) ?>
+                            </li>
+                        </ul>
+                    </div>
 
-                <?= $this->text->e($category['name']) ?>
+                    <?= $this->text->e($category['name']) ?>
 
-                <?php if (! empty($category['description'])): ?>
-                    <?= $this->app->tooltipMarkdown($category['description']) ?>
-                <?php endif ?>
-            </td>
-            <td><?= $this->text->e($colors[$category['color_id']] ?? '') ?></td>
-        </tr>
+                    <?php if (!empty($category['description'])): ?>
+                        <?= $this->app->tooltipMarkdown($category['description']) ?>
+                    <?php endif ?>
+                </td>
+                <td><?= $this->text->e($colors[$category['color_id']] ?? '') ?></td>
+            </tr>
         <?php endforeach ?>
     </table>
 <?php endif ?>

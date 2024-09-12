@@ -5,16 +5,16 @@
 <ul>
     <li>
         <strong>
-        <?php if ($task['assignee_username']): ?>
-            <?= t('Assigned to %s', $task['assignee_name'] ?: $task['assignee_username']) ?>
-        <?php else: ?>
-            <?= t('There is nobody assigned') ?>
-        <?php endif ?>
+            <?php if ($task['assignee_username']): ?>
+                <?= t('Assigned to %s', $task['assignee_name'] ?: $task['assignee_username']) ?>
+            <?php else: ?>
+                <?= t('There is nobody assigned') ?>
+            <?php endif ?>
         </strong>
     </li>
 </ul>
 
-<?php if (! empty($task['description'])): ?>
+<?php if (!empty($task['description'])): ?>
     <h2><?= t('Description') ?></h2>
     <?= $this->text->markdown($task['description'], true) ?: t('There is no description.') ?>
 <?php endif ?>

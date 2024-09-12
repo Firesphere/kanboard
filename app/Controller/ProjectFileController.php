@@ -37,13 +37,13 @@ class ProjectFileController extends BaseController
         $result = $this->projectFileModel->uploadFiles($project['id'], $this->request->getFileInfo('files'));
 
         if ($this->request->isAjax()) {
-            if (! $result) {
+            if (!$result) {
                 $this->response->json(['message' => t('Unable to upload files, check the permissions of your data folder.')], 500);
             } else {
                 $this->response->json(['message' => 'OK']);
             }
         } else {
-            if (! $result) {
+            if (!$result) {
                 $this->flash->failure(t('Unable to upload files, check the permissions of your data folder.'));
             }
 

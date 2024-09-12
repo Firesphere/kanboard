@@ -26,7 +26,7 @@ class Client extends Base
      * Constructor
      *
      * @access public
-     * @param  \Pimple\Container   $container
+     * @param \Pimple\Container $container
      */
     public function __construct(Container $container)
     {
@@ -38,15 +38,15 @@ class Client extends Base
      * Send a HTML email
      *
      * @access public
-     * @param  string  $recipientEmail
-     * @param  string  $recipientName
-     * @param  string  $subject
-     * @param  string  $html
+     * @param string $recipientEmail
+     * @param string $recipientName
+     * @param string $subject
+     * @param string $html
      * @return Client
      */
     public function send($recipientEmail, $recipientName, $subject, $html, $authorName = null, $authorEmail = null)
     {
-        if (! empty($recipientEmail)) {
+        if (!empty($recipientEmail)) {
             $this->queueManager->push(EmailJob::getInstance($this->container)->withParams(
                 $recipientEmail,
                 $recipientName,
@@ -87,7 +87,8 @@ class Client extends Base
     {
         if ($this->userSession->isLogged()) {
             $userData = $this->userSession->getAll();
-            return ! empty($userData['email']) ? $userData['email'] : '';
+
+            return !empty($userData['email']) ? $userData['email'] : '';
         }
 
         return '';
@@ -97,7 +98,7 @@ class Client extends Base
      * Get mail transport instance
      *
      * @access public
-     * @param  string  $transport
+     * @param string $transport
      * @return ClientInterface
      */
     public function getTransport($transport)
@@ -109,8 +110,8 @@ class Client extends Base
      * Add a new mail transport
      *
      * @access public
-     * @param  string  $transport
-     * @param  string  $class
+     * @param string $transport
+     * @param string $class
      * @return Client
      */
     public function setTransport($transport, $class)
@@ -133,6 +134,7 @@ class Client extends Base
     public function getAvailableTransports()
     {
         $availableTransports = $this->transports->keys();
+
         return array_combine($availableTransports, $availableTransports);
     }
 }

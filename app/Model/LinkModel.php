@@ -25,7 +25,7 @@ class LinkModel extends Base
      * Get a link by id
      *
      * @access public
-     * @param  integer   $link_id   Link id
+     * @param integer $link_id Link id
      * @return array
      */
     public function getById($link_id)
@@ -37,7 +37,7 @@ class LinkModel extends Base
      * Get a link by name
      *
      * @access public
-     * @param  string $label
+     * @param string $label
      * @return array
      */
     public function getByLabel($label)
@@ -49,7 +49,7 @@ class LinkModel extends Base
      * Get the opposite link id
      *
      * @access public
-     * @param  integer   $link_id   Link id
+     * @param integer $link_id Link id
      * @return integer
      */
     public function getOppositeLinkId($link_id)
@@ -77,21 +77,21 @@ class LinkModel extends Base
     public function getMergedList()
     {
         return $this->db
-                    ->execute('
+            ->execute('
                         SELECT
                             links.id, links.label, opposite.label as opposite_label
                         FROM links
                         LEFT JOIN links AS opposite ON opposite.id=links.opposite_id
                     ')
-                    ->fetchAll(PDO::FETCH_ASSOC);
+            ->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Get label list
      *
      * @access public
-     * @param  integer   $exclude_id   Exclude this link
-     * @param  boolean   $prepend      Prepend default value
+     * @param integer $exclude_id Exclude this link
+     * @param boolean $prepend Prepend default value
      * @return array
      */
     public function getList($exclude_id = 0, $prepend = true)
@@ -109,22 +109,23 @@ class LinkModel extends Base
      * Create a new link label
      *
      * @access public
-     * @param  string   $label
-     * @param  string   $opposite_label
+     * @param string $label
+     * @param string $opposite_label
      * @return boolean|integer
      */
     public function create($label, $opposite_label = '')
     {
         $this->db->startTransaction();
 
-        if (! $this->db->table(self::TABLE)->insert(['label' => $label])) {
+        if (!$this->db->table(self::TABLE)->insert(['label' => $label])) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
         $label_id = $this->db->getLastId();
 
-        if (! empty($opposite_label)) {
+        if (!empty($opposite_label)) {
             $this->db
                 ->table(self::TABLE)
                 ->insert([
@@ -142,37 +143,38 @@ class LinkModel extends Base
 
         $this->db->closeTransaction();
 
-        return (int) $label_id;
+        return (int)$label_id;
     }
 
     /**
      * Update a link
      *
      * @access public
-     * @param  array   $values
+     * @param array $values
      * @return boolean
      */
     public function update(array $values)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->eq('id', $values['id'])
-                    ->update([
-                        'label'       => $values['label'],
-                        'opposite_id' => $values['opposite_id'],
-                    ]);
+            ->table(self::TABLE)
+            ->eq('id', $values['id'])
+            ->update([
+                'label'       => $values['label'],
+                'opposite_id' => $values['opposite_id'],
+            ]);
     }
 
     /**
      * Remove a link a the relation to its opposite
      *
      * @access public
-     * @param  integer  $link_id
+     * @param integer $link_id
      * @return boolean
      */
     public function remove($link_id)
     {
         $this->db->table(self::TABLE)->eq('opposite_id', $link_id)->update(['opposite_id' => 0]);
+
         return $this->db->table(self::TABLE)->eq('id', $link_id)->remove();
     }
 }

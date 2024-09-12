@@ -1,4 +1,5 @@
-<form method="post" action="<?= $this->url->href('ExternalTaskCreationController', 'step3', ['project_id' => $project['id'], 'provider_name' => $provider_name]) ?>">
+<form method="post"
+      action="<?= $this->url->href('ExternalTaskCreationController', 'step3', ['project_id' => $project['id'], 'provider_name' => $provider_name]) ?>">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('external_provider', $values) ?>
     <?= $this->form->hidden('external_uri', $values) ?>
@@ -14,7 +15,7 @@
         'columns_list'    => $columns_list,
     ]) ?>
 
-    <?php if (! empty($error_message)): ?>
+    <?php if (!empty($error_message)): ?>
         <div class="alert alert-error"><?= $this->text->e($error_message) ?></div>
     <?php endif ?>
 

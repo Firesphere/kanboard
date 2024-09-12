@@ -18,7 +18,7 @@ class PasswordResetValidator extends BaseValidator
      * Validate creation
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)
@@ -30,7 +30,7 @@ class PasswordResetValidator extends BaseValidator
      * Validate modification
      *
      * @access public
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateModification(array $values)
@@ -47,7 +47,7 @@ class PasswordResetValidator extends BaseValidator
      * Validate fields
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     protected function validateFields(array $values)
@@ -68,21 +68,21 @@ class PasswordResetValidator extends BaseValidator
      * Validate captcha
      *
      * @access protected
-     * @param  array   $values           Form values
+     * @param array $values Form values
      * @return array
      */
     protected function validateCaptcha(array $values)
     {
         $errors = [];
 
-        if (! session_exists('captcha')) {
+        if (!session_exists('captcha')) {
             $result = false;
         } else {
             $builder = new CaptchaBuilder();
             $builder->setPhrase(session_get('captcha'));
             $result = $builder->testPhrase(isset($values['captcha']) ? $values['captcha'] : '');
 
-            if (! $result) {
+            if (!$result) {
                 $errors['captcha'] = [t('Invalid captcha')];
             }
 

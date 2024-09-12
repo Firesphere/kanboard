@@ -22,7 +22,7 @@ class Entry
      * Constructor
      *
      * @access public
-     * @param  array $entry
+     * @param array $entry
      */
     public function __construct(array $entry)
     {
@@ -30,33 +30,11 @@ class Entry
     }
 
     /**
-     * Get all attribute values
-     *
-     * @access public
-     * @param  string  $attribute
-     * @return string[]
-     */
-    public function getAll($attribute)
-    {
-        $attributes = [];
-
-        if (! isset($this->entry[$attribute]['count'])) {
-            return $attributes;
-        }
-
-        for ($i = 0; $i < $this->entry[$attribute]['count']; $i++) {
-            $attributes[] = $this->entry[$attribute][$i];
-        }
-
-        return $attributes;
-    }
-
-    /**
      * Get first attribute value
      *
      * @access public
-     * @param  string  $attribute
-     * @param  string  $default
+     * @param string $attribute
+     * @param string $default
      * @return string
      */
     public function getFirstValue($attribute, $default = '')
@@ -79,13 +57,36 @@ class Entry
      * Return true if the given value exists in attribute list
      *
      * @access public
-     * @param  string  $attribute
-     * @param  string  $value
+     * @param string $attribute
+     * @param string $value
      * @return boolean
      */
     public function hasValue($attribute, $value)
     {
         $attributes = $this->getAll($attribute);
+
         return in_array($value, $attributes);
+    }
+
+    /**
+     * Get all attribute values
+     *
+     * @access public
+     * @param string $attribute
+     * @return string[]
+     */
+    public function getAll($attribute)
+    {
+        $attributes = [];
+
+        if (!isset($this->entry[$attribute]['count'])) {
+            return $attributes;
+        }
+
+        for ($i = 0; $i < $this->entry[$attribute]['count']; $i++) {
+            $attributes[] = $this->entry[$attribute][$i];
+        }
+
+        return $attributes;
     }
 }

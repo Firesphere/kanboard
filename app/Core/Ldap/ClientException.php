@@ -10,4 +10,6 @@ use Exception;
  * @package ldap
  * @author  Frederic Guillot
  */
-class ClientException extends Exception {}
+class ClientException extends Exception
+{
+}

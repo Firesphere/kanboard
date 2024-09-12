@@ -29,14 +29,14 @@ class Installer extends \Kanboard\Core\Base
      * Install a plugin
      *
      * @access public
-     * @param  string $archiveUrl
+     * @param string $archiveUrl
      * @throws PluginInstallerException
      */
     public function install($archiveUrl)
     {
         $zip = $this->downloadPluginArchive($archiveUrl);
 
-        if (! $zip->extractTo(PLUGINS_DIR)) {
+        if (!$zip->extractTo(PLUGINS_DIR)) {
             $this->cleanupArchive($zip);
             throw new PluginInstallerException(t('Unable to extract plugin archive.'));
         }
@@ -48,18 +48,18 @@ class Installer extends \Kanboard\Core\Base
      * Uninstall a plugin
      *
      * @access public
-     * @param  string $pluginId
+     * @param string $pluginId
      * @throws PluginInstallerException
      */
     public function uninstall($pluginId)
     {
         $pluginFolder = PLUGINS_DIR . DIRECTORY_SEPARATOR . basename($pluginId);
 
-        if (! file_exists($pluginFolder)) {
+        if (!file_exists($pluginFolder)) {
             throw new PluginInstallerException(t('Plugin not found.'));
         }
 
-        if (! is_writable($pluginFolder)) {
+        if (!is_writable($pluginFolder)) {
             throw new PluginInstallerException(e('You don\'t have the permission to remove this plugin.'));
         }
 
@@ -70,7 +70,7 @@ class Installer extends \Kanboard\Core\Base
      * Update a plugin
      *
      * @access public
-     * @param  string $archiveUrl
+     * @param string $archiveUrl
      * @throws PluginInstallerException
      */
     public function update($archiveUrl)
@@ -80,7 +80,7 @@ class Installer extends \Kanboard\Core\Base
         $firstEntry = $zip->statIndex(0);
         $this->uninstall($firstEntry['name']);
 
-        if (! $zip->extractTo(PLUGINS_DIR)) {
+        if (!$zip->extractTo(PLUGINS_DIR)) {
             $this->cleanupArchive($zip);
             throw new PluginInstallerException(t('Unable to extract plugin archive.'));
         }
@@ -92,7 +92,7 @@ class Installer extends \Kanboard\Core\Base
      * Download archive from URL
      *
      * @access protected
-     * @param  string $archiveUrl
+     * @param string $archiveUrl
      * @return ZipArchive
      * @throws PluginInstallerException
      */

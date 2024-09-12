@@ -15,8 +15,8 @@ class ProjectRoleRestrictionController extends BaseController
     /**
      * Show form to create a new project restriction
      *
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws AccessForbiddenException
      */
     public function create(array $values = [], array $errors = [])

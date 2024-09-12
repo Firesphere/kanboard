@@ -17,7 +17,7 @@ class TwoFactorController extends UserViewController
      * Only the current user can access to 2FA settings
      *
      * @access private
-     * @param  array $user
+     * @param array $user
      * @throws AccessForbiddenException
      */
     private function checkCurrentUser(array $user)
@@ -57,7 +57,7 @@ class TwoFactorController extends UserViewController
         $label = $user['email'] ?: $user['username'];
         $provider = $this->authenticationManager->getPostAuthenticationProvider();
 
-        if (! session_exists('twoFactorSecret')) {
+        if (!session_exists('twoFactorSecret')) {
             $provider->generateSecret();
             $provider->beforeCode();
             session_set('twoFactorSecret', $provider->getSecret());
@@ -175,7 +175,7 @@ class TwoFactorController extends UserViewController
      */
     public function code()
     {
-        if (! session_exists('twoFactorBeforeCodeCalled')) {
+        if (!session_exists('twoFactorBeforeCodeCalled')) {
             $provider = $this->authenticationManager->getPostAuthenticationProvider();
             $provider->beforeCode();
             session_set('twoFactorBeforeCodeCalled', true);
@@ -224,7 +224,7 @@ class TwoFactorController extends UserViewController
             $provider->setSecret(session_get('twoFactorSecret'));
             $url = $provider->getKeyUrl($user['email'] ?: $user['username']);
 
-            if (! empty($url)) {
+            if (!empty($url)) {
                 PHPQRCode\QRcode::png($url, false, 'L', 6, 0);
             }
         }

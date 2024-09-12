@@ -33,6 +33,7 @@ class TaskMovedDateFilter extends BaseDateFilter implements FilterInterface
     public function apply()
     {
         $this->applyDateFilter(TaskModel::TABLE . '.date_moved');
+
         return $this;
     }
 }

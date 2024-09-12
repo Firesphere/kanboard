@@ -24,7 +24,7 @@ class AnalyticController extends BaseController
         list($from, $to) = $this->getDates();
 
         $this->response->html($this->helper->layout->analytic('analytic/lead_cycle_time', [
-            'values' => [
+            'values'  => [
                 'from' => $from,
                 'to'   => $to,
             ],
@@ -50,8 +50,8 @@ class AnalyticController extends BaseController
             ->setOrder(TaskModel::TABLE . '.id')
             ->setQuery(
                 $this->taskQuery
-                ->withFilter(new TaskProjectFilter($project['id']))
-                ->getQuery(),
+                    ->withFilter(new TaskProjectFilter($project['id']))
+                    ->getQuery(),
             )
             ->calculate();
 
@@ -182,7 +182,7 @@ class AnalyticController extends BaseController
         $from = $this->request->getStringParam('from', date('Y-m-d', strtotime('-1week')));
         $to = $this->request->getStringParam('to', date('Y-m-d'));
 
-        if (! empty($values)) {
+        if (!empty($values)) {
             $from = $this->dateParser->getIsoDate($values['from']);
             $to = $this->dateParser->getIsoDate($values['to']);
         }

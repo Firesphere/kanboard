@@ -33,28 +33,30 @@ class QueryBuilder
     }
 
     /**
-     * Set the query
-     *
-     * @access public
-     * @param  Table $query
-     * @return QueryBuilder
-     */
-    public function withQuery(Table $query)
-    {
-        $this->query = $query;
-        return $this;
-    }
-
-    /**
      * Set a filter
      *
      * @access public
-     * @param  FilterInterface $filter
+     * @param FilterInterface $filter
      * @return QueryBuilder
      */
     public function withFilter(FilterInterface $filter)
     {
         $filter->withQuery($this->query)->apply();
+
+        return $this;
+    }
+
+    /**
+     * Set the query
+     *
+     * @access public
+     * @param Table $query
+     * @return QueryBuilder
+     */
+    public function withQuery(Table $query)
+    {
+        $this->query = $query;
+
         return $this;
     }
 
@@ -62,12 +64,13 @@ class QueryBuilder
      * Set a criteria
      *
      * @access public
-     * @param  CriteriaInterface $criteria
+     * @param CriteriaInterface $criteria
      * @return QueryBuilder
      */
     public function withCriteria(CriteriaInterface $criteria)
     {
         $criteria->withQuery($this->query)->apply();
+
         return $this;
     }
 
@@ -75,7 +78,7 @@ class QueryBuilder
      * Set a formatter
      *
      * @access public
-     * @param  FormatterInterface $formatter
+     * @param FormatterInterface $formatter
      * @return string|array
      */
     public function format(FormatterInterface $formatter)

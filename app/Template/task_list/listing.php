@@ -2,7 +2,7 @@
 
 <?php if ($paginator->isEmpty()): ?>
     <p class="alert"><?= t('No tasks found.') ?></p>
-<?php elseif (! $paginator->isEmpty()): ?>
+<?php elseif (!$paginator->isEmpty()): ?>
     <div class="table-list">
         <?= $this->render('task_list/header', [
             'paginator'            => $paginator,

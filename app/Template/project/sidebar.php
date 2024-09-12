@@ -4,9 +4,9 @@
             <?= $this->url->link(t('Summary'), 'ProjectViewController', 'show', ['project_id' => $project['id']]) ?>
         </li>
         <?php if ($this->user->hasProjectAccess('CustomFilterController', 'index', $project['id'])): ?>
-        <li <?= $this->app->checkMenuSelection('CustomFilterController') ?>>
-            <?= $this->url->link(t('Custom filters'), 'CustomFilterController', 'index', ['project_id' => $project['id']]) ?>
-        </li>
+            <li <?= $this->app->checkMenuSelection('CustomFilterController') ?>>
+                <?= $this->url->link(t('Custom filters'), 'CustomFilterController', 'index', ['project_id' => $project['id']]) ?>
+            </li>
         <?php endif ?>
 
         <?php if ($this->user->hasProjectAccess('ProjectEditController', 'show', $project['id'])): ?>
@@ -38,12 +38,12 @@
                 <?= $this->url->link(t('Tags'), 'ProjectTagController', 'index', ['project_id' => $project['id']]) ?>
             </li>
             <?php if ($project['is_private'] == 0): ?>
-            <li <?= $this->app->checkMenuSelection('ProjectPermissionController') ?>>
-                <?= $this->url->link(t('Permissions'), 'ProjectPermissionController', 'index', ['project_id' => $project['id']]) ?>
-            </li>
-            <li <?= $this->app->checkMenuSelection('ProjectRoleController') ?>>
-                <?= $this->url->link(t('Custom roles'), 'ProjectRoleController', 'show', ['project_id' => $project['id']]) ?>
-            </li>
+                <li <?= $this->app->checkMenuSelection('ProjectPermissionController') ?>>
+                    <?= $this->url->link(t('Permissions'), 'ProjectPermissionController', 'index', ['project_id' => $project['id']]) ?>
+                </li>
+                <li <?= $this->app->checkMenuSelection('ProjectRoleController') ?>>
+                    <?= $this->url->link(t('Custom roles'), 'ProjectRoleController', 'show', ['project_id' => $project['id']]) ?>
+                </li>
             <?php endif ?>
             <li <?= $this->app->checkMenuSelection('ActionController') ?>>
                 <?= $this->url->link(t('Automatic actions'), 'ActionController', 'index', ['project_id' => $project['id']]) ?>
@@ -54,13 +54,13 @@
             <li <?= $this->app->checkMenuSelection('ProjectViewController', 'importTasks') ?>>
                 <?= $this->url->link(t('Import Tasks'), 'ProjectViewController', 'importTasks', ['project_id' => $project['id']]) ?>
             </li>
-                <?php if ($project['is_active']): ?>
-                    <li>
-                    <?= $this->modal->confirmLink(t('Close this project'), 'ProjectStatusController', 'confirmDisable', ['project_id' => $project['id']]) ?>
-                <?php else: ?>
-                    <li>
-                    <?= $this->modal->confirmLink(t('Open this project'), 'ProjectStatusController', 'confirmEnable', ['project_id' => $project['id']]) ?>
-                <?php endif ?>
+            <?php if ($project['is_active']): ?>
+                <li>
+                <?= $this->modal->confirmLink(t('Close this project'), 'ProjectStatusController', 'confirmDisable', ['project_id' => $project['id']]) ?>
+            <?php else: ?>
+                <li>
+                <?= $this->modal->confirmLink(t('Open this project'), 'ProjectStatusController', 'confirmEnable', ['project_id' => $project['id']]) ?>
+            <?php endif ?>
             </li>
             <?php if ($this->user->hasProjectAccess('ProjectStatusController', 'remove', $project['id'])): ?>
                 <li>

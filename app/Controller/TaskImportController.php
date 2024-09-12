@@ -43,7 +43,7 @@ class TaskImportController extends BaseController
         $values = $this->request->getValues();
         $filename = $this->request->getFilePath('file');
 
-        if (! file_exists($filename)) {
+        if (!file_exists($filename)) {
             $this->show($values, ['file' => [t('Unable to read your file')]]);
         } else {
             $taskImport = new TaskImport($this->container);

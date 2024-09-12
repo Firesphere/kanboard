@@ -26,8 +26,8 @@ class ProjectDailyColumnStatsModel extends Base
      * "score" is the sum of tasks score in the column
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $date          Record date (YYYY-MM-DD)
+     * @param integer $project_id Project id
+     * @param string $date Record date (YYYY-MM-DD)
      * @return boolean
      */
     public function updateTotals($project_id, $date)
@@ -54,9 +54,9 @@ class ProjectDailyColumnStatsModel extends Base
      * Count the number of recorded days for the data range
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $from          Start date (ISO format YYYY-MM-DD)
-     * @param  string     $to            End date
+     * @param integer $project_id Project id
+     * @param string $from Start date (ISO format YYYY-MM-DD)
+     * @param string $to End date
      * @return integer
      */
     public function countDays($project_id, $from, $to)
@@ -78,16 +78,17 @@ class ProjectDailyColumnStatsModel extends Base
      * ]
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $from          Start date (ISO format YYYY-MM-DD)
-     * @param  string     $to            End date
-     * @param  string     $field         Column to aggregate
+     * @param integer $project_id Project id
+     * @param string $from Start date (ISO format YYYY-MM-DD)
+     * @param string $to End date
+     * @param string $field Column to aggregate
      * @return array
      */
     public function getAggregatedMetrics($project_id, $from, $to, $field = 'total')
     {
         $columns = $this->columnModel->getList($project_id);
         $metrics = $this->getMetrics($project_id, $from, $to);
+
         return $this->buildAggregate($metrics, $columns, $field);
     }
 
@@ -95,9 +96,9 @@ class ProjectDailyColumnStatsModel extends Base
      * Fetch metrics
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $from          Start date (ISO format YYYY-MM-DD)
-     * @param  string     $to            End date
+     * @param integer $project_id Project id
+     * @param string $from Start date (ISO format YYYY-MM-DD)
+     * @param string $to End date
      * @return array
      */
     public function getMetrics($project_id, $from, $to)
@@ -114,9 +115,9 @@ class ProjectDailyColumnStatsModel extends Base
      * Build aggregate
      *
      * @access private
-     * @param  array   $metrics
-     * @param  array   $columns
-     * @param  string  $field
+     * @param array $metrics
+     * @param array $columns
+     * @param string $field
      * @return array
      */
     private function buildAggregate(array &$metrics, array &$columns, $field)
@@ -136,10 +137,10 @@ class ProjectDailyColumnStatsModel extends Base
      * Build one row of the aggregate
      *
      * @access private
-     * @param  array   $metrics
-     * @param  array   $column_ids
-     * @param  string  $day
-     * @param  string  $field
+     * @param array $metrics
+     * @param array $column_ids
+     * @param string $day
+     * @param string $field
      * @return array
      */
     private function buildRowAggregate(array &$metrics, array &$column_ids, $day, $field)
@@ -157,17 +158,17 @@ class ProjectDailyColumnStatsModel extends Base
      * Find the value in the metrics
      *
      * @access private
-     * @param  array   $metrics
-     * @param  string  $day
-     * @param  string  $column_id
-     * @param  string  $field
+     * @param array $metrics
+     * @param string $day
+     * @param string $column_id
+     * @param string $field
      * @return integer
      */
     private function findValueInMetrics(array &$metrics, $day, $column_id, $field)
     {
         foreach ($metrics as $metric) {
             if ($metric['day'] === $day && $metric['column_id'] == $column_id) {
-                return (int) $metric[$field];
+                return (int)$metric[$field];
             }
         }
 
@@ -178,7 +179,7 @@ class ProjectDailyColumnStatsModel extends Base
      * Get number of tasks and score by columns
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function getStatsByColumns($project_id)
@@ -192,7 +193,7 @@ class ProjectDailyColumnStatsModel extends Base
         }
 
         foreach ($scores as $column_id => $score) {
-            $columns[$column_id]['score'] = (int) $score;
+            $columns[$column_id]['score'] = (int)$score;
         }
 
         return $columns;
@@ -202,7 +203,7 @@ class ProjectDailyColumnStatsModel extends Base
      * Get number of tasks and score by columns
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function getScoreByColumns($project_id)
@@ -222,7 +223,7 @@ class ProjectDailyColumnStatsModel extends Base
      * Get number of tasks and score by columns
      *
      * @access private
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     private function getTotalByColumns($project_id)

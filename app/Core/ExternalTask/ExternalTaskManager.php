@@ -21,13 +21,14 @@ class ExternalTaskManager
     public function register(ExternalTaskProviderInterface $externalTaskProvider)
     {
         $this->providers[$externalTaskProvider->getName()] = $externalTaskProvider;
+
         return $this;
     }
 
     /**
      * Get task provider
      *
-     * @param  string $name
+     * @param string $name
      * @return ExternalTaskProviderInterface|null
      * @throws ProviderNotFoundException
      */

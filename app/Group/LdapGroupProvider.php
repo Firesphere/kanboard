@@ -32,8 +32,8 @@ class LdapGroupProvider implements GroupProviderInterface
      * Constructor
      *
      * @access public
-     * @param  string $dn
-     * @param  string $name
+     * @param string $dn
+     * @param string $name
      */
     public function __construct($dn, $name)
     {

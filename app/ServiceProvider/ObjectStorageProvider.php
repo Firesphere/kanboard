@@ -19,7 +19,7 @@ class ObjectStorageProvider implements ServiceProviderInterface
     {
         $container['objectStorage'] = function () {
             if (file_exists(FILES_DIR)) {
-                if (! is_writable(FILES_DIR)) {
+                if (!is_writable(FILES_DIR)) {
                     $stat = stat(FILES_DIR);
 
                     throw new LogicException(sprintf(
@@ -30,7 +30,7 @@ class ObjectStorageProvider implements ServiceProviderInterface
                         $stat['gid'],
                     ));
                 }
-            } elseif (! @mkdir(FILES_DIR)) {
+            } elseif (!@mkdir(FILES_DIR)) {
                 $folder = dirname(FILES_DIR);
                 $stat = stat($folder);
 

@@ -8,7 +8,8 @@
     </p>
 </div>
 
-<form action="<?= $this->url->href('ConfigController', 'saveUploadedDb', [], true) ?>" method="post" enctype="multipart/form-data">
+<form action="<?= $this->url->href('ConfigController', 'saveUploadedDb', [], true) ?>" method="post"
+      enctype="multipart/form-data">
     <?= $this->form->label(t('Database file'), 'file') ?>
     <?= $this->form->file('file') ?>
 

@@ -16,8 +16,8 @@ class TaskModificationModel extends Base
      * Update a task
      *
      * @access public
-     * @param  array     $values
-     * @param  boolean   $fire_events
+     * @param array $values
+     * @param boolean $fire_events
      * @return boolean
      */
     public function update(array $values, $fire_events = true)
@@ -39,8 +39,8 @@ class TaskModificationModel extends Base
      * Fire events
      *
      * @access protected
-     * @param  array $task
-     * @param  array $changes
+     * @param array $task
+     * @param array $changes
      */
     protected function fireEvents(array $task, array $changes)
     {
@@ -53,10 +53,10 @@ class TaskModificationModel extends Base
             $events[] = TaskModel::EVENT_UPDATE;
         }
 
-        if (! empty($events)) {
+        if (!empty($events)) {
             $this->queueManager->push(
                 $this->taskEventJob
-                ->withParams($task['id'], $events, $changes, [], $task),
+                    ->withParams($task['id'], $events, $changes, [], $task),
             );
         }
     }
@@ -65,14 +65,15 @@ class TaskModificationModel extends Base
      * Return true if the task have been modified
      *
      * @access protected
-     * @param  array $task
-     * @param  array $changes
+     * @param array $task
+     * @param array $changes
      * @return bool
      */
     protected function isModified(array $task, array $changes)
     {
         $diff = array_diff_assoc($changes, $task);
         unset($diff['date_modification']);
+
         return count($diff) > 0;
     }
 
@@ -80,14 +81,15 @@ class TaskModificationModel extends Base
      * Return true if the field is the only modified value
      *
      * @access protected
-     * @param  array  $task
-     * @param  array  $changes
+     * @param array $task
+     * @param array $changes
      * @return bool
      */
     protected function isAssigneeChanged(array $task, array $changes)
     {
         $diff = array_diff_assoc($changes, $task);
         unset($diff['date_modification']);
+
         return isset($changes['owner_id']) && $task['owner_id'] != $changes['owner_id'] && count($diff) === 1;
     }
 
@@ -95,7 +97,7 @@ class TaskModificationModel extends Base
      * Prepare data before task modification
      *
      * @access protected
-     * @param  array  $values
+     * @param array $values
      */
     protected function prepare(array &$values)
     {
@@ -115,8 +117,8 @@ class TaskModificationModel extends Base
      * Update tags
      *
      * @access protected
-     * @param  array  $values
-     * @param  array  $original_task
+     * @param array $values
+     * @param array $original_task
      */
     protected function updateTags(array &$values, array $original_task)
     {

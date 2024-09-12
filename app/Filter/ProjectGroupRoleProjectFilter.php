@@ -33,6 +33,7 @@ class ProjectGroupRoleProjectFilter extends BaseFilter implements FilterInterfac
     public function apply()
     {
         $this->query->eq(ProjectGroupRoleModel::TABLE . '.project_id', $this->value);
+
         return $this;
     }
 }

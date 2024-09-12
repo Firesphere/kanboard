@@ -15,21 +15,22 @@ class ProjectFileEventJob extends BaseJob
     /**
      * Set job params
      *
-     * @param  int    $fileId
-     * @param  string $eventName
+     * @param int $fileId
+     * @param string $eventName
      * @return $this
      */
     public function withParams($fileId, $eventName)
     {
         $this->jobParams = [$fileId, $eventName];
+
         return $this;
     }
 
     /**
      * Execute job
      *
-     * @param  int    $fileId
-     * @param  string $eventName
+     * @param int $fileId
+     * @param string $eventName
      */
     public function execute($fileId, $eventName)
     {

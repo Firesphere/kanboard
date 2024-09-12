@@ -32,6 +32,7 @@ class TaskScoreFilter extends BaseComparisonFilter implements FilterInterface
     public function apply()
     {
         $this->applyComparisonFilter(TaskModel::TABLE . '.score');
+
         return $this;
     }
 }

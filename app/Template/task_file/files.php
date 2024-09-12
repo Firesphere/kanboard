@@ -1,4 +1,4 @@
-<?php if (! empty($files)): ?>
+<?php if (!empty($files)): ?>
     <table class="table-striped table-scrolling">
         <tr>
             <th><?= t('Filename') ?></th>
@@ -11,7 +11,8 @@
                 <td>
                     <i class="fa <?= $this->file->icon($file['name']) ?> fa-fw"></i>
                     <div class="dropdown">
-                        <a href="#" class="dropdown-menu dropdown-menu-link-text"><?= $this->text->e($file['name']) ?> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-menu dropdown-menu-link-text"><?= $this->text->e($file['name']) ?>
+                            <i class="fa fa-caret-down"></i></a>
                         <ul>
                             <?php if ($this->file->getPreviewType($file['name']) !== null): ?>
                                 <li>

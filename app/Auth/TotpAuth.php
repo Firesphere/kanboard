@@ -52,6 +52,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
     public function authenticate()
     {
         $otp = new Otp();
+
         return $otp->checkTotp(Base32::decode($this->secret), $this->code);
     }
 
@@ -60,13 +61,15 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
      *
      * @access public
      */
-    public function beforeCode() {}
+    public function beforeCode()
+    {
+    }
 
     /**
      * Set validation code
      *
      * @access public
-     * @param  string $code
+     * @param string $code
      */
     public function setCode($code)
     {
@@ -82,18 +85,8 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
     public function generateSecret()
     {
         $this->secret = GoogleAuthenticator::generateRandom();
-        return $this->secret;
-    }
 
-    /**
-     * Set secret token
-     *
-     * @access public
-     * @param  string  $secret
-     */
-    public function setSecret($secret)
-    {
-        $this->secret = $secret;
+        return $this->secret;
     }
 
     /**
@@ -108,10 +101,21 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
     }
 
     /**
+     * Set secret token
+     *
+     * @access public
+     * @param string $secret
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+    }
+
+    /**
      * Get QR code url
      *
      * @access public
-     * @param  string $label
+     * @param string $label
      * @return string
      */
     public function getQrCodeUrl($label)
@@ -121,6 +125,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
         }
 
         $options = ['issuer' => TOTP_ISSUER];
+
         return GoogleAuthenticator::getQrCodeUrl('totp', $label, $this->secret, null, $options);
     }
 
@@ -128,7 +133,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
      * Get key url (empty if no url can be provided)
      *
      * @access public
-     * @param  string $label
+     * @param string $label
      * @return string
      */
     public function getKeyUrl($label)
@@ -138,6 +143,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
         }
 
         $options = ['issuer' => TOTP_ISSUER];
+
         return GoogleAuthenticator::getKeyUri('totp', $label, $this->secret, null, $options);
     }
 }

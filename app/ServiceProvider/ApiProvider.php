@@ -51,8 +51,7 @@ class ApiProvider implements ServiceProviderInterface
         $server = new Server();
         $server->setAuthenticationHeader(API_AUTHENTICATION_HEADER);
         $server->getMiddlewareHandler()
-            ->withMiddleware(new AuthenticationMiddleware($container))
-        ;
+            ->withMiddleware(new AuthenticationMiddleware($container));
 
         $server->getProcedureHandler()
             ->withObject(new MeProcedure($container))
@@ -80,10 +79,10 @@ class ApiProvider implements ServiceProviderInterface
             ->withObject(new GroupProcedure($container))
             ->withObject(new GroupMemberProcedure($container))
             ->withObject(new TagProcedure($container))
-            ->withBeforeMethod('beforeProcedure')
-        ;
+            ->withBeforeMethod('beforeProcedure');
 
         $container['api'] = $server;
+
         return $container;
     }
 }

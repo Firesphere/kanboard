@@ -23,8 +23,8 @@ class TaskMovePositionController extends BaseController
                 ->withProjectId($task['project_id'])
                 ->withQuery(
                     $this->taskFinderModel->getExtendedQuery()
-                    ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
-                    ->neq(TaskModel::TABLE . '.id', $task['id']),
+                        ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
+                        ->neq(TaskModel::TABLE . '.id', $task['id']),
                 )
                 ->format(),
         ]));
@@ -36,7 +36,7 @@ class TaskMovePositionController extends BaseController
         $task = $this->getTask();
         $values = $this->request->getJson();
 
-        if (! $this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $values['column_id'])) {
+        if (!$this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $values['column_id'])) {
             throw new AccessForbiddenException(e('You are not allowed to move this task.'));
         }
 

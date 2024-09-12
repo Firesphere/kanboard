@@ -49,7 +49,7 @@ class RememberMeSessionModel extends Base
      * Get all sessions for a given user
      *
      * @access public
-     * @param  integer  $user_id  User id
+     * @param integer $user_id User id
      * @return array
      */
     public function getAll($user_id)
@@ -66,9 +66,9 @@ class RememberMeSessionModel extends Base
      * Create a new RememberMe session
      *
      * @access public
-     * @param  integer  $user_id     User id
-     * @param  string   $ip          IP Address
-     * @param  string   $user_agent  User Agent
+     * @param integer $user_id User id
+     * @param string $ip IP Address
+     * @param string $user_agent User Agent
      * @return array
      */
     public function create($user_id, $ip, $user_agent)
@@ -103,7 +103,7 @@ class RememberMeSessionModel extends Base
      * Remove a session record
      *
      * @access public
-     * @param  integer  $session_id   Session id
+     * @param integer $session_id Session id
      * @return mixed
      */
     public function remove($session_id)
@@ -118,7 +118,7 @@ class RememberMeSessionModel extends Base
      * Remove old sessions for a given user
      *
      * @access public
-     * @param  integer  $user_id  User id
+     * @param integer $user_id User id
      * @return bool
      */
     public function cleanup($user_id)
@@ -134,7 +134,7 @@ class RememberMeSessionModel extends Base
      * Return a new sequence token and update the database
      *
      * @access public
-     * @param  string   $token        Session token
+     * @param string $token Session token
      * @return string
      */
     public function updateSequence($token)

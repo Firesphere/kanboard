@@ -25,7 +25,7 @@ class LocaleComparatorCommand extends BaseCommand
         $it->rewind();
 
         while ($it->valid()) {
-            if (! $it->isDot() && substr($it->key(), -4) === '.php') {
+            if (!$it->isDot() && substr($it->key(), -4) === '.php') {
                 $strings = array_merge($strings, $this->search($it->key()));
             }
 
@@ -33,6 +33,7 @@ class LocaleComparatorCommand extends BaseCommand
         }
 
         $this->compare(array_unique($strings));
+
         return 0;
     }
 

@@ -23,8 +23,8 @@ class ProjectDailyStatsModel extends Base
      * Update daily totals for the project
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $date          Record date (YYYY-MM-DD)
+     * @param integer $project_id Project id
+     * @param string $date Record date (YYYY-MM-DD)
      * @return boolean
      */
     public function updateTotals($project_id, $date)
@@ -51,9 +51,9 @@ class ProjectDailyStatsModel extends Base
      * Get raw metrics for the project within a data range
      *
      * @access public
-     * @param  integer    $project_id    Project id
-     * @param  string     $from          Start date (ISO format YYYY-MM-DD)
-     * @param  string     $to            End date
+     * @param integer $project_id Project id
+     * @param string $from Start date (ISO format YYYY-MM-DD)
+     * @param string $to End date
      * @return array
      */
     public function getRawMetrics($project_id, $from, $to)
@@ -67,8 +67,8 @@ class ProjectDailyStatsModel extends Base
             ->findAll();
 
         foreach ($metrics as &$metric) {
-            $metric['avg_lead_time'] = (int) $metric['avg_lead_time'];
-            $metric['avg_cycle_time'] = (int) $metric['avg_cycle_time'];
+            $metric['avg_lead_time'] = (int)$metric['avg_lead_time'];
+            $metric['avg_cycle_time'] = (int)$metric['avg_cycle_time'];
         }
 
         return $metrics;

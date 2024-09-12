@@ -16,7 +16,7 @@ class FlashMessage extends Base
      * Add success message
      *
      * @access public
-     * @param  string  $message
+     * @param string $message
      */
     public function success($message)
     {
@@ -27,7 +27,7 @@ class FlashMessage extends Base
      * Add failure message
      *
      * @access public
-     * @param  string  $message
+     * @param string $message
      */
     public function failure($message)
     {
@@ -38,12 +38,12 @@ class FlashMessage extends Base
      * Add new flash message
      *
      * @access public
-     * @param  string  $key
-     * @param  string  $message
+     * @param string $key
+     * @param string $message
      */
     public function setMessage($key, $message)
     {
-        if (! session_exists('flash')) {
+        if (!session_exists('flash')) {
             session_set('flash', []);
         }
 
@@ -54,7 +54,7 @@ class FlashMessage extends Base
      * Get flash message
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      * @return string
      */
     public function getMessage($key)

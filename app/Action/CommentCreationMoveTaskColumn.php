@@ -68,18 +68,18 @@ class CommentCreationMoveTaskColumn extends Base
      * Execute the action (append to the task description).
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
-        if (! $this->userSession->isLogged()) {
+        if (!$this->userSession->isLogged()) {
             return false;
         }
 
         $column = $this->columnModel->getById($data['task']['column_id']);
 
-        return (bool) $this->commentModel->create([
+        return (bool)$this->commentModel->create([
             'comment' => t('Moved to column %s', $column['title']),
             'task_id' => $data['task_id'],
             'user_id' => $this->userSession->getId(),
@@ -90,7 +90,7 @@ class CommentCreationMoveTaskColumn extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)

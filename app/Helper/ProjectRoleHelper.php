@@ -19,7 +19,7 @@ class ProjectRoleHelper extends Base
      * Get project role for the current user
      *
      * @access public
-     * @param  integer $projectId
+     * @param integer $projectId
      * @return string
      */
     public function getProjectUserRole($projectId)
@@ -45,9 +45,9 @@ class ProjectRoleHelper extends Base
     /**
      * Return true is the column is sortable
      *
-     * @param  int $projectId
-     * @param  int $columnId
-     * @param  int $assigneeId
+     * @param int $projectId
+     * @param int $columnId
+     * @param int $assigneeId
      * @return bool
      */
     public function isSortableColumn($projectId, $columnId, $assigneeId = null)
@@ -76,9 +76,9 @@ class ProjectRoleHelper extends Base
     /**
      * Check if the user can move a task
      *
-     * @param  int $projectId
-     * @param  int $srcColumnId
-     * @param  int $dstColumnId
+     * @param int $projectId
+     * @param int $srcColumnId
+     * @param int $dstColumnId
      * @return bool|int
      */
     public function canMoveTask($projectId, $srcColumnId, $dstColumnId)
@@ -111,8 +111,8 @@ class ProjectRoleHelper extends Base
     /**
      * Return true if the user can create a task for the given column
      *
-     * @param  int $projectId
-     * @param  int $columnId
+     * @param int $projectId
+     * @param int $columnId
      * @return bool
      */
     public function canCreateTaskInColumn($projectId, $columnId)
@@ -120,7 +120,7 @@ class ProjectRoleHelper extends Base
         $role = $this->getProjectUserRole($projectId);
 
         if ($this->role->isCustomProjectRole($role)) {
-            if (! $this->isAllowedToCreateTask($projectId, $columnId, $role)) {
+            if (!$this->isAllowedToCreateTask($projectId, $columnId, $role)) {
                 return false;
             }
         }
@@ -131,8 +131,8 @@ class ProjectRoleHelper extends Base
     /**
      * Return true if the user can create a task for the given column
      *
-     * @param  int $projectId
-     * @param  int $columnId
+     * @param int $projectId
+     * @param int $columnId
      * @return bool
      */
     public function canChangeTaskStatusInColumn($projectId, $columnId)
@@ -140,7 +140,7 @@ class ProjectRoleHelper extends Base
         $role = $this->getProjectUserRole($projectId);
 
         if ($this->role->isCustomProjectRole($role)) {
-            if (! $this->isAllowedToChangeTaskStatus($projectId, $columnId, $role)) {
+            if (!$this->isAllowedToChangeTaskStatus($projectId, $columnId, $role)) {
                 return false;
             }
         }
@@ -154,7 +154,7 @@ class ProjectRoleHelper extends Base
      * Regular users can't remove tasks from other people
      *
      * @public
-     * @param  array $task
+     * @param array $task
      * @return bool
      */
     public function canRemoveTask(array $task)
@@ -180,7 +180,7 @@ class ProjectRoleHelper extends Base
      * Return true if the user can change assignee
      *
      * @public
-     * @param  array $task
+     * @param array $task
      * @return bool
      */
     public function canChangeAssignee(array $task)
@@ -198,7 +198,7 @@ class ProjectRoleHelper extends Base
      * Return true if the user can update a task
      *
      * @public
-     * @param  array $task
+     * @param array $task
      * @return bool
      */
     public function canUpdateTask(array $task)
@@ -215,14 +215,14 @@ class ProjectRoleHelper extends Base
     /**
      * Check project access
      *
-     * @param  string  $controller
-     * @param  string  $action
-     * @param  integer $projectId
+     * @param string $controller
+     * @param string $action
+     * @param integer $projectId
      * @return bool
      */
     public function checkProjectAccess($controller, $action, $projectId)
     {
-        if (! $this->userSession->isLogged()) {
+        if (!$this->userSession->isLogged()) {
             return false;
         }
 
@@ -230,7 +230,7 @@ class ProjectRoleHelper extends Base
             return true;
         }
 
-        if (! $this->helper->user->hasAccess($controller, $action)) {
+        if (!$this->helper->user->hasAccess($controller, $action)) {
             return false;
         }
 
@@ -248,9 +248,9 @@ class ProjectRoleHelper extends Base
     /**
      * Check authorization for a custom project role to change the task status
      *
-     * @param  int    $projectId
-     * @param  int    $columnId
-     * @param  string $role
+     * @param int $projectId
+     * @param int $columnId
+     * @param string $role
      * @return bool
      */
     protected function isAllowedToChangeTaskStatus($projectId, $columnId, $role)
@@ -267,15 +267,15 @@ class ProjectRoleHelper extends Base
             }
         }
 
-        return ! $this->hasRestriction($projectId, $role, ProjectRoleRestrictionModel::RULE_TASK_OPEN_CLOSE);
+        return !$this->hasRestriction($projectId, $role, ProjectRoleRestrictionModel::RULE_TASK_OPEN_CLOSE);
     }
 
     /**
      * Check authorization for a custom project role to create a task
      *
-     * @param  int    $projectId
-     * @param  int    $columnId
-     * @param  string $role
+     * @param int $projectId
+     * @param int $columnId
+     * @param string $role
      * @return bool
      */
     protected function isAllowedToCreateTask($projectId, $columnId, $role)
@@ -292,14 +292,14 @@ class ProjectRoleHelper extends Base
             }
         }
 
-        return ! $this->hasRestriction($projectId, $role, ProjectRoleRestrictionModel::RULE_TASK_CREATION);
+        return !$this->hasRestriction($projectId, $role, ProjectRoleRestrictionModel::RULE_TASK_CREATION);
     }
 
     /**
      * Check if the role can move task in the given project
      *
-     * @param  int     $projectId
-     * @param  string  $role
+     * @param int $projectId
+     * @param string $role
      * @return bool
      */
     protected function isAllowedToMoveTask($projectId, $role)
@@ -318,9 +318,9 @@ class ProjectRoleHelper extends Base
     /**
      * Check if given role has a restriction
      *
-     * @param  integer $projectId
-     * @param  string  $role
-     * @param  string  $rule
+     * @param integer $projectId
+     * @param string $role
+     * @param string $rule
      * @return bool
      */
     protected function hasRestriction($projectId, $role, $rule)

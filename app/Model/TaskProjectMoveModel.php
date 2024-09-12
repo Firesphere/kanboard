@@ -14,12 +14,12 @@ class TaskProjectMoveModel extends TaskDuplicationModel
      * Move a task to another project
      *
      * @access public
-     * @param  integer    $task_id
-     * @param  integer    $project_id
-     * @param  integer    $swimlane_id
-     * @param  integer    $column_id
-     * @param  integer    $category_id
-     * @param  integer    $owner_id
+     * @param integer $task_id
+     * @param integer $project_id
+     * @param integer $swimlane_id
+     * @param integer $column_id
+     * @param integer $category_id
+     * @param integer $owner_id
      * @return boolean
      */
     public function moveToProject($task_id, $project_id, $swimlane_id = null, $column_id = null, $category_id = null, $owner_id = null)
@@ -41,12 +41,12 @@ class TaskProjectMoveModel extends TaskDuplicationModel
      * Prepare new task values
      *
      * @access protected
-     * @param  integer $project_id
-     * @param  integer $swimlane_id
-     * @param  integer $column_id
-     * @param  integer $category_id
-     * @param  integer $owner_id
-     * @param  array   $task
+     * @param integer $project_id
+     * @param integer $swimlane_id
+     * @param integer $column_id
+     * @param integer $category_id
+     * @param integer $owner_id
+     * @param array $task
      * @return array
      */
     protected function prepare($project_id, $swimlane_id, $column_id, $category_id, $owner_id, array $task)
@@ -60,6 +60,7 @@ class TaskProjectMoveModel extends TaskDuplicationModel
         $values['category_id'] = $category_id !== null ? $category_id : $task['category_id'];
         $values['owner_id'] = $owner_id !== null ? $owner_id : $task['owner_id'];
         $values['priority'] = $task['priority'];
+
         return $values;
     }
 }

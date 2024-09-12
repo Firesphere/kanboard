@@ -33,6 +33,7 @@ class TaskCreationDateRangeFilter extends BaseDateRangeFilter implements FilterI
     public function apply()
     {
         $this->applyDateFilter(TaskModel::TABLE . '.date_creation');
+
         return $this;
     }
 }

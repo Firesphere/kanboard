@@ -15,7 +15,7 @@ class UserProperty
      *
      * @static
      * @access public
-     * @param  UserProviderInterface $user
+     * @param UserProviderInterface $user
      * @return array
      */
     public static function getProperties(UserProviderInterface $user)
@@ -38,8 +38,8 @@ class UserProperty
      *
      * @static
      * @access public
-     * @param  array  $profile
-     * @param  array  $properties
+     * @param array $profile
+     * @param array $properties
      * @return array
      */
     public static function filterProperties(array $profile, array $properties)
@@ -49,9 +49,10 @@ class UserProperty
 
         foreach ($properties as $property => $value) {
             if (self::isNotEmptyValue($value) &&
-                ! in_array($property, $excludedProperties) &&
+                !in_array($property, $excludedProperties) &&
                 array_key_exists($property, $profile) &&
-                $value !== $profile[$property]) {
+                $value !== $profile[$property]
+            ) {
                 $values[$property] = $value;
             }
         }
@@ -64,7 +65,7 @@ class UserProperty
      *
      * @static
      * @access public
-     * @param  string $value
+     * @param string $value
      * @return boolean
      */
     public static function isNotEmptyValue($value)

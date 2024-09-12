@@ -55,7 +55,7 @@ class Token extends Base
      * Check if the token exists for the current session (a token can be used only one time)
      *
      * @access public
-     * @param  string   $token   CSRF token
+     * @param string $token CSRF token
      * @return bool
      */
     public function validateCSRFToken($token)
@@ -67,7 +67,7 @@ class Token extends Base
      * Check if the token exists as a reusable CSRF token
      *
      * @access public
-     * @param  string   $token   CSRF token
+     * @param string $token CSRF token
      * @return bool
      */
     public function validateReusableCSRFToken($token)
@@ -79,12 +79,13 @@ class Token extends Base
      * Generate a session token of the given type
      *
      * @access protected
-     * @param  string  $type    Token type
+     * @param string $type Token type
      * @return string  Random token
      */
     protected function createSessionToken($type)
     {
         $nonce = self::getToken(self::$NONCE_LENGTH);
+
         return $nonce . $this->signSessionToken($type, $nonce);
     }
 
@@ -92,8 +93,8 @@ class Token extends Base
      * Check a session token of the given type
      *
      * @access protected
-     * @param  string   $type    Token type
-     * @param  string   $token   Session token
+     * @param string $type Token type
+     * @param string $token Session token
      * @return bool
      */
     protected function validateSessionToken($type, $token)
@@ -116,8 +117,8 @@ class Token extends Base
      * Sign a nonce with the key belonging to the given type
      *
      * @access protected
-     * @param  string   $type    Token type
-     * @param  string   $nonce   Nonce to sign
+     * @param string $type Token type
+     * @param string $nonce Nonce to sign
      * @return string
      */
     protected function signSessionToken($type, $nonce)

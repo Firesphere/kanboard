@@ -16,7 +16,7 @@ class FileHelper extends Base
      * Get file icon
      *
      * @access public
-     * @param  string   $filename   Filename
+     * @param string $filename Filename
      * @return string               Font-Awesome-Icon-Name
      */
     public function icon($filename)
@@ -100,7 +100,7 @@ class FileHelper extends Base
      * Get the preview type
      *
      * @access public
-     * @param  string $filename
+     * @param string $filename
      * @return string
      */
     public function getPreviewType($filename)

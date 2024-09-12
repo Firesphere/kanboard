@@ -70,12 +70,13 @@ class LanguageModel extends Base
      *
      * @static
      * @access public
-     * @param  string $code
+     * @param string $code
      * @return string
      */
     public static function findCode($code)
     {
         $code = str_replace('-', '_', $code);
+
         return in_array($code, self::getCodes()) ? $code : '';
     }
 
@@ -83,7 +84,7 @@ class LanguageModel extends Base
      * Get available languages
      *
      * @access public
-     * @param  boolean   $prepend  Prepend a default value
+     * @param boolean $prepend Prepend a default value
      * @return array
      */
     public function getLanguages($prepend = false)

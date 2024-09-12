@@ -1,4 +1,4 @@
-<?php if (! empty($task['owner_id'])): ?>
+<?php if (!empty($task['owner_id'])): ?>
     <div class="task-list-avatars">
         <span
             <?php if ($this->user->hasProjectAccess('TaskModificationController', 'edit', $task['project_id'])): ?>
@@ -14,7 +14,8 @@
                 $task['assignee_email'],
                 $task['assignee_avatar_path'],
                 'avatar-inline',
-            ) ?><span class="task-avatar-assignee"><?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?></span>
+            ) ?><span
+                    class="task-avatar-assignee"><?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?></span>
         </span>
     </div>
 <?php endif ?>

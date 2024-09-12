@@ -16,7 +16,7 @@ class TaskDistributionAnalytic extends Base
      * Build report
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function build($project_id)

@@ -26,6 +26,7 @@ class MailProvider implements ServiceProviderInterface
             $mailer->setTransport('smtp', '\Kanboard\Core\Mail\Transport\Smtp');
             $mailer->setTransport('sendmail', '\Kanboard\Core\Mail\Transport\Sendmail');
             $mailer->setTransport('mail', '\Kanboard\Core\Mail\Transport\Mail');
+
             return $mailer;
         };
 

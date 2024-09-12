@@ -16,6 +16,7 @@ class ProjectProcedure extends BaseProcedure
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'getProjectById', $project_id);
         $project = $this->projectModel->getById($project_id);
+
         return $this->projectApiFormatter->withProject($project)->format();
     }
 
@@ -28,6 +29,7 @@ class ProjectProcedure extends BaseProcedure
         }
 
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'getProjectByName', $project['id']);
+
         return $this->projectApiFormatter->withProject($project)->format();
     }
 
@@ -40,6 +42,7 @@ class ProjectProcedure extends BaseProcedure
         }
 
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'getProjectByIdentifier', $project['id']);
+
         return $this->projectApiFormatter->withProject($project)->format();
     }
 
@@ -52,6 +55,7 @@ class ProjectProcedure extends BaseProcedure
         }
 
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'getProjectByEmail', $project['id']);
+
         return $this->projectApiFormatter->withProject($project)->format();
     }
 
@@ -63,30 +67,35 @@ class ProjectProcedure extends BaseProcedure
     public function removeProject($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'removeProject', $project_id);
+
         return $this->projectModel->remove($project_id);
     }
 
     public function enableProject($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'enableProject', $project_id);
+
         return $this->projectModel->enable($project_id);
     }
 
     public function disableProject($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'disableProject', $project_id);
+
         return $this->projectModel->disable($project_id);
     }
 
     public function enableProjectPublicAccess($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'enableProjectPublicAccess', $project_id);
+
         return $this->projectModel->enablePublicAccess($project_id);
     }
 
     public function disableProjectPublicAccess($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'disableProjectPublicAccess', $project_id);
+
         return $this->projectModel->disablePublicAccess($project_id);
     }
 
@@ -103,6 +112,7 @@ class ProjectProcedure extends BaseProcedure
     public function getProjectActivity($project_id)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'getProjectActivity', $project_id);
+
         return $this->helper->projectActivity->getProjectEvents($project_id);
     }
 
@@ -116,7 +126,8 @@ class ProjectProcedure extends BaseProcedure
             'end_date'    => $end_date,
         ]);
 
-        list($valid, ) = $this->projectValidator->validateCreation($values);
+        list($valid,) = $this->projectValidator->validateCreation($values);
+
         return $valid ? $this->projectModel->create($values, $owner_id, $this->userSession->isLogged()) : false;
     }
 
@@ -134,7 +145,8 @@ class ProjectProcedure extends BaseProcedure
             'end_date'    => $end_date,
         ]);
 
-        list($valid, ) = $this->projectValidator->validateModification($values);
+        list($valid,) = $this->projectValidator->validateModification($values);
+
         return $valid && $this->projectModel->update($values);
     }
 }

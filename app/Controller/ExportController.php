@@ -14,11 +14,11 @@ class ExportController extends BaseController
      * Common export method
      *
      * @access private
-     * @param  string $model
-     * @param  string $method
-     * @param  string $filename
-     * @param  string $action
-     * @param  string $page_title
+     * @param string $model
+     * @param string $method
+     * @param string $filename
+     * @param string $action
+     * @param string $page_title
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
     private function common($model, $method, $filename, $action, $page_title)

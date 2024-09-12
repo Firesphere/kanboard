@@ -61,7 +61,7 @@ class TaskAssignUser extends Base
      * Execute the action (assign the given user)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
@@ -78,7 +78,7 @@ class TaskAssignUser extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)

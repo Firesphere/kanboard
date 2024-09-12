@@ -1,31 +1,36 @@
 <div class="dropdown">
-    <a href="#" class="dropdown-menu action-menu" title="<?= t('Configure this project') ?>" aria-label="<?= t('Configure this project') ?>"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
+    <a href="#" class="dropdown-menu action-menu" title="<?= t('Configure this project') ?>"
+       aria-label="<?= t('Configure this project') ?>"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
     <ul>
         <?php if ($board_view): ?>
-        <li>
+            <li>
             <span class="filter-display-mode" <?= $this->board->isCollapsed($project['id']) ? '' : 'style="display: none;"' ?>>
                 <?= $this->url->icon('expand', t('Expand tasks'), 'BoardAjaxController', 'expand', ['project_id' => $project['id']], false, 'board-display-mode', t('Keyboard shortcut: "%s"', 's')) ?>
             </span>
-            <span class="filter-display-mode" <?= $this->board->isCollapsed($project['id']) ? 'style="display: none;"' : '' ?>>
+                <span class="filter-display-mode" <?= $this->board->isCollapsed($project['id']) ? 'style="display: none;"' : '' ?>>
                 <?= $this->url->icon('compress', t('Collapse tasks'), 'BoardAjaxController', 'collapse', ['project_id' => $project['id']], false, 'board-display-mode', t('Keyboard shortcut: "%s"', 's')) ?>
             </span>
-        </li>
-        <li>
+            </li>
+            <li>
             <span class="filter-compact">
-                <i class="fa fa-th fa-fw"></i> <a href="#" class="filter-toggle-scrolling" title="<?= t('Keyboard shortcut: "%s"', 'c') ?>"><?= t('Compact view') ?></a>
+                <i class="fa fa-th fa-fw"></i> <a href="#" class="filter-toggle-scrolling"
+                                                  title="<?= t('Keyboard shortcut: "%s"', 'c') ?>"><?= t('Compact view') ?></a>
             </span>
-            <span class="filter-wide" style="display: none">
-                <i class="fa fa-arrows-h fa-fw"></i> <a href="#" class="filter-toggle-scrolling" title="<?= t('Keyboard shortcut: "%s"', 'c') ?>"><?= t('Horizontal scrolling') ?></a>
+                <span class="filter-wide" style="display: none">
+                <i class="fa fa-arrows-h fa-fw"></i> <a href="#" class="filter-toggle-scrolling"
+                                                        title="<?= t('Keyboard shortcut: "%s"', 'c') ?>"><?= t('Horizontal scrolling') ?></a>
             </span>
-        </li>
-        <li>
+            </li>
+            <li>
             <span class="filter-vert-collapse">
-                <i class="fa fa-arrow-up fa-fw"></i> <a href="#" class="filter-vert-toggle-collapse"><?= t('Collapse vertically') ?></a>
+                <i class="fa fa-arrow-up fa-fw"></i> <a href="#"
+                                                        class="filter-vert-toggle-collapse"><?= t('Collapse vertically') ?></a>
             </span>
-            <span class="filter-vert-expand" style="display: none">
-                <i class="fa fa-arrow-down fa-fw"></i> <a href="#" class="filter-vert-toggle-collapse"><?= t('Expand vertically') ?></a>
+                <span class="filter-vert-expand" style="display: none">
+                <i class="fa fa-arrow-down fa-fw"></i> <a href="#"
+                                                          class="filter-vert-toggle-collapse"><?= t('Expand vertically') ?></a>
             </span>
-        </li>
+            </li>
         <?php endif ?>
 
         <?php if ($this->user->hasProjectAccess('TaskCreationController', 'show', $project['id'])): ?>

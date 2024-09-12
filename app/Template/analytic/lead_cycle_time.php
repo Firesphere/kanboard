@@ -1,4 +1,4 @@
-<?php if (! $is_ajax): ?>
+<?php if (!$is_ajax): ?>
     <div class="page-header">
         <h2><?= t('Average Lead and Cycle time') ?></h2>
     </div>
@@ -20,7 +20,9 @@
         'labelLead'  => t('Lead Time'),
     ]) ?>
 
-    <form method="post" class="form-inline" action="<?= $this->url->href('AnalyticController', 'leadAndCycleTime', ['project_id' => $project['id']]) ?>" autocomplete="off">
+    <form method="post" class="form-inline"
+          action="<?= $this->url->href('AnalyticController', 'leadAndCycleTime', ['project_id' => $project['id']]) ?>"
+          autocomplete="off">
         <?= $this->form->csrf() ?>
         <?= $this->form->date(t('Start date'), 'from', $values) ?>
         <?= $this->form->date(t('End date'), 'to', $values) ?>

@@ -34,7 +34,7 @@ class CommentModel extends Base
      * Get projectId from commentId
      *
      * @access public
-     * @param  integer $comment_id
+     * @param integer $comment_id
      * @return integer
      */
     public function getProjectId($comment_id)
@@ -50,7 +50,7 @@ class CommentModel extends Base
      * Get visibility from commentId
      *
      * @access public
-     * @param  integer $comment_id
+     * @param integer $comment_id
      * @return string
      */
     public function getVisibility($comment_id)
@@ -65,8 +65,8 @@ class CommentModel extends Base
      * Get all comments for a given task
      *
      * @access public
-     * @param  integer  $task_id  Task id
-     * @param  string   $sorting  ASC/DESC
+     * @param integer $task_id Task id
+     * @param string $sorting ASC/DESC
      * @return array
      */
     public function getAll($task_id, $sorting = 'ASC')
@@ -97,7 +97,7 @@ class CommentModel extends Base
      * Get a comment
      *
      * @access public
-     * @param  integer  $comment_id  Comment id
+     * @param integer $comment_id Comment id
      * @return array
      */
     public function getById($comment_id)
@@ -127,7 +127,7 @@ class CommentModel extends Base
      * Get the number of comments for a given task
      *
      * @access public
-     * @param  integer  $task_id  Task id
+     * @param integer $task_id Task id
      * @return integer
      */
     public function count($task_id)
@@ -142,7 +142,7 @@ class CommentModel extends Base
      * Create a new comment
      *
      * @access public
-     * @param  array    $values   Form values
+     * @param array $values Form values
      * @return boolean|integer
      */
     public function create(array $values)
@@ -162,15 +162,15 @@ class CommentModel extends Base
      * Update a comment in the database
      *
      * @access public
-     * @param  array    $values   Form values
+     * @param array $values Form values
      * @return boolean
      */
     public function update(array $values)
     {
         $result = $this->db
-                    ->table(self::TABLE)
-                    ->eq('id', $values['id'])
-                    ->update(['comment' => $values['comment'], 'date_modification' => time()]);
+            ->table(self::TABLE)
+            ->eq('id', $values['id'])
+            ->update(['comment' => $values['comment'], 'date_modification' => time()]);
 
         if ($result) {
             $this->queueManager->push($this->commentEventJob->withParams($values['id'], self::EVENT_UPDATE));
@@ -183,12 +183,13 @@ class CommentModel extends Base
      * Remove a comment
      *
      * @access public
-     * @param  integer  $comment_id  Comment id
+     * @param integer $comment_id Comment id
      * @return boolean
      */
     public function remove($comment_id)
     {
         $this->commentEventJob->execute($comment_id, self::EVENT_DELETE);
+
         return $this->db->table(self::TABLE)->eq('id', $comment_id)->remove();
     }
 }

@@ -18,12 +18,13 @@ class CommentEventBuilder extends BaseEventBuilder
     /**
      * Set commentId
      *
-     * @param  int $commentId
+     * @param int $commentId
      * @return $this
      */
     public function withCommentId($commentId)
     {
         $this->commentId = $commentId;
+
         return $this;
     }
 
@@ -51,9 +52,9 @@ class CommentEventBuilder extends BaseEventBuilder
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithAuthor($author, $eventName, array $eventData)
@@ -76,8 +77,8 @@ class CommentEventBuilder extends BaseEventBuilder
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithoutAuthor($eventName, array $eventData)

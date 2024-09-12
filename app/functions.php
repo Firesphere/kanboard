@@ -8,7 +8,7 @@ function concat_files(array $files)
     foreach ($files as $pattern) {
         foreach (glob($pattern, GLOB_ERR | GLOB_NOCHECK) as $filename) {
             echo $filename . PHP_EOL;
-            if (! file_exists($filename)) {
+            if (!file_exists($filename)) {
                 die("$filename not found\n");
             }
 
@@ -62,21 +62,24 @@ function session_flush()
 /**
  * Split CSV string
  *
- * @param  string $str
+ * @param string $str
  * @return string[]
  */
 function explode_csv_field($str)
 {
     $fields = explode(',', $str);
-    array_walk($fields, function (&$value) { $value = trim($value); });
+    array_walk($fields, function (&$value) {
+        $value = trim($value);
+    });
+
     return array_filter($fields);
 }
 
 /**
  * Associate another dict to a dict based on a common key
  *
- * @param array  $input
- * @param array  $relations
+ * @param array $input
+ * @param array $relations
  * @param string $relation
  * @param string $column
  */
@@ -105,8 +108,8 @@ function array_merge_relation(array &$input, array &$relations, $relation, $colu
  *   3 => [['k1' => 3, 'k2' => 4]],
  * ]
  *
- * @param  array   $input
- * @param  string  $column
+ * @param array $input
+ * @param string $column
  * @return array
  */
 function array_column_index(array &$input, $column)
@@ -136,8 +139,8 @@ function array_column_index(array &$input, $column)
  *   3 => ['k1' => 3, 'k2' => 4],
  * ]
  *
- * @param  array   $input
- * @param  string  $column
+ * @param array $input
+ * @param string $column
  * @return array
  */
 function array_column_index_unique(array &$input, $column)
@@ -145,7 +148,7 @@ function array_column_index_unique(array &$input, $column)
     $result = [];
 
     foreach ($input as &$row) {
-        if (isset($row[$column]) && ! isset($result[$row[$column]])) {
+        if (isset($row[$column]) && !isset($result[$row[$column]])) {
             $result[$row[$column]] = $row;
         }
     }
@@ -162,8 +165,8 @@ function array_column_index_unique(array &$input, $column)
  *
  * array_column_sum($input, 'column') returns 5
  *
- * @param  array   $input
- * @param  string  $column
+ * @param array $input
+ * @param string $column
  * @return double
  */
 function array_column_sum(array &$input, $column)
@@ -172,7 +175,7 @@ function array_column_sum(array &$input, $column)
 
     foreach ($input as &$row) {
         if (isset($row[$column])) {
-            $sum += (float) $row[$column];
+            $sum += (float)$row[$column];
         }
     }
 
@@ -182,8 +185,8 @@ function array_column_sum(array &$input, $column)
 /**
  * Build version number from git-archive output
  *
- * @param  string $ref
- * @param  string $commit_hash
+ * @param string $ref
+ * @param string $commit_hash
  * @return string
  */
 function build_app_version($ref, $commit_hash)
@@ -229,7 +232,7 @@ function get_upload_max_size()
 /**
  * Get the number of bytes from PHP size
  *
- * @param  integer  $value PHP size (example: 2M)
+ * @param integer $value PHP size (example: 2M)
  * @return integer
  */
 function convert_php_size_to_bytes($value)
@@ -243,10 +246,10 @@ function convert_php_size_to_bytes($value)
     switch (strtoupper($unit)) {
         case 'G':
             $size *= 1024;
-            // no break
+        // no break
         case 'M':
             $size *= 1024;
-            // no break
+        // no break
         case 'K':
             $size *= 1024;
     }
@@ -288,7 +291,7 @@ function e()
 /**
  * Translate a number
  *
- * @param  mixed $value
+ * @param mixed $value
  * @return string
  */
 function n($value)

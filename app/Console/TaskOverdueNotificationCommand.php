@@ -20,8 +20,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
             ->addOption('show', null, InputOption::VALUE_NONE, 'Show sent overdue tasks')
             ->addOption('group', null, InputOption::VALUE_NONE, 'Group all overdue tasks for one user (from all projects) in one email')
             ->addOption('manager', null, InputOption::VALUE_NONE, 'Send all overdue tasks to project manager(s) in one email')
-            ->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Send notifications only the given project')
-        ;
+            ->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Send notifications only the given project');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -48,6 +47,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
         if ($input->getOption('show')) {
             $this->showTable($output, $tasks);
         }
+
         return 0;
     }
 
@@ -77,7 +77,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Send all overdue tasks for one user in one email
      *
      * @access public
-     * @param  array $tasks
+     * @param array $tasks
      * @return array
      */
     public function sendGroupOverdueTaskNotifications(array $tasks)
@@ -97,7 +97,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Send all overdue tasks in one email to project manager(s)
      *
      * @access public
-     * @param  array $tasks
+     * @param array $tasks
      * @return array
      */
     public function sendOverdueTaskNotificationsToManagers(array $tasks)
@@ -125,7 +125,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Send overdue tasks
      *
      * @access public
-     * @param  array $tasks
+     * @param array $tasks
      * @return array
      */
     public function sendOverdueTaskNotifications(array $tasks)
@@ -145,8 +145,8 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Send overdue tasks for a given user
      *
      * @access public
-     * @param  array   $user
-     * @param  array   $tasks
+     * @param array $user
+     * @param array $tasks
      */
     public function sendUserOverdueTaskNotifications(array $user, array $tasks)
     {
@@ -160,7 +160,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
             }
         }
 
-        if (! empty($user_tasks)) {
+        if (!empty($user_tasks)) {
             $this->userNotificationModel->sendUserNotification(
                 $user,
                 TaskModel::EVENT_OVERDUE,
@@ -173,8 +173,8 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Send overdue tasks for a project manager(s)
      *
      * @access public
-     * @param  array   $manager
-     * @param  array   $tasks
+     * @param array $manager
+     * @param array $tasks
      */
     public function sendUserOverdueTaskNotificationsToManagers(array $manager, array $tasks)
     {
@@ -189,8 +189,8 @@ class TaskOverdueNotificationCommand extends BaseCommand
      * Group a collection of records by a column
      *
      * @access public
-     * @param  array   $collection
-     * @param  string  $column
+     * @param array $collection
+     * @param string $column
      * @return array
      */
     public function groupByColumn(array $collection, $column)

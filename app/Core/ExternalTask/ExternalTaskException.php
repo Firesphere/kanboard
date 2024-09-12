@@ -10,4 +10,6 @@ use Exception;
  * @package Kanboard\Core\ExternalTask
  * @author  Frederic Guillot
  */
-class ExternalTaskException extends Exception {}
+class ExternalTaskException extends Exception
+{
+}

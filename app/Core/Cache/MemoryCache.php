@@ -22,8 +22,8 @@ class MemoryCache extends BaseCache
      * Store an item in the cache
      *
      * @access public
-     * @param  string  $key
-     * @param  mixed   $value
+     * @param string $key
+     * @param mixed $value
      */
     public function set($key, $value)
     {
@@ -34,7 +34,7 @@ class MemoryCache extends BaseCache
      * Retrieve an item from the cache by key
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      * @return mixed            Null when not found, cached value otherwise
      */
     public function get($key)
@@ -56,7 +56,7 @@ class MemoryCache extends BaseCache
      * Remove cached value
      *
      * @access public
-     * @param  string  $key
+     * @param string $key
      */
     public function remove($key)
     {

@@ -32,7 +32,7 @@ class LdapUserPhotoSubscriber extends BaseSubscriber implements EventSubscriberI
      * Save the user profile photo from LDAP to the object storage
      *
      * @access public
-     * @param  UserProfileSyncEvent $event
+     * @param UserProfileSyncEvent $event
      */
     public function syncUserPhoto(UserProfileSyncEvent $event)
     {
@@ -40,7 +40,7 @@ class LdapUserPhotoSubscriber extends BaseSubscriber implements EventSubscriberI
             $profile = $event->getProfile();
             $photo = $event->getUser()->getPhoto();
 
-            if (empty($profile['avatar_path']) && ! empty($photo)) {
+            if (empty($profile['avatar_path']) && !empty($photo)) {
                 $this->logger->info('Saving user photo from LDAP profile');
                 $this->avatarFileModel->uploadImageContent($profile['id'], $photo);
             }

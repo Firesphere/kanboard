@@ -24,12 +24,13 @@ abstract class BaseDateRangeFilter extends BaseFilter
      * Set DateParser object
      *
      * @access public
-     * @param  DateParser $dateParser
+     * @param DateParser $dateParser
      * @return $this
      */
     public function setDateParser(DateParser $dateParser)
     {
         $this->dateParser = $dateParser;
+
         return $this;
     }
 
@@ -37,7 +38,7 @@ abstract class BaseDateRangeFilter extends BaseFilter
      * Apply a date filter
      *
      * @access protected
-     * @param  string $field
+     * @param string $field
      */
     protected function applyDateFilter($field)
     {

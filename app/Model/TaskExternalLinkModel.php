@@ -23,7 +23,7 @@ class TaskExternalLinkModel extends Base
      * Get all links
      *
      * @access public
-     * @param  integer $task_id
+     * @param integer $task_id
      * @return array
      */
     public function getAll($task_id)
@@ -49,7 +49,7 @@ class TaskExternalLinkModel extends Base
      * Get link
      *
      * @access public
-     * @param  integer $link_id
+     * @param integer $link_id
      * @return array
      */
     public function getById($link_id)
@@ -61,7 +61,7 @@ class TaskExternalLinkModel extends Base
      * Add a new link in the database
      *
      * @access public
-     * @param  array  $values  Form values
+     * @param array $values Form values
      * @return boolean|integer
      */
     public function create(array $values)
@@ -78,7 +78,7 @@ class TaskExternalLinkModel extends Base
      * Modify external link
      *
      * @access public
-     * @param  array  $values  Form values
+     * @param array $values Form values
      * @return boolean
      */
     public function update(array $values)
@@ -86,6 +86,7 @@ class TaskExternalLinkModel extends Base
         $values['date_modification'] = time();
         $updates = $values;
         unset($updates['id']);
+
         return $this->db->table(self::TABLE)->eq('id', $values['id'])->update($updates);
     }
 
@@ -93,7 +94,7 @@ class TaskExternalLinkModel extends Base
      * Remove a link
      *
      * @access public
-     * @param  integer $link_id
+     * @param integer $link_id
      * @return boolean
      */
     public function remove($link_id)

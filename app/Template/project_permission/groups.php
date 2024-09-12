@@ -35,7 +35,9 @@
 
 <?php if ($project['is_private'] == 0): ?>
     <div class="panel">
-        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addGroup', ['project_id' => $project['id']]) ?>" autocomplete="off" class="form-inline">
+        <form method="post"
+              action="<?= $this->url->href('ProjectPermissionController', 'addGroup', ['project_id' => $project['id']]) ?>"
+              autocomplete="off" class="form-inline">
             <?= $this->form->csrf() ?>
             <?= $this->form->hidden('group_id', $values) ?>
             <?= $this->form->hidden('external_id', $values) ?>

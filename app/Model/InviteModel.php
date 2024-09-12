@@ -23,7 +23,7 @@ class InviteModel extends Base
         foreach ($emails as $email) {
             $email = trim($email);
 
-            if (! empty($email) && $this->createInvite($email, $projectId)) {
+            if (!empty($email) && $this->createInvite($email, $projectId)) {
                 $nb++;
             }
         }
@@ -41,6 +41,7 @@ class InviteModel extends Base
 
         if ($this->db->table(self::TABLE)->insert($values)) {
             $this->sendInvite($values);
+
             return true;
         }
 

@@ -36,10 +36,10 @@ class MetadataCacheDecorator
     /**
      * Constructor
      *
-     * @param CacheInterface     $cache
-     * @param MetadataModel      $metadataModel
-     * @param string             $cachePrefix
-     * @param integer            $entityId
+     * @param CacheInterface $cache
+     * @param MetadataModel $metadataModel
+     * @param string $cachePrefix
+     * @param integer $entityId
      */
     public function __construct(CacheInterface $cache, MetadataModel $metadataModel, $cachePrefix, $entityId)
     {
@@ -52,8 +52,8 @@ class MetadataCacheDecorator
     /**
      * Get metadata value by key
      *
-     * @param  string $key
-     * @param  mixed  $default
+     * @param string $key
+     * @param mixed $default
      * @return mixed
      */
     public function get($key, $default)

@@ -3,13 +3,15 @@
     <title><?= t("%s's activity", $project['name']) ?></title>
     <updated><?= date(DATE_ATOM) ?></updated>
     <link rel="alternate" type="text/html" href="<?= $this->url->base() ?>"/>
-    <link rel="self" type="application/atom+xml" href="<?= $this->url->href('FeedController', 'project', ['token' => $project['token']], false, '', true) ?>"/>
+    <link rel="self" type="application/atom+xml"
+          href="<?= $this->url->href('FeedController', 'project', ['token' => $project['token']], false, '', true) ?>"/>
     <id><?= $this->url->href('FeedController', 'project', ['token' => $project['token']], false, '', true) ?></id>
 
     <?php foreach ($events as $event): ?>
         <entry>
             <id><?= $this->url->href('TaskViewController', 'show', ['task_id' => $event['task_id']], false, 'event-' . $event['id'], true) ?></id>
-            <link rel="alternate" type="text/html" href="<?= $this->url->href('TaskViewController', 'show', ['task_id' => $event['task_id']], false, '', true) ?>"/>
+            <link rel="alternate" type="text/html"
+                  href="<?= $this->url->href('TaskViewController', 'show', ['task_id' => $event['task_id']], false, '', true) ?>"/>
             <updated><?= date(DATE_ATOM, $event['date_creation']) ?></updated>
             <published><?= date(DATE_ATOM, $event['date_creation']) ?></published>
             <author>

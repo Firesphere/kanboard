@@ -20,7 +20,7 @@ class AvatarProvider implements ServiceProviderInterface
      * Register providers
      *
      * @access public
-     * @param  \Pimple\Container $container
+     * @param \Pimple\Container $container
      * @return \Pimple\Container
      */
     public function register(Container $container)
@@ -28,6 +28,7 @@ class AvatarProvider implements ServiceProviderInterface
         $container['avatarManager'] = new AvatarManager();
         $container['avatarManager']->register(new LetterAvatarProvider($container));
         $container['avatarManager']->register(new AvatarFileProvider($container));
+
         return $container;
     }
 }

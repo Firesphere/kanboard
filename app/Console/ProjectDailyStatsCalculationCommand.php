@@ -24,6 +24,7 @@ class ProjectDailyStatsCalculationCommand extends BaseCommand
             $this->projectDailyColumnStatsModel->updateTotals($project['id'], date('Y-m-d'));
             $this->projectDailyStatsModel->updateTotals($project['id'], date('Y-m-d'));
         }
+
         return 0;
     }
 }

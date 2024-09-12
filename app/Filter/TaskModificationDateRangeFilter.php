@@ -33,6 +33,7 @@ class TaskModificationDateRangeFilter extends BaseDateRangeFilter implements Fil
     public function apply()
     {
         $this->applyDateFilter(TaskModel::TABLE . '.date_modification');
+
         return $this;
     }
 }

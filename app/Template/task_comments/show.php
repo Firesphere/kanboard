@@ -26,13 +26,13 @@
 
         <?php if ($editable): ?>
             <?= $this->render('task_comments/create', [
-                'values'   => [
+                'values' => [
                     'user_id'    => $this->user->getId(),
                     'task_id'    => $task['id'],
                     'project_id' => $task['project_id'],
                 ],
-                'errors'   => [],
-                'task'     => $task,
+                'errors' => [],
+                'task'   => $task,
             ]) ?>
         <?php endif ?>
     </div>

@@ -74,7 +74,7 @@ class Loader extends \Kanboard\Core\Base
      * Load plugin schema
      *
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      */
     public function loadSchema($pluginName)
     {
@@ -88,15 +88,15 @@ class Loader extends \Kanboard\Core\Base
      * Load plugin
      *
      * @access public
-     * @throws LogicException
-     * @param  string $pluginName
+     * @param string $pluginName
      * @return Base
+     * @throws LogicException
      */
     public function loadPlugin($pluginName)
     {
         $className = '\Kanboard\Plugin\\' . $pluginName . '\\Plugin';
 
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             throw new LogicException('Unable to load this plugin class: ' . $className);
         }
 
@@ -107,7 +107,7 @@ class Loader extends \Kanboard\Core\Base
      * Initialize plugin
      *
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      */
     public function initializePlugin($pluginName)
     {

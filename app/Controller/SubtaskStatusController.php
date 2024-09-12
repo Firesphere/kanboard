@@ -65,7 +65,7 @@ class SubtaskStatusController extends BaseController
      * Render table
      *
      * @access protected
-     * @param  array  $task
+     * @param array $task
      * @return string
      */
     protected function renderTable(array $task)
@@ -81,7 +81,7 @@ class SubtaskStatusController extends BaseController
      * Render task list rows
      *
      * @access protected
-     * @param  array  $task
+     * @param array $task
      * @return string
      */
     protected function renderRows(array $task)

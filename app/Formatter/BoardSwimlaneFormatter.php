@@ -22,12 +22,13 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
      * Set swimlanes
      *
      * @access public
-     * @param  array $swimlanes
+     * @param array $swimlanes
      * @return $this
      */
     public function withSwimlanes(array $swimlanes)
     {
         $this->swimlanes = $swimlanes;
+
         return $this;
     }
 
@@ -35,12 +36,13 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
      * Set columns
      *
      * @access public
-     * @param  array $columns
+     * @param array $columns
      * @return $this
      */
     public function withColumns(array $columns)
     {
         $this->columns = $columns;
+
         return $this;
     }
 
@@ -48,12 +50,13 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
      * Set tasks
      *
      * @access public
-     * @param  array $tasks
+     * @param array $tasks
      * @return $this
      */
     public function withTasks(array $tasks)
     {
         $this->tasks = $tasks;
+
         return $this;
     }
 
@@ -61,12 +64,13 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
      * Set tags
      *
      * @access public
-     * @param  array $tags
+     * @param array $tags
      * @return $this
      */
     public function withTags(array $tags)
     {
         $this->tags = $tags;
+
         return $this;
     }
 
@@ -74,12 +78,13 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
      * Set task count by swimlane and column
      *
      * @access public
-     * @param  array $taskCountBySwimlaneAndColumn
+     * @param array $taskCountBySwimlaneAndColumn
      * @return $this
      */
     public function withTaskCountBySwimlaneAndColumn(array $taskCountBySwimlaneAndColumn)
     {
         $this->taskCountBySwimlaneAndColumn = $taskCountBySwimlaneAndColumn;
+
         return $this;
     }
 
@@ -104,7 +109,7 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
         }
 
         foreach ($this->swimlanes as &$swimlane) {
-            $swimlane['id'] = (int) $swimlane['id'];
+            $swimlane['id'] = (int)$swimlane['id'];
             $swimlane['columns'] = $this->boardColumnFormatter
                 ->withSwimlaneId($swimlane['id'])
                 ->withColumns($this->columns)

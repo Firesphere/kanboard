@@ -52,6 +52,7 @@ class SessionHandler implements SessionHandlerInterface
     public function read($sessionID)
     {
         $result = $this->db->table(self::TABLE)->eq('id', $sessionID)->findOneColumn('data');
+
         return $result ?: '';
     }
 

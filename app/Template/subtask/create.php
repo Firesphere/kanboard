@@ -4,15 +4,16 @@
 
 <?php if (isset($values['subtasks_added']) && $values['subtasks_added'] > 0): ?>
     <p class="alert alert-success">
-    <?php if ($values['subtasks_added'] == 1): ?>
-        <?= t('Subtask added successfully.') ?>
-    <?php else: ?>
-        <?= t('%d subtasks added successfully.', $values['subtasks_added']) ?>
-    <?php endif ?>
+        <?php if ($values['subtasks_added'] == 1): ?>
+            <?= t('Subtask added successfully.') ?>
+        <?php else: ?>
+            <?= t('%d subtasks added successfully.', $values['subtasks_added']) ?>
+        <?php endif ?>
     </p>
 <?php endif ?>
 
-<form method="post" action="<?= $this->url->href('SubtaskController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('SubtaskController', 'save', ['task_id' => $task['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->subtask->renderBulkTitleField($values, $errors, ['autofocus']) ?>

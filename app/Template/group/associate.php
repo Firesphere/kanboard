@@ -7,7 +7,8 @@
         <?= $this->url->link(t('Close this window'), 'GroupListController', 'index', [], false, 'btn js-modal-close') ?>
     </div>
 <?php else: ?>
-    <form method="post" action="<?= $this->url->href('GroupListController', 'addUser', ['group_id' => $group['id']]) ?>" autocomplete="off">
+    <form method="post" action="<?= $this->url->href('GroupListController', 'addUser', ['group_id' => $group['id']]) ?>"
+          autocomplete="off">
         <?= $this->form->csrf() ?>
         <?= $this->form->hidden('group_id', $values) ?>
 

@@ -26,12 +26,13 @@ class BoardFormatter extends BaseFormatter implements FormatterInterface
      * Set ProjectId
      *
      * @access public
-     * @param  integer $projectId
+     * @param integer $projectId
      * @return $this
      */
     public function withProjectId($projectId)
     {
         $this->projectId = $projectId;
+
         return $this;
     }
 

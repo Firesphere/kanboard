@@ -19,8 +19,8 @@ class UserProfile extends Base
      * Assign provider data to the local user
      *
      * @access public
-     * @param  integer                $userId
-     * @param  UserProviderInterface  $user
+     * @param integer $userId
+     * @param UserProviderInterface $user
      * @return boolean
      */
     public function assign($userId, UserProviderInterface $user)
@@ -33,6 +33,7 @@ class UserProfile extends Base
         if ($this->userModel->update($values)) {
             $profile = array_merge($profile, $values);
             $this->userSession->initialize($profile);
+
             return true;
         }
 
@@ -43,7 +44,7 @@ class UserProfile extends Base
      * Synchronize user properties with the local database and create the user session
      *
      * @access public
-     * @param  UserProviderInterface $user
+     * @param UserProviderInterface $user
      * @return boolean
      */
     public function initialize(UserProviderInterface $user)
@@ -57,9 +58,10 @@ class UserProfile extends Base
             }
         }
 
-        if (! empty($profile) && $profile['is_active'] == 1) {
+        if (!empty($profile) && $profile['is_active'] == 1) {
             $this->userSession->initialize($profile);
             $this->dispatcher->dispatch(new UserProfileSyncEvent($profile, $user), self::EVENT_USER_PROFILE_AFTER_SYNC);
+
             return true;
         }
 

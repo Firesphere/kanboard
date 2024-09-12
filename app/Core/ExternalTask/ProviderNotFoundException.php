@@ -8,4 +8,6 @@ namespace Kanboard\Core\ExternalTask;
  * @package Kanboard\Core\ExternalTask
  * @author  Frederic Guillot
  */
-class ProviderNotFoundException extends ExternalTaskException {}
+class ProviderNotFoundException extends ExternalTaskException
+{
+}

@@ -34,8 +34,8 @@ class Client
      *
      * @static
      * @access public
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
      * @return Client
      */
     public static function connect($username = null, $password = null)
@@ -55,36 +55,25 @@ class Client
     }
 
     /**
-     * Get server connection
-     *
-     * @access public
-     * @return resource
-     */
-    public function getConnection()
-    {
-        return $this->ldap;
-    }
-
-    /**
      * Establish server connection
      *
      * @access public
      *
-     * @param  string $server LDAP server URI (ldap[s]://hostname:port) or hostname (deprecated)
-     * @param  int    $port   LDAP port (deprecated)
-     * @param  bool   $tls    Start TLS
-     * @param  bool   $verify Skip SSL certificate verification
+     * @param string $server LDAP server URI (ldap[s]://hostname:port) or hostname (deprecated)
+     * @param int $port LDAP port (deprecated)
+     * @param bool $tls Start TLS
+     * @param bool $verify Skip SSL certificate verification
      * @return Client
      * @throws ClientException
      * @throws ConnectionException
      */
     public function open($server, $port = LDAP_PORT, $tls = LDAP_START_TLS, $verify = LDAP_SSL_VERIFY)
     {
-        if (! function_exists('ldap_connect')) {
+        if (!function_exists('ldap_connect')) {
             throw new ClientException('LDAP: The PHP LDAP extension is required');
         }
 
-        if (! $verify) {
+        if (!$verify) {
             putenv('LDAPTLS_REQCERT=never');
         }
 
@@ -103,7 +92,7 @@ class Client
         ldap_set_option($this->ldap, LDAP_OPT_NETWORK_TIMEOUT, 1);
         ldap_set_option($this->ldap, LDAP_OPT_TIMELIMIT, 1);
 
-        if ($tls && ! @ldap_start_tls($this->ldap)) {
+        if ($tls && !@ldap_start_tls($this->ldap)) {
             throw new ConnectionException('Unable to start LDAP TLS (' . $this->getLdapError() . ')');
         }
 
@@ -111,39 +100,17 @@ class Client
     }
 
     /**
-     * Anonymous authentication
+     * Get extended LDAP error message
      *
-     * @access public
-     * @throws ClientException
-     * @return boolean
+     * @return string
      */
-    public function useAnonymousAuthentication()
+    protected function getLdapError()
     {
-        if (! @ldap_bind($this->ldap)) {
-            $this->checkForServerConnectionError();
-            throw new ClientException('Unable to perform anonymous binding => ' . $this->getLdapError());
-        }
+        ldap_get_option($this->ldap, LDAP_OPT_ERROR_STRING, $extendedErrorMessage);
+        $errorMessage = ldap_error($this->ldap);
+        $errorCode = ldap_errno($this->ldap);
 
-        return true;
-    }
-
-    /**
-     * Authentication with username/password
-     *
-     * @access public
-     * @throws ClientException
-     * @param  string  $bind_rdn
-     * @param  string  $bind_password
-     * @return boolean
-     */
-    public function authenticate($bind_rdn, $bind_password)
-    {
-        if (! @ldap_bind($this->ldap, $bind_rdn, $bind_password)) {
-            $this->checkForServerConnectionError();
-            throw new ClientException('LDAP authentication failure for "' . $bind_rdn . '" => ' . $this->getLdapError());
-        }
-
-        return true;
+        return 'Code="' . $errorCode . '"; Error="' . $errorMessage . '"; ExtendedError="' . $extendedErrorMessage . '"';
     }
 
     /**
@@ -154,7 +121,7 @@ class Client
      */
     public function getLdapServer()
     {
-        if (! LDAP_SERVER) {
+        if (!LDAP_SERVER) {
             throw new LogicException('LDAP server not configured, check the parameter LDAP_SERVER');
         }
 
@@ -184,38 +151,20 @@ class Client
     }
 
     /**
-     * Set logger
-     *
-     * @access public
-     * @param  LoggerInterface $logger
-     * @return Client
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
-    /**
-     * Get logger
-     *
-     * @access public
-     * @return LoggerInterface
-     */
-    public function getLogger()
-    {
-        return $this->logger;
-    }
-
-    /**
-     * Test if a logger is defined
+     * Anonymous authentication
      *
      * @access public
      * @return boolean
+     * @throws ClientException
      */
-    public function hasLogger()
+    public function useAnonymousAuthentication()
     {
-        return $this->logger !== null;
+        if (!@ldap_bind($this->ldap)) {
+            $this->checkForServerConnectionError();
+            throw new ClientException('Unable to perform anonymous binding => ' . $this->getLdapError());
+        }
+
+        return true;
     }
 
     /**
@@ -232,16 +181,68 @@ class Client
     }
 
     /**
-     * Get extended LDAP error message
+     * Authentication with username/password
      *
-     * @return string
+     * @access public
+     * @param string $bind_rdn
+     * @param string $bind_password
+     * @return boolean
+     * @throws ClientException
      */
-    protected function getLdapError()
+    public function authenticate($bind_rdn, $bind_password)
     {
-        ldap_get_option($this->ldap, LDAP_OPT_ERROR_STRING, $extendedErrorMessage);
-        $errorMessage = ldap_error($this->ldap);
-        $errorCode = ldap_errno($this->ldap);
+        if (!@ldap_bind($this->ldap, $bind_rdn, $bind_password)) {
+            $this->checkForServerConnectionError();
+            throw new ClientException('LDAP authentication failure for "' . $bind_rdn . '" => ' . $this->getLdapError());
+        }
 
-        return 'Code="' . $errorCode . '"; Error="' . $errorMessage . '"; ExtendedError="' . $extendedErrorMessage . '"';
+        return true;
+    }
+
+    /**
+     * Get server connection
+     *
+     * @access public
+     * @return resource
+     */
+    public function getConnection()
+    {
+        return $this->ldap;
+    }
+
+    /**
+     * Get logger
+     *
+     * @access public
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Set logger
+     *
+     * @access public
+     * @param LoggerInterface $logger
+     * @return Client
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+        return $this;
+    }
+
+    /**
+     * Test if a logger is defined
+     *
+     * @access public
+     * @return boolean
+     */
+    public function hasLogger()
+    {
+        return $this->logger !== null;
     }
 }

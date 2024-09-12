@@ -81,14 +81,14 @@ class LdapUserProvider implements UserProviderInterface
      * Constructor
      *
      * @access public
-     * @param  string   $dn
-     * @param  string   $username
-     * @param  string   $name
-     * @param  string   $email
-     * @param  string   $role
-     * @param  string[] $groupIds
-     * @param  string   $photo
-     * @param  string   $language
+     * @param string $dn
+     * @param string $username
+     * @param string $name
+     * @param string $email
+     * @param string $role
+     * @param string[] $groupIds
+     * @param string $photo
+     * @param string $language
      */
     public function __construct($dn, $username, $name, $email, $role, array $groupIds, $photo = '', $language = '')
     {
@@ -211,7 +211,7 @@ class LdapUserProvider implements UserProviderInterface
     {
         $attributes = ['is_ldap_user' => 1];
 
-        if (! empty($this->language)) {
+        if (!empty($this->language)) {
             $attributes['language'] = LanguageModel::findCode($this->language);
         }
 

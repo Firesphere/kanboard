@@ -6,7 +6,9 @@
     <p class="alert alert-info">
         <?= t('Which parts of the project do you want to duplicate?') ?>
     </p>
-    <form method="post" action="<?= $this->url->href('ProjectViewController', 'doDuplication', ['project_id' => $project['id'], 'duplicate' => 'yes']) ?>" autocomplete="off">
+    <form method="post"
+          action="<?= $this->url->href('ProjectViewController', 'doDuplication', ['project_id' => $project['id'], 'duplicate' => 'yes']) ?>"
+          autocomplete="off">
 
         <?= $this->form->csrf() ?>
 

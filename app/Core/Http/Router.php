@@ -73,27 +73,6 @@ class Router extends Base
     }
 
     /**
-     * Get the path to compare patterns
-     *
-     * @access public
-     * @return string
-     */
-    public function getPath()
-    {
-        $path = substr($this->request->getUri(), strlen($this->helper->url->dir()));
-
-        if ($this->request->getQueryString() !== '') {
-            $path = substr($path, 0, - strlen($this->request->getQueryString()) - 1);
-        }
-
-        if ($path !== '' && $path[0] === '/') {
-            $path = substr($path, 1);
-        }
-
-        return $path;
-    }
-
-    /**
      * Find controller/action from the route table or from get arguments
      *
      * @access public
@@ -117,11 +96,32 @@ class Router extends Base
     }
 
     /**
+     * Get the path to compare patterns
+     *
+     * @access public
+     * @return string
+     */
+    public function getPath()
+    {
+        $path = substr($this->request->getUri(), strlen($this->helper->url->dir()));
+
+        if ($this->request->getQueryString() !== '') {
+            $path = substr($path, 0, -strlen($this->request->getQueryString()) - 1);
+        }
+
+        if ($path !== '' && $path[0] === '/') {
+            $path = substr($path, 1);
+        }
+
+        return $path;
+    }
+
+    /**
      * Check controller and action parameter
      *
      * @access public
-     * @param  string $value
-     * @param  string $default
+     * @param string $value
+     * @param string $default
      * @return string
      */
     public function sanitize($value, $default = '')

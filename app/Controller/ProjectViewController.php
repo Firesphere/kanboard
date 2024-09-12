@@ -181,7 +181,7 @@ class ProjectViewController extends BaseController
         $otherProjects = array_filter(
             $this->projectUserRoleModel->getActiveProjectsByUser($this->getUser()['id']),
             static function ($projectId) use ($project) {
-                return (int) $project['id'] !== $projectId;
+                return (int)$project['id'] !== $projectId;
             },
             ARRAY_FILTER_USE_KEY,
         );
@@ -209,6 +209,7 @@ class ProjectViewController extends BaseController
 
         if (empty($srcProjectId)) {
             $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', ['project_id' => $project['id']]));
+
             return;
         }
 
@@ -217,6 +218,7 @@ class ProjectViewController extends BaseController
         } else {
             $this->flash->failure(t('Unable to copy tasks.'));
             $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', ['project_id' => $project['id']]));
+
             return;
         }
 

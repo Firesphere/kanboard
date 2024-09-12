@@ -23,8 +23,8 @@ class CustomFilterModel extends Base
      * Return the list of all allowed custom filters for a user and project
      *
      * @access public
-     * @param  integer   $project_id    Project id
-     * @param  integer   $user_id       User id
+     * @param integer $project_id Project id
+     * @param integer $user_id User id
      * @return array
      */
     public function getAll($project_id, $user_id)
@@ -56,7 +56,7 @@ class CustomFilterModel extends Base
      * Get custom filter by id
      *
      * @access private
-     * @param  integer   $filter_id
+     * @param integer $filter_id
      * @return array
      */
     public function getById($filter_id)
@@ -68,7 +68,7 @@ class CustomFilterModel extends Base
      * Create a custom filter
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      * @return bool|integer
      */
     public function create(array $values)
@@ -80,13 +80,14 @@ class CustomFilterModel extends Base
      * Update a custom filter
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      * @return bool
      */
     public function update(array $values)
     {
         $updates = $values;
         unset($updates['id']);
+
         return $this->db->table(self::TABLE)
             ->eq('id', $values['id'])
             ->update($updates);
@@ -96,7 +97,7 @@ class CustomFilterModel extends Base
      * Remove a custom filter
      *
      * @access public
-     * @param  integer  $filter_id
+     * @param integer $filter_id
      * @return bool
      */
     public function remove($filter_id)
@@ -107,8 +108,8 @@ class CustomFilterModel extends Base
     /**
      * Duplicate custom filters from a project to another one, must be executed inside a transaction
      *
-     * @param  integer    $src_project_id        Source project id
-     * @param  integer    $dst_project_id        Destination project id
+     * @param integer $src_project_id Source project id
+     * @param integer $dst_project_id Destination project id
      * @return boolean
      */
     public function duplicate($src_project_id, $dst_project_id)
@@ -131,7 +132,7 @@ class CustomFilterModel extends Base
             $filter['is_shared'] = $filter['is_shared'] ?: 0;
             $filter['append'] = $filter['append'] ?: 0;
 
-            if (! $this->db->table(self::TABLE)->save($filter)) {
+            if (!$this->db->table(self::TABLE)->save($filter)) {
                 return false;
             }
         }

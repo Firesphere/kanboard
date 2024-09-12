@@ -17,8 +17,8 @@ class HookHelper extends Base
      * Add assets JS or CSS
      *
      * @access public
-     * @param  string  $type
-     * @param  string  $hook
+     * @param string $type
+     * @param string $hook
      * @return string
      */
     public function asset($type, $hook)
@@ -36,8 +36,8 @@ class HookHelper extends Base
      * Render all attached hooks
      *
      * @access public
-     * @param  string  $hook
-     * @param  array   $variables
+     * @param string $hook
+     * @param array $variables
      * @return string
      */
     public function render($hook, array $variables = [])
@@ -46,9 +46,9 @@ class HookHelper extends Base
 
         foreach ($this->hook->getListeners($hook) as $params) {
             $currentVariables = $variables;
-            if (! empty($params['variables'])) {
+            if (!empty($params['variables'])) {
                 $currentVariables = array_merge($variables, $params['variables']);
-            } elseif (! empty($params['callable'])) {
+            } elseif (!empty($params['callable'])) {
                 $result = call_user_func_array($params['callable'], array_values($variables));
 
                 if (is_array($result)) {
@@ -66,9 +66,9 @@ class HookHelper extends Base
      * Attach a template to a hook
      *
      * @access public
-     * @param  string $hook
-     * @param  string $template
-     * @param  array  $variables
+     * @param string $hook
+     * @param string $template
+     * @param array $variables
      * @return $this
      */
     public function attach($hook, $template, array $variables = [])
@@ -87,9 +87,9 @@ class HookHelper extends Base
      * Arguments passed to the callback are the one passed to the hook
      *
      * @access public
-     * @param  string   $hook
-     * @param  string   $template
-     * @param  Closure  $callable
+     * @param string $hook
+     * @param string $template
+     * @param Closure $callable
      * @return $this
      */
     public function attachCallable($hook, $template, Closure $callable)

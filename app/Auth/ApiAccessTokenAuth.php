@@ -71,8 +71,9 @@ class ApiAccessTokenAuth extends Base implements PasswordAuthenticationProviderI
             ->eq('is_active', 1)
             ->findOne();
 
-        if (! empty($user)) {
+        if (!empty($user)) {
             $this->userInfo = $user;
+
             return true;
         }
 
@@ -98,7 +99,7 @@ class ApiAccessTokenAuth extends Base implements PasswordAuthenticationProviderI
      * Set username
      *
      * @access public
-     * @param  string $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -109,7 +110,7 @@ class ApiAccessTokenAuth extends Base implements PasswordAuthenticationProviderI
      * Set password
      *
      * @access public
-     * @param  string $password
+     * @param string $password
      */
     public function setPassword($password)
     {

@@ -14,17 +14,18 @@ class EmailJob extends BaseJob
      * Set job parameters
      *
      * @access public
-     * @param  string $recipientEmail
-     * @param  string $recipientName
-     * @param  string $subject
-     * @param  string $html
-     * @param  string $authorName
-     * @param  string $authorEmail
+     * @param string $recipientEmail
+     * @param string $recipientName
+     * @param string $subject
+     * @param string $html
+     * @param string $authorName
+     * @param string $authorEmail
      * @return $this
      */
     public function withParams($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail)
     {
         $this->jobParams = [$recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail];
+
         return $this;
     }
 
@@ -32,12 +33,12 @@ class EmailJob extends BaseJob
      * Execute job
      *
      * @access public
-     * @param  string $recipientEmail
-     * @param  string $recipientName
-     * @param  string $subject
-     * @param  string $html
-     * @param  string $authorName
-     * @param  string $authorEmail
+     * @param string $recipientEmail
+     * @param string $recipientName
+     * @param string $subject
+     * @param string $html
+     * @param string $authorName
+     * @param string $authorEmail
      */
     public function execute($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail)
     {

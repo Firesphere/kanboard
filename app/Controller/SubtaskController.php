@@ -42,7 +42,7 @@ class SubtaskController extends BaseController
      * Prepare form values
      *
      * @access protected
-     * @param  array $task
+     * @param array $task
      * @return array
      */
     protected function prepareValues(array $task)
@@ -54,6 +54,7 @@ class SubtaskController extends BaseController
         ];
 
         $values = $this->hook->merge('controller:subtask:form:default', $values, ['default_values' => $values]);
+
         return $values;
     }
 
@@ -73,20 +74,22 @@ class SubtaskController extends BaseController
         foreach ($subtasks as $subtask) {
             $subtask = trim($subtask);
 
-            if (! empty($subtask)) {
+            if (!empty($subtask)) {
                 $subtaskValues = $values;
                 $subtaskValues['title'] = $subtask;
 
                 list($valid, $errors) = $this->subtaskValidator->validateCreation($subtaskValues);
 
-                if (! $valid) {
+                if (!$valid) {
                     $this->create($values, $errors);
+
                     return false;
                 }
 
-                if (! $this->subtaskModel->create($subtaskValues)) {
+                if (!$this->subtaskModel->create($subtaskValues)) {
                     $this->flash->failure(t('Unable to create your sub-task.'));
                     $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']], 'subtasks'), true);
+
                     return false;
                 }
 
@@ -212,7 +215,7 @@ class SubtaskController extends BaseController
         $task = $this->getTask();
         $values = $this->request->getJson();
 
-        if (! empty($values) && $this->helper->user->hasProjectAccess('SubtaskController', 'movePosition', $task['project_id'])) {
+        if (!empty($values) && $this->helper->user->hasProjectAccess('SubtaskController', 'movePosition', $task['project_id'])) {
             $result = $this->subtaskPositionModel->changePosition($task['id'], $values['subtask_id'], $values['position']);
             $this->response->json(['result' => $result]);
         } else {

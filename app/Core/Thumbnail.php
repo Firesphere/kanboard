@@ -20,13 +20,14 @@ class Thumbnail
      *
      * @static
      * @access public
-     * @param  string $filename
+     * @param string $filename
      * @return Thumbnail
      */
     public static function createFromFile($filename)
     {
         $self = new static();
         $self->fromFile($filename);
+
         return $self;
     }
 
@@ -35,13 +36,14 @@ class Thumbnail
      *
      * @static
      * @access public
-     * @param  string $blob
+     * @param string $blob
      * @return Thumbnail
      */
     public static function createFromString($blob)
     {
         $self = new static();
         $self->fromString($blob);
+
         return $self;
     }
 
@@ -49,13 +51,14 @@ class Thumbnail
      * Load the local image file in memory with GD
      *
      * @access public
-     * @param  string $filename
+     * @param string $filename
      * @return Thumbnail
      */
     public function fromFile($filename)
     {
         $this->metadata = getimagesize($filename);
         $this->srcImage = @imagecreatefromstring(file_get_contents($filename));
+
         return $this;
     }
 
@@ -63,7 +66,7 @@ class Thumbnail
      * Load the image blob in memory with GD
      *
      * @access public
-     * @param  string $blob
+     * @param string $blob
      * @return Thumbnail
      */
     public function fromString($blob)
@@ -77,6 +80,7 @@ class Thumbnail
 
         // Avoid warning from libpng when loading PNG image with obscure or incorrect iCCP profiles
         $this->srcImage = @imagecreatefromstring($blob);
+
         return $this;
     }
 
@@ -84,8 +88,8 @@ class Thumbnail
      * Resize the image
      *
      * @access public
-     * @param  int $width
-     * @param  int $height
+     * @param int $width
+     * @param int $height
      * @return Thumbnail
      */
     public function resize($width = 250, $height = 100)
@@ -128,7 +132,7 @@ class Thumbnail
         imagealphablending($this->dstImage, false);
         imagesavealpha($this->dstImage, true);
 
-        imagecopyresampled($this->dstImage, $this->srcImage, (int) $dstX, (int) $dstY, 0, 0, (int) $dstWidth, (int) $dstHeight, (int) $srcWidth, (int) $srcHeight);
+        imagecopyresampled($this->dstImage, $this->srcImage, (int)$dstX, (int)$dstY, 0, 0, (int)$dstWidth, (int)$dstHeight, (int)$srcWidth, (int)$srcHeight);
 
         return $this;
     }
@@ -137,7 +141,7 @@ class Thumbnail
      * Save the thumbnail to a local file
      *
      * @access public
-     * @param  string $filename
+     * @param string $filename
      * @return Thumbnail
      */
     public function toFile($filename)
@@ -145,6 +149,7 @@ class Thumbnail
         imagepng($this->dstImage, $filename, $this->compression);
         imagedestroy($this->dstImage);
         imagedestroy($this->srcImage);
+
         return $this;
     }
 
@@ -160,6 +165,7 @@ class Thumbnail
         imagepng($this->dstImage, null, $this->compression);
         imagedestroy($this->dstImage);
         imagedestroy($this->srcImage);
+
         return ob_get_clean();
     }
 

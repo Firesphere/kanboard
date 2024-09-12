@@ -50,8 +50,8 @@ class BoardModel extends Base
      * Create a board with default columns, must be executed inside a transaction
      *
      * @access public
-     * @param  integer  $project_id   Project id
-     * @param  array    $columns      Column parameters [ 'title' => 'boo', 'task_limit' => 2 ... ]
+     * @param integer $project_id Project id
+     * @param array $columns Column parameters [ 'title' => 'boo', 'task_limit' => 2 ... ]
      * @return boolean
      */
     public function create($project_id, array $columns)
@@ -68,7 +68,7 @@ class BoardModel extends Base
                 'hide_in_dashboard' => $column['hide_in_dashboard'] ?: 0, // Avoid SQL error with Postgres
             ];
 
-            if (! $this->db->table(ColumnModel::TABLE)->save($values)) {
+            if (!$this->db->table(ColumnModel::TABLE)->save($values)) {
                 return false;
             }
         }
@@ -79,18 +79,18 @@ class BoardModel extends Base
     /**
      * Copy board columns from a project to another one
      *
-     * @author Antonio Rabelo
-     * @param  integer    $project_from      Project Template
-     * @param  integer    $project_to        Project that receives the copy
+     * @param integer $project_from Project Template
+     * @param integer $project_to Project that receives the copy
      * @return boolean
+     * @author Antonio Rabelo
      */
     public function duplicate($project_from, $project_to)
     {
         $columns = $this->db->table(ColumnModel::TABLE)
-                            ->columns('title', 'task_limit', 'description', 'hide_in_dashboard')
-                            ->eq('project_id', $project_from)
-                            ->asc('position')
-                            ->findAll();
+            ->columns('title', 'task_limit', 'description', 'hide_in_dashboard')
+            ->eq('project_id', $project_from)
+            ->asc('position')
+            ->findAll();
 
         return $this->boardModel->create($project_to, $columns);
     }

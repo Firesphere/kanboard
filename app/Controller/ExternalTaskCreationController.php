@@ -47,14 +47,14 @@ class ExternalTaskCreationController extends BaseController
                 $externalTask = $taskProvider->fetch($taskProvider->buildTaskUri($values), $project['id']);
 
                 $values = $externalTask->getFormValues() + [
-                    'external_uri'      => $externalTask->getUri(),
-                    'external_provider' => $providerName,
-                    'project_id'        => $project['id'],
-                    'swimlane_id'       => $values['swimlane_id'],
-                    'column_id'         => $values['column_id'],
-                    'color_id'          => $this->colorModel->getDefaultColor(),
-                    'owner_id'          => $this->userSession->getId(),
-                ];
+                        'external_uri'      => $externalTask->getUri(),
+                        'external_provider' => $providerName,
+                        'project_id'        => $project['id'],
+                        'swimlane_id'       => $values['swimlane_id'],
+                        'column_id'         => $values['column_id'],
+                        'color_id'          => $this->colorModel->getDefaultColor(),
+                        'owner_id'          => $this->userSession->getId(),
+                    ];
             } else {
                 $externalTask = $taskProvider->fetch($values['external_uri'], $project['id']);
             }
@@ -83,9 +83,9 @@ class ExternalTaskCreationController extends BaseController
 
         list($valid, $errors) = $this->taskValidator->validateCreation($values);
 
-        if (! $valid) {
+        if (!$valid) {
             $this->step2($values, $errors);
-        } elseif (! $this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
+        } elseif (!$this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
             $this->flash->failure(t('You cannot create tasks in this column.'));
             $this->response->redirect($this->helper->url->to('BoardViewController', 'show', ['project_id' => $project['id']]), true);
         } else {

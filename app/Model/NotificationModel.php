@@ -22,9 +22,9 @@ class NotificationModel extends Base
      * Get the event title with author
      *
      * @access public
-     * @param  string $eventAuthor
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventAuthor
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function getTitleWithAuthor($eventAuthor, $eventName, array $eventData)
@@ -44,8 +44,8 @@ class NotificationModel extends Base
      * Get the event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function getTitleWithoutAuthor($eventName, array $eventData)
@@ -65,8 +65,8 @@ class NotificationModel extends Base
      * Get task id from event
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return integer
      */
     public function getTaskIdFromEvent($eventName, array $eventData)
@@ -92,8 +92,7 @@ class NotificationModel extends Base
             ->withBuilder(CommentEventBuilder::getInstance($this->container))
             ->withBuilder(SubtaskEventBuilder::getInstance($this->container))
             ->withBuilder(TaskFileEventBuilder::getInstance($this->container))
-            ->withBuilder(TaskLinkEventBuilder::getInstance($this->container))
-        ;
+            ->withBuilder(TaskLinkEventBuilder::getInstance($this->container));
 
         return $iterator;
     }

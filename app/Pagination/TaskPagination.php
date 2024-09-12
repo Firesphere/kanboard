@@ -18,9 +18,9 @@ class TaskPagination extends Base
      * Get dashboard pagination
      *
      * @access public
-     * @param  integer $userId
-     * @param  string  $method
-     * @param  integer $max
+     * @param integer $userId
+     * @param string $method
+     * @param integer $max
      * @return Paginator
      */
     public function getDashboardPaginator($userId, $method, $max)

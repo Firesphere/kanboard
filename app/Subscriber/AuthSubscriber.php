@@ -36,7 +36,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
      * After Login callback
      *
      * @access public
-     * @param  AuthSuccessEvent $event
+     * @param AuthSuccessEvent $event
      */
     public function afterLogin(AuthSuccessEvent $event)
     {
@@ -58,7 +58,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
             $this->userSession->setPostAuthenticationAsValidated();
         }
 
-        if (session_is_true('hasRememberMe') && ! $this->userSession->hasPostAuthentication()) {
+        if (session_is_true('hasRememberMe') && !$this->userSession->hasPostAuthentication()) {
             $session = $this->rememberMeSessionModel->create($this->userSession->getId(), $ipAddress, $userAgent);
             $this->rememberMeCookie->write($session['token'], $session['sequence'], $session['expiration']);
         }
@@ -77,7 +77,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
         if ($credentials !== false) {
             $session = $this->rememberMeSessionModel->find($credentials['token'], $credentials['sequence']);
 
-            if (! empty($session)) {
+            if (!empty($session)) {
                 $this->rememberMeSessionModel->remove($session['id']);
             }
 
@@ -97,7 +97,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
         $username = $event->getUsername();
         $ipAddress = $this->request->getIpAddress();
 
-        if (! empty($username)) {
+        if (!empty($username)) {
             // log login failure in web server log to allow fail2ban usage
             error_log('Kanboard: user ' . $username . ' authentication failure with IP address: ' . $ipAddress);
             $this->userLockingModel->incrementFailedLogin($username);

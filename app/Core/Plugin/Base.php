@@ -22,7 +22,7 @@ abstract class Base extends \Kanboard\Core\Base
      * Override default CSP rules
      *
      * @access public
-     * @param  array  $rules
+     * @param array $rules
      */
     public function setContentSecurityPolicy(array $rules)
     {
@@ -55,8 +55,8 @@ abstract class Base extends \Kanboard\Core\Base
      * Listen on internal events
      *
      * @access public
-     * @param  string   $event
-     * @param  callable $callback
+     * @param string $event
+     * @param callable $callback
      */
     public function on($event, $callback)
     {

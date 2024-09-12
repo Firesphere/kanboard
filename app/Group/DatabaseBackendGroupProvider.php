@@ -17,7 +17,7 @@ class DatabaseBackendGroupProvider extends Base implements GroupBackendProviderI
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return DatabaseGroupProvider[]
      */
     public function find($input)

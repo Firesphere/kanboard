@@ -26,12 +26,13 @@ class TaskColorFilter extends BaseFilter implements FilterInterface
      * Set color model object
      *
      * @access public
-     * @param  ColorModel $colorModel
+     * @param ColorModel $colorModel
      * @return TaskColorFilter
      */
     public function setColorModel(ColorModel $colorModel)
     {
         $this->colorModel = $colorModel;
+
         return $this;
     }
 
@@ -55,6 +56,7 @@ class TaskColorFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->eq(TaskModel::TABLE . '.color_id', $this->colorModel->find($this->value));
+
         return $this;
     }
 }

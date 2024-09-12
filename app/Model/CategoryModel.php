@@ -23,7 +23,7 @@ class CategoryModel extends Base
      * Return true if a category exists for a given project
      *
      * @access public
-     * @param  integer   $category_id    Category id
+     * @param integer $category_id Category id
      * @return boolean
      */
     public function exists($category_id)
@@ -35,7 +35,7 @@ class CategoryModel extends Base
      * Get a category by the id
      *
      * @access public
-     * @param  integer   $category_id    Category id
+     * @param integer $category_id Category id
      * @return array
      */
     public function getById($category_id)
@@ -47,7 +47,7 @@ class CategoryModel extends Base
      * Get the category name by the id
      *
      * @access public
-     * @param  integer   $category_id    Category id
+     * @param integer $category_id Category id
      * @return string
      */
     public function getNameById($category_id)
@@ -59,7 +59,7 @@ class CategoryModel extends Base
      * Get the projectId by the category id
      *
      * @access public
-     * @param  integer   $category_id    Category id
+     * @param integer $category_id Category id
      * @return integer
      */
     public function getProjectId($category_id)
@@ -71,25 +71,25 @@ class CategoryModel extends Base
      * Get a category id by the category name and project id
      *
      * @access public
-     * @param  integer   $project_id      Project id
-     * @param  string    $category_name   Category name
+     * @param integer $project_id Project id
+     * @param string $category_name Category name
      * @return integer
      */
     public function getIdByName($project_id, $category_name)
     {
-        return (int) $this->db->table(self::TABLE)
-                        ->eq('project_id', $project_id)
-                        ->eq('name', $category_name)
-                        ->findOneColumn('id');
+        return (int)$this->db->table(self::TABLE)
+            ->eq('project_id', $project_id)
+            ->eq('name', $category_name)
+            ->findOneColumn('id');
     }
 
     /**
      * Return the list of all categories
      *
      * @access public
-     * @param  integer   $project_id    Project id
-     * @param  bool      $prepend_none  If true, prepend to the list the value 'None'
-     * @param  bool      $prepend_all   If true, prepend to the list the value 'All'
+     * @param integer $project_id Project id
+     * @param bool $prepend_none If true, prepend to the list the value 'None'
+     * @param bool $prepend_all If true, prepend to the list the value 'All'
      * @return array
      */
     public function getList($project_id, $prepend_none = true, $prepend_all = false)
@@ -116,7 +116,7 @@ class CategoryModel extends Base
      * Return all categories for a given project
      *
      * @access public
-     * @param  integer   $project_id    Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function getAll($project_id)
@@ -131,7 +131,7 @@ class CategoryModel extends Base
      * Create default categories during project creation (transaction already started in Project::create())
      *
      * @access public
-     * @param  integer  $project_id
+     * @param integer $project_id
      * @return boolean
      */
     public function createDefaultCategories($project_id)
@@ -153,7 +153,7 @@ class CategoryModel extends Base
      * Create a category (run inside a transaction)
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      * @return bool|integer
      */
     public function create(array $values)
@@ -165,13 +165,14 @@ class CategoryModel extends Base
      * Update a category
      *
      * @access public
-     * @param  array    $values    Form values
+     * @param array $values Form values
      * @return bool
      */
     public function update(array $values)
     {
         $updates = $values;
         unset($updates['id']);
+
         return $this->db->table(self::TABLE)->eq('id', $values['id'])->save($updates);
     }
 
@@ -179,7 +180,7 @@ class CategoryModel extends Base
      * Remove a category
      *
      * @access public
-     * @param  integer   $category_id    Category id
+     * @param integer $category_id Category id
      * @return bool
      */
     public function remove($category_id)
@@ -188,8 +189,9 @@ class CategoryModel extends Base
 
         $this->db->table(TaskModel::TABLE)->eq('category_id', $category_id)->update(['category_id' => 0]);
 
-        if (! $this->db->table(self::TABLE)->eq('id', $category_id)->remove()) {
+        if (!$this->db->table(self::TABLE)->eq('id', $category_id)->remove()) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
@@ -201,10 +203,10 @@ class CategoryModel extends Base
     /**
      * Duplicate categories from a project to another one, must be executed inside a transaction
      *
-     * @author Antonio Rabelo
-     * @param  integer    $src_project_id        Source project id
-     * @param  integer    $dst_project_id        Destination project id
+     * @param integer $src_project_id Source project id
+     * @param integer $dst_project_id Destination project id
      * @return boolean
+     * @author Antonio Rabelo
      */
     public function duplicate($src_project_id, $dst_project_id)
     {
@@ -218,7 +220,7 @@ class CategoryModel extends Base
         foreach ($categories as $category) {
             $category['project_id'] = $dst_project_id;
 
-            if (! $this->db->table(self::TABLE)->save($category)) {
+            if (!$this->db->table(self::TABLE)->save($category)) {
                 return false;
             }
         }

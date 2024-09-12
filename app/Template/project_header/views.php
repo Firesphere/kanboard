@@ -1,5 +1,5 @@
 <ul class="views">
-    
+
     <?= $this->hook->render('template:project-header:view-switcher-before-project-overview', ['project' => $project, 'filters' => $filters]) ?>
 
     <li <?= $this->app->checkMenuSelection('ProjectOverviewController') ?>>

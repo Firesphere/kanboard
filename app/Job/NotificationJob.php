@@ -16,24 +16,25 @@ class NotificationJob extends BaseJob
      * Set job parameters
      *
      * @param GenericEvent $event
-     * @param string       $eventName
+     * @param string $eventName
      * @return $this
      */
     public function withParams(GenericEvent $event, $eventName)
     {
         $this->jobParams = [$event->getAll(), $eventName];
+
         return $this;
     }
 
     /**
      * Execute job
      *
-     * @param array  $eventData
+     * @param array $eventData
      * @param string $eventName
      */
     public function execute(array $eventData, $eventName)
     {
-        if (! empty($eventData['mention'])) {
+        if (!empty($eventData['mention'])) {
             $this->userNotificationModel->sendUserNotification($eventData['mention'], $eventName, $eventData);
         } else {
             $this->userNotificationModel->sendNotifications($eventName, $eventData);

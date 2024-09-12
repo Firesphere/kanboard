@@ -20,13 +20,13 @@
             <th class="column-10"><?= $subtask_paginator->order(t('Time spent'), \Kanboard\Model\SubtaskTimeTrackingModel::TABLE . '.time_spent') ?></th>
         </tr>
         <?php foreach ($subtask_paginator->getCollection() as $record): ?>
-        <tr>
-            <td><?= $this->url->link($this->text->e($record['user_fullname'] ?: $record['username']), 'UserViewController', 'show', ['user_id' => $record['user_id']]) ?></td>
-            <td><?= t($record['subtask_title']) ?></td>
-            <td><?= $this->dt->datetime($record['start']) ?></td>
-            <td><?= $this->dt->datetime($record['end']) ?></td>
-            <td><?= n($record['time_spent']) . ' ' . t('hours') ?></td>
-        </tr>
+            <tr>
+                <td><?= $this->url->link($this->text->e($record['user_fullname'] ?: $record['username']), 'UserViewController', 'show', ['user_id' => $record['user_id']]) ?></td>
+                <td><?= t($record['subtask_title']) ?></td>
+                <td><?= $this->dt->datetime($record['start']) ?></td>
+                <td><?= $this->dt->datetime($record['end']) ?></td>
+                <td><?= n($record['time_spent']) . ' ' . t('hours') ?></td>
+            </tr>
         <?php endforeach ?>
     </table>
 

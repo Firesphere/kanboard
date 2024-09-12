@@ -14,23 +14,10 @@ use Kanboard\Model\CommentModel;
 class CommentEventJob extends BaseJob
 {
     /**
-     * Set job params
-     *
-     * @param  int    $commentId
-     * @param  string $eventName
-     * @return $this
-     */
-    public function withParams($commentId, $eventName)
-    {
-        $this->jobParams = [$commentId, $eventName];
-        return $this;
-    }
-
-    /**
      * Execute job
      *
-     * @param  int    $commentId
-     * @param  string $eventName
+     * @param int $commentId
+     * @param string $eventName
      */
     public function execute($commentId, $eventName)
     {
@@ -46,5 +33,19 @@ class CommentEventJob extends BaseJob
                 $this->queueManager->push($userMentionJob);
             }
         }
+    }
+
+    /**
+     * Set job params
+     *
+     * @param int $commentId
+     * @param string $eventName
+     * @return $this
+     */
+    public function withParams($commentId, $eventName)
+    {
+        $this->jobParams = [$commentId, $eventName];
+
+        return $this;
     }
 }

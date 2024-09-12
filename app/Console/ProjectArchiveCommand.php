@@ -26,6 +26,7 @@ class ProjectArchiveCommand extends BaseCommand
             $output->writeln('Deactivating project: #' . $project['id'] . ' - ' . $project['name']);
             $this->projectModel->disable($project['id']);
         }
+
         return 0;
     }
 }

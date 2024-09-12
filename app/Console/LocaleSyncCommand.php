@@ -23,13 +23,14 @@ class LocaleSyncCommand extends BaseCommand
         $reference = include $reference_file;
 
         foreach (new DirectoryIterator(APP_DIR . DIRECTORY_SEPARATOR . 'Locale') as $fileInfo) {
-            if (! $fileInfo->isDot() && $fileInfo->isDir() && $fileInfo->getFilename() !== self::REF_LOCALE) {
+            if (!$fileInfo->isDot() && $fileInfo->isDir() && $fileInfo->getFilename() !== self::REF_LOCALE) {
                 $filename = APP_DIR . DIRECTORY_SEPARATOR . 'Locale' . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR . 'translations.php';
                 echo $fileInfo->getFilename() . ' (' . $filename . ')' . PHP_EOL;
 
                 file_put_contents($filename, $this->updateFile($reference, $filename));
             }
         }
+
         return 0;
     }
 
@@ -41,7 +42,7 @@ class LocaleSyncCommand extends BaseCommand
         $output .= 'return array(' . PHP_EOL;
 
         foreach ($reference as $key => $value) {
-            if (! empty($outdated[$key])) {
+            if (!empty($outdated[$key])) {
                 $output .= "    '" . str_replace("'", "\'", $key) . "' => '" . str_replace("'", "\'", $outdated[$key]) . "',\n";
             } else {
                 $output .= "    // '" . str_replace("'", "\'", $key) . "' => '',\n";
@@ -49,6 +50,7 @@ class LocaleSyncCommand extends BaseCommand
         }
 
         $output .= ");\n";
+
         return $output;
     }
 }

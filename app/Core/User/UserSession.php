@@ -27,10 +27,36 @@ class UserSession extends Base
     }
 
     /**
+     * Get the connected user id
+     *
+     * @access public
+     * @return integer
+     */
+    public function getId()
+    {
+        if (!$this->isLogged()) {
+            return 0;
+        }
+
+        return session_get('user')['id'];
+    }
+
+    /**
+     * Check is the user is connected
+     *
+     * @access public
+     * @return bool
+     */
+    public function isLogged()
+    {
+        return session_exists('user') && session_get('user') !== [];
+    }
+
+    /**
      * Update user session
      *
      * @access public
-     * @param  array  $user
+     * @param array $user
      */
     public function initialize(array $user)
     {
@@ -40,9 +66,9 @@ class UserSession extends Base
             }
         }
 
-        $user['id'] = (int) $user['id'];
-        $user['is_ldap_user'] = isset($user['is_ldap_user']) ? (bool) $user['is_ldap_user'] : false;
-        $user['twofactor_activated'] = isset($user['twofactor_activated']) ? (bool) $user['twofactor_activated'] : false;
+        $user['id'] = (int)$user['id'];
+        $user['is_ldap_user'] = isset($user['is_ldap_user']) ? (bool)$user['is_ldap_user'] : false;
+        $user['twofactor_activated'] = isset($user['twofactor_activated']) ? (bool)$user['twofactor_activated'] : false;
 
         if (session_status() === PHP_SESSION_ACTIVE) {
             // Note: Do not delete the old session to avoid possible race condition and a PHP warning.
@@ -62,21 +88,6 @@ class UserSession extends Base
     public function getAll()
     {
         return session_get('user');
-    }
-
-    /**
-     * Get user application role
-     *
-     * @access public
-     * @return string
-     */
-    public function getRole()
-    {
-        if (! $this->isLogged()) {
-            return '';
-        }
-
-        return session_get('user')['role'];
     }
 
     /**
@@ -108,7 +119,7 @@ class UserSession extends Base
      */
     public function hasPostAuthentication()
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return false;
         }
 
@@ -137,18 +148,18 @@ class UserSession extends Base
     }
 
     /**
-     * Get the connected user id
+     * Get user application role
      *
      * @access public
-     * @return integer
+     * @return string
      */
-    public function getId()
+    public function getRole()
     {
-        if (! $this->isLogged()) {
-            return 0;
+        if (!$this->isLogged()) {
+            return '';
         }
 
-        return session_get('user')['id'];
+        return session_get('user')['role'];
     }
 
     /**
@@ -159,7 +170,7 @@ class UserSession extends Base
      */
     public function getUsername()
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return '';
         }
 
@@ -174,7 +185,7 @@ class UserSession extends Base
      */
     public function getLanguage()
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return '';
         }
 
@@ -189,7 +200,7 @@ class UserSession extends Base
      */
     public function getTimezone()
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return '';
         }
 
@@ -204,7 +215,7 @@ class UserSession extends Base
      */
     public function getTheme()
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return 'light';
         }
 
@@ -229,26 +240,15 @@ class UserSession extends Base
     }
 
     /**
-     * Check is the user is connected
-     *
-     * @access public
-     * @return bool
-     */
-    public function isLogged()
-    {
-        return session_exists('user') && session_get('user') !== [];
-    }
-
-    /**
      * Get project filters from the session
      *
      * @access public
-     * @param  integer  $projectID
+     * @param integer $projectID
      * @return string
      */
     public function getFilters($projectID)
     {
-        if (! session_exists('filters:' . $projectID)) {
+        if (!session_exists('filters:' . $projectID)) {
             return session_get('user') ? session_get('user')['filter'] ?: 'status:open' : 'status:open';
         }
 
@@ -259,8 +259,8 @@ class UserSession extends Base
      * Save project filters in the session
      *
      * @access public
-     * @param  integer  $projectID
-     * @param  string   $filters
+     * @param integer $projectID
+     * @param string $filters
      */
     public function setFilters($projectID, $filters)
     {
@@ -271,14 +271,14 @@ class UserSession extends Base
      * Get project list order from the session
      *
      * @access public
-     * @param  integer  $projectID
+     * @param integer $projectID
      * @return array
      */
     public function getListOrder($projectID)
     {
         $default = ['tasks.id', 'DESC'];
 
-        if (! session_exists('listOrder:' . $projectID)) {
+        if (!session_exists('listOrder:' . $projectID)) {
             return $default;
         }
 
@@ -289,9 +289,9 @@ class UserSession extends Base
      * Save project list order in the session
      *
      * @access public
-     * @param  integer  $projectID
-     * @param  string   $listOrder
-     * @param  string   $listDirection
+     * @param integer $projectID
+     * @param string $listOrder
+     * @param string $listDirection
      */
     public function setListOrder($projectID, $listOrder, $listDirection)
     {

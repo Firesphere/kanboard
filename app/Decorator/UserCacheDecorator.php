@@ -29,7 +29,7 @@ class UserCacheDecorator
      * UserCacheDecorator constructor.
      *
      * @param CacheInterface $cache
-     * @param UserModel      $userModel
+     * @param UserModel $userModel
      */
     public function __construct(CacheInterface $cache, UserModel $userModel)
     {
@@ -41,7 +41,7 @@ class UserCacheDecorator
      * Get a specific user by the username
      *
      * @access public
-     * @param  string  $username  Username
+     * @param string $username Username
      * @return array
      */
     public function getByUsername($username)

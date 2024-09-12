@@ -16,6 +16,7 @@ class ProjectApiFormatter extends BaseFormatter implements FormatterInterface
     public function withProject($project)
     {
         $this->project = $project;
+
         return $this;
     }
 
@@ -27,7 +28,7 @@ class ProjectApiFormatter extends BaseFormatter implements FormatterInterface
      */
     public function format()
     {
-        if (! empty($this->project)) {
+        if (!empty($this->project)) {
             $this->project['url'] = [
                 'board' => $this->helper->url->to('BoardViewController', 'show', ['project_id' => $this->project['id']], '', true),
                 'list'  => $this->helper->url->to('TaskListController', 'show', ['project_id' => $this->project['id']], '', true),

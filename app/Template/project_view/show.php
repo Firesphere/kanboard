@@ -5,7 +5,8 @@
     <li><strong><?= $project['is_active'] ? t('This project is open') : t('This project is closed') ?></strong></li>
 
     <?php if ($project['owner_id'] > 0): ?>
-        <li><?= t('Project owner: ') ?><strong><?= $this->text->e($project['owner_name'] ?: $project['owner_username']) ?></strong></li>
+        <li><?= t('Project owner: ') ?>
+            <strong><?= $this->text->e($project['owner_name'] ?: $project['owner_username']) ?></strong></li>
     <?php endif ?>
 
     <?php if ($project['is_private']): ?>
@@ -41,7 +42,7 @@
     <li><?= t('Task limit: ') ?><?= $project['task_limit'] ? $project['task_limit'] : '∞' ?></li>
 </ul>
 
-<?php if (! empty($project['description'])): ?>
+<?php if (!empty($project['description'])): ?>
     <div class="page-header">
         <h2><?= t('Description') ?></h2>
     </div>
@@ -72,7 +73,7 @@
             <tr data-column-id="<?= $column['id'] ?>">
                 <td>
                     <?= $this->text->e($column['title']) ?>
-                    <?php if (! empty($column['description'])): ?>
+                    <?php if (!empty($column['description'])): ?>
                         <?= $this->app->tooltipMarkdown($column['description']) ?>
                     <?php endif ?>
                 </td>

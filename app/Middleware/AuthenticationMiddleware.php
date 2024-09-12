@@ -18,12 +18,13 @@ class AuthenticationMiddleware extends BaseMiddleware
      */
     public function execute()
     {
-        if (! $this->authenticationManager->checkCurrentSession()) {
+        if (!$this->authenticationManager->checkCurrentSession()) {
             $this->response->redirect($this->helper->url->to('AuthController', 'login'));
+
             return;
         }
 
-        if (! $this->isPublicAccess()) {
+        if (!$this->isPublicAccess()) {
             $this->handleAuthentication();
         }
 
@@ -32,7 +33,7 @@ class AuthenticationMiddleware extends BaseMiddleware
 
     protected function handleAuthentication()
     {
-        if (! $this->userSession->isLogged() && ! $this->authenticationManager->preAuthentication()) {
+        if (!$this->userSession->isLogged() && !$this->authenticationManager->preAuthentication()) {
             $this->nextMiddleware = null;
 
             if ($this->request->isAjax()) {
@@ -48,6 +49,7 @@ class AuthenticationMiddleware extends BaseMiddleware
     {
         if ($this->applicationAuthorization->isAllowed($this->router->getController(), $this->router->getAction(), Role::APP_PUBLIC)) {
             $this->nextMiddleware = null;
+
             return true;
         }
 

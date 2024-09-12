@@ -49,7 +49,7 @@ class TaskExternalLinkController extends BaseController
             $link = $provider->getLink();
 
             $this->response->html($this->template->render('task_external_link/create', [
-                'values' => [
+                'values'       => [
                     'title'     => $link->getTitle(),
                     'url'       => $link->getUrl(),
                     'link_type' => $provider->getType(),
@@ -100,8 +100,8 @@ class TaskExternalLinkController extends BaseController
      * Edit form
      *
      * @access public
-     * @param  array $values
-     * @param  array $errors
+     * @param array $values
+     * @param array $errors
      * @throws ExternalLinkProviderNotFound
      * @throws PageNotFoundException
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
@@ -139,6 +139,7 @@ class TaskExternalLinkController extends BaseController
 
         if ($valid && $this->taskExternalLinkModel->update($values)) {
             $this->flash->success(t('Link updated successfully.'));
+
             return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
         }
 

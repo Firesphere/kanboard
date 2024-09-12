@@ -66,7 +66,7 @@ class TaskEmailNoActivity extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)
@@ -78,16 +78,16 @@ class TaskEmailNoActivity extends Base
      * Execute the action (move the task to another column)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
         $results = [];
-        $max = (int) $this->getParam('duration') * 86400;
+        $max = (int)$this->getParam('duration') * 86400;
         $user = $this->userModel->getById($this->getParam('user_id'));
 
-        if (! empty($user['email'])) {
+        if (!empty($user['email'])) {
             foreach ($data['tasks'] as $task) {
                 $duration = time() - $task['date_modification'];
 
@@ -104,8 +104,8 @@ class TaskEmailNoActivity extends Base
      * Send email
      *
      * @access private
-     * @param  integer $task_id
-     * @param  array   $user
+     * @param integer $task_id
+     * @param array $user
      * @return boolean
      */
     private function sendEmail($task_id, array $user)

@@ -56,7 +56,7 @@ class FilterProvider implements ServiceProviderInterface
      * Register providers
      *
      * @access public
-     * @param  \Pimple\Container $container
+     * @param \Pimple\Container $container
      * @return \Pimple\Container
      */
     public function register(Container $container)
@@ -64,6 +64,7 @@ class FilterProvider implements ServiceProviderInterface
         $this->createUserFilter($container);
         $this->createProjectFilter($container);
         $this->createTaskFilter($container);
+
         return $container;
     }
 
@@ -72,6 +73,7 @@ class FilterProvider implements ServiceProviderInterface
         $container['userQuery'] = $container->factory(function ($c) {
             $builder = new QueryBuilder();
             $builder->withQuery($c['db']->table(UserModel::TABLE));
+
             return $builder;
         });
 
@@ -83,18 +85,21 @@ class FilterProvider implements ServiceProviderInterface
         $container['projectGroupRoleQuery'] = $container->factory(function ($c) {
             $builder = new QueryBuilder();
             $builder->withQuery($c['db']->table(ProjectGroupRoleModel::TABLE));
+
             return $builder;
         });
 
         $container['projectUserRoleQuery'] = $container->factory(function ($c) {
             $builder = new QueryBuilder();
             $builder->withQuery($c['db']->table(ProjectUserRoleModel::TABLE));
+
             return $builder;
         });
 
         $container['projectQuery'] = $container->factory(function ($c) {
             $builder = new QueryBuilder();
             $builder->withQuery($c['db']->table(ProjectModel::TABLE));
+
             return $builder;
         });
 
@@ -107,13 +112,12 @@ class FilterProvider implements ServiceProviderInterface
                 ->withFilter(new ProjectActivityProjectNameFilter())
                 ->withFilter(
                     ProjectActivityCreationDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     ProjectActivityCreatorFilter::getInstance()
-                    ->setCurrentUserId($c['userSession']->getId()),
-                )
-            ;
+                        ->setCurrentUserId($c['userSession']->getId()),
+                );
 
             return $builder;
         });
@@ -133,6 +137,7 @@ class FilterProvider implements ServiceProviderInterface
         $container['taskQuery'] = $container->factory(function ($c) {
             $builder = new QueryBuilder();
             $builder->withQuery($c['taskFinderModel']->getExtendedQuery());
+
             return $builder;
         });
 
@@ -143,68 +148,68 @@ class FilterProvider implements ServiceProviderInterface
                 ->withQuery($c['taskFinderModel']->getExtendedQuery())
                 ->withFilter(
                     TaskAssigneeFilter::getInstance()
-                    ->setCurrentUserId($c['userSession']->getId()),
+                        ->setCurrentUserId($c['userSession']->getId()),
                 )
                 ->withFilter(new TaskCategoryFilter())
                 ->withFilter(
                     TaskColorFilter::getInstance()
-                    ->setColorModel($c['colorModel']),
+                        ->setColorModel($c['colorModel']),
                 )
                 ->withFilter(new TaskPriorityFilter())
                 ->withFilter(new TaskColumnFilter())
                 ->withFilter(
                     TaskCommentFilter::getInstance()
-                    ->setDatabase($c['db']),
+                        ->setDatabase($c['db']),
                 )
                 ->withFilter(
                     TaskCreationDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskCreationDateRangeFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskCreatorFilter::getInstance()
-                    ->setCurrentUserId($c['userSession']->getId()),
+                        ->setCurrentUserId($c['userSession']->getId()),
                 )
                 ->withFilter(new TaskDescriptionFilter())
                 ->withFilter(
                     TaskDueDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskStartDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskCompletionDateFilter::getInstance()
-                    ->setDateparser($c['dateParser']),
+                        ->setDateparser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskCompletionDateRangeFilter::getInstance()
-                    ->setDateparser($c['dateParser']),
+                        ->setDateparser($c['dateParser']),
                 )
                 ->withFilter(new TaskIdFilter())
                 ->withFilter(
                     TaskLinkFilter::getInstance()
-                    ->setDatabase($c['db']),
+                        ->setDatabase($c['db']),
                 )
                 ->withFilter(
                     TaskModificationDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskModificationDateRangeFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskMovedDateFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(
                     TaskMovedDateRangeFilter::getInstance()
-                    ->setDateParser($c['dateParser']),
+                        ->setDateParser($c['dateParser']),
                 )
                 ->withFilter(new TaskProjectFilter())
                 ->withFilter(new TaskReferenceFilter())
@@ -212,16 +217,15 @@ class FilterProvider implements ServiceProviderInterface
                 ->withFilter(new TaskStatusFilter())
                 ->withFilter(
                     TaskSubtaskAssigneeFilter::getInstance()
-                    ->setCurrentUserId($c['userSession']->getId())
-                    ->setDatabase($c['db']),
+                        ->setCurrentUserId($c['userSession']->getId())
+                        ->setDatabase($c['db']),
                 )
                 ->withFilter(new TaskSwimlaneFilter())
                 ->withFilter(
                     TaskTagFilter::getInstance()
-                    ->setDatabase($c['db']),
+                        ->setDatabase($c['db']),
                 )
-                ->withFilter(new TaskTitleFilter(), true)
-            ;
+                ->withFilter(new TaskTitleFilter(), true);
 
             return $builder;
         });

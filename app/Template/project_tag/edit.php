@@ -1,7 +1,9 @@
 <div class="page-header">
     <h2><?= t('Edit a tag') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ProjectTagController', 'update', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>" autocomplete="off">
+<form method="post"
+      action="<?= $this->url->href('ProjectTagController', 'update', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>"
+      autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Name'), 'name') ?>

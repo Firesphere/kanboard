@@ -48,9 +48,9 @@ class TaskBulkController extends BaseController
         $values = $this->request->getValues();
         list($valid, $errors) = $this->taskValidator->validateBulkCreation($values);
 
-        if (! $valid) {
+        if (!$valid) {
             $this->show($values, $errors);
-        } elseif (! $this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
+        } elseif (!$this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
             $this->flash->failure(t('You cannot create tasks in this column.'));
             $this->response->redirect($this->helper->url->to('BoardViewController', 'show', ['project_id' => $project['id']]), true);
         } else {
@@ -77,7 +77,7 @@ class TaskBulkController extends BaseController
         foreach ($tasks as $title) {
             $title = trim($title);
 
-            if (! empty($title)) {
+            if (!empty($title)) {
                 $this->taskCreationModel->create([
                     'title'          => $title,
                     'column_id'      => $values['column_id'],

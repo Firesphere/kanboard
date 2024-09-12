@@ -53,24 +53,25 @@ class Role
      * Check if the given role is custom or not
      *
      * @access public
-     * @param  string $role
+     * @param string $role
      * @return bool
      */
     public function isCustomProjectRole($role)
     {
-        return ! empty($role) && $role !== self::PROJECT_MANAGER && $role !== self::PROJECT_MEMBER && $role !== self::PROJECT_VIEWER;
+        return !empty($role) && $role !== self::PROJECT_MANAGER && $role !== self::PROJECT_MEMBER && $role !== self::PROJECT_VIEWER;
     }
 
     /**
      * Get role name
      *
      * @access public
-     * @param  string $role
+     * @param string $role
      * @return string
      */
     public function getRoleName($role)
     {
         $roles = $this->getApplicationRoles() + $this->getProjectRoles();
+
         return isset($roles[$role]) ? $roles[$role] : t('Unknown');
     }
 }

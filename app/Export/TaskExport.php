@@ -22,9 +22,9 @@ class TaskExport extends Base
      * Fetch tasks and return the prepared CSV
      *
      * @access public
-     * @param  integer $project_id Project id
-     * @param  mixed   $from       Start date (timestamp or user formatted date)
-     * @param  mixed   $to         End date (timestamp or user formatted date)
+     * @param integer $project_id Project id
+     * @param mixed $from Start date (timestamp or user formatted date)
+     * @param mixed $to End date (timestamp or user formatted date)
      * @return array
      */
     public function export($project_id, $from, $to)
@@ -47,9 +47,9 @@ class TaskExport extends Base
      * Get the list of tasks for a given project and date range
      *
      * @access protected
-     * @param  integer $project_id Project id
-     * @param  mixed   $from       Start date (timestamp or user formatted date)
-     * @param  mixed   $to         End date (timestamp or user formatted date)
+     * @param integer $project_id Project id
+     * @param mixed $from Start date (timestamp or user formatted date)
+     * @param mixed $to End date (timestamp or user formatted date)
      * @return array
      */
     protected function getTasks($project_id, $from, $to)
@@ -105,9 +105,9 @@ class TaskExport extends Base
      * Format the output of a task array
      *
      * @access protected
-     * @param  array  $task
-     * @param  array  $colors
-     * @param  array  $tags
+     * @param array $task
+     * @param array $colors
+     * @param array $tags
      * @return array
      */
     protected function format(array &$task, array $colors, array &$tags)

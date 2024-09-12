@@ -21,12 +21,23 @@ class Client extends Base
     public const HTTP_USER_AGENT = 'Kanboard';
 
     /**
+     * Get backend used for making HTTP connections
+     *
+     * @access public
+     * @return string
+     */
+    public static function backend()
+    {
+        return function_exists('curl_version') ? 'cURL' : 'socket';
+    }
+
+    /**
      * Send a GET HTTP request
      *
      * @access public
-     * @param  string     $url
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
+     * @param string $url
+     * @param string[] $headers
+     * @param bool $raiseForErrors
      * @return string
      */
     public function get($url, array $headers = [], $raiseForErrors = false)
@@ -35,118 +46,21 @@ class Client extends Base
     }
 
     /**
-     * Send a GET HTTP request and parse JSON response
-     *
-     * @access public
-     * @param  string     $url
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     * @return array
-     */
-    public function getJson($url, array $headers = [], $raiseForErrors = false)
-    {
-        $response = $this->doRequest('GET', $url, '', array_merge(['Accept: application/json'], $headers), $raiseForErrors);
-        return json_decode($response, true) ?: [];
-    }
-
-    /**
-     * Send a POST HTTP request encoded in JSON
-     *
-     * @access public
-     * @param  string     $url
-     * @param  array      $data
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     * @return string
-     */
-    public function postJson($url, array $data, array $headers = [], $raiseForErrors = false)
-    {
-        return $this->doRequest(
-            'POST',
-            $url,
-            json_encode($data),
-            array_merge(['Content-type: application/json'], $headers),
-            $raiseForErrors,
-        );
-    }
-
-    /**
-     * Send a POST HTTP request encoded in JSON (Fire and forget)
-     *
-     * @access public
-     * @param  string     $url
-     * @param  array      $data
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     */
-    public function postJsonAsync($url, array $data, array $headers = [], $raiseForErrors = false)
-    {
-        $this->queueManager->push(HttpAsyncJob::getInstance($this->container)->withParams(
-            'POST',
-            $url,
-            json_encode($data),
-            array_merge(['Content-type: application/json'], $headers),
-            $raiseForErrors,
-        ));
-    }
-
-    /**
-     * Send a POST HTTP request encoded in www-form-urlencoded
-     *
-     * @access public
-     * @param  string     $url
-     * @param  array      $data
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     * @return string
-     */
-    public function postForm($url, array $data, array $headers = [], $raiseForErrors = false)
-    {
-        return $this->doRequest(
-            'POST',
-            $url,
-            http_build_query($data),
-            array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
-            $raiseForErrors,
-        );
-    }
-
-    /**
-     * Send a POST HTTP request encoded in www-form-urlencoded (fire and forget)
-     *
-     * @access public
-     * @param  string     $url
-     * @param  array      $data
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     */
-    public function postFormAsync($url, array $data, array $headers = [], $raiseForErrors = false)
-    {
-        $this->queueManager->push(HttpAsyncJob::getInstance($this->container)->withParams(
-            'POST',
-            $url,
-            http_build_query($data),
-            array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
-            $raiseForErrors,
-        ));
-    }
-
-    /**
      * Make the HTTP request with cURL if detected, socket otherwise
      *
      * @access public
-     * @param  string     $method
-     * @param  string     $url
-     * @param  string     $content
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
+     * @param string $method
+     * @param string $url
+     * @param string $content
+     * @param string[] $headers
+     * @param bool $raiseForErrors
      * @return string
      */
     public function doRequest($method, $url, $content, array $headers, $raiseForErrors = false)
     {
         $requestBody = '';
 
-        if (! empty($url)) {
+        if (!empty($url)) {
             if (function_exists('curl_version')) {
                 if (DEBUG) {
                     $this->logger->debug('HttpClient::doRequest: cURL detected');
@@ -164,64 +78,14 @@ class Client extends Base
     }
 
     /**
-     * Make the HTTP request with socket
-     *
-     * @access private
-     * @param  string     $method
-     * @param  string     $url
-     * @param  string     $content
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
-     * @return string
-     */
-    private function doRequestWithSocket($method, $url, $content, array $headers, $raiseForErrors = false)
-    {
-        $startTime = microtime(true);
-        $stream = @fopen(trim($url), 'r', false, stream_context_create($this->getContext($method, $content, $headers, $raiseForErrors)));
-
-        if (! is_resource($stream)) {
-            $this->logger->error('HttpClient: request failed (' . $url . ')');
-
-            if ($raiseForErrors) {
-                throw new ClientException('Unreachable URL: ' . $url);
-            }
-
-            return '';
-        }
-
-        $body = stream_get_contents($stream);
-        $metadata = stream_get_meta_data($stream);
-
-        if ($raiseForErrors && array_key_exists('wrapper_data', $metadata)) {
-            $statusCode = $this->getStatusCode($metadata['wrapper_data']);
-
-            if ($statusCode >= 400) {
-                throw new InvalidStatusException('Request failed with status code ' . $statusCode, $statusCode, $body);
-            }
-        }
-
-        if (DEBUG) {
-            $this->logger->debug('HttpClient: url=' . $url);
-            $this->logger->debug('HttpClient: headers=' . var_export($headers, true));
-            $this->logger->debug('HttpClient: payload=' . $content);
-            $this->logger->debug('HttpClient: metadata=' . var_export($metadata, true));
-            $this->logger->debug('HttpClient: body=' . $body);
-            $this->logger->debug('HttpClient: executionTime=' . (microtime(true) - $startTime));
-        }
-
-        return $body;
-    }
-
-
-    /**
      * Make the HTTP request with cURL
      *
      * @access private
-     * @param  string     $method
-     * @param  string     $url
-     * @param  string     $content
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
+     * @param string $method
+     * @param string $url
+     * @param string $content
+     * @param string[] $headers
+     * @param bool $raiseForErrors
      * @return string
      */
     private function doRequestWithCurl($method, $url, $content, array $headers, $raiseForErrors = false)
@@ -247,7 +111,7 @@ class Client extends Base
             curl_setopt($curlSession, CURLOPT_POSTFIELDS, $content);
         }
 
-        if (! empty($headers)) {
+        if (!empty($headers)) {
             curl_setopt($curlSession, CURLOPT_HTTPHEADER, $headers);
         }
 
@@ -301,6 +165,56 @@ class Client extends Base
         }
 
         curl_close($curlSession);
+
+        return $body;
+    }
+
+    /**
+     * Make the HTTP request with socket
+     *
+     * @access private
+     * @param string $method
+     * @param string $url
+     * @param string $content
+     * @param string[] $headers
+     * @param bool $raiseForErrors
+     * @return string
+     */
+    private function doRequestWithSocket($method, $url, $content, array $headers, $raiseForErrors = false)
+    {
+        $startTime = microtime(true);
+        $stream = @fopen(trim($url), 'r', false, stream_context_create($this->getContext($method, $content, $headers, $raiseForErrors)));
+
+        if (!is_resource($stream)) {
+            $this->logger->error('HttpClient: request failed (' . $url . ')');
+
+            if ($raiseForErrors) {
+                throw new ClientException('Unreachable URL: ' . $url);
+            }
+
+            return '';
+        }
+
+        $body = stream_get_contents($stream);
+        $metadata = stream_get_meta_data($stream);
+
+        if ($raiseForErrors && array_key_exists('wrapper_data', $metadata)) {
+            $statusCode = $this->getStatusCode($metadata['wrapper_data']);
+
+            if ($statusCode >= 400) {
+                throw new InvalidStatusException('Request failed with status code ' . $statusCode, $statusCode, $body);
+            }
+        }
+
+        if (DEBUG) {
+            $this->logger->debug('HttpClient: url=' . $url);
+            $this->logger->debug('HttpClient: headers=' . var_export($headers, true));
+            $this->logger->debug('HttpClient: payload=' . $content);
+            $this->logger->debug('HttpClient: metadata=' . var_export($metadata, true));
+            $this->logger->debug('HttpClient: body=' . $body);
+            $this->logger->debug('HttpClient: executionTime=' . (microtime(true) - $startTime));
+        }
+
         return $body;
     }
 
@@ -308,10 +222,10 @@ class Client extends Base
      * Get stream context
      *
      * @access private
-     * @param  string     $method
-     * @param  string     $content
-     * @param  string[]   $headers
-     * @param  bool       $raiseForErrors
+     * @param string $method
+     * @param string $content
+     * @param string[] $headers
+     * @param bool $raiseForErrors
      * @return array
      */
     private function getContext($method, $content, array $headers, $raiseForErrors = false)
@@ -361,7 +275,7 @@ class Client extends Base
 
         foreach ($lines as $line) {
             if (strpos($line, 'HTTP/1') === 0) {
-                $status = (int) substr($line, 9, 3);
+                $status = (int)substr($line, 9, 3);
             }
         }
 
@@ -369,13 +283,100 @@ class Client extends Base
     }
 
     /**
-     * Get backend used for making HTTP connections
+     * Send a GET HTTP request and parse JSON response
      *
      * @access public
+     * @param string $url
+     * @param string[] $headers
+     * @param bool $raiseForErrors
+     * @return array
+     */
+    public function getJson($url, array $headers = [], $raiseForErrors = false)
+    {
+        $response = $this->doRequest('GET', $url, '', array_merge(['Accept: application/json'], $headers), $raiseForErrors);
+
+        return json_decode($response, true) ?: [];
+    }
+
+    /**
+     * Send a POST HTTP request encoded in JSON
+     *
+     * @access public
+     * @param string $url
+     * @param array $data
+     * @param string[] $headers
+     * @param bool $raiseForErrors
      * @return string
      */
-    public static function backend()
+    public function postJson($url, array $data, array $headers = [], $raiseForErrors = false)
     {
-        return function_exists('curl_version') ? 'cURL' : 'socket';
+        return $this->doRequest(
+            'POST',
+            $url,
+            json_encode($data),
+            array_merge(['Content-type: application/json'], $headers),
+            $raiseForErrors,
+        );
+    }
+
+    /**
+     * Send a POST HTTP request encoded in JSON (Fire and forget)
+     *
+     * @access public
+     * @param string $url
+     * @param array $data
+     * @param string[] $headers
+     * @param bool $raiseForErrors
+     */
+    public function postJsonAsync($url, array $data, array $headers = [], $raiseForErrors = false)
+    {
+        $this->queueManager->push(HttpAsyncJob::getInstance($this->container)->withParams(
+            'POST',
+            $url,
+            json_encode($data),
+            array_merge(['Content-type: application/json'], $headers),
+            $raiseForErrors,
+        ));
+    }
+
+    /**
+     * Send a POST HTTP request encoded in www-form-urlencoded
+     *
+     * @access public
+     * @param string $url
+     * @param array $data
+     * @param string[] $headers
+     * @param bool $raiseForErrors
+     * @return string
+     */
+    public function postForm($url, array $data, array $headers = [], $raiseForErrors = false)
+    {
+        return $this->doRequest(
+            'POST',
+            $url,
+            http_build_query($data),
+            array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
+            $raiseForErrors,
+        );
+    }
+
+    /**
+     * Send a POST HTTP request encoded in www-form-urlencoded (fire and forget)
+     *
+     * @access public
+     * @param string $url
+     * @param array $data
+     * @param string[] $headers
+     * @param bool $raiseForErrors
+     */
+    public function postFormAsync($url, array $data, array $headers = [], $raiseForErrors = false)
+    {
+        $this->queueManager->push(HttpAsyncJob::getInstance($this->container)->withParams(
+            'POST',
+            $url,
+            http_build_query($data),
+            array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
+            $raiseForErrors,
+        ));
     }
 }

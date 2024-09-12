@@ -27,7 +27,7 @@ class UserInviteController extends BaseController
     {
         $values = $this->request->getValues();
 
-        if (! empty($values['emails']) && isset($values['project_id'])) {
+        if (!empty($values['emails']) && isset($values['project_id'])) {
             $emails = explode("\r\n", trim($values['emails']));
             $nb = $this->inviteModel->createInvites($emails, $values['project_id']);
             $this->flash->success($nb > 1 ? t('%d invitations were sent.', $nb) : t('%d invitation was sent.', $nb));
@@ -92,7 +92,7 @@ class UserInviteController extends BaseController
                 $this->projectUserRoleModel->addUser($invite['project_id'], $user_id, Role::PROJECT_MEMBER);
             }
 
-            if (! empty($values['notifications_enabled'])) {
+            if (!empty($values['notifications_enabled'])) {
                 $this->userNotificationTypeModel->saveSelectedTypes($user_id, [MailNotification::TYPE]);
             }
 

@@ -24,7 +24,7 @@ class DatabaseGroupProvider implements GroupProviderInterface
      * Constructor
      *
      * @access public
-     * @param  array $group
+     * @param array $group
      */
     public function __construct(array $group)
     {
@@ -39,7 +39,7 @@ class DatabaseGroupProvider implements GroupProviderInterface
      */
     public function getInternalId()
     {
-        return (int) $this->group['id'];
+        return (int)$this->group['id'];
     }
 
     /**

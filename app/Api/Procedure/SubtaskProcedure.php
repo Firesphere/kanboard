@@ -16,18 +16,21 @@ class SubtaskProcedure extends BaseProcedure
     public function getSubtask($subtask_id)
     {
         SubtaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'getSubtask', $subtask_id);
+
         return $this->subtaskModel->getById($subtask_id);
     }
 
     public function getAllSubtasks($task_id)
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'getAllSubtasks', $task_id);
+
         return $this->subtaskModel->getAll($task_id);
     }
 
     public function removeSubtask($subtask_id)
     {
         SubtaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'removeSubtask', $subtask_id);
+
         return $this->subtaskModel->remove($subtask_id);
     }
 
@@ -44,7 +47,8 @@ class SubtaskProcedure extends BaseProcedure
             'status'         => $status,
         ];
 
-        list($valid, ) = $this->subtaskValidator->validateCreation($values);
+        list($valid,) = $this->subtaskValidator->validateCreation($values);
+
         return $valid ? $this->subtaskModel->create($values) : false;
     }
 
@@ -69,7 +73,8 @@ class SubtaskProcedure extends BaseProcedure
             }
         }
 
-        list($valid, ) = $this->subtaskValidator->validateApiModification($values);
+        list($valid,) = $this->subtaskValidator->validateApiModification($values);
+
         return $valid && $this->subtaskModel->update($values);
     }
 }

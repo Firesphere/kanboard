@@ -24,7 +24,7 @@ class ProjectUserRoleModel extends Base
      * Get the list of active project for the given user
      *
      * @access public
-     * @param  integer  $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getActiveProjectsByUser($user_id)
@@ -36,8 +36,8 @@ class ProjectUserRoleModel extends Base
      * Get the list of project visible for the given user
      *
      * @access public
-     * @param  integer  $user_id
-     * @param  array    $status
+     * @param integer $user_id
+     * @param array $status
      * @return array
      */
     public function getProjectsByUser($user_id, $status = [ProjectModel::ACTIVE, ProjectModel::INACTIVE])
@@ -61,8 +61,8 @@ class ProjectUserRoleModel extends Base
      * For a given project get the role of the specified user
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $user_id
+     * @param integer $project_id
+     * @param integer $user_id
      * @return string
      */
     public function getUserRole($project_id, $user_id)
@@ -83,7 +83,7 @@ class ProjectUserRoleModel extends Base
      * Get all users associated directly to the project
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getUsers($project_id)
@@ -107,7 +107,7 @@ class ProjectUserRoleModel extends Base
      * Get all users (fetch users from groups)
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getAllUsers($project_id)
@@ -123,7 +123,7 @@ class ProjectUserRoleModel extends Base
      * Get users grouped by role
      *
      * @access public
-     * @param  integer   $project_id   Project id
+     * @param integer $project_id Project id
      * @return array
      */
     public function getAllUsersGroupedByRole($project_id)
@@ -135,7 +135,7 @@ class ProjectUserRoleModel extends Base
         $members = array_merge($userMembers, $groupMembers);
 
         foreach ($members as $user) {
-            if (! isset($users[$user['role']])) {
+            if (!isset($users[$user['role']])) {
                 $users[$user['role']] = [];
             }
 
@@ -149,7 +149,7 @@ class ProjectUserRoleModel extends Base
      * Get list of users that can be assigned to a task (only Manager and Member)
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getAssignableUsers($project_id)
@@ -172,10 +172,10 @@ class ProjectUserRoleModel extends Base
      * Get list of users that can be assigned to a task (only Manager and Member)
      *
      * @access public
-     * @param  integer   $project_id    Project id
-     * @param  bool      $unassigned    Prepend the 'Unassigned' value
-     * @param  bool      $everybody     Prepend the 'Everbody' value
-     * @param  bool      $singleUser    If there is only one user return only this user
+     * @param integer $project_id Project id
+     * @param bool $unassigned Prepend the 'Unassigned' value
+     * @param bool $everybody Prepend the 'Everbody' value
+     * @param bool $singleUser If there is only one user return only this user
      * @return array
      */
     public function getAssignableUsersList($project_id, $unassigned = true, $everybody = false, $singleUser = false)
@@ -201,9 +201,9 @@ class ProjectUserRoleModel extends Base
      * Add a user to the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $user_id
-     * @param  string  $role
+     * @param integer $project_id
+     * @param integer $user_id
+     * @param string $role
      * @return boolean
      */
     public function addUser($project_id, $user_id, $role)
@@ -219,8 +219,8 @@ class ProjectUserRoleModel extends Base
      * Remove a user from the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $user_id
+     * @param integer $project_id
+     * @param integer $user_id
      * @return boolean
      */
     public function removeUser($project_id, $user_id)
@@ -232,9 +232,9 @@ class ProjectUserRoleModel extends Base
      * Change a user role for the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $user_id
-     * @param  string  $role
+     * @param integer $project_id
+     * @param integer $user_id
+     * @param string $role
      * @return boolean
      */
     public function changeUserRole($project_id, $user_id, $role)
@@ -250,8 +250,8 @@ class ProjectUserRoleModel extends Base
     /**
      * Copy user access from a project to another one
      *
-     * @param  integer $project_src_id
-     * @param  integer $project_dst_id
+     * @param integer $project_src_id
+     * @param integer $project_dst_id
      * @return boolean
      */
     public function duplicate($project_src_id, $project_dst_id)
@@ -265,7 +265,7 @@ class ProjectUserRoleModel extends Base
                 'role'       => $row['role'],
             ]);
 
-            if (! $result) {
+            if (!$result) {
                 return false;
             }
         }

@@ -2,7 +2,7 @@
     <div class="task-board-header">
         <?= $this->url->link('#' . $task['id'], 'TaskViewController', 'readonly', ['task_id' => $task['id'], 'token' => $project['token']]) ?>
 
-        <?php if (! empty($task['owner_id'])): ?>
+        <?php if (!empty($task['owner_id'])): ?>
             <span class="task-board-assignee">
                 <?= $this->text->e($task['assignee_name'] ?: $task['assignee_username']) ?>
             </span>

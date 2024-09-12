@@ -44,7 +44,7 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
      * Decode event data, supports unserialize() and json_decode()
      *
      * @access protected
-     * @param  string   $data   Serialized data
+     * @param string $data Serialized data
      * @return array
      */
     protected function unserializeEvent($data)
@@ -60,7 +60,7 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
      * Get the event html content
      *
      * @access protected
-     * @param  array     $params    Event properties
+     * @param array $params Event properties
      * @return string
      */
     protected function renderEvent(array $params)

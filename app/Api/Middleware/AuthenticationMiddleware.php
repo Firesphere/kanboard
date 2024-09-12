@@ -21,9 +21,9 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
      * Execute Middleware
      *
      * @access public
-     * @param  string $username
-     * @param  string $password
-     * @param  string $procedureName
+     * @param string $username
+     * @param string $password
+     * @param string $procedureName
      * @throws AccessDeniedException
      * @throws AuthenticationFailureException
      */
@@ -34,7 +34,7 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
 
         if ($this->isUserAuthenticated($username, $password)) {
             $this->userSession->initialize($this->userCacheDecorator->getByUsername($username));
-        } elseif (! $this->isAppAuthenticated($username, $password)) {
+        } elseif (!$this->isAppAuthenticated($username, $password)) {
             $this->logger->error('API authentication failure for ' . $username);
             throw new AuthenticationFailureException('Wrong credentials');
         }
@@ -44,8 +44,8 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
      * Check user credentials
      *
      * @access public
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
      * @return boolean
      */
     private function isUserAuthenticated($username, $password)
@@ -71,8 +71,8 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
      * Check administrative credentials
      *
      * @access public
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
      * @return boolean
      */
     private function isAppAuthenticated($username, $password)

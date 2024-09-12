@@ -17,6 +17,7 @@ class ProjectActivityArchiveCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->projectActivityModel->cleanup(strtotime('-1 year'));
+
         return 0;
     }
 }

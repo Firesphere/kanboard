@@ -14,21 +14,21 @@
     <strong><?= t('Reference currency: %s', $application_currency) ?></strong>
 </div>
 
-<?php if (! empty($rates)): ?>
+<?php if (!empty($rates)): ?>
     <table class="table-striped">
         <tr>
             <th class="column-35"><?= t('Currency') ?></th>
             <th><?= t('Rate') ?></th>
         </tr>
         <?php foreach ($rates as $rate): ?>
-        <tr>
-            <td>
-                <strong><?= $this->text->e($rate['currency']) ?></strong>
-            </td>
-            <td>
-                <?= n($rate['rate']) ?>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <strong><?= $this->text->e($rate['currency']) ?></strong>
+                </td>
+                <td>
+                    <?= n($rate['rate']) ?>
+                </td>
+            </tr>
         <?php endforeach ?>
     </table>
 <?php endif ?>

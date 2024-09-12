@@ -26,7 +26,7 @@ abstract class BaseFilter
      * BaseFilter constructor
      *
      * @access public
-     * @param  mixed $value
+     * @param mixed $value
      */
     public function __construct($value = null)
     {
@@ -38,7 +38,7 @@ abstract class BaseFilter
      *
      * @static
      * @access public
-     * @param  mixed $value
+     * @param mixed $value
      * @return static
      */
     public static function getInstance($value = null)
@@ -50,12 +50,13 @@ abstract class BaseFilter
      * Set query
      *
      * @access public
-     * @param  Table $query
+     * @param Table $query
      * @return $this
      */
     public function withQuery(Table $query)
     {
         $this->query = $query;
+
         return $this;
     }
 
@@ -63,12 +64,13 @@ abstract class BaseFilter
      * Set the value
      *
      * @access public
-     * @param  string $value
+     * @param string $value
      * @return $this
      */
     public function withValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 }

@@ -24,8 +24,8 @@ class ProjectGroupRoleModel extends Base
      * Get the list of project visible by the given user according to groups
      *
      * @access public
-     * @param  integer  $user_id
-     * @param  array    $status
+     * @param integer $user_id
+     * @param array $status
      * @return array
      */
     public function getProjectsByUser($user_id, $status = [ProjectModel::ACTIVE, ProjectModel::INACTIVE])
@@ -43,8 +43,8 @@ class ProjectGroupRoleModel extends Base
      * For a given project get the role of the specified user
      *
      * @access public
-     * @param  integer  $project_id
-     * @param  integer  $user_id
+     * @param integer $project_id
+     * @param integer $user_id
      * @return string
      */
     public function getUserRole($project_id, $user_id)
@@ -62,7 +62,7 @@ class ProjectGroupRoleModel extends Base
      * Get all groups associated directly to the project
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getGroups($project_id)
@@ -79,7 +79,7 @@ class ProjectGroupRoleModel extends Base
      * From groups get all users associated to the project
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getUsers($project_id)
@@ -103,7 +103,7 @@ class ProjectGroupRoleModel extends Base
      * From groups get all users assignable to tasks
      *
      * @access public
-     * @param  integer $project_id
+     * @param integer $project_id
      * @return array
      */
     public function getAssignableUsers($project_id)
@@ -123,9 +123,9 @@ class ProjectGroupRoleModel extends Base
      * Add a group to the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $group_id
-     * @param  string  $role
+     * @param integer $project_id
+     * @param integer $group_id
+     * @param string $role
      * @return boolean
      */
     public function addGroup($project_id, $group_id, $role)
@@ -141,8 +141,8 @@ class ProjectGroupRoleModel extends Base
      * Remove a group from the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $group_id
+     * @param integer $project_id
+     * @param integer $group_id
      * @return boolean
      */
     public function removeGroup($project_id, $group_id)
@@ -154,9 +154,9 @@ class ProjectGroupRoleModel extends Base
      * Change a group role for the project
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $group_id
-     * @param  string  $role
+     * @param integer $project_id
+     * @param integer $group_id
+     * @param string $role
      * @return boolean
      */
     public function changeGroupRole($project_id, $group_id, $role)
@@ -172,8 +172,8 @@ class ProjectGroupRoleModel extends Base
     /**
      * Copy group access from a project to another one
      *
-     * @param  integer   $project_src_id  Project Template
-     * @param  integer   $project_dst_id  Project that receives the copy
+     * @param integer $project_src_id Project Template
+     * @param integer $project_dst_id Project that receives the copy
      * @return boolean
      */
     public function duplicate($project_src_id, $project_dst_id)
@@ -187,7 +187,7 @@ class ProjectGroupRoleModel extends Base
                 'role'       => $row['role'],
             ]);
 
-            if (! $result) {
+            if (!$result) {
                 return false;
             }
         }

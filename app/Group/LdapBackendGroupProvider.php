@@ -21,16 +21,18 @@ class LdapBackendGroupProvider extends Base implements GroupBackendProviderInter
      * Find a group from a search query
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return LdapGroupProvider[]
      */
     public function find($input)
     {
         try {
             $ldap = LdapClient::connect();
+
             return LdapGroup::getGroups($ldap, $this->getLdapGroupPattern($input));
         } catch (LdapException $e) {
             $this->logger->error($e->getMessage());
+
             return [];
         }
     }
@@ -39,7 +41,7 @@ class LdapBackendGroupProvider extends Base implements GroupBackendProviderInter
      * Get LDAP group pattern
      *
      * @access public
-     * @param  string $input
+     * @param string $input
      * @return string
      */
     public function getLdapGroupPattern($input)

@@ -36,7 +36,7 @@ class GroupModel extends Base
      * Get a specific group by id
      *
      * @access public
-     * @param  integer $group_id
+     * @param integer $group_id
      * @return array
      */
     public function getById($group_id)
@@ -48,7 +48,7 @@ class GroupModel extends Base
      * Get a specific group by externalID
      *
      * @access public
-     * @param  string $external_id
+     * @param string $external_id
      * @return array
      */
     public function getByExternalId($external_id)
@@ -60,7 +60,7 @@ class GroupModel extends Base
      * Get specific groups by externalIDs
      *
      * @access public
-     * @param  string[] $external_ids
+     * @param string[] $external_ids
      * @return array
      */
     public function getByExternalIds(array $external_ids)
@@ -87,7 +87,7 @@ class GroupModel extends Base
      * Search groups by name
      *
      * @access public
-     * @param  string  $input
+     * @param string $input
      * @return array
      */
     public function search($input)
@@ -99,7 +99,7 @@ class GroupModel extends Base
      * Remove a group
      *
      * @access public
-     * @param  integer $group_id
+     * @param integer $group_id
      * @return boolean
      */
     public function remove($group_id)
@@ -111,8 +111,8 @@ class GroupModel extends Base
      * Create a new group
      *
      * @access public
-     * @param  string  $name
-     * @param  string  $external_id
+     * @param string $name
+     * @param string $external_id
      * @return integer|boolean
      */
     public function create($name, $external_id = '')
@@ -127,13 +127,14 @@ class GroupModel extends Base
      * Update existing group
      *
      * @access public
-     * @param  array $values
+     * @param array $values
      * @return boolean
      */
     public function update(array $values)
     {
         $updates = $values;
         unset($updates['id']);
+
         return $this->db->table(self::TABLE)->eq('id', $values['id'])->update($updates);
     }
 
@@ -141,8 +142,8 @@ class GroupModel extends Base
      * Get groupId from externalGroupId and create the group if not found
      *
      * @access public
-     * @param  string $name
-     * @param  string $external_id
+     * @param string $name
+     * @param string $external_id
      * @return bool|integer
      */
     public function getOrCreateExternalGroupId($name, $external_id)

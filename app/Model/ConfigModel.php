@@ -16,13 +16,14 @@ class ConfigModel extends SettingModel
      * Get a config variable with in-memory caching
      *
      * @access public
-     * @param  string   $name            Parameter name
-     * @param  string   $default_value   Default value of the parameter
+     * @param string $name Parameter name
+     * @param string $default_value Default value of the parameter
      * @return string
      */
     public function get($name, $default_value = '')
     {
         $options = $this->memoryCache->proxy($this, 'getAll');
+
         return isset($options[$name]) && $options[$name] !== '' ? $options[$name] : $default_value;
     }
 
@@ -52,12 +53,13 @@ class ConfigModel extends SettingModel
      * Replace database file with uploaded one
      *
      * @access public
-     * @param  string $file
+     * @param string $file
      * @return bool
      */
     public function uploadDatabase($file)
     {
         $this->db->closeConnection();
+
         return file_put_contents(DB_FILENAME, gzdecode(file_get_contents($file))) !== false;
     }
 
@@ -96,7 +98,7 @@ class ConfigModel extends SettingModel
      * Regenerate a token
      *
      * @access public
-     * @param  string   $option   Parameter name
+     * @param string $option Parameter name
      * @return boolean
      */
     public function regenerateToken($option)
@@ -108,12 +110,12 @@ class ConfigModel extends SettingModel
      * Prepare data before save
      *
      * @access public
-     * @param  array $values
+     * @param array $values
      * @return array
      */
     public function prepare(array $values)
     {
-        if (! empty($values['application_url']) && substr($values['application_url'], -1) !== '/') {
+        if (!empty($values['application_url']) && substr($values['application_url'], -1) !== '/') {
             $values['application_url'] = $values['application_url'] . '/';
         }
 

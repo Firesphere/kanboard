@@ -18,7 +18,7 @@ class CommentValidator extends BaseValidator
      * Validate comment email creation
      *
      * @access public
-     * @param  array   $values           Required parameters to save an action
+     * @param array $values Required parameters to save an action
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateEmailCreation(array $values)
@@ -44,7 +44,7 @@ class CommentValidator extends BaseValidator
      * Validate comment creation
      *
      * @access public
-     * @param  array   $values           Required parameters to save an action
+     * @param array $values Required parameters to save an action
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateCreation(array $values)
@@ -67,7 +67,7 @@ class CommentValidator extends BaseValidator
      * Validate comment modification
      *
      * @access public
-     * @param  array   $values           Required parameters to save an action
+     * @param array $values Required parameters to save an action
      * @return array   $valid, $errors   [0] = Success or not, [1] = List of errors
      */
     public function validateModification(array $values)

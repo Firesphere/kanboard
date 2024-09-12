@@ -1,18 +1,19 @@
 <div class="dropdown">
-    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $task['id'] ?> <i class="fa fa-caret-down"></i></strong></a>
+    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $task['id'] ?> <i
+                    class="fa fa-caret-down"></i></strong></a>
     <ul>
         <?= $this->hook->render('template:task:dropdown:before-actions', ['task' => $task]) ?>
 
         <?php if ($this->projectRole->canUpdateTask($task)): ?>
             <?php if ($this->projectRole->canChangeAssignee($task) && array_key_exists('owner_id', $task) && $task['owner_id'] != $this->user->getId()): ?>
-            <li>
-                <?= $this->url->icon('hand-o-right', t('Assign to me'), 'TaskModificationController', 'assignToMe', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken(), 'redirect' => isset($redirect) ? $redirect : '']) ?>
-            </li>
+                <li>
+                    <?= $this->url->icon('hand-o-right', t('Assign to me'), 'TaskModificationController', 'assignToMe', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken(), 'redirect' => isset($redirect) ? $redirect : '']) ?>
+                </li>
             <?php endif ?>
             <?php if (array_key_exists('date_started', $task) && empty($task['date_started'])): ?>
-            <li>
-                <?= $this->url->icon('play', t('Set the start date automatically'), 'TaskModificationController', 'start', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken(), 'redirect' => isset($redirect) ? $redirect : '']) ?>
-            </li>
+                <li>
+                    <?= $this->url->icon('play', t('Set the start date automatically'), 'TaskModificationController', 'start', ['task_id' => $task['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken(), 'redirect' => isset($redirect) ? $redirect : '']) ?>
+                </li>
             <?php endif ?>
             <li>
                 <?= $this->modal->large('edit', t('Edit the task'), 'TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>
@@ -66,13 +67,13 @@
             </li>
         <?php endif ?>
         <?php if (isset($task['is_active']) && $this->projectRole->canChangeTaskStatusInColumn($task['project_id'], $task['column_id'])): ?>
-        <li>
-            <?php if ($task['is_active'] == 1): ?>
-                <?= $this->modal->confirm('times', t('Close this task'), 'TaskStatusController', 'close', ['task_id' => $task['id']]) ?>
-            <?php else: ?>
-                <?= $this->modal->confirm('check-square-o', t('Open this task'), 'TaskStatusController', 'open', ['task_id' => $task['id']]) ?>
-            <?php endif ?>
-        </li>
+            <li>
+                <?php if ($task['is_active'] == 1): ?>
+                    <?= $this->modal->confirm('times', t('Close this task'), 'TaskStatusController', 'close', ['task_id' => $task['id']]) ?>
+                <?php else: ?>
+                    <?= $this->modal->confirm('check-square-o', t('Open this task'), 'TaskStatusController', 'open', ['task_id' => $task['id']]) ?>
+                <?php endif ?>
+            </li>
         <?php endif ?>
 
         <?= $this->hook->render('template:task:dropdown', ['task' => $task]) ?>

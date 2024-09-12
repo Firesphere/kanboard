@@ -146,6 +146,7 @@ class UserViewController extends BaseController
             $this->userNotificationModel->saveSettings($user['id'], $values);
             $this->flash->success(t('User updated successfully.'));
             $this->response->redirect($this->helper->url->to('UserViewController', 'notifications', ['user_id' => $user['id']]), true);
+
             return;
         }
 
@@ -172,6 +173,7 @@ class UserViewController extends BaseController
             $this->userMetadataModel->save($user['id'], $values);
             $this->flash->success(t('User updated successfully.'));
             $this->response->redirect($this->helper->url->to('UserViewController', 'integrations', ['user_id' => $user['id']]), true);
+
             return;
         }
 
@@ -214,8 +216,9 @@ class UserViewController extends BaseController
                 $this->flash->failure(t('Unable to update this user.'));
             }
 
-            if (! $this->request->isAjax()) {
+            if (!$this->request->isAjax()) {
                 $this->response->redirect($this->helper->url->to('UserViewController', 'share', ['user_id' => $user['id']]), true);
+
                 return;
             }
 

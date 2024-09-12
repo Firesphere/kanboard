@@ -44,7 +44,7 @@ class LoggingProvider implements ServiceProviderInterface
         }
 
         if ($driver !== null) {
-            if (! DEBUG) {
+            if (!DEBUG) {
                 $driver->setLevel(LogLevel::INFO);
             }
 
@@ -52,6 +52,7 @@ class LoggingProvider implements ServiceProviderInterface
         }
 
         $container['logger'] = $logger;
+
         return $container;
     }
 }

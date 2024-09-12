@@ -30,7 +30,7 @@ class Query
      * Constructor
      *
      * @access public
-     * @param  Client $client
+     * @param Client $client
      */
     public function __construct(Client $client)
     {
@@ -41,10 +41,10 @@ class Query
      * Execute query
      *
      * @access public
-     * @param  string    $baseDn
-     * @param  string    $filter
-     * @param  array     $attributes
-     * @param  integer   $limit
+     * @param string $baseDn
+     * @param string $filter
+     * @param array $attributes
+     * @param integer $limit
      * @return $this
      */
     public function execute($baseDn, $filter, array $attributes, $limit = 0)
@@ -82,7 +82,7 @@ class Query
      */
     public function hasResult()
     {
-        return ! empty($this->entries);
+        return !empty($this->entries);
     }
 
     /**

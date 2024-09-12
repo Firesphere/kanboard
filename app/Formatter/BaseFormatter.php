@@ -25,12 +25,13 @@ abstract class BaseFormatter extends Base
      * Set query
      *
      * @access public
-     * @param  Table $query
+     * @param Table $query
      * @return $this
      */
     public function withQuery(Table $query)
     {
         $this->query = $query;
+
         return $this;
     }
 }

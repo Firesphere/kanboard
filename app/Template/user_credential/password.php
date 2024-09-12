@@ -2,7 +2,8 @@
     <h2><?= t('Password modification') ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('UserCredentialController', 'savePassword', ['user_id' => $user['id']]) ?>">
+<form method="post"
+      action="<?= $this->url->href('UserCredentialController', 'savePassword', ['user_id' => $user['id']]) ?>">
     <?= $this->form->hidden('id', $values) ?>
     <?= $this->form->csrf() ?>
 

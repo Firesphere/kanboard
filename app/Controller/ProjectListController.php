@@ -38,9 +38,9 @@ class ProjectListController extends BaseController
             ->calculate();
 
         $this->response->html($this->helper->layout->app('project_list/listing', [
-            'paginator'   => $paginator,
-            'title'       => t('Projects') . ' (' . $paginator->getTotal() . ')',
-            'values'      => ['search' => $search],
+            'paginator' => $paginator,
+            'title'     => t('Projects') . ' (' . $paginator->getTotal() . ')',
+            'values'    => ['search' => $search],
         ]));
     }
 }

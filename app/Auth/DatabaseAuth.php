@@ -68,8 +68,9 @@ class DatabaseAuth extends Base implements PasswordAuthenticationProviderInterfa
             ->eq('is_active', 1)
             ->findOne();
 
-        if (! empty($user) && password_verify($this->password, $user['password'])) {
+        if (!empty($user) && password_verify($this->password, $user['password'])) {
             $this->userInfo = $user;
+
             return true;
         }
 
@@ -106,7 +107,7 @@ class DatabaseAuth extends Base implements PasswordAuthenticationProviderInterfa
      * Set username
      *
      * @access public
-     * @param  string $username
+     * @param string $username
      */
     public function setUsername($username)
     {
@@ -117,7 +118,7 @@ class DatabaseAuth extends Base implements PasswordAuthenticationProviderInterfa
      * Set password
      *
      * @access public
-     * @param  string $password
+     * @param string $password
      */
     public function setPassword($password)
     {

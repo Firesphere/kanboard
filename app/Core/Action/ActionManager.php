@@ -27,29 +27,14 @@ class ActionManager extends Base
      * Register a new automatic action
      *
      * @access public
-     * @param  ActionBase $action
+     * @param ActionBase $action
      * @return ActionManager
      */
     public function register(ActionBase $action)
     {
         $this->actions[$action->getName()] = $action;
+
         return $this;
-    }
-
-    /**
-     * Get automatic action instance
-     *
-     * @access public
-     * @param  string  $name  Absolute class name with namespace
-     * @return ActionBase
-     */
-    public function getAction($name)
-    {
-        if (isset($this->actions[$name])) {
-            return $this->actions[$name];
-        }
-
-        throw new RuntimeException('Automatic Action Not Found: ' . $name);
     }
 
     /**
@@ -77,7 +62,7 @@ class ActionManager extends Base
      * Get all available action parameters
      *
      * @access public
-     * @param  array  $actions
+     * @param array $actions
      * @return array
      */
     public function getAvailableParameters(array $actions)
@@ -97,10 +82,26 @@ class ActionManager extends Base
     }
 
     /**
+     * Get automatic action instance
+     *
+     * @access public
+     * @param string $name Absolute class name with namespace
+     * @return ActionBase
+     */
+    public function getAction($name)
+    {
+        if (isset($this->actions[$name])) {
+            return $this->actions[$name];
+        }
+
+        throw new RuntimeException('Automatic Action Not Found: ' . $name);
+    }
+
+    /**
      * Get list of compatible events for a given action
      *
      * @access public
-     * @param  string $name
+     * @param string $name
      * @return array
      */
     public function getCompatibleEvents($name)

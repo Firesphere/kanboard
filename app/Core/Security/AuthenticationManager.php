@@ -40,12 +40,13 @@ class AuthenticationManager extends Base
      * Register a new authentication provider
      *
      * @access public
-     * @param  AuthenticationProviderInterface $provider
+     * @param AuthenticationProviderInterface $provider
      * @return AuthenticationManager
      */
     public function register(AuthenticationProviderInterface $provider)
     {
         $this->providers[$provider->getName()] = $provider;
+
         return $this;
     }
 
@@ -53,12 +54,12 @@ class AuthenticationManager extends Base
      * Register a new authentication provider
      *
      * @access public
-     * @param  string $name
+     * @param string $name
      * @return AuthenticationProviderInterface|OAuthAuthenticationProviderInterface|PasswordAuthenticationProviderInterface|PreAuthenticationProviderInterface|OAuthAuthenticationProviderInterface
      */
     public function getProvider($name)
     {
-        if (! isset($this->providers[$name])) {
+        if (!isset($this->providers[$name])) {
             throw new LogicException('Authentication provider not found: ' . $name);
         }
 
@@ -75,10 +76,11 @@ class AuthenticationManager extends Base
     {
         if ($this->userSession->isLogged()) {
             foreach ($this->filterProviders('SessionCheckProviderInterface') as $provider) {
-                if (! $provider->isValidSession()) {
+                if (!$provider->isValidSession()) {
                     $this->logger->debug('Invalidate session for ' . $this->userSession->getUsername());
                     session_flush();
                     $this->preAuthentication();
+
                     return false;
                 }
             }
@@ -98,6 +100,7 @@ class AuthenticationManager extends Base
         foreach ($this->filterProviders('PreAuthenticationProviderInterface') as $provider) {
             if ($provider->authenticate() && $this->userProfile->initialize($provider->getUser())) {
                 $this->dispatcher->dispatch(new AuthSuccessEvent($provider->getName()), self::EVENT_SUCCESS);
+
                 return true;
             }
         }
@@ -109,9 +112,9 @@ class AuthenticationManager extends Base
      * Execute username/password authentication providers
      *
      * @access public
-     * @param  string  $username
-     * @param  string  $password
-     * @param  boolean $fireEvent
+     * @param string $username
+     * @param string $password
+     * @param boolean $fireEvent
      * @return boolean
      */
     public function passwordAuthentication($username, $password, $fireEvent = true)
@@ -140,7 +143,7 @@ class AuthenticationManager extends Base
      * Perform OAuth2 authentication
      *
      * @access public
-     * @param  string  $name
+     * @param string $name
      * @return boolean
      */
     public function oauthAuthentication($name)
@@ -149,6 +152,7 @@ class AuthenticationManager extends Base
 
         if ($provider->authenticate() && $this->userProfile->initialize($provider->getUser())) {
             $this->dispatcher->dispatch(new AuthSuccessEvent($provider->getName()), self::EVENT_SUCCESS);
+
             return true;
         }
 
@@ -178,7 +182,7 @@ class AuthenticationManager extends Base
      * Filter registered providers by interface type
      *
      * @access private
-     * @param  string $interface
+     * @param string $interface
      * @return array
      */
     private function filterProviders($interface)

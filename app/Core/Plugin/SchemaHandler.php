@@ -25,7 +25,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      *
      * @static
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      * @return string
      */
     public static function getSchemaFilename($pluginName)
@@ -38,7 +38,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      *
      * @static
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      * @return boolean
      */
     public static function hasSchema($pluginName)
@@ -50,7 +50,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      * Load plugin schema
      *
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      */
     public function loadSchema($pluginName)
     {
@@ -62,7 +62,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      * Execute plugin schema migrations
      *
      * @access public
-     * @param  string $pluginName
+     * @param string $pluginName
      */
     public function migrateSchema($pluginName)
     {
@@ -95,20 +95,20 @@ class SchemaHandler extends \Kanboard\Core\Base
      * Get current plugin schema version
      *
      * @access public
-     * @param  string  $plugin
+     * @param string $plugin
      * @return integer
      */
     public function getSchemaVersion($plugin)
     {
-        return (int) $this->db->table(self::TABLE_SCHEMA)->eq('plugin', strtolower($plugin))->findOneColumn('version');
+        return (int)$this->db->table(self::TABLE_SCHEMA)->eq('plugin', strtolower($plugin))->findOneColumn('version');
     }
 
     /**
      * Save last plugin schema version
      *
      * @access public
-     * @param  string   $plugin
-     * @param  integer  $version
+     * @param string $plugin
+     * @param integer $version
      * @return boolean
      */
     public function setSchemaVersion($plugin, $version)

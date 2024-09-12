@@ -23,28 +23,16 @@ class OrCriteria implements CriteriaInterface
     protected $filters = [];
 
     /**
-     * Set the Query
-     *
-     * @access public
-     * @param  Table $query
-     * @return CriteriaInterface
-     */
-    public function withQuery(Table $query)
-    {
-        $this->query = $query;
-        return $this;
-    }
-
-    /**
      * Set filter
      *
      * @access public
-     * @param  FilterInterface $filter
+     * @param FilterInterface $filter
      * @return CriteriaInterface
      */
     public function withFilter(FilterInterface $filter)
     {
         $this->filters[] = $filter;
+
         return $this;
     }
 
@@ -63,6 +51,21 @@ class OrCriteria implements CriteriaInterface
         }
 
         $this->query->closeOr();
+
+        return $this;
+    }
+
+    /**
+     * Set the Query
+     *
+     * @access public
+     * @param Table $query
+     * @return CriteriaInterface
+     */
+    public function withQuery(Table $query)
+    {
+        $this->query = $query;
+
         return $this;
     }
 }

@@ -63,13 +63,13 @@ class TaskMoveColumnOnDueDate extends Base
      * Execute the action (close the task)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
         $results = [];
-        $min = (int) $this->getParam('duration') * 86400;
+        $min = (int)$this->getParam('duration') * 86400;
 
         foreach ($data['tasks'] as $task) {
             $duration = $task['date_due'] - time();
@@ -93,7 +93,7 @@ class TaskMoveColumnOnDueDate extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)

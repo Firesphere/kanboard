@@ -173,6 +173,7 @@ class ProjectTagController extends BaseController
 
         if ($this->projectModel->changeGlobalTagUsage($project['id'], $values['enable_global_tags'])) {
             $this->flash->success(t('Project updated successfully.'));
+
             return $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
         } else {
             $this->flash->failure(t('Unable to update this project.'));

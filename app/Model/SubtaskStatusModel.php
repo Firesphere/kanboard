@@ -16,7 +16,7 @@ class SubtaskStatusModel extends Base
      * Get the subtask in progress for this user
      *
      * @access public
-     * @param  integer   $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getSubtaskInProgress($user_id)
@@ -31,7 +31,7 @@ class SubtaskStatusModel extends Base
      * Return true if the user have a subtask in progress
      *
      * @access public
-     * @param  integer   $user_id
+     * @param integer $user_id
      * @return boolean
      */
     public function hasSubtaskInProgress($user_id)
@@ -47,7 +47,7 @@ class SubtaskStatusModel extends Base
      * Change the status of subtask
      *
      * @access public
-     * @param  integer  $subtask_id
+     * @param integer $subtask_id
      * @return boolean|integer
      */
     public function toggleStatus($subtask_id)
@@ -75,7 +75,7 @@ class SubtaskStatusModel extends Base
      * Close all subtasks of a task
      *
      * @access public
-     * @param  integer  $task_id
+     * @param integer $task_id
      * @return boolean
      */
     public function closeAll($task_id)

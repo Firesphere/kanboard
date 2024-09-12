@@ -67,7 +67,7 @@ class UserCreationController extends BaseController
                 $this->projectUserRoleModel->addUser($project_id, $user_id, Role::PROJECT_MEMBER);
             }
 
-            if (! empty($values['notifications_enabled'])) {
+            if (!empty($values['notifications_enabled'])) {
                 $this->userNotificationTypeModel->saveSelectedTypes($user_id, [MailNotification::TYPE]);
             }
 

@@ -21,28 +21,28 @@ abstract class BaseController extends Base
      */
     protected function checkCSRFParam()
     {
-        if (! $this->token->validateCSRFToken($this->request->getStringParam('csrf_token'))) {
+        if (!$this->token->validateCSRFToken($this->request->getStringParam('csrf_token'))) {
             throw new AccessForbiddenException();
         }
     }
 
     protected function checkReusableCSRFParam()
     {
-        if (! $this->token->validateReusableCSRFToken($this->request->getRawValue('csrf_token'))) {
+        if (!$this->token->validateReusableCSRFToken($this->request->getRawValue('csrf_token'))) {
             throw new AccessForbiddenException();
         }
     }
 
     protected function checkReusableGETCSRFParam()
     {
-        if (! $this->token->validateReusableCSRFToken($this->request->getStringParam('csrf_token'))) {
+        if (!$this->token->validateReusableCSRFToken($this->request->getStringParam('csrf_token'))) {
             throw new AccessForbiddenException();
         }
     }
 
     protected function checkCSRFForm()
     {
-        if (! $this->token->validateCSRFToken($this->request->getRawValue('csrf_token'))) {
+        if (!$this->token->validateCSRFToken($this->request->getRawValue('csrf_token'))) {
             throw new AccessForbiddenException();
         }
     }
@@ -116,6 +116,7 @@ abstract class BaseController extends Base
         }
 
         $file['model'] = $model;
+
         return $file;
     }
 
@@ -123,7 +124,7 @@ abstract class BaseController extends Base
      * Common method to get a project
      *
      * @access protected
-     * @param  integer      $project_id    Default project id
+     * @param integer $project_id Default project id
      * @return array
      * @throws PageNotFoundException
      */
@@ -155,7 +156,7 @@ abstract class BaseController extends Base
             throw new PageNotFoundException();
         }
 
-        if (! $this->userSession->isAdmin() && $this->userSession->getId() != $user['id']) {
+        if (!$this->userSession->isAdmin() && $this->userSession->getId() != $user['id']) {
             // Always returns a 404 otherwise people might guess which user exist.
             throw new PageNotFoundException();
         }
@@ -186,7 +187,7 @@ abstract class BaseController extends Base
             throw new PageNotFoundException();
         }
 
-        if (! $this->userSession->isAdmin() && $comment['user_id'] != $this->userSession->getId()) {
+        if (!$this->userSession->isAdmin() && $comment['user_id'] != $this->userSession->getId()) {
             throw new AccessForbiddenException();
         }
 
@@ -324,7 +325,7 @@ abstract class BaseController extends Base
      */
     protected function redirectAfterLogin()
     {
-        if (session_exists('redirectAfterLogin') && ! filter_var(session_get('redirectAfterLogin'), FILTER_VALIDATE_URL)) {
+        if (session_exists('redirectAfterLogin') && !filter_var(session_get('redirectAfterLogin'), FILTER_VALIDATE_URL)) {
             $redirect = session_get('redirectAfterLogin');
             session_remove('redirectAfterLogin');
             $this->response->redirect($redirect);

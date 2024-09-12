@@ -21,6 +21,7 @@ class TaskFileController extends BaseController
 
         if ($this->request->isPost() && $this->taskFileModel->uploadScreenshot($task['id'], $this->request->getValue('screenshot')) !== false) {
             $this->flash->success(t('Screenshot uploaded successfully.'));
+
             return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
         }
 
@@ -56,13 +57,13 @@ class TaskFileController extends BaseController
         $result = $this->taskFileModel->uploadFiles($task['id'], $this->request->getFileInfo('files'));
 
         if ($this->request->isAjax()) {
-            if (! $result) {
+            if (!$result) {
                 $this->response->json(['message' => t('Unable to upload files, check the permissions of your data folder.')], 500);
             } else {
                 $this->response->json(['message' => 'OK']);
             }
         } else {
-            if (! $result) {
+            if (!$result) {
                 $this->flash->failure(t('Unable to upload files, check the permissions of your data folder.'));
             }
 

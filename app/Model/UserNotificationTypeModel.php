@@ -21,12 +21,13 @@ class UserNotificationTypeModel extends NotificationTypeModel
      * Get selected notification types for a given user
      *
      * @access public
-     * @param integer  $user_id
+     * @param integer $user_id
      * @return array
      */
     public function getSelectedTypes($user_id)
     {
         $types = $this->db->table(self::TABLE)->eq('user_id', $user_id)->asc('notification_type')->findAllByColumn('notification_type');
+
         return $this->filterTypes($types);
     }
 
@@ -34,8 +35,8 @@ class UserNotificationTypeModel extends NotificationTypeModel
      * Save notification types for a given user
      *
      * @access public
-     * @param  integer  $user_id
-     * @param  string[] $types
+     * @param integer $user_id
+     * @param string[] $types
      * @return boolean
      */
     public function saveSelectedTypes($user_id, array $types)
@@ -47,6 +48,6 @@ class UserNotificationTypeModel extends NotificationTypeModel
             $results[] = $this->db->table(self::TABLE)->insert(['user_id' => $user_id, 'notification_type' => $type]);
         }
 
-        return ! in_array(false, $results, true);
+        return !in_array(false, $results, true);
     }
 }

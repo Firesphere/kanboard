@@ -1,4 +1,4 @@
-<?php if (! $is_ajax): ?>
+<?php if (!$is_ajax): ?>
     <div class="page-header">
         <h2><?= t('User repartition') ?></h2>
     </div>
@@ -18,17 +18,17 @@
             <th><?= t('Percentage') ?></th>
         </tr>
         <?php foreach ($metrics as $metric): ?>
-        <tr>
-            <td>
-                <?= $this->text->e($metric['user']) ?>
-            </td>
-            <td>
-                <?= $metric['nb_tasks'] ?>
-            </td>
-            <td>
-                <?= n($metric['percentage']) ?>%
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <?= $this->text->e($metric['user']) ?>
+                </td>
+                <td>
+                    <?= $metric['nb_tasks'] ?>
+                </td>
+                <td>
+                    <?= n($metric['percentage']) ?>%
+                </td>
+            </tr>
         <?php endforeach ?>
     </table>
 <?php endif ?>

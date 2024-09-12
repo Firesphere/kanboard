@@ -1,7 +1,8 @@
 <div class="page-header">
     <h2><?= t('Do you really want to close all tasks of this column?') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('BoardPopoverController', 'closeColumnTasks', ['project_id' => $project['id']]) ?>">
+<form method="post"
+      action="<?= $this->url->href('BoardPopoverController', 'closeColumnTasks', ['project_id' => $project['id']]) ?>">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('column_id', $values) ?>
     <?= $this->form->hidden('swimlane_id', $values) ?>

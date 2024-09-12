@@ -33,11 +33,11 @@
     </fieldset>
 
     <?php if ($this->user->isAdmin()): ?>
-    <fieldset>
-        <legend><?= t('Security') ?></legend>
-        <?= $this->form->label(t('Application role'), 'role') ?>
-        <?= $this->form->select('role', $roles, $values, $errors) ?>
-    </fieldset>
+        <fieldset>
+            <legend><?= t('Security') ?></legend>
+            <?= $this->form->label(t('Application role'), 'role') ?>
+            <?= $this->form->select('role', $roles, $values, $errors) ?>
+        </fieldset>
     <?php endif ?>
 
     <?= $this->modal->submitButtons() ?>

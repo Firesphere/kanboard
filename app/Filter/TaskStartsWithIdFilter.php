@@ -33,6 +33,7 @@ class TaskStartsWithIdFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->ilike('CAST(' . TaskModel::TABLE . '.id AS CHAR(8))', $this->value . '%');
+
         return $this;
     }
 }

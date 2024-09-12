@@ -34,8 +34,8 @@ class User
      * Constructor
      *
      * @access public
-     * @param  Query $query
-     * @param  Group  $group
+     * @param Query $query
+     * @param Group $group
      */
     public function __construct(Query $query, Group $group = null)
     {
@@ -48,13 +48,14 @@ class User
      *
      * @static
      * @access public
-     * @param  Client    $client
-     * @param  string    $username
+     * @param Client $client
+     * @param string $username
      * @return LdapUserProvider
      */
     public static function getUser(Client $client, $username)
     {
         $self = new static(new Query($client), new Group(new Query($client)));
+
         return $self->find($self->getLdapUserPattern($username));
     }
 
@@ -62,7 +63,7 @@ class User
      * Find user
      *
      * @access public
-     * @param  string    $query
+     * @param string $query
      * @return LdapUserProvider
      */
     public function find($query)
@@ -78,96 +79,14 @@ class User
     }
 
     /**
-     * Get user groupIds (DN)
+     * Get LDAP user base DN
      *
-     * 1) If configured, use memberUid and posixGroup
-     * 2) Otherwise, use memberOf
-     *
-     * @access protected
-     * @param  Entry   $entry
-     * @return string[]
-     */
-    protected function getGroups(Entry $entry)
-    {
-        $userattr = '';
-        if ('username' == $this->getGroupUserAttribute()) {
-            $userattr = $entry->getFirstValue($this->getAttributeUsername());
-        } elseif ('dn' == $this->getGroupUserAttribute()) {
-            $userattr = $entry->getDn();
-        }
-        $groupIds = [];
-
-        if (! empty($userattr) && $this->group !== null && $this->hasGroupUserFilter()) {
-            $groups = $this->group->find(sprintf($this->getGroupUserFilter(), $userattr));
-
-            foreach ($groups as $group) {
-                $groupIds[] = $group->getExternalId();
-            }
-        } else {
-            $groupIds = $entry->getAll($this->getAttributeGroup());
-        }
-
-        return $groupIds;
-    }
-
-    /**
-     * Get role from LDAP groups
-     *
-     * Note: Do not touch the current role if groups are not configured
-     *
-     * @access protected
-     * @param  string[] $groupIds
+     * @access public
      * @return string
      */
-    protected function getRole(array $groupIds)
+    public function getBaseDn()
     {
-        if (! $this->hasGroupsConfigured()) {
-            return null;
-        }
-
-        if (LDAP_USER_DEFAULT_ROLE_MANAGER) {
-            $role = Role::APP_MANAGER;
-        } else {
-            $role = Role::APP_USER;
-        }
-
-        foreach ($groupIds as $groupId) {
-            $groupId = strtolower($groupId);
-
-            if ($groupId === strtolower($this->getGroupAdminDn())) {
-                $role = Role::APP_ADMIN;
-                break;
-            }
-
-            if ($groupId === strtolower($this->getGroupManagerDn())) {
-                $role = Role::APP_MANAGER;
-            }
-        }
-
-        return $role;
-    }
-
-    /**
-     * Build user profile
-     *
-     * @access protected
-     * @return LdapUserProvider
-     */
-    protected function build()
-    {
-        $entry = $this->query->getEntries()->getFirstEntry();
-        $groupIds = $this->getGroups($entry);
-
-        return new LdapUserProvider(
-            $entry->getDn(),
-            $entry->getFirstValue($this->getAttributeUsername()),
-            $entry->getFirstValue($this->getAttributeName()),
-            $entry->getFirstValue($this->getAttributeEmail()),
-            $this->getRole($groupIds),
-            $groupIds,
-            $entry->getFirstValue($this->getAttributePhoto()),
-            $entry->getFirstValue($this->getAttributeLanguage()),
-        );
+        return LDAP_USER_BASE_DN;
     }
 
     /**
@@ -198,7 +117,7 @@ class User
      */
     public function getAttributeUsername()
     {
-        if (! LDAP_USER_ATTRIBUTE_USERNAME) {
+        if (!LDAP_USER_ATTRIBUTE_USERNAME) {
             throw new LogicException('LDAP username attribute empty, check the parameter LDAP_USER_ATTRIBUTE_USERNAME');
         }
 
@@ -213,7 +132,7 @@ class User
      */
     public function getAttributeName()
     {
-        if (! LDAP_USER_ATTRIBUTE_FULLNAME) {
+        if (!LDAP_USER_ATTRIBUTE_FULLNAME) {
             throw new LogicException('LDAP full name attribute empty, check the parameter LDAP_USER_ATTRIBUTE_FULLNAME');
         }
 
@@ -228,7 +147,7 @@ class User
      */
     public function getAttributeEmail()
     {
-        if (! LDAP_USER_ATTRIBUTE_EMAIL) {
+        if (!LDAP_USER_ATTRIBUTE_EMAIL) {
             throw new LogicException('LDAP email attribute empty, check the parameter LDAP_USER_ATTRIBUTE_EMAIL');
         }
 
@@ -269,14 +188,59 @@ class User
     }
 
     /**
-     * Get LDAP Group User filter
+     * Build user profile
      *
-     * @access public
-     * @return string
+     * @access protected
+     * @return LdapUserProvider
      */
-    public function getGroupUserFilter()
+    protected function build()
     {
-        return LDAP_GROUP_USER_FILTER;
+        $entry = $this->query->getEntries()->getFirstEntry();
+        $groupIds = $this->getGroups($entry);
+
+        return new LdapUserProvider(
+            $entry->getDn(),
+            $entry->getFirstValue($this->getAttributeUsername()),
+            $entry->getFirstValue($this->getAttributeName()),
+            $entry->getFirstValue($this->getAttributeEmail()),
+            $this->getRole($groupIds),
+            $groupIds,
+            $entry->getFirstValue($this->getAttributePhoto()),
+            $entry->getFirstValue($this->getAttributeLanguage()),
+        );
+    }
+
+    /**
+     * Get user groupIds (DN)
+     *
+     * 1) If configured, use memberUid and posixGroup
+     * 2) Otherwise, use memberOf
+     *
+     * @access protected
+     * @param Entry $entry
+     * @return string[]
+     */
+    protected function getGroups(Entry $entry)
+    {
+        $userattr = '';
+        if ('username' == $this->getGroupUserAttribute()) {
+            $userattr = $entry->getFirstValue($this->getAttributeUsername());
+        } elseif ('dn' == $this->getGroupUserAttribute()) {
+            $userattr = $entry->getDn();
+        }
+        $groupIds = [];
+
+        if (!empty($userattr) && $this->group !== null && $this->hasGroupUserFilter()) {
+            $groups = $this->group->find(sprintf($this->getGroupUserFilter(), $userattr));
+
+            foreach ($groups as $group) {
+                $groupIds[] = $group->getExternalId();
+            }
+        } else {
+            $groupIds = $entry->getAll($this->getAttributeGroup());
+        }
+
+        return $groupIds;
     }
 
     /**
@@ -299,6 +263,54 @@ class User
     public function hasGroupUserFilter()
     {
         return $this->getGroupUserFilter() !== '' && $this->getGroupUserFilter() !== null;
+    }
+
+    /**
+     * Get LDAP Group User filter
+     *
+     * @access public
+     * @return string
+     */
+    public function getGroupUserFilter()
+    {
+        return LDAP_GROUP_USER_FILTER;
+    }
+
+    /**
+     * Get role from LDAP groups
+     *
+     * Note: Do not touch the current role if groups are not configured
+     *
+     * @access protected
+     * @param string[] $groupIds
+     * @return string
+     */
+    protected function getRole(array $groupIds)
+    {
+        if (!$this->hasGroupsConfigured()) {
+            return null;
+        }
+
+        if (LDAP_USER_DEFAULT_ROLE_MANAGER) {
+            $role = Role::APP_MANAGER;
+        } else {
+            $role = Role::APP_USER;
+        }
+
+        foreach ($groupIds as $groupId) {
+            $groupId = strtolower($groupId);
+
+            if ($groupId === strtolower($this->getGroupAdminDn())) {
+                $role = Role::APP_ADMIN;
+                break;
+            }
+
+            if ($groupId === strtolower($this->getGroupManagerDn())) {
+                $role = Role::APP_MANAGER;
+            }
+        }
+
+        return $role;
     }
 
     /**
@@ -335,27 +347,16 @@ class User
     }
 
     /**
-     * Get LDAP user base DN
-     *
-     * @access public
-     * @return string
-     */
-    public function getBaseDn()
-    {
-        return LDAP_USER_BASE_DN;
-    }
-
-    /**
      * Get LDAP user pattern
      *
      * @access public
-     * @param  string  $username
-     * @param  string  $filter
+     * @param string $username
+     * @param string $filter
      * @return string
      */
     public function getLdapUserPattern($username, $filter = LDAP_USER_FILTER)
     {
-        if (! $filter) {
+        if (!$filter) {
             throw new LogicException('LDAP user filter empty, check the parameter LDAP_USER_FILTER');
         }
 

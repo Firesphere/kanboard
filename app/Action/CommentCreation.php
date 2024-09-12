@@ -60,12 +60,12 @@ class CommentCreation extends Base
      * Execute the action (create a new comment)
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool            True if the action was executed or false when not executed
      */
     public function doAction(array $data)
     {
-        return (bool) $this->commentModel->create([
+        return (bool)$this->commentModel->create([
             'reference' => isset($data['reference']) ? $data['reference'] : '',
             'comment'   => $data['comment'],
             'task_id'   => $data['task_id'],
@@ -77,11 +77,11 @@ class CommentCreation extends Base
      * Check if the event data meet the action condition
      *
      * @access public
-     * @param  array   $data   Event data dictionary
+     * @param array $data Event data dictionary
      * @return bool
      */
     public function hasRequiredCondition(array $data)
     {
-        return ! empty($data['comment']);
+        return !empty($data['comment']);
     }
 }

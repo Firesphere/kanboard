@@ -19,12 +19,13 @@ class TaskFileEventBuilder extends BaseEventBuilder
     /**
      * Set fileId
      *
-     * @param  int $fileId
+     * @param int $fileId
      * @return $this
      */
     public function withFileId($fileId)
     {
         $this->fileId = $fileId;
+
         return $this;
     }
 
@@ -40,6 +41,7 @@ class TaskFileEventBuilder extends BaseEventBuilder
 
         if (empty($file)) {
             $this->logger->debug(__METHOD__ . ': File not found');
+
             return null;
         }
 
@@ -53,9 +55,9 @@ class TaskFileEventBuilder extends BaseEventBuilder
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithAuthor($author, $eventName, array $eventData)
@@ -75,8 +77,8 @@ class TaskFileEventBuilder extends BaseEventBuilder
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithoutAuthor($eventName, array $eventData)

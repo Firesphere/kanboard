@@ -21,7 +21,7 @@ interface PostAuthenticationProviderInterface extends AuthenticationProviderInte
      * Set user pin-code
      *
      * @access public
-     * @param  string $code
+     * @param string $code
      */
     public function setCode($code);
 
@@ -37,7 +37,7 @@ interface PostAuthenticationProviderInterface extends AuthenticationProviderInte
      * Set secret token (fetched from user profile)
      *
      * @access public
-     * @param  string  $secret
+     * @param string $secret
      */
     public function setSecret($secret);
 
@@ -53,7 +53,7 @@ interface PostAuthenticationProviderInterface extends AuthenticationProviderInte
      * Get key url (empty if no url can be provided)
      *
      * @access public
-     * @param  string $label
+     * @param string $label
      * @return string
      */
     public function getKeyUrl($label);

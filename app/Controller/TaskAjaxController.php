@@ -33,11 +33,11 @@ class TaskAjaxController extends BaseController
         } else {
             $filter = $this->taskQuery->withFilter(new TaskProjectsFilter($project_ids));
 
-            if (! empty($exclude_task_id)) {
+            if (!empty($exclude_task_id)) {
                 $filter->withFilter(new TaskIdExclusionFilter([$exclude_task_id]));
             }
 
-            if (ctype_digit((string) $search)) {
+            if (ctype_digit((string)$search)) {
                 $filter->withFilter(new TaskIdFilter($search));
             } else {
                 $filter->withFilter(new TaskTitleFilter($search));

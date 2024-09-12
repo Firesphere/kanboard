@@ -7,7 +7,7 @@
         'regex' => 'PROJECT_ID',
         'url'   => $this->url->to('BoardViewController', 'show', ['project_id' => 'PROJECT_ID']),
     ],
-    'onFocus' => [
+    'onFocus'     => [
         'board.selector.open',
     ],
 ]) ?>

@@ -46,7 +46,7 @@ class RememberMeAuth extends Base implements PreAuthenticationProviderInterface
         if ($credentials !== false) {
             $session = $this->rememberMeSessionModel->find($credentials['token'], $credentials['sequence']);
 
-            if (! empty($session)) {
+            if (!empty($session)) {
                 $this->rememberMeCookie->write(
                     $session['token'],
                     $this->rememberMeSessionModel->updateSequence($session['token']),

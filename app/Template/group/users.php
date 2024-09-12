@@ -29,12 +29,12 @@
                     </div>
 
                     <?= $this->render('user_list/user_details', [
-                                                    'user' => $user,
-                                                ]) ?>
+                        'user' => $user,
+                    ]) ?>
 
                     <?= $this->render('user_list/user_icons', [
-                                                    'user' => $user,
-                                                ]) ?>
+                        'user' => $user,
+                    ]) ?>
                 </div>
             <?php endforeach ?>
         </div>

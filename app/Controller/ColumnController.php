@@ -77,6 +77,7 @@ class ColumnController extends BaseController
             if ($result !== false) {
                 $this->flash->success(t('Column created successfully.'));
                 $this->response->redirect($this->helper->url->to('ColumnController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $errors['title'] = [t('Another column with the same name exists in the project')];
@@ -134,6 +135,7 @@ class ColumnController extends BaseController
             if ($result) {
                 $this->flash->success(t('Board updated successfully.'));
                 $this->response->redirect($this->helper->url->to('ColumnController', 'index', ['project_id' => $project['id']]), true);
+
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this board.'));
@@ -154,7 +156,7 @@ class ColumnController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getJson();
 
-        if (! empty($values) && isset($values['column_id']) && isset($values['position'])) {
+        if (!empty($values) && isset($values['column_id']) && isset($values['position'])) {
             $result = $this->columnModel->changePosition($project['id'], $values['column_id'], $values['position']);
             $this->response->json(['result' => $result]);
         } else {

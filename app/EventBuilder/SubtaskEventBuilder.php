@@ -33,24 +33,26 @@ class SubtaskEventBuilder extends BaseEventBuilder
     /**
      * Set SubtaskId
      *
-     * @param  int $subtaskId
+     * @param int $subtaskId
      * @return $this
      */
     public function withSubtaskId($subtaskId)
     {
         $this->subtaskId = $subtaskId;
+
         return $this;
     }
 
     /**
      * Set values
      *
-     * @param  array $values
+     * @param array $values
      * @return $this
      */
     public function withValues(array $values)
     {
         $this->values = $values;
+
         return $this;
     }
 
@@ -67,14 +69,16 @@ class SubtaskEventBuilder extends BaseEventBuilder
 
         if (empty($eventData['subtask'])) {
             $this->logger->debug(__METHOD__ . ': Subtask not found');
+
             return null;
         }
 
-        if (! empty($this->values)) {
+        if (!empty($this->values)) {
             $eventData['changes'] = array_diff_assoc($this->values, $eventData['subtask']);
         }
 
         $eventData['task'] = $this->taskFinderModel->getDetails($eventData['subtask']['task_id']);
+
         return new SubtaskEvent($eventData);
     }
 
@@ -82,9 +86,9 @@ class SubtaskEventBuilder extends BaseEventBuilder
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithAuthor($author, $eventName, array $eventData)
@@ -105,8 +109,8 @@ class SubtaskEventBuilder extends BaseEventBuilder
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithoutAuthor($eventName, array $eventData)

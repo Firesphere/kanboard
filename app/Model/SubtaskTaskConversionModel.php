@@ -16,8 +16,8 @@ class SubtaskTaskConversionModel extends Base
      * Convert a subtask to a task
      *
      * @access public
-     * @param  integer $project_id
-     * @param  integer $subtask_id
+     * @param integer $project_id
+     * @param integer $subtask_id
      * @return integer
      */
     public function convertToTask($project_id, $subtask_id)

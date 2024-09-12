@@ -16,7 +16,7 @@ class TaskCreationModel extends Base
      * Create a task
      *
      * @access public
-     * @param  array    $values   Form values
+     * @param array $values Form values
      * @return integer
      */
     public function create(array $values)
@@ -37,7 +37,7 @@ class TaskCreationModel extends Base
                 $this->taskPositionModel->movePosition($values['project_id'], $task_id, $values['column_id'], $position, $values['swimlane_id'], false);
             }
 
-            if (! empty($tags)) {
+            if (!empty($tags)) {
                 $this->taskTagModel->save($values['project_id'], $task_id, $tags);
             }
 
@@ -49,14 +49,14 @@ class TaskCreationModel extends Base
 
         $this->hook->reference('model:task:creation:aftersave', $task_id);
 
-        return (int) $task_id;
+        return (int)$task_id;
     }
 
     /**
      * Prepare data
      *
      * @access protected
-     * @param  array    $values    Form values
+     * @param array $values Form values
      */
     protected function prepare(array &$values)
     {

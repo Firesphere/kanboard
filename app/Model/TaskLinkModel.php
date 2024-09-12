@@ -32,7 +32,7 @@ class TaskLinkModel extends Base
      * Get projectId from $task_link_id
      *
      * @access public
-     * @param  integer $task_link_id
+     * @param integer $task_link_id
      * @return integer
      */
     public function getProjectId($task_link_id)
@@ -48,7 +48,7 @@ class TaskLinkModel extends Base
      * Get a task link
      *
      * @access public
-     * @param  integer   $task_link_id   Task link id
+     * @param integer $task_link_id Task link id
      * @return array
      */
     public function getById($task_link_id)
@@ -72,7 +72,7 @@ class TaskLinkModel extends Base
      * Get the opposite task link (use the unique index task_has_links_unique)
      *
      * @access public
-     * @param  array     $task_link
+     * @param array $task_link
      * @return array
      */
     public function getOppositeTaskLink(array $task_link)
@@ -80,62 +80,62 @@ class TaskLinkModel extends Base
         $opposite_link_id = $this->linkModel->getOppositeLinkId($task_link['link_id']);
 
         return $this->db->table(self::TABLE)
-                    ->eq('opposite_task_id', $task_link['task_id'])
-                    ->eq('task_id', $task_link['opposite_task_id'])
-                    ->eq('link_id', $opposite_link_id)
-                    ->findOne();
+            ->eq('opposite_task_id', $task_link['task_id'])
+            ->eq('task_id', $task_link['opposite_task_id'])
+            ->eq('link_id', $opposite_link_id)
+            ->findOne();
     }
 
     /**
      * Get all links attached to a task
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function getAll($task_id)
     {
         return $this->db
-                    ->table(self::TABLE)
-                    ->columns(
-                        self::TABLE . '.id',
-                        self::TABLE . '.opposite_task_id AS task_id',
-                        LinkModel::TABLE . '.label',
-                        TaskModel::TABLE . '.title',
-                        TaskModel::TABLE . '.is_active',
-                        TaskModel::TABLE . '.project_id',
-                        TaskModel::TABLE . '.column_id',
-                        TaskModel::TABLE . '.color_id',
-                        TaskModel::TABLE . '.date_completed',
-                        TaskModel::TABLE . '.date_started',
-                        TaskModel::TABLE . '.date_due',
-                        TaskModel::TABLE . '.time_spent AS task_time_spent',
-                        TaskModel::TABLE . '.time_estimated AS task_time_estimated',
-                        TaskModel::TABLE . '.owner_id AS task_assignee_id',
-                        UserModel::TABLE . '.username AS task_assignee_username',
-                        UserModel::TABLE . '.name AS task_assignee_name',
-                        ColumnModel::TABLE . '.title AS column_title',
-                        ProjectModel::TABLE . '.name AS project_name',
-                    )
-                    ->eq(self::TABLE . '.task_id', $task_id)
-                    ->join(LinkModel::TABLE, 'id', 'link_id')
-                    ->join(TaskModel::TABLE, 'id', 'opposite_task_id')
-                    ->join(ColumnModel::TABLE, 'id', 'column_id', TaskModel::TABLE)
-                    ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE)
-                    ->join(ProjectModel::TABLE, 'id', 'project_id', TaskModel::TABLE)
-                    ->asc(LinkModel::TABLE . '.id')
-                    ->desc(ColumnModel::TABLE . '.position')
-                    ->desc(TaskModel::TABLE . '.is_active')
-                    ->asc(TaskModel::TABLE . '.position')
-                    ->asc(TaskModel::TABLE . '.id')
-                    ->findAll();
+            ->table(self::TABLE)
+            ->columns(
+                self::TABLE . '.id',
+                self::TABLE . '.opposite_task_id AS task_id',
+                LinkModel::TABLE . '.label',
+                TaskModel::TABLE . '.title',
+                TaskModel::TABLE . '.is_active',
+                TaskModel::TABLE . '.project_id',
+                TaskModel::TABLE . '.column_id',
+                TaskModel::TABLE . '.color_id',
+                TaskModel::TABLE . '.date_completed',
+                TaskModel::TABLE . '.date_started',
+                TaskModel::TABLE . '.date_due',
+                TaskModel::TABLE . '.time_spent AS task_time_spent',
+                TaskModel::TABLE . '.time_estimated AS task_time_estimated',
+                TaskModel::TABLE . '.owner_id AS task_assignee_id',
+                UserModel::TABLE . '.username AS task_assignee_username',
+                UserModel::TABLE . '.name AS task_assignee_name',
+                ColumnModel::TABLE . '.title AS column_title',
+                ProjectModel::TABLE . '.name AS project_name',
+            )
+            ->eq(self::TABLE . '.task_id', $task_id)
+            ->join(LinkModel::TABLE, 'id', 'link_id')
+            ->join(TaskModel::TABLE, 'id', 'opposite_task_id')
+            ->join(ColumnModel::TABLE, 'id', 'column_id', TaskModel::TABLE)
+            ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE)
+            ->join(ProjectModel::TABLE, 'id', 'project_id', TaskModel::TABLE)
+            ->asc(LinkModel::TABLE . '.id')
+            ->desc(ColumnModel::TABLE . '.position')
+            ->desc(TaskModel::TABLE . '.is_active')
+            ->asc(TaskModel::TABLE . '.position')
+            ->asc(TaskModel::TABLE . '.id')
+            ->findAll();
     }
 
     /**
      * Get all links attached to a task grouped by label
      *
      * @access public
-     * @param  integer   $task_id   Task id
+     * @param integer $task_id Task id
      * @return array
      */
     public function getAllGroupedByLabel($task_id)
@@ -144,7 +144,7 @@ class TaskLinkModel extends Base
         $result = [];
 
         foreach ($links as $link) {
-            if (! isset($result[$link['label']])) {
+            if (!isset($result[$link['label']])) {
                 $result[$link['label']] = [];
             }
 
@@ -158,9 +158,9 @@ class TaskLinkModel extends Base
      * Create a new link
      *
      * @access public
-     * @param  integer   $task_id            Task id
-     * @param  integer   $opposite_task_id   Opposite task id
-     * @param  integer   $link_id            Link id
+     * @param integer $task_id Task id
+     * @param integer $opposite_task_id Opposite task id
+     * @param integer $link_id Link id
      * @return integer|boolean
      */
     public function create($task_id, $opposite_task_id, $link_id)
@@ -173,6 +173,7 @@ class TaskLinkModel extends Base
 
         if ($task_link_id1 === false || $task_link_id2 === false) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
@@ -186,10 +187,10 @@ class TaskLinkModel extends Base
      * Update a task link
      *
      * @access public
-     * @param  integer   $task_link_id          Task link id
-     * @param  integer   $task_id               Task id
-     * @param  integer   $opposite_task_id      Opposite task id
-     * @param  integer   $link_id               Link id
+     * @param integer $task_link_id Task link id
+     * @param integer $task_id Task id
+     * @param integer $opposite_task_id Opposite task id
+     * @param integer $link_id Link id
      * @return boolean
      */
     public function update($task_link_id, $task_id, $opposite_task_id, $link_id)
@@ -205,6 +206,7 @@ class TaskLinkModel extends Base
 
         if ($result1 === false || $result2 === false) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
@@ -218,7 +220,7 @@ class TaskLinkModel extends Base
      * Remove a link between two tasks
      *
      * @access public
-     * @param  integer   $task_link_id
+     * @param integer $task_link_id
      * @return boolean
      */
     public function remove($task_link_id)
@@ -244,6 +246,7 @@ class TaskLinkModel extends Base
 
         if ($result1 === false || $result2 === false) {
             $this->db->cancelTransaction();
+
             return false;
         }
 
@@ -256,8 +259,8 @@ class TaskLinkModel extends Base
      * Publish events
      *
      * @access protected
-     * @param  integer[] $task_link_ids
-     * @param  string    $eventName
+     * @param integer[] $task_link_ids
+     * @param string $eventName
      */
     protected function fireEvents(array $task_link_ids, $eventName)
     {
@@ -270,9 +273,9 @@ class TaskLinkModel extends Base
      * Create task link
      *
      * @access protected
-     * @param  integer $task_id
-     * @param  integer $opposite_task_id
-     * @param  integer $link_id
+     * @param integer $task_id
+     * @param integer $opposite_task_id
+     * @param integer $link_id
      * @return integer|boolean
      */
     protected function createTaskLink($task_id, $opposite_task_id, $link_id)
@@ -288,10 +291,10 @@ class TaskLinkModel extends Base
      * Update task link
      *
      * @access protected
-     * @param  integer $task_link_id
-     * @param  integer $task_id
-     * @param  integer $opposite_task_id
-     * @param  integer $link_id
+     * @param integer $task_link_id
+     * @param integer $task_id
+     * @param integer $opposite_task_id
+     * @param integer $link_id
      * @return boolean
      */
     protected function updateTaskLink($task_link_id, $task_id, $opposite_task_id, $link_id)

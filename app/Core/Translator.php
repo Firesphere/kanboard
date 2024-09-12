@@ -50,7 +50,7 @@ class Translator
      * $translator->translate('I have %d kids', 5);
      *
      * @access public
-     * @param  string   $identifier       Default string
+     * @param string $identifier Default string
      * @return string
      */
     public function translate($identifier)
@@ -61,7 +61,7 @@ class Translator
         array_unshift($args, $this->get($identifier, $identifier));
 
         foreach ($args as &$arg) {
-            $arg = htmlspecialchars((string) $arg, ENT_QUOTES, 'UTF-8', false);
+            $arg = htmlspecialchars((string)$arg, ENT_QUOTES, 'UTF-8', false);
         }
 
         return call_user_func_array(
@@ -76,7 +76,7 @@ class Translator
      * $translator->translateNoEscaping('I have %d kids', 5);
      *
      * @access public
-     * @param  string   $identifier       Default string
+     * @param string $identifier Default string
      * @return string
      */
     public function translateNoEscaping($identifier)
@@ -98,7 +98,7 @@ class Translator
      * $translator->number(1234.56);
      *
      * @access public
-     * @param  float    $number   Number to format
+     * @param float $number Number to format
      * @return string
      */
     public function number($number)
@@ -117,7 +117,7 @@ class Translator
      * $translator->currency(1234.56);
      *
      * @access public
-     * @param  float    $amount   Number to format
+     * @param float $amount Number to format
      * @return string
      */
     public function currency($amount)
@@ -143,8 +143,8 @@ class Translator
      * Get an identifier from the translations or return the default
      *
      * @access public
-     * @param  string   $identifier   Locale identifier
-     * @param  string   $default      Default value
+     * @param string $identifier Locale identifier
+     * @param string $default Default value
      * @return string
      */
     public function get($identifier, $default = '')
@@ -161,8 +161,8 @@ class Translator
      *
      * @static
      * @access public
-     * @param  string   $language   Locale code: fr_FR
-     * @param  string   $path       Locale folder
+     * @param string $language Locale code: fr_FR
+     * @param string $path Locale folder
      */
     public static function load($language, $path = '')
     {

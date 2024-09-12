@@ -18,12 +18,13 @@ class TaskLinkEventBuilder extends BaseEventBuilder
     /**
      * Set taskLinkId
      *
-     * @param  int $taskLinkId
+     * @param int $taskLinkId
      * @return $this
      */
     public function withTaskLinkId($taskLinkId)
     {
         $this->taskLinkId = $taskLinkId;
+
         return $this;
     }
 
@@ -39,6 +40,7 @@ class TaskLinkEventBuilder extends BaseEventBuilder
 
         if (empty($taskLink)) {
             $this->logger->debug(__METHOD__ . ': TaskLink not found');
+
             return null;
         }
 
@@ -52,9 +54,9 @@ class TaskLinkEventBuilder extends BaseEventBuilder
      * Get event title with author
      *
      * @access public
-     * @param  string $author
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $author
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithAuthor($author, $eventName, array $eventData)
@@ -72,8 +74,8 @@ class TaskLinkEventBuilder extends BaseEventBuilder
      * Get event title without author
      *
      * @access public
-     * @param  string $eventName
-     * @param  array  $eventData
+     * @param string $eventName
+     * @param array $eventData
      * @return string
      */
     public function buildTitleWithoutAuthor($eventName, array $eventData)

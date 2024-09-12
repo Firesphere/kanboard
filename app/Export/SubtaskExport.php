@@ -27,9 +27,9 @@ class SubtaskExport extends Base
      * Fetch subtasks and return the prepared CSV
      *
      * @access public
-     * @param  integer    $project_id      Project id
-     * @param  mixed      $from            Start date (timestamp or user formatted date)
-     * @param  mixed      $to              End date (timestamp or user formatted date)
+     * @param integer $project_id Project id
+     * @param mixed $from Start date (timestamp or user formatted date)
+     * @param mixed $to End date (timestamp or user formatted date)
      * @return array
      */
     public function export($project_id, $from, $to)
@@ -69,7 +69,7 @@ class SubtaskExport extends Base
      * Format the output of a subtask array
      *
      * @access public
-     * @param  array     $subtask        Subtask properties
+     * @param array $subtask Subtask properties
      * @return array
      */
     public function format(array $subtask)
@@ -91,34 +91,34 @@ class SubtaskExport extends Base
      * Get all subtasks for a given project
      *
      * @access public
-     * @param  integer   $project_id    Project id
-     * @param  mixed     $from          Start date (timestamp or user formatted date)
-     * @param  mixed     $to            End date (timestamp or user formatted date)
+     * @param integer $project_id Project id
+     * @param mixed $from Start date (timestamp or user formatted date)
+     * @param mixed $to End date (timestamp or user formatted date)
      * @return array
      */
     public function getSubtasks($project_id, $from, $to)
     {
-        if (! is_numeric($from)) {
+        if (!is_numeric($from)) {
             $from = $this->dateParser->removeTimeFromTimestamp($this->dateParser->getTimestamp($from));
         }
 
-        if (! is_numeric($to)) {
+        if (!is_numeric($to)) {
             $to = $this->dateParser->removeTimeFromTimestamp(strtotime('+1 day', $this->dateParser->getTimestamp($to)));
         }
 
         return $this->db->table(SubtaskModel::TABLE)
-                        ->eq('project_id', $project_id)
-                        ->columns(
-                            SubtaskModel::TABLE . '.*',
-                            UserModel::TABLE . '.username AS assignee_username',
-                            UserModel::TABLE . '.name AS assignee_name',
-                            TaskModel::TABLE . '.title AS task_title',
-                        )
-                        ->gte('date_creation', $from)
-                        ->lte('date_creation', $to)
-                        ->join(TaskModel::TABLE, 'id', 'task_id')
-                        ->join(UserModel::TABLE, 'id', 'user_id')
-                        ->asc(SubtaskModel::TABLE . '.id')
-                        ->findAll();
+            ->eq('project_id', $project_id)
+            ->columns(
+                SubtaskModel::TABLE . '.*',
+                UserModel::TABLE . '.username AS assignee_username',
+                UserModel::TABLE . '.name AS assignee_name',
+                TaskModel::TABLE . '.title AS task_title',
+            )
+            ->gte('date_creation', $from)
+            ->lte('date_creation', $to)
+            ->join(TaskModel::TABLE, 'id', 'task_id')
+            ->join(UserModel::TABLE, 'id', 'user_id')
+            ->asc(SubtaskModel::TABLE . '.id')
+            ->findAll();
     }
 }

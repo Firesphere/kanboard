@@ -14,12 +14,15 @@
 </div>
 <ul class="panel">
     <li><?= t('Role:') ?> <strong><?= $this->text->e($this->user->getRoleName($user['role'])) ?></strong></li>
-    <li><?= t('Group membership(s):') ?> <strong><?= $this->text->e(implode(', ', $this->user->getUsersGroupNames($user['id'])['full_list'])) ?></strong></li>
+    <li><?= t('Group membership(s):') ?>
+        <strong><?= $this->text->e(implode(', ', $this->user->getUsersGroupNames($user['id'])['full_list'])) ?></strong>
+    </li>
     <li><?= t('Account type:') ?> <strong><?= $user['is_ldap_user'] ? t('Remote') : t('Local') ?></strong></li>
     <li><?= $user['twofactor_activated'] == 1 ? t('Two factor authentication enabled') : t('Two factor authentication disabled') ?></li>
     <li><?= t('Number of failed login:') ?> <strong><?= $user['nb_failed_login'] ?></strong></li>
     <?php if ($user['lock_expiration_date'] != 0): ?>
-        <li><?= t('Account locked until:') ?> <strong><?= $this->dt->datetime($user['lock_expiration_date']) ?></strong></li>
+        <li><?= t('Account locked until:') ?> <strong><?= $this->dt->datetime($user['lock_expiration_date']) ?></strong>
+        </li>
         <?php if ($this->user->isAdmin()): ?>
             <li>
                 <?= $this->url->link(t('Unlock this user'), 'UserCredentialController', 'unlock', ['user_id' => $user['id']], true) ?>
@@ -36,18 +39,23 @@
     <li><?= t('Timezone:') ?> <strong><?= $this->text->in($user['timezone'], $timezones) ?></strong></li>
     <li><?= t('Language:') ?> <strong><?= $this->text->in($user['language'], $languages) ?></strong></li>
     <li><?= t('Custom Filter:') ?> <strong><?= $this->text->e($user['filter']) ?></strong></li>
-    <li><?= t('Notifications:') ?> <strong><?= $user['notifications_enabled'] == 1 ? t('Enabled') : t('Disabled') ?></strong></li>
+    <li><?= t('Notifications:') ?>
+        <strong><?= $user['notifications_enabled'] == 1 ? t('Enabled') : t('Disabled') ?></strong></li>
 </ul>
 
-<?php if (! empty($user['token'])): ?>
+<?php if (!empty($user['token'])): ?>
     <div class="page-header">
         <h2><?= t('Public access') ?></h2>
     </div>
 
     <div class="panel">
         <ul class="no-bullet">
-            <li><strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong></li>
-            <li><strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong></li>
+            <li>
+                <strong><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong>
+            </li>
+            <li>
+                <strong><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'user', ['token' => $user['token']], false, '', '', true) ?></strong>
+            </li>
         </ul>
     </div>
 <?php endif ?>

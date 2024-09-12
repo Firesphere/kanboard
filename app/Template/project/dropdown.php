@@ -1,5 +1,6 @@
 <div class="dropdown">
-    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $project['id'] ?> <i class="fa fa-caret-down"></i></strong></a>
+    <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong>#<?= $project['id'] ?> <i
+                    class="fa fa-caret-down"></i></strong></a>
     <ul>
         <li>
             <?= $this->url->icon('th', t('Board'), 'BoardViewController', 'show', ['project_id' => $project['id']]) ?>

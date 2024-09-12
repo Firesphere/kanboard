@@ -20,19 +20,19 @@ class SearchController extends BaseController
         $nb_tasks = 0;
 
         $paginator = $this->paginator
-                ->setUrl('SearchController', 'index', ['search' => $search])
-                ->setMax(30)
-                ->setOrder(TaskModel::TABLE . '.id')
-                ->setDirection('DESC');
+            ->setUrl('SearchController', 'index', ['search' => $search])
+            ->setMax(30)
+            ->setOrder(TaskModel::TABLE . '.id')
+            ->setDirection('DESC');
 
-        if ($search !== '' && ! empty($projects)) {
+        if ($search !== '' && !empty($projects)) {
             $paginator
                 ->setFormatter($this->taskListFormatter)
                 ->setQuery(
                     $this->taskLexer
-                    ->build($search)
-                    ->withFilter(new TaskProjectsFilter(array_keys($projects)))
-                    ->getQuery(),
+                        ->build($search)
+                        ->withFilter(new TaskProjectsFilter(array_keys($projects)))
+                        ->getQuery(),
                 )
                 ->calculate();
 
@@ -40,7 +40,7 @@ class SearchController extends BaseController
         }
 
         $this->response->html($this->helper->layout->app('search/index', [
-            'values' => [
+            'values'    => [
                 'search'     => $search,
                 'controller' => 'SearchController',
                 'action'     => 'index',
@@ -57,7 +57,7 @@ class SearchController extends BaseController
         $nb_events = count($events);
 
         $this->response->html($this->helper->layout->app('search/activity', [
-            'values' => [
+            'values'    => [
                 'search'     => $search,
                 'controller' => 'SearchController',
                 'action'     => 'activity',
