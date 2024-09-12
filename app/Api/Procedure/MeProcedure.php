@@ -37,11 +37,11 @@ class MeProcedure extends BaseProcedure
             return false;
         }
 
-        $values = array(
-            'name' => $name,
+        $values = [
+            'name'        => $name,
             'description' => $description,
-            'is_private' => 1,
-        );
+            'is_private'  => 1,
+        ];
 
         list($valid, ) = $this->projectValidator->validateCreation($values);
         return $valid ? $this->projectModel->create($values, $this->userSession->getId(), true) : false;

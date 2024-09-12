@@ -14,13 +14,13 @@ use Kanboard\Notification\MailNotification;
  */
 class UserInviteController extends BaseController
 {
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
-        $this->response->html($this->template->render('user_invite/show', array(
+        $this->response->html($this->template->render('user_invite/show', [
             'projects' => $this->projectModel->getList(),
             'errors'   => $errors,
             'values'   => $values,
-        )));
+        ]));
     }
 
     public function save()
@@ -36,20 +36,20 @@ class UserInviteController extends BaseController
         $this->response->redirect($this->helper->url->to('UserListController', 'show'));
     }
 
-    public function signup(array $values = array(), array $errors = array())
+    public function signup(array $values = [], array $errors = [])
     {
         $invite = $this->getInvite();
 
-        $this->response->html($this->helper->layout->app('user_invite/signup', array(
+        $this->response->html($this->helper->layout->app('user_invite/signup', [
             'no_layout'    => true,
             'not_editable' => true,
             'token'        => $invite['token'],
             'errors'       => $errors,
-            'values'       => $values + array('email' => $invite['email']),
+            'values'       => $values + ['email' => $invite['email']],
             'themes'       => $this->themeModel->getThemes(),
             'timezones'    => $this->timezoneModel->getTimezones(true),
             'languages'    => $this->languageModel->getLanguages(true),
-        )));
+        ]));
     }
 
     public function register()
@@ -93,7 +93,7 @@ class UserInviteController extends BaseController
             }
 
             if (! empty($values['notifications_enabled'])) {
-                $this->userNotificationTypeModel->saveSelectedTypes($user_id, array(MailNotification::TYPE));
+                $this->userNotificationTypeModel->saveSelectedTypes($user_id, [MailNotification::TYPE]);
             }
 
             $this->inviteModel->remove($invite['email']);

@@ -40,17 +40,17 @@ if ($this->user->getRole() === Role::APP_USER && $comment['visibility'] !== Role
             <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
             <ul>
                 <li>
-                    <?= $this->url->icon('link', t('Link'), 'TaskViewController', 'show', array('task_id' => $task['id']), false, '', '', $this->app->isAjax(), 'comment-'.$comment['id']) ?>
+                    <?= $this->url->icon('link', t('Link'), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', '', $this->app->isAjax(), 'comment-' . $comment['id']) ?>
                 </li>
                 <li data-comment-id="<?= $comment['id'] ?>">
-                    <?= $this->url->icon('reply', t('Reply'), 'TaskViewController', 'show', array('task_id' => $task['id']), false, 'js-reply-to-comment', '', $this->app->isAjax(), 'form-task_id') ?>
+                    <?= $this->url->icon('reply', t('Reply'), 'TaskViewController', 'show', ['task_id' => $task['id']], false, 'js-reply-to-comment', '', $this->app->isAjax(), 'form-task_id') ?>
                 </li>
                 <?php if ($editable && ($this->user->isAdmin() || $this->user->isCurrentUser($comment['user_id']))): ?>
                     <li>
-                        <?= $this->modal->medium('edit', t('Edit'), 'CommentController', 'edit', array('task_id' => $task['id'], 'comment_id' => $comment['id'])) ?>
+                        <?= $this->modal->medium('edit', t('Edit'), 'CommentController', 'edit', ['task_id' => $task['id'], 'comment_id' => $comment['id']]) ?>
                     </li>
                     <li>
-                        <?= $this->modal->confirm('trash-o', t('Remove'), 'CommentController', 'confirm', array('task_id' => $task['id'], 'comment_id' => $comment['id'])) ?>
+                        <?= $this->modal->confirm('trash-o', t('Remove'), 'CommentController', 'confirm', ['task_id' => $task['id'], 'comment_id' => $comment['id']]) ?>
                     </li>
                 <?php endif ?>
             </ul>

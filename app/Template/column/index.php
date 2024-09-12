@@ -2,7 +2,7 @@
     <h2><?= t('Edit the board for "%s"', $project['name']) ?></h2>
     <ul>
         <li>
-            <?= $this->modal->medium('plus', t('Add a new column'), 'ColumnController', 'create', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('plus', t('Add a new column'), 'ColumnController', 'create', ['project_id' => $project['id']]) ?>
         </li>
     </ul>
 </div>
@@ -12,7 +12,7 @@
 <?php else: ?>
     <table
         class="columns-table table-striped"
-        data-save-position-url="<?= $this->url->href('ColumnController', 'move', array('project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>">
+        data-save-position-url="<?= $this->url->href('ColumnController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
         <thead>
         <tr>
             <th><?= t('Column') ?></th>
@@ -31,11 +31,11 @@
                     <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                     <ul>
                         <li>
-                            <?= $this->modal->medium('edit', t('Edit'), 'ColumnController', 'edit', array('project_id' => $project['id'], 'column_id' => $column['id'])) ?>
+                            <?= $this->modal->medium('edit', t('Edit'), 'ColumnController', 'edit', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
                         </li>
                         <?php if ($column['nb_open_tasks'] == 0 && $column['nb_closed_tasks'] == 0): ?>
                             <li>
-                                <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnController', 'confirm', array('project_id' => $project['id'], 'column_id' => $column['id'])) ?>
+                                <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnController', 'confirm', ['project_id' => $project['id'], 'column_id' => $column['id']]) ?>
                             </li>
                         <?php endif ?>
                     </ul>

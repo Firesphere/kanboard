@@ -27,7 +27,7 @@ class TaskEventBuilder extends BaseEventBuilder
      * @access protected
      * @var array
      */
-    protected $task = array();
+    protected $task = [];
 
     /**
      * Extra values
@@ -35,7 +35,7 @@ class TaskEventBuilder extends BaseEventBuilder
      * @access protected
      * @var array
      */
-    protected $values = array();
+    protected $values = [];
 
     /**
      * Changed values
@@ -43,7 +43,7 @@ class TaskEventBuilder extends BaseEventBuilder
      * @access protected
      * @var array
      */
-    protected $changes = array();
+    protected $changes = [];
 
     /**
      * Set TaskId
@@ -101,12 +101,12 @@ class TaskEventBuilder extends BaseEventBuilder
      */
     public function buildEvent()
     {
-        $eventData = array();
+        $eventData = [];
         $eventData['task_id'] = $this->taskId;
         $eventData['task'] = $this->taskFinderModel->getDetails($this->taskId);
 
         if (empty($eventData['task'])) {
-            $this->logger->debug(__METHOD__.': Task not found');
+            $this->logger->debug(__METHOD__ . ': Task not found');
             return null;
         }
 
@@ -156,14 +156,14 @@ class TaskEventBuilder extends BaseEventBuilder
                     $author,
                     $eventData['task']['id'],
                     $eventData['task']['title'],
-                    $eventData['task']['project_name']
+                    $eventData['task']['project_name'],
                 );
             case TaskModel::EVENT_MOVE_COLUMN:
                 return e(
                     '%s moved the task #%d to the column "%s"',
                     $author,
                     $eventData['task']['id'],
-                    $eventData['task']['column_title']
+                    $eventData['task']['column_title'],
                 );
             case TaskModel::EVENT_MOVE_POSITION:
                 return e(
@@ -171,7 +171,7 @@ class TaskEventBuilder extends BaseEventBuilder
                     $author,
                     $eventData['task']['id'],
                     $eventData['task']['position'],
-                    $eventData['task']['column_title']
+                    $eventData['task']['column_title'],
                 );
             case TaskModel::EVENT_MOVE_SWIMLANE:
                 if ($eventData['task']['swimlane_id'] == 0) {
@@ -182,7 +182,7 @@ class TaskEventBuilder extends BaseEventBuilder
                     '%s moved the task #%d to the swimlane "%s"',
                     $author,
                     $eventData['task']['id'],
-                    $eventData['task']['swimlane_name']
+                    $eventData['task']['swimlane_name'],
                 );
 
             case TaskModel::EVENT_USER_MENTION:

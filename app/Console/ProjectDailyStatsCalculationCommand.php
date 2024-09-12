@@ -20,7 +20,7 @@ class ProjectDailyStatsCalculationCommand extends BaseCommand
         $projects = $this->projectModel->getAllByStatus(ProjectModel::ACTIVE);
 
         foreach ($projects as $project) {
-            $output->writeln('Run calculation for '.$project['name']);
+            $output->writeln('Run calculation for ' . $project['name']);
             $this->projectDailyColumnStatsModel->updateTotals($project['id'], date('Y-m-d'));
             $this->projectDailyStatsModel->updateTotals($project['id'], date('Y-m-d'));
         }

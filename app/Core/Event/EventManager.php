@@ -2,9 +2,9 @@
 
 namespace Kanboard\Core\Event;
 
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\SubtaskModel;
 use Kanboard\Model\TaskLinkModel;
+use Kanboard\Model\TaskModel;
 
 /**
  * Event Manager
@@ -20,7 +20,7 @@ class EventManager
      * @access private
      * @var array
      */
-    private $events = array();
+    private $events = [];
 
     /**
      * Add new event
@@ -44,7 +44,7 @@ class EventManager
      */
     public function getAll()
     {
-        $events = array(
+        $events = [
             TaskLinkModel::EVENT_CREATE_UPDATE => t('Task link creation or modification'),
             TaskModel::EVENT_MOVE_COLUMN       => t('Move a task to another column'),
             TaskModel::EVENT_UPDATE            => t('Task modification'),
@@ -56,7 +56,7 @@ class EventManager
             TaskModel::EVENT_DAILY_CRONJOB     => t('Daily background job for tasks'),
             TaskModel::EVENT_MOVE_SWIMLANE     => t('Move a task to another swimlane'),
             SubtaskModel::EVENT_CREATE_UPDATE  => t('Subtask creation or modification'),
-        );
+        ];
 
         $events = array_merge($events, $this->events);
         asort($events);

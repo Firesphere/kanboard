@@ -24,14 +24,14 @@ class DatabaseBackendUserProvider extends Base implements UserBackendProviderInt
      */
     public function find($input)
     {
-        $result = array();
+        $result = [];
 
         $users = $this->userQuery->withFilter(new UserNameFilter($input))
             ->getQuery()
-            ->columns(UserModel::TABLE.'.id', UserModel::TABLE.'.username', UserModel::TABLE.'.name')
-            ->eq(UserModel::TABLE.'.is_active', 1)
-            ->asc(UserModel::TABLE.'.name')
-            ->asc(UserModel::TABLE.'.username')
+            ->columns(UserModel::TABLE . '.id', UserModel::TABLE . '.username', UserModel::TABLE . '.name')
+            ->eq(UserModel::TABLE . '.is_active', 1)
+            ->asc(UserModel::TABLE . '.name')
+            ->asc(UserModel::TABLE . '.username')
             ->findAll();
 
         foreach ($users as $user) {

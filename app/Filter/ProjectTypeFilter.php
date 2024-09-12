@@ -21,7 +21,7 @@ class ProjectTypeFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('type');
+        return ['type'];
     }
 
     /**
@@ -33,11 +33,11 @@ class ProjectTypeFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(ProjectModel::TABLE.'.is_private', $this->value);
+            $this->query->eq(ProjectModel::TABLE . '.is_private', $this->value);
         } elseif ($this->value === 'private') {
-            $this->query->eq(ProjectModel::TABLE.'.is_private', ProjectModel::TYPE_PRIVATE);
+            $this->query->eq(ProjectModel::TABLE . '.is_private', ProjectModel::TYPE_PRIVATE);
         } else {
-            $this->query->eq(ProjectModel::TABLE.'.is_private', ProjectModel::TYPE_TEAM);
+            $this->query->eq(ProjectModel::TABLE . '.is_private', ProjectModel::TYPE_TEAM);
         }
 
         return $this;

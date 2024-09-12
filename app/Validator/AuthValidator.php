@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Gregwar\Captcha\CaptchaBuilder;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Gregwar\Captcha\CaptchaBuilder;
 
 /**
  * Authentication Validator
@@ -23,7 +23,7 @@ class AuthValidator extends BaseValidator
      */
     public function validateForm(array $values)
     {
-        return $this->executeValidators(array('validateFields', 'validateLocking', 'validateCaptcha', 'validateCredentials'), $values);
+        return $this->executeValidators(['validateFields', 'validateLocking', 'validateCaptcha', 'validateCredentials'], $values);
     }
 
     /**
@@ -35,16 +35,16 @@ class AuthValidator extends BaseValidator
      */
     protected function validateFields(array $values)
     {
-        $v = new Validator($values, array(
+        $v = new Validator($values, [
             new Validators\Required('username', t('The username is required')),
             new Validators\MaxLength('username', t('The maximum length is %d characters', 191), 191),
             new Validators\Required('password', t('The password is required')),
-        ));
+        ]);
 
-        return array(
+        return [
             $v->execute(),
             $v->getErrors(),
-        );
+        ];
     }
 
     /**
@@ -57,15 +57,15 @@ class AuthValidator extends BaseValidator
     protected function validateLocking(array $values)
     {
         $result = true;
-        $errors = array();
+        $errors = [];
 
         if ($this->userLockingModel->isLocked($values['username'])) {
             $result = false;
             $errors['login'] = t('Your account is locked for %d minutes', BRUTEFORCE_LOCKDOWN_DURATION);
-            $this->logger->error('Account locked: '.$values['username']);
+            $this->logger->error('Account locked: ' . $values['username']);
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 
     /**
@@ -78,14 +78,14 @@ class AuthValidator extends BaseValidator
     protected function validateCredentials(array $values)
     {
         $result = true;
-        $errors = array();
+        $errors = [];
 
         if (! $this->authenticationManager->passwordAuthentication($values['username'], $values['password'])) {
             $result = false;
             $errors['login'] = t('Bad username or password');
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 
     /**
@@ -98,7 +98,7 @@ class AuthValidator extends BaseValidator
     protected function validateCaptcha(array $values)
     {
         $result = true;
-        $errors = array();
+        $errors = [];
 
         if ($this->userLockingModel->hasCaptcha($values['username'])) {
             if (! session_exists('captcha')) {
@@ -114,6 +114,6 @@ class AuthValidator extends BaseValidator
             }
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 }

@@ -2,7 +2,7 @@
     <?= e(
         '%s created a subtask for the task %s',
         $this->text->e($author),
-        $this->url->link(t('#%d', $task['id']), 'TaskViewController', 'show', array('task_id' => $task['id']))
+        $this->url->link(t('#%d', $task['id']), 'TaskViewController', 'show', ['task_id' => $task['id']]),
     ) ?>
     <small class="activity-date"><?= $this->dt->datetime($date_creation) ?></small>
 </p>

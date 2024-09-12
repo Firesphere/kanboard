@@ -13,23 +13,23 @@
     <?php endif ?>
 
     <?php if ($project['is_public']): ?>
-        <li><?= $this->url->icon('share-alt', t('Public link'), 'BoardViewController', 'readonly', array('token' => $project['token']), false, '', '', true) ?></li>
-        <li><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'project', array('token' => $project['token']), false, '', '', true) ?></li>
-        <li><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'project', array('token' => $project['token'])) ?></li>
+        <li><?= $this->url->icon('share-alt', t('Public link'), 'BoardViewController', 'readonly', ['token' => $project['token']], false, '', '', true) ?></li>
+        <li><?= $this->url->icon('rss-square', t('RSS feed'), 'FeedController', 'project', ['token' => $project['token']], false, '', '', true) ?></li>
+        <li><?= $this->url->icon('calendar', t('iCal feed'), 'ICalendarController', 'project', ['token' => $project['token']]) ?></li>
     <?php else: ?>
         <li><?= t('Public access disabled') ?></li>
     <?php endif ?>
 
     <?php if ($project['last_modified']): ?>
-        <li><?= t('Modified:').' '.$this->dt->datetime($project['last_modified']) ?></li>
+        <li><?= t('Modified:') . ' ' . $this->dt->datetime($project['last_modified']) ?></li>
     <?php endif ?>
 
     <?php if ($project['start_date']): ?>
-        <li><?= t('Start date: ').$this->dt->date($project['start_date']) ?></li>
+        <li><?= t('Start date: ') . $this->dt->date($project['start_date']) ?></li>
     <?php endif ?>
 
     <?php if ($project['end_date']): ?>
-        <li><?= t('End date: ').$this->dt->date($project['end_date']) ?></li>
+        <li><?= t('End date: ') . $this->dt->date($project['end_date']) ?></li>
     <?php endif ?>
 
     <?php if ($project['per_swimlane_task_limits']): ?>

@@ -67,7 +67,7 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('subtask:assignee');
+        return ['subtask:assignee'];
     }
 
     /**
@@ -78,7 +78,7 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->inSubquery(TaskModel::TABLE.'.id', $this->getSubQuery());
+        $this->query->inSubquery(TaskModel::TABLE . '.id', $this->getSubQuery());
     }
 
     /**
@@ -90,9 +90,9 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
     protected function getSubQuery()
     {
         $subquery = $this->db->table(SubtaskModel::TABLE)
-            ->columns(SubtaskModel::TABLE.'.task_id')
+            ->columns(SubtaskModel::TABLE . '.task_id')
             ->join(UserModel::TABLE, 'id', 'user_id', SubtaskModel::TABLE)
-            ->neq(SubtaskModel::TABLE.'.status', SubtaskModel::STATUS_DONE);
+            ->neq(SubtaskModel::TABLE . '.status', SubtaskModel::STATUS_DONE);
 
         return $this->applySubQueryFilter($subquery);
     }
@@ -107,22 +107,22 @@ class TaskSubtaskAssigneeFilter extends BaseFilter implements FilterInterface
     protected function applySubQueryFilter(Table $subquery)
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $subquery->eq(SubtaskModel::TABLE.'.user_id', $this->value);
+            $subquery->eq(SubtaskModel::TABLE . '.user_id', $this->value);
         } else {
             switch ($this->value) {
                 case 'me':
-                    $subquery->eq(SubtaskModel::TABLE.'.user_id', $this->currentUserId);
+                    $subquery->eq(SubtaskModel::TABLE . '.user_id', $this->currentUserId);
                     break;
                 case 'nobody':
-                    $subquery->eq(SubtaskModel::TABLE.'.user_id', 0);
+                    $subquery->eq(SubtaskModel::TABLE . '.user_id', 0);
                     break;
                 case 'anybody':
-                    $subquery->gt(SubtaskModel::TABLE.'.user_id', 0);
+                    $subquery->gt(SubtaskModel::TABLE . '.user_id', 0);
                     break;
                 default:
                     $subquery->beginOr();
-                    $subquery->ilike(UserModel::TABLE.'.username', $this->value.'%');
-                    $subquery->ilike(UserModel::TABLE.'.name', '%'.$this->value.'%');
+                    $subquery->ilike(UserModel::TABLE . '.username', $this->value . '%');
+                    $subquery->ilike(UserModel::TABLE . '.name', '%' . $this->value . '%');
                     $subquery->closeOr();
             }
         }

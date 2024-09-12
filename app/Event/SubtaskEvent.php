@@ -2,6 +2,4 @@
 
 namespace Kanboard\Event;
 
-class SubtaskEvent extends GenericEvent
-{
-}
+class SubtaskEvent extends GenericEvent {}

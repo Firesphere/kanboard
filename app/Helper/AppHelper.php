@@ -14,17 +14,17 @@ class AppHelper extends Base
 {
     public function tooltipMarkdown($markdownText, $icon = 'fa-info-circle')
     {
-        return '<span class="tooltip"><i class="fa '.$icon.'"></i><script type="text/template"><div class="markdown">'.$this->helper->text->markdown($markdownText).'</div></script></span>';
+        return '<span class="tooltip"><i class="fa ' . $icon . '"></i><script type="text/template"><div class="markdown">' . $this->helper->text->markdown($markdownText) . '</div></script></span>';
     }
 
     public function tooltipHTML($htmlText, $icon = 'fa-info-circle')
     {
-        return '<span class="tooltip"><i class="fa '.$icon.'"></i><script type="text/template"><div class="markdown">'.$htmlText.'</div></script></span>';
+        return '<span class="tooltip"><i class="fa ' . $icon . '"></i><script type="text/template"><div class="markdown">' . $htmlText . '</div></script></span>';
     }
 
     public function tooltipLink($label, $link)
     {
-        return '<span class="tooltip" data-href="'.$link.'">'.$label.'</span>';
+        return '<span class="tooltip" data-href="' . $link . '">' . $label . '</span>';
     }
 
     public function getToken()
@@ -44,9 +44,9 @@ class AppHelper extends Base
      * @param  array  $params
      * @return string
      */
-    public function component($name, array $params = array())
+    public function component($name, array $params = [])
     {
-        return '<div class="js-'.$name.'" data-params=\''.json_encode($params, JSON_HEX_APOS).'\'></div>';
+        return '<div class="js-' . $name . '" data-params=\'' . json_encode($params, JSON_HEX_APOS) . '\'></div>';
     }
 
     /**
@@ -186,11 +186,11 @@ class AppHelper extends Base
         $failure_message = $this->flash->getMessage('failure');
 
         if (! empty($success_message)) {
-            return '<div class="alert alert-success alert-fade-out">'.$this->helper->text->e($success_message).'</div>';
+            return '<div class="alert alert-success alert-fade-out">' . $this->helper->text->e($success_message) . '</div>';
         }
 
         if (! empty($failure_message)) {
-            return '<div class="alert alert-error">'.$this->helper->text->e($failure_message).'</div>';
+            return '<div class="alert alert-error">' . $this->helper->text->e($failure_message) . '</div>';
         }
 
         return '';

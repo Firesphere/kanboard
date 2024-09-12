@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'CategoryController',
         'remove',
-        array('project_id' => $project['id'], 'category_id' => $category['id'])
+        ['project_id' => $project['id'], 'category_id' => $category['id']],
     ) ?>
 </div>

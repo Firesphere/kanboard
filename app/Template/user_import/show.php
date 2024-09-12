@@ -34,5 +34,5 @@
     <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
     <?php endif ?>
 
-    <?= $this->modal->submitButtons(array('submitLabel' => t('Import'))) ?>
+    <?= $this->modal->submitButtons(['submitLabel' => t('Import')]) ?>
 </form>

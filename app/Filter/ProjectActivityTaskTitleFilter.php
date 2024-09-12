@@ -20,6 +20,6 @@ class ProjectActivityTaskTitleFilter extends TaskTitleFilter implements FilterIn
      */
     public function getAttributes()
     {
-        return array('title');
+        return ['title'];
     }
 }

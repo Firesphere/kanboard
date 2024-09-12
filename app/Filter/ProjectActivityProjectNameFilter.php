@@ -21,7 +21,7 @@ class ProjectActivityProjectNameFilter extends BaseFilter implements FilterInter
      */
     public function getAttributes()
     {
-        return array('project');
+        return ['project'];
     }
 
     /**
@@ -32,7 +32,7 @@ class ProjectActivityProjectNameFilter extends BaseFilter implements FilterInter
      */
     public function apply()
     {
-        $this->query->ilike(ProjectModel::TABLE.'.name', '%'.$this->value.'%');
+        $this->query->ilike(ProjectModel::TABLE . '.name', '%' . $this->value . '%');
         return $this;
     }
 }

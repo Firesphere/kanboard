@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'LinkController',
         'remove',
-        array('link_id' => $link['id'])
+        ['link_id' => $link['id']],
     ) ?>
 </div>

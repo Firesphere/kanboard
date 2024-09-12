@@ -2,9 +2,9 @@
 
 namespace Kanboard\Console;
 
+use Kanboard\Core\Security\Role;
 use Kanboard\Model\ProjectModel;
 use Kanboard\Model\TaskModel;
-use Kanboard\Core\Security\Role;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -29,8 +29,8 @@ class TaskOverdueNotificationCommand extends BaseCommand
         if ($input->getOption('project')) {
             $tasks = $this->taskFinderModel->getOverdueTasksQuery()
                 ->beginOr()
-                ->eq(TaskModel::TABLE.'.project_id', $input->getOption('project'))
-                ->eq(ProjectModel::TABLE.'.identifier', $input->getOption('project'))
+                ->eq(TaskModel::TABLE . '.project_id', $input->getOption('project'))
+                ->eq(ProjectModel::TABLE . '.identifier', $input->getOption('project'))
                 ->closeOr()
                 ->findAll();
         } else {
@@ -53,22 +53,22 @@ class TaskOverdueNotificationCommand extends BaseCommand
 
     public function showTable(OutputInterface $output, array $tasks)
     {
-        $rows = array();
+        $rows = [];
 
         foreach ($tasks as $task) {
-            $rows[] = array(
+            $rows[] = [
                 $task['id'],
                 $task['title'],
                 date('Y-m-d H:i', $task['date_due']),
                 $task['project_id'],
                 $task['project_name'],
                 $task['assignee_name'] ?: $task['assignee_username'],
-            );
+            ];
         }
 
         $table = new Table($output);
         $table
-            ->setHeaders(array('Id', 'Title', 'Due date', 'Project Id', 'Project name', 'Assignee'))
+            ->setHeaders(['Id', 'Title', 'Due date', 'Project Id', 'Project name', 'Assignee'])
             ->setRows($rows)
             ->render();
     }
@@ -104,7 +104,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
     {
         foreach ($this->groupByColumn($tasks, 'project_id') as $project_id => $project_tasks) {
             $users = $this->userNotificationModel->getUsersWithNotificationEnabled($project_id);
-            $managers = array();
+            $managers = [];
 
             foreach ($users as $user) {
                 $role = $this->projectUserRoleModel->getUserRole($project_id, $user['id']);
@@ -150,11 +150,11 @@ class TaskOverdueNotificationCommand extends BaseCommand
      */
     public function sendUserOverdueTaskNotifications(array $user, array $tasks)
     {
-        $user_tasks = array();
-        $project_names = array();
+        $user_tasks = [];
+        $project_names = [];
 
         foreach ($tasks as $task) {
-            if ($this->userNotificationFilterModel->shouldReceiveNotification($user, array('task' => $task))) {
+            if ($this->userNotificationFilterModel->shouldReceiveNotification($user, ['task' => $task])) {
                 $user_tasks[] = $task;
                 $project_names[$task['project_id']] = $task['project_name'];
             }
@@ -164,7 +164,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
             $this->userNotificationModel->sendUserNotification(
                 $user,
                 TaskModel::EVENT_OVERDUE,
-                array('tasks' => $user_tasks, 'project_name' => implode(', ', $project_names))
+                ['tasks' => $user_tasks, 'project_name' => implode(', ', $project_names)],
             );
         }
     }
@@ -181,7 +181,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
         $this->userNotificationModel->sendUserNotification(
             $manager,
             TaskModel::EVENT_OVERDUE,
-            array('tasks' => $tasks, 'project_name' => $tasks[0]['project_name'])
+            ['tasks' => $tasks, 'project_name' => $tasks[0]['project_name']],
         );
     }
 
@@ -195,7 +195,7 @@ class TaskOverdueNotificationCommand extends BaseCommand
      */
     public function groupByColumn(array $collection, $column)
     {
-        $result = array();
+        $result = [];
 
         foreach ($collection as $item) {
             $result[$item[$column]][] = $item;

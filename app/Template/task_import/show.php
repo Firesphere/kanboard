@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('Tasks Importation') ?></h2>
 </div>
-<form action="<?= $this->url->href('TaskImportController', 'save', array('project_id' => $project['id'])) ?>" method="post" enctype="multipart/form-data">
+<form action="<?= $this->url->href('TaskImportController', 'save', ['project_id' => $project['id']]) ?>" method="post" enctype="multipart/form-data">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Delimiter'), 'delimiter') ?>
@@ -17,7 +17,7 @@
     <p class="form-help"><?= t('Maximum size: ') ?><?= is_integer($max_size) ? $this->text->bytes($max_size) : $max_size ?></p>
     <?php endif ?>
 
-    <?= $this->modal->submitButtons(array('submitLabel' => t('Import'))) ?>
+    <?= $this->modal->submitButtons(['submitLabel' => t('Import')]) ?>
 </form>
 
 <div class="panel">
@@ -32,6 +32,6 @@
         <li><?= t('Only the task title is required') ?></li>
     </ul>
     <p class="margin-top">
-        <?= $this->url->icon('download', t('Download CSV template'), 'TaskImportController', 'template', array('project_id' => $project['id'])) ?>
+        <?= $this->url->icon('download', t('Download CSV template'), 'TaskImportController', 'template', ['project_id' => $project['id']]) ?>
     </p>
 </div>

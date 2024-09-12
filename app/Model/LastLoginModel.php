@@ -42,13 +42,13 @@ class LastLoginModel extends Base
 
         return $this->db
             ->table(self::TABLE)
-            ->insert(array(
-                'auth_type' => $auth_type,
-                'user_id' => $user_id,
-                'ip' => $ip,
-                'user_agent' => substr($user_agent, 0, 255),
+            ->insert([
+                'auth_type'     => $auth_type,
+                'user_id'       => $user_id,
+                'ip'            => $ip,
+                'user_agent'    => substr($user_agent, 0, 255),
                 'date_creation' => time(),
-            ));
+            ]);
     }
 
     /**

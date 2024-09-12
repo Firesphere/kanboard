@@ -4,9 +4,9 @@
 <div class="page-header">
     <h2><?= t('Add a comment') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('CommentListController', 'save', array('task_id' => $task['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('CommentListController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
-    <?= $this->form->textEditor('comment', array('project_id' => $task['project_id']), array(), array('required' => true, 'aria-label' => t('New comment'))) ?>
+    <?= $this->form->textEditor('comment', ['project_id' => $task['project_id']], [], ['required' => true, 'aria-label' => t('New comment')]) ?>
 
     <?php
         $formName = 'visibility';
@@ -27,6 +27,6 @@ $attribute[] = ('hidden');
     }
 ?>
 
-    <?= $this->form->select($formName, $visibilityOptions, array(), array(), $attribute) ?>
+    <?= $this->form->select($formName, $visibilityOptions, [], [], $attribute) ?>
     <?= $this->modal->submitButtons() ?>
 </form>

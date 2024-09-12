@@ -16,7 +16,7 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
     public function format()
     {
         $events = $this->query->findAll();
-        $res = array();
+        $res = [];
 
         foreach ($events as &$event) {
             $event += $this->unserializeEvent($event['data']);
@@ -53,7 +53,7 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
             return unserialize($data);
         }
 
-        return json_decode($data, true) ?: array();
+        return json_decode($data, true) ?: [];
     }
 
     /**
@@ -66,8 +66,8 @@ class ProjectActivityEventFormatter extends BaseFormatter implements FormatterIn
     protected function renderEvent(array $params)
     {
         return $this->template->render(
-            'event/'.str_replace('.', '_', $params['event_name']),
-            $params
+            'event/' . str_replace('.', '_', $params['event_name']),
+            $params,
         );
     }
 }

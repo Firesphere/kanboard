@@ -23,7 +23,7 @@ class ProjectArchiveCommand extends BaseCommand
             ->findAll();
 
         foreach ($projects as $project) {
-            $output->writeln('Deactivating project: #'.$project['id'].' - '.$project['name']);
+            $output->writeln('Deactivating project: #' . $project['id'] . ' - ' . $project['name']);
             $this->projectModel->disable($project['id']);
         }
         return 0;

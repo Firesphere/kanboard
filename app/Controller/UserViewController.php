@@ -27,10 +27,10 @@ class UserViewController extends BaseController
             throw new PageNotFoundException();
         }
 
-        $this->response->html($this->helper->layout->app('user_view/profile', array(
+        $this->response->html($this->helper->layout->app('user_view/profile', [
             'title' => $user['name'] ?: $user['username'],
             'user'  => $user,
-        )));
+        ]));
     }
 
     /**
@@ -41,12 +41,12 @@ class UserViewController extends BaseController
     public function show()
     {
         $user = $this->getUser();
-        $this->response->html($this->helper->layout->user('user_view/show', array(
+        $this->response->html($this->helper->layout->user('user_view/show', [
             'user'      => $user,
             'themes'    => $this->themeModel->getThemes(),
             'timezones' => $this->timezoneModel->getTimezones(true),
             'languages' => $this->languageModel->getLanguages(true),
-        )));
+        ]));
     }
 
     /**
@@ -59,17 +59,17 @@ class UserViewController extends BaseController
         $user = $this->getUser();
 
         $subtask_paginator = $this->paginator
-            ->setUrl('UserViewController', 'timesheet', array('user_id' => $user['id'], 'pagination' => 'subtasks'))
+            ->setUrl('UserViewController', 'timesheet', ['user_id' => $user['id'], 'pagination' => 'subtasks'])
             ->setMax(20)
             ->setOrder('start')
             ->setDirection('DESC')
             ->setQuery($this->subtaskTimeTrackingModel->getUserQuery($user['id']))
             ->calculateOnlyIf($this->request->getStringParam('pagination') === 'subtasks');
 
-        $this->response->html($this->helper->layout->user('user_view/timesheet', array(
+        $this->response->html($this->helper->layout->user('user_view/timesheet', [
             'subtask_paginator' => $subtask_paginator,
             'user'              => $user,
-        )));
+        ]));
     }
 
     /**
@@ -80,10 +80,10 @@ class UserViewController extends BaseController
     public function passwordReset()
     {
         $user = $this->getUser();
-        $this->response->html($this->helper->layout->user('user_view/password_reset', array(
+        $this->response->html($this->helper->layout->user('user_view/password_reset', [
             'tokens' => $this->passwordResetModel->getAll($user['id']),
             'user'   => $user,
-        )));
+        ]));
     }
 
     /**
@@ -94,10 +94,10 @@ class UserViewController extends BaseController
     public function lastLogin()
     {
         $user = $this->getUser();
-        $this->response->html($this->helper->layout->user('user_view/last', array(
+        $this->response->html($this->helper->layout->user('user_view/last', [
             'last_logins' => $this->lastLoginModel->getAll($user['id']),
             'user'        => $user,
-        )));
+        ]));
     }
 
     /**
@@ -108,10 +108,10 @@ class UserViewController extends BaseController
     public function sessions()
     {
         $user = $this->getUser();
-        $this->response->html($this->helper->layout->user('user_view/sessions', array(
+        $this->response->html($this->helper->layout->user('user_view/sessions', [
             'sessions' => $this->rememberMeSessionModel->getAll($user['id']),
             'user'     => $user,
-        )));
+        ]));
     }
 
     /**
@@ -128,7 +128,7 @@ class UserViewController extends BaseController
         if ($this->request->isAjax()) {
             $this->sessions();
         } else {
-            $this->response->redirect($this->helper->url->to('UserViewController', 'sessions', array('user_id' => $user['id'])), true);
+            $this->response->redirect($this->helper->url->to('UserViewController', 'sessions', ['user_id' => $user['id']]), true);
         }
     }
 
@@ -145,17 +145,17 @@ class UserViewController extends BaseController
             $values = $this->request->getValues();
             $this->userNotificationModel->saveSettings($user['id'], $values);
             $this->flash->success(t('User updated successfully.'));
-            $this->response->redirect($this->helper->url->to('UserViewController', 'notifications', array('user_id' => $user['id'])), true);
+            $this->response->redirect($this->helper->url->to('UserViewController', 'notifications', ['user_id' => $user['id']]), true);
             return;
         }
 
-        $this->response->html($this->helper->layout->user('user_view/notifications', array(
-            'projects'      => $this->projectUserRoleModel->getProjectsByUser($user['id'], array(ProjectModel::ACTIVE)),
+        $this->response->html($this->helper->layout->user('user_view/notifications', [
+            'projects'      => $this->projectUserRoleModel->getProjectsByUser($user['id'], [ProjectModel::ACTIVE]),
             'notifications' => $this->userNotificationModel->readSettings($user['id']),
             'types'         => $this->userNotificationTypeModel->getTypes(),
             'filters'       => $this->userNotificationFilterModel->getFilters(),
             'user'          => $user,
-        )));
+        ]));
     }
 
     /**
@@ -171,14 +171,14 @@ class UserViewController extends BaseController
             $values = $this->request->getValues();
             $this->userMetadataModel->save($user['id'], $values);
             $this->flash->success(t('User updated successfully.'));
-            $this->response->redirect($this->helper->url->to('UserViewController', 'integrations', array('user_id' => $user['id'])), true);
+            $this->response->redirect($this->helper->url->to('UserViewController', 'integrations', ['user_id' => $user['id']]), true);
             return;
         }
 
-        $this->response->html($this->helper->layout->user('user_view/integrations', array(
+        $this->response->html($this->helper->layout->user('user_view/integrations', [
             'user'   => $user,
             'values' => $this->userMetadataModel->getAll($user['id']),
-        )));
+        ]));
     }
 
     /**
@@ -189,10 +189,10 @@ class UserViewController extends BaseController
     public function external()
     {
         $user = $this->getUser();
-        $this->response->html($this->helper->layout->user('user_view/external', array(
+        $this->response->html($this->helper->layout->user('user_view/external', [
             'last_logins' => $this->lastLoginModel->getAll($user['id']),
             'user'        => $user,
-        )));
+        ]));
     }
 
     /**
@@ -215,16 +215,16 @@ class UserViewController extends BaseController
             }
 
             if (! $this->request->isAjax()) {
-                $this->response->redirect($this->helper->url->to('UserViewController', 'share', array('user_id' => $user['id'])), true);
+                $this->response->redirect($this->helper->url->to('UserViewController', 'share', ['user_id' => $user['id']]), true);
                 return;
             }
 
             $user = $this->getUser();
         }
 
-        $this->response->html($this->helper->layout->user('user_view/share', array(
+        $this->response->html($this->helper->layout->user('user_view/share', [
             'user'  => $user,
             'title' => t('Public access'),
-        )));
+        ]));
     }
 }

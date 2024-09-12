@@ -12,11 +12,11 @@ use Kanboard\Core\Filter\FormatterInterface;
  */
 class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
 {
-    protected $swimlanes = array();
-    protected $columns = array();
-    protected $tasks = array();
-    protected $tags = array();
-    protected $taskCountBySwimlaneAndColumn = array();
+    protected $swimlanes = [];
+    protected $columns = [];
+    protected $tasks = [];
+    protected $tags = [];
+    protected $taskCountBySwimlaneAndColumn = [];
 
     /**
      * Set swimlanes
@@ -97,9 +97,9 @@ class BoardSwimlaneFormatter extends BaseFormatter implements FormatterInterface
 
         foreach ($this->columns as $column) {
             $tasks_stats_by_column_across_swimlanes[$column['id']] = [
-                'nb_visible_tasks_across_swimlane' => 0,
+                'nb_visible_tasks_across_swimlane'    => 0,
                 'nb_unfiltered_tasks_across_swimlane' => 0,
-                'cumulative_score_across_swimlane' => 0,
+                'cumulative_score_across_swimlane'    => 0,
             ];
         }
 

@@ -22,6 +22,6 @@ class BoardHelper extends Base
      */
     public function isCollapsed($project_id)
     {
-        return $this->userMetadataCacheDecorator->get(UserMetadataModel::KEY_BOARD_COLLAPSED.$project_id, 0) == 1;
+        return $this->userMetadataCacheDecorator->get(UserMetadataModel::KEY_BOARD_COLLAPSED . $project_id, 0) == 1;
     }
 }

@@ -1,12 +1,12 @@
 <?php use Kanboard\Core\Security\Role;
 
 ?>
-<form method="post" action="<?= $this->url->href('CommentController', 'save', array('task_id' => $task['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('CommentController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('task_id', $values) ?>
     <?= $this->form->hidden('user_id', $values) ?>
 
-    <?= $this->form->textEditor('comment', $values, $errors, array('required' => true, 'aria-label' => t('New comment'))) ?>
+    <?= $this->form->textEditor('comment', $values, $errors, ['required' => true, 'aria-label' => t('New comment')]) ?>
 
     <?php
         $formName = 'visibility';
@@ -27,6 +27,6 @@ $attribute[] = ('hidden');
     }
 ?>
 
-    <?= $this->form->select($formName, $visibilityOptions, array(), array(), $attribute) ?>
+    <?= $this->form->select($formName, $visibilityOptions, [], [], $attribute) ?>
     <?= $this->modal->submitButtons() ?>
 </form>

@@ -3,8 +3,8 @@
 namespace Kanboard\Export;
 
 use Kanboard\Core\Base;
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\SubtaskModel;
+use Kanboard\Model\TaskModel;
 use Kanboard\Model\UserModel;
 
 /**
@@ -21,7 +21,7 @@ class SubtaskExport extends Base
      * @access private
      * @var array
      */
-    private $subtask_status = array();
+    private $subtask_status = [];
 
     /**
      * Fetch subtasks and return the prepared CSV
@@ -36,7 +36,7 @@ class SubtaskExport extends Base
     {
         $this->subtask_status = $this->subtaskModel->getStatusList();
         $subtasks = $this->getSubtasks($project_id, $from, $to);
-        $results = array($this->getColumns());
+        $results = [$this->getColumns()];
 
         foreach ($subtasks as $subtask) {
             $results[] = $this->format($subtask);
@@ -53,7 +53,7 @@ class SubtaskExport extends Base
      */
     public function getColumns()
     {
-        return array(
+        return [
             e('Subtask Id'),
             e('Title'),
             e('Status'),
@@ -62,7 +62,7 @@ class SubtaskExport extends Base
             e('Time spent'),
             e('Task Id'),
             e('Task Title'),
-        );
+        ];
     }
 
     /**
@@ -74,7 +74,7 @@ class SubtaskExport extends Base
      */
     public function format(array $subtask)
     {
-        $values = array();
+        $values = [];
         $values[] = $subtask['id'];
         $values[] = $subtask['title'];
         $values[] = t($this->subtask_status[$subtask['status']]);
@@ -109,16 +109,16 @@ class SubtaskExport extends Base
         return $this->db->table(SubtaskModel::TABLE)
                         ->eq('project_id', $project_id)
                         ->columns(
-                            SubtaskModel::TABLE.'.*',
-                            UserModel::TABLE.'.username AS assignee_username',
-                            UserModel::TABLE.'.name AS assignee_name',
-                            TaskModel::TABLE.'.title AS task_title'
+                            SubtaskModel::TABLE . '.*',
+                            UserModel::TABLE . '.username AS assignee_username',
+                            UserModel::TABLE . '.name AS assignee_name',
+                            TaskModel::TABLE . '.title AS task_title',
                         )
                         ->gte('date_creation', $from)
                         ->lte('date_creation', $to)
                         ->join(TaskModel::TABLE, 'id', 'task_id')
                         ->join(UserModel::TABLE, 'id', 'user_id')
-                        ->asc(SubtaskModel::TABLE.'.id')
+                        ->asc(SubtaskModel::TABLE . '.id')
                         ->findAll();
     }
 }

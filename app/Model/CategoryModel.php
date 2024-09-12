@@ -99,7 +99,7 @@ class CategoryModel extends Base
             ->asc('name')
             ->getAll('id', 'name');
 
-        $prepend = array();
+        $prepend = [];
 
         if ($prepend_all) {
             $prepend[-1] = t('All categories');
@@ -136,14 +136,14 @@ class CategoryModel extends Base
      */
     public function createDefaultCategories($project_id)
     {
-        $results = array();
+        $results = [];
         $categories = array_unique(explode_csv_field($this->configModel->get('project_categories')));
 
         foreach ($categories as $category) {
-            $results[] = $this->db->table(self::TABLE)->insert(array(
+            $results[] = $this->db->table(self::TABLE)->insert([
                 'project_id' => $project_id,
-                'name' => $category,
-            ));
+                'name'       => $category,
+            ]);
         }
 
         return in_array(false, $results, true);
@@ -186,7 +186,7 @@ class CategoryModel extends Base
     {
         $this->db->startTransaction();
 
-        $this->db->table(TaskModel::TABLE)->eq('category_id', $category_id)->update(array('category_id' => 0));
+        $this->db->table(TaskModel::TABLE)->eq('category_id', $category_id)->update(['category_id' => 0]);
 
         if (! $this->db->table(self::TABLE)->eq('id', $category_id)->remove()) {
             $this->db->cancelTransaction();

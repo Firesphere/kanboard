@@ -41,12 +41,12 @@ class TaskProjectDuplicationModel extends TaskDuplicationModel
 
             foreach ($externalLinks as $externalLink) {
                 $this->taskExternalLinkModel->create([
-                    'task_id' => $new_task_id,
+                    'task_id'    => $new_task_id,
                     'creator_id' => $externalLink['creator_id'],
                     'dependency' => $externalLink['dependency'],
-                    'title' => $externalLink['title'],
-                    'link_type' => $externalLink['link_type'],
-                    'url' => $externalLink['url'],
+                    'title'      => $externalLink['title'],
+                    'link_type'  => $externalLink['link_type'],
+                    'url'        => $externalLink['url'],
                 ]);
             }
         }

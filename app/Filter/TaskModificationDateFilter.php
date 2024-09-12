@@ -21,7 +21,7 @@ class TaskModificationDateFilter extends BaseDateFilter implements FilterInterfa
      */
     public function getAttributes()
     {
-        return array('updated', 'modified');
+        return ['updated', 'modified'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskModificationDateFilter extends BaseDateFilter implements FilterInterfa
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_modification');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_modification');
         return $this;
     }
 }

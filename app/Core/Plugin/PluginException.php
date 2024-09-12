@@ -10,6 +10,4 @@ use Exception;
  * @package Kanboard\Core\Plugin
  * @author  Frederic Guillot
  */
-class PluginException extends Exception
-{
-}
+class PluginException extends Exception {}

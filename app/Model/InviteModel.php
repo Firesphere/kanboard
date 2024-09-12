@@ -33,11 +33,11 @@ class InviteModel extends Base
 
     protected function createInvite($email, $projectId)
     {
-        $values = array(
+        $values = [
             'email'      => $email,
             'project_id' => $projectId,
             'token'      => Token::getToken(),
-        );
+        ];
 
         if ($this->db->table(self::TABLE)->insert($values)) {
             $this->sendInvite($values);
@@ -53,7 +53,7 @@ class InviteModel extends Base
             $values['email'],
             $values['email'],
             e('Kanboard Invitation'),
-            $this->template->render('user_invite/email', array('token' => $values['token']))
+            $this->template->render('user_invite/email', ['token' => $values['token']]),
         );
     }
 

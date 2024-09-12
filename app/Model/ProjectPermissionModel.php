@@ -28,7 +28,7 @@ class ProjectPermissionModel extends Base
     public function getQueryByRole(array $project_ids, $role)
     {
         if (empty($project_ids)) {
-            $project_ids = array(-1);
+            $project_ids = [-1];
         }
 
         return $this
@@ -36,15 +36,15 @@ class ProjectPermissionModel extends Base
             ->table(ProjectUserRoleModel::TABLE)
             ->join(UserModel::TABLE, 'id', 'user_id')
             ->join(ProjectModel::TABLE, 'id', 'project_id')
-            ->eq(ProjectUserRoleModel::TABLE.'.role', $role)
-            ->eq(ProjectModel::TABLE.'.is_private', 0)
-            ->in(ProjectModel::TABLE.'.id', $project_ids)
+            ->eq(ProjectUserRoleModel::TABLE . '.role', $role)
+            ->eq(ProjectModel::TABLE . '.is_private', 0)
+            ->in(ProjectModel::TABLE . '.id', $project_ids)
             ->columns(
-                UserModel::TABLE.'.id',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name',
-                ProjectModel::TABLE.'.name AS project_name',
-                ProjectModel::TABLE.'.id'
+                UserModel::TABLE . '.id',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
+                ProjectModel::TABLE . '.name AS project_name',
+                ProjectModel::TABLE . '.id',
             );
     }
 
@@ -63,11 +63,11 @@ class ProjectPermissionModel extends Base
             ->withFilter(new ProjectUserRoleUsernameFilter($input))
             ->getQuery()
             ->columns(
-                UserModel::TABLE.'.id',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name',
-                UserModel::TABLE.'.email',
-                UserModel::TABLE.'.avatar_path'
+                UserModel::TABLE . '.id',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
+                UserModel::TABLE . '.email',
+                UserModel::TABLE . '.avatar_path',
             )
             ->findAll();
 
@@ -76,11 +76,11 @@ class ProjectPermissionModel extends Base
             ->withFilter(new ProjectGroupRoleUsernameFilter($input))
             ->getQuery()
             ->columns(
-                UserModel::TABLE.'.id',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name',
-                UserModel::TABLE.'.email',
-                UserModel::TABLE.'.avatar_path'
+                UserModel::TABLE . '.id',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
+                UserModel::TABLE . '.email',
+                UserModel::TABLE . '.avatar_path',
             )
             ->findAll();
 

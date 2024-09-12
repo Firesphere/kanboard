@@ -21,7 +21,7 @@ class TaskCompletionDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('completed');
+        return ['completed'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskCompletionDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_completed');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_completed');
         return $this;
     }
 }

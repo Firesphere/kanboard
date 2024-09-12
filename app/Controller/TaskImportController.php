@@ -20,18 +20,18 @@ class TaskImportController extends BaseController
      * @param array $errors
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('task_import/show', array(
-            'project' => $project,
-            'values' => $values,
-            'errors' => $errors,
-            'max_size' => get_upload_max_size(),
+        $this->response->html($this->template->render('task_import/show', [
+            'project'    => $project,
+            'values'     => $values,
+            'errors'     => $errors,
+            'max_size'   => get_upload_max_size(),
             'delimiters' => Csv::getDelimiters(),
             'enclosures' => Csv::getEnclosures(),
-        )));
+        ]));
     }
 
     /**
@@ -44,14 +44,14 @@ class TaskImportController extends BaseController
         $filename = $this->request->getFilePath('file');
 
         if (! file_exists($filename)) {
-            $this->show($values, array('file' => array(t('Unable to read your file'))));
+            $this->show($values, ['file' => [t('Unable to read your file')]]);
         } else {
             $taskImport = new TaskImport($this->container);
             $taskImport->setProjectId($project['id']);
 
             $csv = new Csv($values['delimiter'], $values['enclosure']);
             $csv->setColumnMapping($taskImport->getColumnMapping());
-            $csv->read($filename, array($taskImport, 'importTask'));
+            $csv->read($filename, [$taskImport, 'importTask']);
 
             if ($taskImport->getNumberOfImportedTasks() > 0) {
                 $this->flash->success(t('%d task(s) have been imported successfully.', $taskImport->getNumberOfImportedTasks()));
@@ -59,7 +59,7 @@ class TaskImportController extends BaseController
                 $this->flash->failure(t('Nothing has been imported!'));
             }
 
-            $this->response->redirect($this->helper->url->to('TaskImportController', 'show', array('project_id' => $project['id'])), true);
+            $this->response->redirect($this->helper->url->to('TaskImportController', 'show', ['project_id' => $project['id']]), true);
         }
     }
 
@@ -71,6 +71,6 @@ class TaskImportController extends BaseController
     {
         $taskImport = new TaskImport($this->container);
         $this->response->withFileDownload('tasks.csv');
-        $this->response->csv(array($taskImport->getColumnMapping()));
+        $this->response->csv([$taskImport->getColumnMapping()]);
     }
 }

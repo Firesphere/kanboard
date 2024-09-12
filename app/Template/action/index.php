@@ -2,10 +2,10 @@
     <h2><?= t('Automatic actions for the project "%s"', $project['name']) ?></h2>
     <ul>
         <li>
-            <?= $this->modal->medium('plus', t('Add a new action'), 'ActionCreationController', 'create', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('plus', t('Add a new action'), 'ActionCreationController', 'create', ['project_id' => $project['id']]) ?>
         </li>
         <li>
-            <?= $this->modal->medium('copy', t('Import from another project'), 'ProjectActionDuplicationController', 'show', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('copy', t('Import from another project'), 'ProjectActionDuplicationController', 'show', ['project_id' => $project['id']]) ?>
         </li>
     </ul>
 </div>
@@ -21,7 +21,7 @@
                     <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                     <ul>
                         <li>
-                            <?= $this->modal->confirm('trash-o', t('Remove'), 'ActionController', 'confirm', array('project_id' => $project['id'], 'action_id' => $action['id'])) ?>
+                            <?= $this->modal->confirm('trash-o', t('Remove'), 'ActionController', 'confirm', ['project_id' => $project['id'], 'action_id' => $action['id']]) ?>
                         </li>
                     </ul>
                 </div>

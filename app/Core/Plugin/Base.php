@@ -37,7 +37,7 @@ abstract class Base extends \Kanboard\Core\Base
      */
     public function getClasses()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -48,7 +48,7 @@ abstract class Base extends \Kanboard\Core\Base
      */
     public function getHelpers()
     {
-        return array();
+        return [];
     }
 
     /**

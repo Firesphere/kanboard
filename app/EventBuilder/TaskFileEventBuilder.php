@@ -2,8 +2,8 @@
 
 namespace Kanboard\EventBuilder;
 
-use Kanboard\Event\TaskFileEvent;
 use Kanboard\Event\GenericEvent;
+use Kanboard\Event\TaskFileEvent;
 use Kanboard\Model\TaskFileModel;
 
 /**
@@ -39,14 +39,14 @@ class TaskFileEventBuilder extends BaseEventBuilder
         $file = $this->taskFileModel->getById($this->fileId);
 
         if (empty($file)) {
-            $this->logger->debug(__METHOD__.': File not found');
+            $this->logger->debug(__METHOD__ . ': File not found');
             return null;
         }
 
-        return new TaskFileEvent(array(
+        return new TaskFileEvent([
             'file' => $file,
             'task' => $this->taskFinderModel->getDetails($file['task_id']),
-        ));
+        ]);
     }
 
     /**

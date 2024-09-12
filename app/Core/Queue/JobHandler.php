@@ -25,11 +25,11 @@ class JobHandler extends Base
      */
     public function serializeJob(BaseJob $job)
     {
-        return new Job(array(
-            'class' => get_class($job),
-            'params' => $job->getJobParams(),
+        return new Job([
+            'class'   => get_class($job),
+            'params'  => $job->getJobParams(),
             'user_id' => $this->userSession->getId(),
-        ));
+        ]);
     }
 
     /**
@@ -48,15 +48,15 @@ class JobHandler extends Base
             $this->prepareJobEnvironment();
 
             if (DEBUG) {
-                $this->logger->debug(__METHOD__.' Received job => '.$className.' ('.getmypid().')');
-                $this->logger->debug(__METHOD__.' => '.json_encode($payload));
+                $this->logger->debug(__METHOD__ . ' Received job => ' . $className . ' (' . getmypid() . ')');
+                $this->logger->debug(__METHOD__ . ' => ' . json_encode($payload));
             }
 
             $worker = new $className($this->container);
-            call_user_func_array(array($worker, 'execute'), $payload['params']);
+            call_user_func_array([$worker, 'execute'], $payload['params']);
         } catch (Exception $e) {
-            $this->logger->error(__METHOD__.': Error during job execution: '.$e->getMessage());
-            $this->logger->error(__METHOD__ .' => '.json_encode($payload));
+            $this->logger->error(__METHOD__ . ': Error during job execution: ' . $e->getMessage());
+            $this->logger->error(__METHOD__ . ' => ' . json_encode($payload));
         }
     }
 

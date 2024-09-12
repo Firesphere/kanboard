@@ -22,7 +22,7 @@ class ColumnMoveRestrictionValidator extends BaseValidator
      */
     public function validateCreation(array $values)
     {
-        $v = new Validator($values, array(
+        $v = new Validator($values, [
             new Validators\Required('project_id', t('This field is required')),
             new Validators\Integer('project_id', t('This value must be an integer')),
             new Validators\Required('role_id', t('This field is required')),
@@ -31,11 +31,11 @@ class ColumnMoveRestrictionValidator extends BaseValidator
             new Validators\Integer('src_column_id', t('This value must be an integer')),
             new Validators\Required('dst_column_id', t('This field is required')),
             new Validators\Integer('dst_column_id', t('This value must be an integer')),
-        ));
+        ]);
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 }

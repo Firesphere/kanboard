@@ -13,7 +13,7 @@
         </select>
         <div class="form-actions">
             <button type="submit" class="btn btn-red"><?= t('Copy') ?></button>
-            <?= t('or') ?> <?= $this->url->link(t('cancel'), 'ProjectViewController', 'show', array('project_id' => $project['id'])) ?>
+            <?= t('or') ?> <?= $this->url->link(t('cancel'), 'ProjectViewController', 'show', ['project_id' => $project['id']]) ?>
         </div>
     </form>
 <?php } else { ?>

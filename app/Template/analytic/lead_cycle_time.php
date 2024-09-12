@@ -6,25 +6,25 @@
 
 <div class="panel">
     <ul>
-        <li><?= t('Average lead time: ').'<strong>'.$this->dt->duration($average['avg_lead_time']) ?></strong></li>
-        <li><?= t('Average cycle time: ').'<strong>'.$this->dt->duration($average['avg_cycle_time']) ?></strong></li>
+        <li><?= t('Average lead time: ') . '<strong>' . $this->dt->duration($average['avg_lead_time']) ?></strong></li>
+        <li><?= t('Average cycle time: ') . '<strong>' . $this->dt->duration($average['avg_cycle_time']) ?></strong></li>
     </ul>
 </div>
 
 <?php if (empty($metrics)): ?>
     <p class="alert"><?= t('Not enough data to show the graph.') ?></p>
 <?php else: ?>
-    <?= $this->app->component('chart-project-lead-cycle-time', array(
-        'metrics' => $metrics,
+    <?= $this->app->component('chart-project-lead-cycle-time', [
+        'metrics'    => $metrics,
         'labelCycle' => t('Cycle Time'),
-        'labelLead' => t('Lead Time'),
-    )) ?>
+        'labelLead'  => t('Lead Time'),
+    ]) ?>
 
-    <form method="post" class="form-inline" action="<?= $this->url->href('AnalyticController', 'leadAndCycleTime', array('project_id' => $project['id'])) ?>" autocomplete="off">
+    <form method="post" class="form-inline" action="<?= $this->url->href('AnalyticController', 'leadAndCycleTime', ['project_id' => $project['id']]) ?>" autocomplete="off">
         <?= $this->form->csrf() ?>
         <?= $this->form->date(t('Start date'), 'from', $values) ?>
         <?= $this->form->date(t('End date'), 'to', $values) ?>
-        <?= $this->modal->submitButtons(array('submitLabel' => t('Execute'))) ?>
+        <?= $this->modal->submitButtons(['submitLabel' => t('Execute')]) ?>
     </form>
 
     <p class="alert alert-info">

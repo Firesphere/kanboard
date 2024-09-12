@@ -24,10 +24,10 @@ class UserNotificationFilterModel extends Base
      *
      * @var integer
      */
-    public const FILTER_NONE      = 1;
-    public const FILTER_ASSIGNEE  = 2;
-    public const FILTER_CREATOR   = 3;
-    public const FILTER_BOTH      = 4;
+    public const FILTER_NONE = 1;
+    public const FILTER_ASSIGNEE = 2;
+    public const FILTER_CREATOR = 3;
+    public const FILTER_BOTH = 4;
 
     /**
      * Get the list of filters
@@ -37,12 +37,12 @@ class UserNotificationFilterModel extends Base
      */
     public function getFilters()
     {
-        return array(
-            self::FILTER_NONE => t('All tasks'),
+        return [
+            self::FILTER_NONE     => t('All tasks'),
             self::FILTER_ASSIGNEE => t('Only for tasks assigned to me'),
-            self::FILTER_CREATOR => t('Only for tasks created by me'),
-            self::FILTER_BOTH => t('Only for tasks created by me and tasks assigned to me'),
-        );
+            self::FILTER_CREATOR  => t('Only for tasks created by me'),
+            self::FILTER_BOTH     => t('Only for tasks created by me and tasks assigned to me'),
+        ];
     }
 
     /**
@@ -67,9 +67,9 @@ class UserNotificationFilterModel extends Base
      */
     public function saveFilter($user_id, $filter)
     {
-        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(array(
+        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update([
             'notifications_filter' => $filter,
-        ));
+        ]);
     }
 
     /**
@@ -94,14 +94,14 @@ class UserNotificationFilterModel extends Base
      */
     public function saveSelectedProjects($user_id, array $project_ids)
     {
-        $results = array();
+        $results = [];
         $this->db->table(self::PROJECT_TABLE)->eq('user_id', $user_id)->remove();
 
         foreach ($project_ids as $project_id) {
-            $results[] = $this->db->table(self::PROJECT_TABLE)->insert(array(
-                'user_id' => $user_id,
+            $results[] = $this->db->table(self::PROJECT_TABLE)->insert([
+                'user_id'    => $user_id,
                 'project_id' => $project_id,
-            ));
+            ]);
         }
 
         return !in_array(false, $results, true);
@@ -117,12 +117,12 @@ class UserNotificationFilterModel extends Base
      */
     public function shouldReceiveNotification(array $user, array $event_data)
     {
-        $filters = array(
+        $filters = [
             'filterNone',
             'filterAssignee',
             'filterCreator',
             'filterBoth',
-        );
+        ];
 
         foreach ($filters as $filter) {
             if ($this->$filter($user, $event_data)) {

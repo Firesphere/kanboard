@@ -2,7 +2,6 @@
 
 namespace Kanboard\Controller;
 
-use Kanboard\Controller\BaseController;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -19,9 +18,9 @@ class CronjobController extends BaseController
     {
         $this->checkWebhookToken();
 
-        $input = new ArrayInput(array(
-           'command' => 'cronjob',
-        ));
+        $input = new ArrayInput([
+            'command' => 'cronjob',
+        ]);
         $output = new NullOutput();
 
         $this->cli->setAutoExit(false);

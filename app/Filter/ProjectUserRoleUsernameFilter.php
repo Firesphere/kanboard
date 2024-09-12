@@ -21,7 +21,7 @@ class ProjectUserRoleUsernameFilter extends BaseFilter implements FilterInterfac
      */
     public function getAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -34,7 +34,7 @@ class ProjectUserRoleUsernameFilter extends BaseFilter implements FilterInterfac
     {
         $this->query
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->ilike(UserModel::TABLE.'.username', $this->value.'%');
+            ->ilike(UserModel::TABLE . '.username', $this->value . '%');
 
         return $this;
     }

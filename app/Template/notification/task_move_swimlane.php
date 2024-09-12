@@ -15,9 +15,9 @@
         <?= t('Column on the board:') ?>
         <strong><?= $this->text->e($task['column_title']) ?></strong>
     </li>
-    <li><?= t('Task position:').' '.$this->text->e($task['position']) ?></li>
+    <li><?= t('Task position:') . ' ' . $this->text->e($task['position']) ?></li>
 </ul>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

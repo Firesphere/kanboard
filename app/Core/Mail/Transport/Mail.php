@@ -2,12 +2,12 @@
 
 namespace Kanboard\Core\Mail\Transport;
 
-use Swift_Message;
-use Swift_Mailer;
-use Swift_MailTransport;
-use Swift_TransportException;
 use Kanboard\Core\Base;
 use Kanboard\Core\Mail\ClientInterface;
+use Swift_Mailer;
+use Swift_MailTransport;
+use Swift_Message;
+use Swift_TransportException;
 
 /**
  * PHP Mail Handler
@@ -34,7 +34,7 @@ class Mail extends Base implements ClientInterface
             $message = Swift_Message::newInstance()
                 ->setSubject($subject)
                 ->setFrom($this->helper->mail->getMailSenderAddress(), $authorName)
-                ->setTo(array($recipientEmail => $recipientName));
+                ->setTo([$recipientEmail => $recipientName]);
 
             if (! empty(MAIL_BCC)) {
                 $message->setBcc(MAIL_BCC);

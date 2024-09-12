@@ -38,10 +38,10 @@ class LinkController extends BaseController
      */
     public function show()
     {
-        $this->response->html($this->helper->layout->config('link/show', array(
+        $this->response->html($this->helper->layout->config('link/show', [
             'links' => $this->linkModel->getMergedList(),
-            'title' => t('Settings').' &gt; '.t('Link labels'),
-        )));
+            'title' => t('Settings') . ' &gt; ' . t('Link labels'),
+        ]));
     }
 
     /**
@@ -51,13 +51,13 @@ class LinkController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
-        $this->response->html($this->template->render('link/create', array(
+        $this->response->html($this->template->render('link/create', [
             'links'  => $this->linkModel->getMergedList(),
             'values' => $values,
             'errors' => $errors,
-        )));
+        ]));
     }
 
     /**
@@ -91,17 +91,17 @@ class LinkController extends BaseController
      * @param  array $errors
      * @throws PageNotFoundException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $link = $this->getLink();
         $link['label'] = t($link['label']);
 
-        $this->response->html($this->template->render('link/edit', array(
+        $this->response->html($this->template->render('link/edit', [
             'values' => $values ?: $link,
             'errors' => $errors,
             'labels' => $this->linkModel->getList($link['id']),
             'link'   => $link,
-        )));
+        ]));
     }
 
     /**
@@ -136,9 +136,9 @@ class LinkController extends BaseController
     {
         $link = $this->getLink();
 
-        $this->response->html($this->template->render('link/remove', array(
+        $this->response->html($this->template->render('link/remove', [
             'link' => $link,
-        )));
+        ]));
     }
 
     /**

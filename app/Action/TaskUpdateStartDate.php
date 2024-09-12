@@ -31,9 +31,9 @@ class TaskUpdateStartDate extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -44,9 +44,9 @@ class TaskUpdateStartDate extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-        );
+        ];
     }
 
     /**
@@ -57,13 +57,13 @@ class TaskUpdateStartDate extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -75,10 +75,10 @@ class TaskUpdateStartDate extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'           => $data['task_id'],
             'date_started' => time(),
-        );
+        ];
 
         return $this->taskModificationModel->update($values, false);
     }

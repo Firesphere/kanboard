@@ -29,13 +29,12 @@ class TaskAjaxController extends BaseController
         $exclude_task_id = $this->request->getIntegerParam('exclude_task_id');
 
         if (empty($project_ids)) {
-            $this->response->json(array());
+            $this->response->json([]);
         } else {
-
             $filter = $this->taskQuery->withFilter(new TaskProjectsFilter($project_ids));
 
             if (! empty($exclude_task_id)) {
-                $filter->withFilter(new TaskIdExclusionFilter(array($exclude_task_id)));
+                $filter->withFilter(new TaskIdExclusionFilter([$exclude_task_id]));
             }
 
             if (ctype_digit((string) $search)) {
@@ -57,7 +56,7 @@ class TaskAjaxController extends BaseController
         $projectIds = $this->projectPermissionModel->getActiveProjectIds($this->userSession->getId());
 
         if (empty($projectIds)) {
-            $this->response->json(array());
+            $this->response->json([]);
         } else {
             $filter = $this->taskQuery
                 ->withFilter(new TaskProjectsFilter($projectIds))
@@ -76,11 +75,10 @@ class TaskAjaxController extends BaseController
         $text = $this->request->getRawValue('text');
 
         if (empty($text)) {
-            $this->response->json(array());
+            $this->response->json([]);
         } else {
             $preview = $this->helper->text->markdown($text);
-            $this->response->json(array($preview));
+            $this->response->json([$preview]);
         }
     }
-
 }

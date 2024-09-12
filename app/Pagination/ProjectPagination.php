@@ -29,9 +29,9 @@ class ProjectPagination extends Base
         $this->hook->reference('pagination:dashboard:project:query', $query);
 
         return $this->paginator
-            ->setUrl('DashboardController', $method, array('pagination' => 'projects', 'user_id' => $user_id))
+            ->setUrl('DashboardController', $method, ['pagination' => 'projects', 'user_id' => $user_id])
             ->setMax($max)
-            ->setOrder(ProjectModel::TABLE.'.name')
+            ->setOrder(ProjectModel::TABLE . '.name')
             ->setQuery($query)
             ->calculateOnlyIf($this->request->getStringParam('pagination') === 'projects');
     }

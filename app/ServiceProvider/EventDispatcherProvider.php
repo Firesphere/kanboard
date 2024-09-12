@@ -2,17 +2,17 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Kanboard\Subscriber\LdapUserPhotoSubscriber;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Kanboard\Subscriber\AuthSubscriber;
 use Kanboard\Subscriber\BootstrapSubscriber;
+use Kanboard\Subscriber\LdapUserPhotoSubscriber;
 use Kanboard\Subscriber\NotificationSubscriber;
 use Kanboard\Subscriber\ProjectDailySummarySubscriber;
 use Kanboard\Subscriber\ProjectModificationDateSubscriber;
-use Kanboard\Subscriber\TransitionSubscriber;
 use Kanboard\Subscriber\RecurringTaskSubscriber;
+use Kanboard\Subscriber\TransitionSubscriber;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class EventDispatcherProvider

@@ -20,9 +20,9 @@ class SearchController extends BaseController
         $nb_tasks = 0;
 
         $paginator = $this->paginator
-                ->setUrl('SearchController', 'index', array('search' => $search))
+                ->setUrl('SearchController', 'index', ['search' => $search])
                 ->setMax(30)
-                ->setOrder(TaskModel::TABLE.'.id')
+                ->setOrder(TaskModel::TABLE . '.id')
                 ->setDirection('DESC');
 
         if ($search !== '' && ! empty($projects)) {
@@ -32,22 +32,22 @@ class SearchController extends BaseController
                     $this->taskLexer
                     ->build($search)
                     ->withFilter(new TaskProjectsFilter(array_keys($projects)))
-                    ->getQuery()
+                    ->getQuery(),
                 )
                 ->calculate();
 
             $nb_tasks = $paginator->getTotal();
         }
 
-        $this->response->html($this->helper->layout->app('search/index', array(
-            'values' => array(
-                'search' => $search,
+        $this->response->html($this->helper->layout->app('search/index', [
+            'values' => [
+                'search'     => $search,
                 'controller' => 'SearchController',
-                'action' => 'index',
-            ),
+                'action'     => 'index',
+            ],
             'paginator' => $paginator,
-            'title' => t('Search tasks').($nb_tasks > 0 ? ' ('.$nb_tasks.')' : '')
-        )));
+            'title'     => t('Search tasks') . ($nb_tasks > 0 ? ' (' . $nb_tasks . ')' : ''),
+        ]));
     }
 
     public function activity()
@@ -56,15 +56,15 @@ class SearchController extends BaseController
         $events = $this->helper->projectActivity->searchEvents($search);
         $nb_events = count($events);
 
-        $this->response->html($this->helper->layout->app('search/activity', array(
-            'values' => array(
-                'search' => $search,
+        $this->response->html($this->helper->layout->app('search/activity', [
+            'values' => [
+                'search'     => $search,
                 'controller' => 'SearchController',
-                'action' => 'activity',
-            ),
-            'title' => t('Search in activity stream').($nb_events > 0 ? ' ('.$nb_events.')' : ''),
+                'action'     => 'activity',
+            ],
+            'title'     => t('Search in activity stream') . ($nb_events > 0 ? ' (' . $nb_events . ')' : ''),
             'nb_events' => $nb_events,
-            'events' => $events,
-        )));
+            'events'    => $events,
+        ]));
     }
 }

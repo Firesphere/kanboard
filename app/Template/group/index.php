@@ -7,9 +7,9 @@
 
 <div class="margin-bottom">
     <form method="get" action="<?= $this->url->dir() ?>" class="search">
-        <?= $this->form->hidden('controller', array('controller' => 'GroupListController')) ?>
-        <?= $this->form->hidden('action', array('action' => 'index')) ?>
-        <?= $this->form->text('search', $values, array(), array('placeholder="'.t('Search').'"', 'aria-label="'.t('Search').'"')) ?>
+        <?= $this->form->hidden('controller', ['controller' => 'GroupListController']) ?>
+        <?= $this->form->hidden('action', ['action' => 'index']) ?>
+        <?= $this->form->text('search', $values, [], ['placeholder="' . t('Search') . '"', 'aria-label="' . t('Search') . '"']) ?>
     </form>
 </div>
 
@@ -30,13 +30,13 @@
                     <a href="#" class="dropdown-menu dropdown-menu-link-icon"><strong><?= t('Sort') ?> <i class="fa fa-caret-down"></i></strong></a>
                     <ul>
                         <li>
-                            <?= $paginator->order(t('Group ID'), \Kanboard\Model\GroupModel::TABLE.'.id') ?>
+                            <?= $paginator->order(t('Group ID'), \Kanboard\Model\GroupModel::TABLE . '.id') ?>
                         </li>
                         <li>
-                            <?= $paginator->order(t('Name'), \Kanboard\Model\GroupModel::TABLE.'.name') ?>
+                            <?= $paginator->order(t('Name'), \Kanboard\Model\GroupModel::TABLE . '.name') ?>
                         </li>
                         <li>
-                            <?= $paginator->order(t('External ID'), \Kanboard\Model\GroupModel::TABLE.'.external_id') ?>
+                            <?= $paginator->order(t('External ID'), \Kanboard\Model\GroupModel::TABLE . '.external_id') ?>
                         </li>
                     </ul>
                 </div>
@@ -46,8 +46,8 @@
         <?php foreach ($paginator->getCollection() as $group): ?>
         <div class="table-list-row table-border-left">
             <span class="table-list-title">
-                <?= $this->render('group/dropdown', array('group' => $group)) ?>
-                <?= $this->url->link($this->text->e($group['name']), 'GroupListController', 'users', array('group_id' => $group['id'])) ?>
+                <?= $this->render('group/dropdown', ['group' => $group]) ?>
+                <?= $this->url->link($this->text->e($group['name']), 'GroupListController', 'users', ['group_id' => $group['id']]) ?>
             </span>
 
             <div class="table-list-details">

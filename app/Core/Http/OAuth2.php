@@ -80,15 +80,15 @@ class OAuth2 extends Base
      */
     public function getAuthorizationUrl()
     {
-        $params = array(
+        $params = [
             'response_type' => 'code',
-            'client_id' => $this->clientId,
-            'redirect_uri' => $this->callbackUrl,
-            'scope' => implode(' ', $this->scopes),
-            'state' => $this->getState(),
-        );
+            'client_id'     => $this->clientId,
+            'redirect_uri'  => $this->callbackUrl,
+            'scope'         => implode(' ', $this->scopes),
+            'state'         => $this->getState(),
+        ];
 
-        return $this->authUrl.'?'.http_build_query($params);
+        return $this->authUrl . '?' . http_build_query($params);
     }
 
     /**
@@ -100,7 +100,7 @@ class OAuth2 extends Base
     public function getAuthorizationHeader()
     {
         if (strtolower($this->tokenType) === 'bearer') {
-            return 'Authorization: Bearer '.$this->accessToken;
+            return 'Authorization: Bearer ' . $this->accessToken;
         }
 
         return '';
@@ -116,16 +116,16 @@ class OAuth2 extends Base
     public function getAccessToken($code)
     {
         if (empty($this->accessToken) && ! empty($code)) {
-            $params = array(
-                'code' => $code,
-                'client_id' => $this->clientId,
+            $params = [
+                'code'          => $code,
+                'client_id'     => $this->clientId,
                 'client_secret' => $this->secret,
-                'redirect_uri' => $this->callbackUrl,
-                'grant_type' => 'authorization_code',
-                'state' => $this->getState(),
-            );
+                'redirect_uri'  => $this->callbackUrl,
+                'grant_type'    => 'authorization_code',
+                'state'         => $this->getState(),
+            ];
 
-            $response = json_decode($this->httpClient->postForm($this->tokenUrl, $params, array('Accept: application/json')), true);
+            $response = json_decode($this->httpClient->postForm($this->tokenUrl, $params, ['Accept: application/json']), true);
 
             $this->tokenType = isset($response['token_type']) ? $response['token_type'] : '';
             $this->accessToken = isset($response['access_token']) ? $response['access_token'] : '';

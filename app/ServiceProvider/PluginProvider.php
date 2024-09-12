@@ -2,9 +2,9 @@
 
 namespace Kanboard\ServiceProvider;
 
+use Kanboard\Core\Plugin\Loader;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Kanboard\Core\Plugin\Loader;
 
 /**
  * Plugin Provider

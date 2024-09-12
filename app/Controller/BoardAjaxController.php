@@ -40,7 +40,7 @@ class BoardAjaxController extends BaseController
                 $values['task_id'],
                 $values['dst_column_id'],
                 $values['position'],
-                $values['swimlane_id']
+                $values['swimlane_id'],
             );
 
             if (! $result) {
@@ -49,7 +49,7 @@ class BoardAjaxController extends BaseController
                 $this->response->html($this->renderBoard($project_id), 201);
             }
         } catch (Exception $e) {
-            $this->response->html('<div class="alert alert-error">'.$e->getMessage().'</div>');
+            $this->response->html('<div class="alert alert-error">' . $e->getMessage() . '</div>');
         }
     }
 
@@ -120,12 +120,12 @@ class BoardAjaxController extends BaseController
     private function changeDisplayMode($mode)
     {
         $project_id = $this->request->getIntegerParam('project_id');
-        $this->userMetadataCacheDecorator->set(UserMetadataModel::KEY_BOARD_COLLAPSED.$project_id, $mode);
+        $this->userMetadataCacheDecorator->set(UserMetadataModel::KEY_BOARD_COLLAPSED . $project_id, $mode);
 
         if ($this->request->isAjax()) {
             $this->response->html($this->renderBoard($project_id));
         } else {
-            $this->response->redirect($this->helper->url->to('BoardViewController', 'show', array('project_id' => $project_id)));
+            $this->response->redirect($this->helper->url->to('BoardViewController', 'show', ['project_id' => $project_id]));
         }
     }
 
@@ -138,13 +138,13 @@ class BoardAjaxController extends BaseController
      */
     protected function renderBoard($project_id)
     {
-        return $this->template->render('board/table_container', array(
-            'project' => $this->projectModel->getById($project_id),
+        return $this->template->render('board/table_container', [
+            'project'                        => $this->projectModel->getById($project_id),
             'board_private_refresh_interval' => $this->configModel->get('board_private_refresh_interval'),
-            'board_highlight_period' => $this->configModel->get('board_highlight_period'),
-            'swimlanes' => $this->taskLexer
+            'board_highlight_period'         => $this->configModel->get('board_highlight_period'),
+            'swimlanes'                      => $this->taskLexer
                 ->build($this->userSession->getFilters($project_id))
-                ->format($this->boardFormatter->withProjectId($project_id))
-        ));
+                ->format($this->boardFormatter->withProjectId($project_id)),
+        ]);
     }
 }

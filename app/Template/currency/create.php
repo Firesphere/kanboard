@@ -6,6 +6,6 @@
     <?= $this->form->label(t('Currency'), 'currency') ?>
     <?= $this->form->select('currency', $currencies, $values, $errors) ?>
     <?= $this->form->label(t('Rate'), 'rate') ?>
-    <?= $this->form->text('rate', $values, $errors, array('autofocus'), 'form-numeric') ?>
+    <?= $this->form->text('rate', $values, $errors, ['autofocus'], 'form-numeric') ?>
     <?= $this->modal->submitButtons() ?>
 </form>

@@ -23,7 +23,7 @@ class ProjectGroupRoleUsernameFilter extends BaseFilter implements FilterInterfa
      */
     public function getAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -37,7 +37,7 @@ class ProjectGroupRoleUsernameFilter extends BaseFilter implements FilterInterfa
         $this->query
             ->join(GroupMemberModel::TABLE, 'group_id', 'group_id', ProjectGroupRoleModel::TABLE)
             ->join(UserModel::TABLE, 'id', 'user_id', GroupMemberModel::TABLE)
-            ->ilike(UserModel::TABLE.'.username', $this->value.'%');
+            ->ilike(UserModel::TABLE . '.username', $this->value . '%');
 
         return $this;
     }

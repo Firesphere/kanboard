@@ -2,7 +2,7 @@
     <h2><?= $this->text->e($project['name']) ?> &gt; <?= t('Create tasks in bulk') ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('TaskBulkController', 'save', array('project_id' => $project['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('TaskBulkController', 'save', ['project_id' => $project['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('column_id', $values) ?>
     <?= $this->form->hidden('swimlane_id', $values) ?>
@@ -13,7 +13,7 @@
     <?php endif ?>
 
     <?= $this->form->label(t('Tasks'), 'tasks') ?>
-    <?= $this->form->textarea('tasks', $values, $errors, array('placeholder="'.t('My task title').'"')) ?>
+    <?= $this->form->textarea('tasks', $values, $errors, ['placeholder="' . t('My task title') . '"']) ?>
     <p class="form-help"><?= t('Enter one task by line.') ?></p>
 
     <?= $this->task->renderColorField($values) ?>

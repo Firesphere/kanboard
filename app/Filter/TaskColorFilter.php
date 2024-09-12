@@ -43,7 +43,7 @@ class TaskColorFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('color', 'colour');
+        return ['color', 'colour'];
     }
 
     /**
@@ -54,7 +54,7 @@ class TaskColorFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->eq(TaskModel::TABLE.'.color_id', $this->colorModel->find($this->value));
+        $this->query->eq(TaskModel::TABLE . '.color_id', $this->colorModel->find($this->value));
         return $this;
     }
 }

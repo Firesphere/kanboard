@@ -19,11 +19,11 @@ class ActivityController extends BaseController
     {
         $user = $this->getUser();
 
-        $this->response->html($this->template->render('activity/user', array(
+        $this->response->html($this->template->render('activity/user', [
             'title'  => t('Activity stream for %s', $this->helper->user->getFullname($user)),
             'events' => $this->helper->projectActivity->getProjectsEvents($this->projectPermissionModel->getActiveProjectIds($user['id']), 100),
             'user'   => $user,
-        )));
+        ]));
     }
 
     /**
@@ -35,11 +35,11 @@ class ActivityController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->app('activity/project', array(
+        $this->response->html($this->helper->layout->app('activity/project', [
             'title'   => t('%s\'s activity', $project['name']),
             'events'  => $this->helper->projectActivity->getProjectEvents($project['id']),
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -51,12 +51,12 @@ class ActivityController extends BaseController
     {
         $task = $this->getTask();
 
-        $this->response->html($this->helper->layout->task('activity/task', array(
+        $this->response->html($this->helper->layout->task('activity/task', [
             'title'   => $task['title'],
             'task'    => $task,
             'project' => $this->projectModel->getById($task['project_id']),
             'events'  => $this->helper->projectActivity->getTaskEvents($task['id']),
             'tags'    => $this->taskTagModel->getTagsByTask($task['id']),
-        )));
+        ]));
     }
 }

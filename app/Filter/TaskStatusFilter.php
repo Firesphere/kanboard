@@ -21,7 +21,7 @@ class TaskStatusFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('status');
+        return ['status'];
     }
 
     /**
@@ -33,9 +33,9 @@ class TaskStatusFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if ($this->value === 'open' || $this->value === 'closed') {
-            $this->query->eq(TaskModel::TABLE.'.is_active', $this->value === 'open' ? TaskModel::STATUS_OPEN : TaskModel::STATUS_CLOSED);
+            $this->query->eq(TaskModel::TABLE . '.is_active', $this->value === 'open' ? TaskModel::STATUS_OPEN : TaskModel::STATUS_CLOSED);
         } elseif (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(TaskModel::TABLE.'.is_active', $this->value);
+            $this->query->eq(TaskModel::TABLE . '.is_active', $this->value);
         }
 
         return $this;

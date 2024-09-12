@@ -21,7 +21,7 @@ class TaskMovedDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('moved');
+        return ['moved'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskMovedDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_moved');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_moved');
         return $this;
     }
 }

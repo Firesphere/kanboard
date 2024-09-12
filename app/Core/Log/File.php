@@ -37,7 +37,7 @@ class File extends Base
      * @param string $message
      * @param array  $context
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $line = $this->formatMessage($level, $message, $context);
 

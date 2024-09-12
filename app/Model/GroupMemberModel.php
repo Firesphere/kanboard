@@ -74,10 +74,10 @@ class GroupMemberModel extends Base
      */
     public function addUser($group_id, $user_id)
     {
-        return $this->db->table(self::TABLE)->insert(array(
+        return $this->db->table(self::TABLE)->insert([
             'group_id' => $group_id,
-            'user_id' => $user_id,
-        ));
+            'user_id'  => $user_id,
+        ]);
     }
 
     /**
@@ -122,10 +122,10 @@ class GroupMemberModel extends Base
     public function getGroups($user_id)
     {
         return $this->db->table(self::TABLE)
-            ->columns(GroupModel::TABLE.'.id', GroupModel::TABLE.'.external_id', GroupModel::TABLE.'.name')
+            ->columns(GroupModel::TABLE . '.id', GroupModel::TABLE . '.external_id', GroupModel::TABLE . '.name')
             ->join(GroupModel::TABLE, 'id', 'group_id')
-            ->eq(self::TABLE.'.user_id', $user_id)
-            ->asc(GroupModel::TABLE.'.name')
+            ->eq(self::TABLE . '.user_id', $user_id)
+            ->asc(GroupModel::TABLE . '.name')
             ->findAll();
     }
 }

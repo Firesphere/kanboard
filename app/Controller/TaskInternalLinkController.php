@@ -23,21 +23,21 @@ class TaskInternalLinkController extends BaseController
      * @throws PageNotFoundException
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
 
         if (empty($values)) {
             $values['another_tasklink'] = $this->request->getIntegerParam('another_tasklink', 0);
-            $values = $this->hook->merge('controller:tasklink:form:default', $values, array('default_values' => $values));
+            $values = $this->hook->merge('controller:tasklink:form:default', $values, ['default_values' => $values]);
         }
 
-        $this->response->html($this->template->render('task_internal_link/create', array(
+        $this->response->html($this->template->render('task_internal_link/create', [
             'values' => $values,
             'errors' => $errors,
-            'task' => $task,
+            'task'   => $task,
             'labels' => $this->linkModel->getList(0, false),
-        )));
+        ]));
     }
 
     /**
@@ -64,18 +64,18 @@ class TaskInternalLinkController extends BaseController
                 $this->flash->success(t('Link added successfully.'));
 
                 if (isset($values['another_tasklink']) && $values['another_tasklink'] == 1) {
-                    return $this->create(array(
-                        'project_id' => $task['project_id'],
-                        'task_id' => $task['id'],
-                        'link_id' => $values['link_id'],
-                        'another_tasklink' => 1
-                    ));
+                    return $this->create([
+                        'project_id'       => $task['project_id'],
+                        'task_id'          => $task['id'],
+                        'link_id'          => $values['link_id'],
+                        'another_tasklink' => 1,
+                    ]);
                 }
 
-                return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+                return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
             }
 
-            $errors = array('title' => array(t('The exact same link already exists')));
+            $errors = ['title' => [t('The exact same link already exists')]];
             $this->flash->failure(t('Unable to create your link.'));
         }
 
@@ -91,7 +91,7 @@ class TaskInternalLinkController extends BaseController
      * @throws PageNotFoundException
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
         $task_link = $this->getInternalTaskLink($task);
@@ -99,16 +99,16 @@ class TaskInternalLinkController extends BaseController
         if (empty($values)) {
             $opposite_task = $this->taskFinderModel->getById($task_link['opposite_task_id']);
             $values = $task_link;
-            $values['title'] = '#'.$opposite_task['id'].' - '.$opposite_task['title'];
+            $values['title'] = '#' . $opposite_task['id'] . ' - ' . $opposite_task['title'];
         }
 
-        $this->response->html($this->template->render('task_internal_link/edit', array(
-            'values' => $values,
-            'errors' => $errors,
+        $this->response->html($this->template->render('task_internal_link/edit', [
+            'values'    => $values,
+            'errors'    => $errors,
             'task_link' => $task_link,
-            'task' => $task,
-            'labels' => $this->linkModel->getList(0, false)
-        )));
+            'task'      => $task,
+            'labels'    => $this->linkModel->getList(0, false),
+        ]));
     }
 
     /**
@@ -136,7 +136,7 @@ class TaskInternalLinkController extends BaseController
 
             if ($this->taskLinkModel->update($values['id'], $values['task_id'], $values['opposite_task_id'], $values['link_id'])) {
                 $this->flash->success(t('Link updated successfully.'));
-                return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])).'#links');
+                return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]) . '#links');
             }
 
             $this->flash->failure(t('Unable to update your link.'));
@@ -155,10 +155,10 @@ class TaskInternalLinkController extends BaseController
         $task = $this->getTask();
         $link = $this->getInternalTaskLink($task);
 
-        $this->response->html($this->template->render('task_internal_link/remove', array(
+        $this->response->html($this->template->render('task_internal_link/remove', [
             'link' => $link,
             'task' => $task,
-        )));
+        ]));
     }
 
     /**
@@ -178,6 +178,6 @@ class TaskInternalLinkController extends BaseController
             $this->flash->failure(t('Unable to remove this link.'));
         }
 
-        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])));
+        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
     }
 }

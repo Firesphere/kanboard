@@ -2,8 +2,8 @@
 
 namespace Kanboard\Core\Plugin;
 
-use ZipArchive;
 use Kanboard\Core\Tool;
+use ZipArchive;
 
 /**
  * Class Installer
@@ -53,7 +53,7 @@ class Installer extends \Kanboard\Core\Base
      */
     public function uninstall($pluginId)
     {
-        $pluginFolder = PLUGINS_DIR.DIRECTORY_SEPARATOR.basename($pluginId);
+        $pluginFolder = PLUGINS_DIR . DIRECTORY_SEPARATOR . basename($pluginId);
 
         if (! file_exists($pluginFolder)) {
             throw new PluginInstallerException(t('Plugin not found.'));

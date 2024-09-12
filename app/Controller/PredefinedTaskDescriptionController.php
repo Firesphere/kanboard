@@ -12,15 +12,15 @@ use Kanboard\Core\Controller\PageNotFoundException;
  */
 class PredefinedTaskDescriptionController extends BaseController
 {
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('predefined_task_description/create', array(
-            'values' => $values,
-            'errors' => $errors,
+        $this->response->html($this->template->render('predefined_task_description/create', [
+            'values'  => $values,
+            'errors'  => $errors,
             'project' => $project,
-        )));
+        ]));
     }
 
     public function save()
@@ -37,23 +37,23 @@ class PredefinedTaskDescriptionController extends BaseController
                 $this->flash->failure(t('Unable to create this template.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', array('project_id' => $project['id'])), true);
+            $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', ['project_id' => $project['id']]), true);
         } else {
             $this->create($values, $errors);
         }
     }
 
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
         $template = $this->predefinedTaskDescriptionModel->getById($project['id'], $this->request->getIntegerParam('id'));
 
-        $this->response->html($this->template->render('predefined_task_description/edit', array(
-            'values' => empty($values) ? $template : $values,
+        $this->response->html($this->template->render('predefined_task_description/edit', [
+            'values'   => empty($values) ? $template : $values,
             'template' => $template,
-            'errors' => $errors,
-            'project' => $project,
-        )));
+            'errors'   => $errors,
+            'project'  => $project,
+        ]));
     }
 
     public function update()
@@ -71,7 +71,7 @@ class PredefinedTaskDescriptionController extends BaseController
                 $this->flash->failure(t('Unable to update this template.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', array('project_id' => $project['id'])), true);
+            $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', ['project_id' => $project['id']]), true);
         } else {
             $this->edit($values, $errors);
         }
@@ -82,10 +82,10 @@ class PredefinedTaskDescriptionController extends BaseController
         $project = $this->getProject();
         $template = $this->getTemplate($project);
 
-        $this->response->html($this->template->render('predefined_task_description/remove', array(
+        $this->response->html($this->template->render('predefined_task_description/remove', [
             'template' => $template,
-            'project' => $project,
-        )));
+            'project'  => $project,
+        ]));
     }
 
     public function remove()
@@ -100,7 +100,7 @@ class PredefinedTaskDescriptionController extends BaseController
             $this->flash->failure(t('Unable to remove this template.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', array('project_id' => $project['id'])), true);
+        $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', ['project_id' => $project['id']]), true);
     }
 
     protected function getTemplate(array $project)

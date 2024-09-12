@@ -20,7 +20,7 @@ class FormHelper extends Base
      */
     public function csrf()
     {
-        return '<input type="hidden" name="csrf_token" value="'.$this->token->getCSRFToken().'"/>';
+        return '<input type="hidden" name="csrf_token" value="' . $this->token->getCSRFToken() . '"/>';
     }
 
     /**
@@ -31,9 +31,9 @@ class FormHelper extends Base
      * @param  array   $values  Form values
      * @return string
      */
-    public function hidden($name, array $values = array())
+    public function hidden($name, array $values = [])
     {
-        return '<input type="hidden" name="'.$name.'" id="form-'.$name.'" '.$this->formValue($values, $name).'/>';
+        return '<input type="hidden" name="' . $name . '" id="form-' . $name . '" ' . $this->formValue($values, $name) . '/>';
     }
 
     /**
@@ -48,12 +48,12 @@ class FormHelper extends Base
      * @param  string $class CSS class
      * @return string
      */
-    public function select($name, array $options, array $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function select($name, array $options, array $values = [], array $errors = [], array $attributes = [], $class = '')
     {
-        $html = '<select name="'.$name.'" id="form-'.$name.'" class="'.$class.'" '.implode(' ', $attributes).'>';
+        $html = '<select name="' . $name . '" id="form-' . $name . '" class="' . $class . '" ' . implode(' ', $attributes) . '>';
 
         foreach ($options as $id => $value) {
-            $html .= '<option value="'.$this->helper->text->e($id).'"';
+            $html .= '<option value="' . $this->helper->text->e($id) . '"';
 
             if (isset($values->$name) && $id == $values->$name) {
                 $html .= ' selected="selected"';
@@ -62,7 +62,7 @@ class FormHelper extends Base
                 $html .= ' selected="selected"';
             }
 
-            $html .= '>'.$this->helper->text->e($value).'</option>';
+            $html .= '>' . $this->helper->text->e($value) . '</option>';
         }
 
         $html .= '</select>';
@@ -83,7 +83,7 @@ class FormHelper extends Base
     {
         $colors = $this->colorModel->getList();
         $html = $this->label(t('Color'), $name);
-        $html .= $this->select($name, $colors, $values, array(), array('tabindex="4"'), 'color-picker');
+        $html .= $this->select($name, $colors, $values, [], ['tabindex="4"'], 'color-picker');
         return $html;
     }
 
@@ -96,7 +96,7 @@ class FormHelper extends Base
      * @param  array   $values   Form values
      * @return string
      */
-    public function radios($name, array $options, array $values = array())
+    public function radios($name, array $options, array $values = [])
     {
         $html = '';
 
@@ -120,7 +120,7 @@ class FormHelper extends Base
      */
     public function radio($name, $label, $value, $selected = false, $class = '')
     {
-        return '<label><input type="radio" name="'.$name.'" class="'.$class.'" value="'.$this->helper->text->e($value).'" '.($selected ? 'checked="checked"' : '').'> '.$this->helper->text->e($label).'</label>';
+        return '<label><input type="radio" name="' . $name . '" class="' . $class . '" value="' . $this->helper->text->e($value) . '" ' . ($selected ? 'checked="checked"' : '') . '> ' . $this->helper->text->e($label) . '</label>';
     }
 
     /**
@@ -132,12 +132,12 @@ class FormHelper extends Base
      * @param  array   $values   Form values
      * @return string
      */
-    public function checkboxes($name, array $options, array $values = array())
+    public function checkboxes($name, array $options, array $values = [])
     {
         $html = '';
 
         foreach ($options as $value => $label) {
-            $html .= $this->checkbox($name.'['.$value.']', $label, $value, isset($values[$name]) && in_array($value, $values[$name]));
+            $html .= $this->checkbox($name . '[' . $value . ']', $label, $value, isset($values[$name]) && in_array($value, $values[$name]));
         }
 
         return $html;
@@ -155,7 +155,7 @@ class FormHelper extends Base
      * @param  array   $attributes
      * @return string
      */
-    public function checkbox($name, $label, $value, $checked = false, $class = '', array $attributes = array())
+    public function checkbox($name, $label, $value, $checked = false, $class = '', array $attributes = [])
     {
         $htmlAttributes = '';
 
@@ -173,7 +173,7 @@ class FormHelper extends Base
             $class,
             $this->helper->text->e($value),
             $htmlAttributes,
-            $this->helper->text->e($label)
+            $this->helper->text->e($label),
         );
     }
 
@@ -186,9 +186,9 @@ class FormHelper extends Base
      * @param  array   $attributes  HTML attributes
      * @return string
      */
-    public function label($label, $name, array $attributes = array())
+    public function label($label, $name, array $attributes = [])
     {
-        return '<label for="form-'.$name.'" '.implode(' ', $attributes).'>'.$this->helper->text->e($label).'</label>';
+        return '<label for="form-' . $name . '" ' . implode(' ', $attributes) . '>' . $this->helper->text->e($label) . '</label>';
     }
 
     /**
@@ -202,12 +202,12 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function textarea($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function textarea($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         $class .= $this->errorClass($errors, $name);
 
-        $html = '<textarea name="'.$name.'" id="form-'.$name.'" class="'.$class.'" ';
-        $html .= implode(' ', $attributes).'>';
+        $html = '<textarea name="' . $name . '" id="form-' . $name . '" class="' . $class . '" ';
+        $html .= implode(' ', $attributes) . '>';
         $html .= isset($values[$name]) ? $this->helper->text->e($values[$name]) : '';
         $html .= '</textarea>';
         $html .= $this->errorList($errors, $name);
@@ -225,33 +225,33 @@ class FormHelper extends Base
      * @param  array   $attributes
      * @return string
      */
-    public function textEditor($name, $values = array(), array $errors = array(), array $attributes = array())
+    public function textEditor($name, $values = [], array $errors = [], array $attributes = [])
     {
-        $params = array(
-            'name' => $name,
-            'css' => $this->errorClass($errors, $name),
-            'required' => isset($attributes['required']) && $attributes['required'],
-            'tabindex' => isset($attributes['tabindex']) ? $attributes['tabindex'] : '-1',
-            'labelPreview' => t('Preview'),
-            'previewUrl' => $this->helper->url->to('TaskAjaxController', 'preview'),
-            'labelWrite' => t('Write'),
-            'labelTitle' => t('Title'),
-            'placeholder' => t('Write your text in Markdown'),
-            'ariaLabel' => isset($attributes['aria-label']) ? $attributes['aria-label'] : '',
-            'autofocus' => isset($attributes['autofocus']) && $attributes['autofocus'],
-            'suggestOptions' => array(
-                'triggers' => array(
-                    '#' => $this->helper->url->to('TaskAjaxController', 'suggest', array('search' => 'SEARCH_TERM')),
-                )
-            ),
-        );
+        $params = [
+            'name'           => $name,
+            'css'            => $this->errorClass($errors, $name),
+            'required'       => isset($attributes['required']) && $attributes['required'],
+            'tabindex'       => isset($attributes['tabindex']) ? $attributes['tabindex'] : '-1',
+            'labelPreview'   => t('Preview'),
+            'previewUrl'     => $this->helper->url->to('TaskAjaxController', 'preview'),
+            'labelWrite'     => t('Write'),
+            'labelTitle'     => t('Title'),
+            'placeholder'    => t('Write your text in Markdown'),
+            'ariaLabel'      => isset($attributes['aria-label']) ? $attributes['aria-label'] : '',
+            'autofocus'      => isset($attributes['autofocus']) && $attributes['autofocus'],
+            'suggestOptions' => [
+                'triggers' => [
+                    '#' => $this->helper->url->to('TaskAjaxController', 'suggest', ['search' => 'SEARCH_TERM']),
+                ],
+            ],
+        ];
 
         if (isset($values['project_id'])) {
-            $params['suggestOptions']['triggers']['@'] = $this->helper->url->to('UserAjaxController', 'mention', array('project_id' => $values['project_id'], 'search' => 'SEARCH_TERM'));
+            $params['suggestOptions']['triggers']['@'] = $this->helper->url->to('UserAjaxController', 'mention', ['project_id' => $values['project_id'], 'search' => 'SEARCH_TERM']);
         }
 
-        $html = '<div class="js-text-editor" data-params=\''.json_encode($params, JSON_HEX_APOS).'\'>';
-        $html .= '<script type="text/template">'.(isset($values[$name]) ? htmlspecialchars($values[$name], ENT_QUOTES, 'UTF-8', true) : '').'</script>';
+        $html = '<div class="js-text-editor" data-params=\'' . json_encode($params, JSON_HEX_APOS) . '\'>';
+        $html .= '<script type="text/template">' . (isset($values[$name]) ? htmlspecialchars($values[$name], ENT_QUOTES, 'UTF-8', true) : '') . '</script>';
         $html .= '</div>';
         $html .= $this->errorList($errors, $name);
 
@@ -267,9 +267,9 @@ class FormHelper extends Base
      * @param  boolean $multiple
      * @return string
      */
-    public function file($name, array $errors = array(), $multiple = false)
+    public function file($name, array $errors = [], $multiple = false)
     {
-        $html = '<input type="file" name="'.$name.'" id="form-'.$name.'" '.($multiple ? 'multiple' : '').'>';
+        $html = '<input type="file" name="' . $name . '" id="form-' . $name . '" ' . ($multiple ? 'multiple' : '') . '>';
         $html .= $this->errorList($errors, $name);
 
         return $html;
@@ -287,12 +287,12 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function input($type, $name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function input($type, $name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         $class .= $this->errorClass($errors, $name);
 
-        $html = '<input type="'.$type.'" name="'.$name.'" id="form-'.$name.'" '.$this->formValue($values, $name).' class="'.$class.'" ';
-        $html .= implode(' ', $attributes).'>';
+        $html = '<input type="' . $type . '" name="' . $name . '" id="form-' . $name . '" ' . $this->formValue($values, $name) . ' class="' . $class . '" ';
+        $html .= implode(' ', $attributes) . '>';
 
         if (in_array('required', $attributes)) {
             $html .= '<span class="form-required">*</span>';
@@ -314,7 +314,7 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function text($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function text($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         return $this->input('text', $name, $values, $errors, $attributes, $class);
     }
@@ -330,7 +330,7 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function password($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function password($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         return $this->input('password', $name, $values, $errors, $attributes, $class);
     }
@@ -346,7 +346,7 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function email($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function email($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         return $this->input('email', $name, $values, $errors, $attributes, $class);
     }
@@ -362,7 +362,7 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function number($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function number($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
         return $this->input('number', $name, $values, $errors, $attributes, $class);
     }
@@ -378,9 +378,9 @@ class FormHelper extends Base
      * @param  string  $class       CSS class
      * @return string
      */
-    public function numeric($name, $values = array(), array $errors = array(), array $attributes = array(), $class = '')
+    public function numeric($name, $values = [], array $errors = [], array $attributes = [], $class = '')
     {
-        return $this->input('text', $name, $values, $errors, $attributes, $class.' form-numeric');
+        return $this->input('text', $name, $values, $errors, $attributes, $class . ' form-numeric');
     }
 
     /**
@@ -394,11 +394,11 @@ class FormHelper extends Base
      * @param  array  $attributes
      * @return string
      */
-    public function date($label, $name, array $values, array $errors = array(), array $attributes = array())
+    public function date($label, $name, array $values, array $errors = [], array $attributes = [])
     {
         $userFormat = $this->dateParser->getUserDateFormat();
-        $values = $this->dateParser->format($values, array($name), $userFormat);
-        $attributes = array_merge(array('placeholder="'.date($userFormat).'"'), $attributes);
+        $values = $this->dateParser->format($values, [$name], $userFormat);
+        $attributes = array_merge(['placeholder="' . date($userFormat) . '"'], $attributes);
 
         return $this->helper->form->label($label, $name) .
             $this->helper->form->text($name, $values, $errors, $attributes, 'form-date');
@@ -415,11 +415,11 @@ class FormHelper extends Base
      * @param  array  $attributes
      * @return string
      */
-    public function datetime($label, $name, array $values, array $errors = array(), array $attributes = array())
+    public function datetime($label, $name, array $values, array $errors = [], array $attributes = [])
     {
         $userFormat = $this->dateParser->getUserDateTimeFormat();
-        $values = $this->dateParser->format($values, array($name), $userFormat);
-        $attributes = array_merge(array('placeholder="'.date($userFormat).'"'), $attributes);
+        $values = $this->dateParser->format($values, [$name], $userFormat);
+        $attributes = array_merge(['placeholder="' . date($userFormat) . '"'], $attributes);
 
         return $this->helper->form->label($label, $name) .
             $this->helper->form->text($name, $values, $errors, $attributes, 'form-datetime');
@@ -454,7 +454,7 @@ class FormHelper extends Base
             $html .= '<ul class="form-errors">';
 
             foreach ($errors[$name] as $error) {
-                $html .= '<li>'.$this->helper->text->e($error).'</li>';
+                $html .= '<li>' . $this->helper->text->e($error) . '</li>';
             }
 
             $html .= '</ul>';
@@ -474,9 +474,9 @@ class FormHelper extends Base
     private function formValue($values, $name)
     {
         if (isset($values->$name)) {
-            return 'value="'.$this->helper->text->e($values->$name).'"';
+            return 'value="' . $this->helper->text->e($values->$name) . '"';
         }
 
-        return isset($values[$name]) ? 'value="'.$this->helper->text->e($values[$name]).'"' : '';
+        return isset($values[$name]) ? 'value="' . $this->helper->text->e($values[$name]) . '"' : '';
     }
 }

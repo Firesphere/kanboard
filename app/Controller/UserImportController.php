@@ -2,8 +2,8 @@
 
 namespace Kanboard\Controller;
 
-use Kanboard\Core\Csv;
 use Kanboard\Core\Controller\AccessForbiddenException;
+use Kanboard\Core\Csv;
 
 /**
  * User Import controller
@@ -19,15 +19,15 @@ class UserImportController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
-        $this->response->html($this->template->render('user_import/show', array(
-            'values' => $values,
-            'errors' => $errors,
-            'max_size' => get_upload_max_size(),
+        $this->response->html($this->template->render('user_import/show', [
+            'values'     => $values,
+            'errors'     => $errors,
+            'max_size'   => get_upload_max_size(),
             'delimiters' => Csv::getDelimiters(),
             'enclosures' => Csv::getEnclosures(),
-        )));
+        ]));
     }
 
     /**
@@ -60,7 +60,7 @@ class UserImportController extends BaseController
     public function template()
     {
         $this->response->withFileDownload('users.csv');
-        $this->response->csv(array($this->userImport->getColumnMapping()));
+        $this->response->csv([$this->userImport->getColumnMapping()]);
     }
 
     /**
@@ -73,7 +73,7 @@ class UserImportController extends BaseController
     {
         $csv = new Csv($values['delimiter'], $values['enclosure']);
         $csv->setColumnMapping($this->userImport->getColumnMapping());
-        $csv->read($filename, array($this->userImport, 'import'));
+        $csv->read($filename, [$this->userImport, 'import']);
 
         if ($this->userImport->counter > 0) {
             $this->flash->success(t('%d user(s) have been imported successfully.', $this->userImport->counter));

@@ -21,9 +21,7 @@ class ActivityStreamNotification extends Base implements NotificationInterface
      * @param  string    $event_name
      * @param  array     $event_data
      */
-    public function notifyUser(array $user, $event_name, array $event_data)
-    {
-    }
+    public function notifyUser(array $user, $event_name, array $event_data) {}
 
     /**
      * Send notification to a project
@@ -41,7 +39,7 @@ class ActivityStreamNotification extends Base implements NotificationInterface
                 $event_data['task']['id'],
                 $this->userSession->getId(),
                 $event_name,
-                $event_data
+                $event_data,
             );
         }
     }

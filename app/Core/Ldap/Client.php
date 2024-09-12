@@ -121,7 +121,7 @@ class Client
     {
         if (! @ldap_bind($this->ldap)) {
             $this->checkForServerConnectionError();
-            throw new ClientException('Unable to perform anonymous binding => '.$this->getLdapError());
+            throw new ClientException('Unable to perform anonymous binding => ' . $this->getLdapError());
         }
 
         return true;
@@ -140,7 +140,7 @@ class Client
     {
         if (! @ldap_bind($this->ldap, $bind_rdn, $bind_password)) {
             $this->checkForServerConnectionError();
-            throw new ClientException('LDAP authentication failure for "'.$bind_rdn.'" => '.$this->getLdapError());
+            throw new ClientException('LDAP authentication failure for "' . $bind_rdn . '" => ' . $this->getLdapError());
         }
 
         return true;
@@ -242,6 +242,6 @@ class Client
         $errorMessage = ldap_error($this->ldap);
         $errorCode = ldap_errno($this->ldap);
 
-        return 'Code="'.$errorCode.'"; Error="'.$errorMessage.'"; ExtendedError="'.$extendedErrorMessage.'"';
+        return 'Code="' . $errorCode . '"; Error="' . $errorMessage . '"; ExtendedError="' . $extendedErrorMessage . '"';
     }
 }

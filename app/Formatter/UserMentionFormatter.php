@@ -12,7 +12,7 @@ use Kanboard\Core\Filter\FormatterInterface;
  */
 class UserMentionFormatter extends BaseFormatter implements FormatterInterface
 {
-    protected $users = array();
+    protected $users = [];
 
     /**
      * Set users
@@ -34,7 +34,7 @@ class UserMentionFormatter extends BaseFormatter implements FormatterInterface
      */
     public function format()
     {
-        $result = array();
+        $result = [];
 
         foreach ($this->users as $user) {
             $html = $this->helper->avatar->small(
@@ -43,19 +43,19 @@ class UserMentionFormatter extends BaseFormatter implements FormatterInterface
                 $user['name'],
                 $user['email'],
                 $user['avatar_path'],
-                'avatar-inline'
+                'avatar-inline',
             );
 
-            $html .= ' '.$this->helper->text->e($user['username']);
+            $html .= ' ' . $this->helper->text->e($user['username']);
 
             if (! empty($user['name'])) {
-                $html .= ' <small aria-hidden="true">'.$this->helper->text->e($user['name']).'</small>';
+                $html .= ' <small aria-hidden="true">' . $this->helper->text->e($user['name']) . '</small>';
             }
 
-            $result[] = array(
+            $result[] = [
                 'value' => $user['username'],
-                'html' => $html,
-            );
+                'html'  => $html,
+            ];
         }
 
         return $result;

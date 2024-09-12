@@ -40,7 +40,7 @@ class ProjectPermissionController extends BaseController
      * @param array $errors
      * @throws AccessForbiddenException
      */
-    public function index(array $values = array(), array $errors = array())
+    public function index(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
@@ -48,15 +48,15 @@ class ProjectPermissionController extends BaseController
             $values['role'] = Role::PROJECT_MEMBER;
         }
 
-        $this->response->html($this->helper->layout->project('project_permission/index', array(
+        $this->response->html($this->helper->layout->project('project_permission/index', [
             'project' => $project,
-            'users' => $this->projectUserRoleModel->getUsers($project['id']),
-            'groups' => $this->projectGroupRoleModel->getGroups($project['id']),
-            'roles' => $this->projectRoleModel->getList($project['id']),
-            'values' => $values,
-            'errors' => $errors,
-            'title' => t('Project Permissions'),
-        )));
+            'users'   => $this->projectUserRoleModel->getUsers($project['id']),
+            'groups'  => $this->projectGroupRoleModel->getGroups($project['id']),
+            'roles'   => $this->projectRoleModel->getList($project['id']),
+            'values'  => $values,
+            'errors'  => $errors,
+            'title'   => t('Project Permissions'),
+        ]));
     }
 
     /**
@@ -83,7 +83,7 @@ class ProjectPermissionController extends BaseController
             $this->flash->failure(t('Unable to update this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -103,7 +103,7 @@ class ProjectPermissionController extends BaseController
             $this->flash->failure(t('Unable to update this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -119,7 +119,7 @@ class ProjectPermissionController extends BaseController
         if (empty($project) ||
             empty($values)
         ) {
-            $this->response->json(array('status' => 'error'), 500);
+            $this->response->json(['status' => 'error'], 500);
             return;
         }
 
@@ -130,13 +130,13 @@ class ProjectPermissionController extends BaseController
             $values['role'] !== 'project-manager' &&
             count($usersGroupedByRole['project-manager']) <= 1
         ) {
-            $this->response->json(array('status' => 'error'), 500);
+            $this->response->json(['status' => 'error'], 500);
             return;
         }
 
         $this->projectUserRoleModel->changeUserRole($project['id'], $values['id'], $values['role']);
 
-        $this->response->json(array('status' => 'ok'));
+        $this->response->json(['status' => 'ok']);
     }
 
     /**
@@ -165,7 +165,7 @@ class ProjectPermissionController extends BaseController
             }
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -185,7 +185,7 @@ class ProjectPermissionController extends BaseController
             $this->flash->failure(t('Unable to update this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectPermissionController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -199,9 +199,9 @@ class ProjectPermissionController extends BaseController
         $values = $this->request->getJson();
 
         if (! empty($project) && ! empty($values) && $this->projectGroupRoleModel->changeGroupRole($project['id'], $values['id'], $values['role'])) {
-            $this->response->json(array('status' => 'ok'));
+            $this->response->json(['status' => 'ok']);
         } else {
-            $this->response->json(array('status' => 'error'));
+            $this->response->json(['status' => 'error']);
         }
     }
 }

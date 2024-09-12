@@ -12,85 +12,85 @@ use Kanboard\Core\Base;
  */
 class ModalHelper extends Base
 {
-    public function submitButtons(array $params = array())
+    public function submitButtons(array $params = [])
     {
-        return $this->helper->app->component('submit-buttons', array(
+        return $this->helper->app->component('submit-buttons', [
             'submitLabel' => isset($params['submitLabel']) ? $params['submitLabel'] : t('Save'),
             'orLabel'     => t('or'),
             'cancelLabel' => t('cancel'),
             'color'       => isset($params['color']) ? $params['color'] : 'blue',
             'tabindex'    => isset($params['tabindex']) ? $params['tabindex'] : null,
             'disabled'    => isset($params['disabled']) ? true : false,
-        ));
+        ]);
     }
 
-    public function confirmButtons($controller, $action, array $params = array(), $submitLabel = '', $tabindex = null)
+    public function confirmButtons($controller, $action, array $params = [], $submitLabel = '', $tabindex = null)
     {
-        return $this->helper->app->component('confirm-buttons', array(
+        return $this->helper->app->component('confirm-buttons', [
             'url'         => $this->helper->url->href($controller, $action, $params, true),
             'submitLabel' => $submitLabel ?: t('Yes'),
             'orLabel'     => t('or'),
             'cancelLabel' => t('cancel'),
             'tabindex'    => $tabindex,
-        ));
+        ]);
     }
 
-    public function largeIcon($icon, $label, $controller, $action, array $params = array())
+    public function largeIcon($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-large" aria-hidden="true"></i>';
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-large" aria-hidden="true"></i>';
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-large', $label);
     }
 
-    public function large($icon, $label, $controller, $action, array $params = array())
+    public function large($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-large" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-large" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-large');
     }
 
-    public function medium($icon, $label, $controller, $action, array $params = array(), $title = '')
+    public function medium($icon, $label, $controller, $action, array $params = [], $title = '')
     {
-        $ariaLabel = (empty($title) ? 'aria-hidden="true"' : 'role="img" aria-label="'.$title.'"');
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-medium" '.$ariaLabel.'></i>'.$label;
+        $ariaLabel = (empty($title) ? 'aria-hidden="true"' : 'role="img" aria-label="' . $title . '"');
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-medium" ' . $ariaLabel . '></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-medium', $title);
     }
 
-    public function small($icon, $label, $controller, $action, array $params = array())
+    public function small($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-small" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-small" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-small');
     }
 
-    public function mediumButton($icon, $label, $controller, $action, array $params = array())
+    public function mediumButton($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-medium" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-medium" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-medium btn');
     }
 
-    public function mediumIcon($icon, $label, $controller, $action, array $params = array())
+    public function mediumIcon($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-medium" aria-hidden="true"></i>';
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-medium" aria-hidden="true"></i>';
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-medium', $label);
     }
 
-    public function confirm($icon, $label, $controller, $action, array $params = array())
+    public function confirm($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-confirm" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-confirm" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-confirm');
     }
 
-    public function confirmLink($label, $controller, $action, array $params = array())
+    public function confirmLink($label, $controller, $action, array $params = [])
     {
         return $this->helper->url->link($label, $controller, $action, $params, false, 'js-modal-confirm');
     }
 
-    public function replaceLink($label, $controller, $action, array $params = array())
+    public function replaceLink($label, $controller, $action, array $params = [])
     {
         return $this->helper->url->link($label, $controller, $action, $params, false, 'js-modal-replace');
     }
 
-    public function replaceIconLink($icon, $label, $controller, $action, array $params = array())
+    public function replaceIconLink($icon, $label, $controller, $action, array $params = [])
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw js-modal-replace" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw js-modal-replace" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, false, 'js-modal-replace');
     }
 }

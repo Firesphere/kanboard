@@ -1,6 +1,6 @@
 <!-- column titles -->
 
-<?= $this->hook->render('template:board:table:column:before-header-row', array('swimlane' => $swimlane)) ?>
+<?= $this->hook->render('template:board:table:column:before-header-row', ['swimlane' => $swimlane]) ?>
 
 <tr class="board-swimlane-columns-<?= $swimlane['id'] ?>">
     <?php foreach ($swimlane['columns'] as $column): ?>
@@ -32,13 +32,13 @@
                             </li>
                             <?php if ($this->projectRole->canCreateTaskInColumn($column['project_id'], $column['id'])): ?>
                                 <li>
-                                    <?= $this->modal->medium('align-justify', t('Create tasks in bulk'), 'TaskBulkController', 'show', array('project_id' => $column['project_id'], 'column_id' => $column['id'], 'swimlane_id' => $swimlane['id'])) ?>
+                                    <?= $this->modal->medium('align-justify', t('Create tasks in bulk'), 'TaskBulkController', 'show', ['project_id' => $column['project_id'], 'column_id' => $column['id'], 'swimlane_id' => $swimlane['id']]) ?>
                                 </li>
                             <?php endif ?>
 
                             <?php if ($column['nb_tasks'] > 0 && $this->projectRole->canChangeTaskStatusInColumn($column['project_id'], $column['id'])): ?>
                                 <li>
-                                    <?= $this->modal->confirm('close', t('Close all tasks in this column and this swimlane'), 'BoardPopoverController', 'confirmCloseColumnTasks', array('project_id' => $column['project_id'], 'column_id' => $column['id'], 'swimlane_id' => $swimlane['id'])) ?>
+                                    <?= $this->modal->confirm('close', t('Close all tasks in this column and this swimlane'), 'BoardPopoverController', 'confirmCloseColumnTasks', ['project_id' => $column['project_id'], 'column_id' => $column['id'], 'swimlane_id' => $swimlane['id']]) ?>
                                 </li>
                             <?php endif ?>
                         </ul>
@@ -80,7 +80,7 @@
                             </span>
                         <?php endif ?>
 
-                        <?= $this->hook->render('template:board:column:dropdown', array('swimlane' => $swimlane, 'column' => $column)) ?>
+                        <?= $this->hook->render('template:board:column:dropdown', ['swimlane' => $swimlane, 'column' => $column]) ?>
                     </span>
                 <?php endif ?>
             </span>
@@ -118,10 +118,10 @@
                 </span>
                 <?php endif ?>
             </span>
-            <?= $this->hook->render('template:board:column:header', array('swimlane' => $swimlane, 'column' => $column)) ?>
+            <?= $this->hook->render('template:board:column:header', ['swimlane' => $swimlane, 'column' => $column]) ?>
         </div>
     </th>
     <?php endforeach ?>
 </tr>
 
-<?= $this->hook->render('template:board:table:column:after-header-row', array('swimlane' => $swimlane)) ?>
+<?= $this->hook->render('template:board:table:column:after-header-row', ['swimlane' => $swimlane]) ?>

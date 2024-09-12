@@ -2,17 +2,17 @@
 
 namespace Schema;
 
-require_once __DIR__.'/Migration.php';
+require_once __DIR__ . '/Migration.php';
 
-use PDO;
-use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
+use Kanboard\Core\Security\Token;
+use PDO;
 
 const VERSION = 3;
 
 function version_3(PDO $pdo)
 {
-    $pdo->exec("ALTER TABLE dbo.comments ADD visibility nvarchar(25) DEFAULT N'".Role::APP_USER."' NOT NULL");
+    $pdo->exec("ALTER TABLE dbo.comments ADD visibility nvarchar(25) DEFAULT N'" . Role::APP_USER . "' NOT NULL");
 }
 
 function version_2(PDO $pdo)
@@ -652,24 +652,24 @@ function version_1(PDO $pdo)
     // set defaults
     $pdo->exec("
         ALTER TABLE dbo.project_has_users
-        ADD DEFAULT N'" .Role::PROJECT_VIEWER. "' FOR role;
+        ADD DEFAULT N'" . Role::PROJECT_VIEWER . "' FOR role;
     ");
     $pdo->exec("
         ALTER TABLE dbo.users
-        ADD DEFAULT N'" .Role::APP_USER. "' FOR role;
+        ADD DEFAULT N'" . Role::APP_USER . "' FOR role;
     ");
 
     // insert starting data
     $aui = $pdo->prepare("INSERT INTO dbo.users (username, password, role) VALUES (?, ?, ?);");
-    $aui->execute(array('admin', \password_hash('admin', PASSWORD_BCRYPT), Role::APP_ADMIN));
+    $aui->execute(['admin', \password_hash('admin', PASSWORD_BCRYPT), Role::APP_ADMIN]);
 
     $rq = $pdo->prepare('INSERT INTO dbo.settings ([option],value) VALUES (?, ?);');
-    $rq->execute(array('api_token', Token::getToken()));
-    $rq->execute(array('application_url', defined('KANBOARD_URL') ? KANBOARD_URL : ''));
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
-    $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
-    $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
-    $rq->execute(array('webhook_token', Token::getToken()));
+    $rq->execute(['api_token', Token::getToken()]);
+    $rq->execute(['application_url', defined('KANBOARD_URL') ? KANBOARD_URL : '']);
+    $rq->execute(['board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60]);
+    $rq->execute(['board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10]);
+    $rq->execute(['board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60]);
+    $rq->execute(['webhook_token', Token::getToken()]);
 
     $pdo->exec("
         INSERT INTO dbo.settings ([option], value) VALUES

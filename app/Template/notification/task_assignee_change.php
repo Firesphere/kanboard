@@ -19,6 +19,6 @@
     <?= $this->text->markdown($task['description'], true) ?: t('There is no description.') ?>
 <?php endif ?>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

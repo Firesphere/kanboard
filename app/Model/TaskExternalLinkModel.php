@@ -31,7 +31,7 @@ class TaskExternalLinkModel extends Base
         $types = $this->externalLinkManager->getTypes();
 
         $links = $this->db->table(self::TABLE)
-            ->columns(self::TABLE.'.*', UserModel::TABLE.'.name AS creator_name', UserModel::TABLE.'.username AS creator_username')
+            ->columns(self::TABLE . '.*', UserModel::TABLE . '.name AS creator_name', UserModel::TABLE . '.username AS creator_username')
             ->eq('task_id', $task_id)
             ->asc('title')
             ->join(UserModel::TABLE, 'id', 'creator_id')

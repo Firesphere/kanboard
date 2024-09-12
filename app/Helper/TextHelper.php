@@ -2,8 +2,8 @@
 
 namespace Kanboard\Helper;
 
-use Kanboard\Core\Markdown;
 use Kanboard\Core\Base;
+use Kanboard\Core\Markdown;
 
 /**
  * Text Helpers
@@ -61,11 +61,11 @@ class TextHelper extends Base
      */
     public function reply($username, $text)
     {
-        $res = t('%s wrote: ', $username).PHP_EOL.'> ';
+        $res = t('%s wrote: ', $username) . PHP_EOL . '> ';
 
         $lines = preg_split("/\r\n|\n|\r/", $text);
 
-        return $res.implode(PHP_EOL.'> ', $lines);
+        return $res . implode(PHP_EOL . '> ', $lines);
     }
 
     /**
@@ -82,9 +82,9 @@ class TextHelper extends Base
         }
 
         $base = log($size) / log(1024);
-        $suffixes = array('', 'k', 'M', 'G', 'T');
+        $suffixes = ['', 'k', 'M', 'G', 'T'];
 
-        return round(pow(1024, $base - floor($base)), $precision).$suffixes[(int)floor($base)];
+        return round(pow(1024, $base - floor($base)), $precision) . $suffixes[(int) floor($base)];
     }
 
     /**

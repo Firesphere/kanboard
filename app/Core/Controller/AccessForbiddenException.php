@@ -8,6 +8,4 @@ namespace Kanboard\Core\Controller;
  * @package Kanboard\Core\Controller
  * @author  Frederic Guillot
  */
-class AccessForbiddenException extends BaseException
-{
-}
+class AccessForbiddenException extends BaseException {}

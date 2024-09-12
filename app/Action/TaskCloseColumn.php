@@ -31,9 +31,9 @@ class TaskCloseColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -44,7 +44,7 @@ class TaskCloseColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array('column_id' => t('Column'));
+        return ['column_id' => t('Column')];
     }
 
     /**
@@ -55,13 +55,13 @@ class TaskCloseColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**

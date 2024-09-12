@@ -9,10 +9,10 @@
         </li>
         <li>
             <?= t('API endpoint:') ?>
-            <strong><?= $this->text->e($this->url->base()).'jsonrpc.php' ?></strong>
+            <strong><?= $this->text->e($this->url->base()) . 'jsonrpc.php' ?></strong>
         </li>
     </ul>
 </div>
 
-<?= $this->url->link(t('Reset token'), 'ConfigController', 'token', array('type' => 'api'), true, 'btn btn-red') ?>
+<?= $this->url->link(t('Reset token'), 'ConfigController', 'token', ['type' => 'api'], true, 'btn btn-red') ?>
 

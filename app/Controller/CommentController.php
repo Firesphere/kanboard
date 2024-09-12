@@ -22,16 +22,16 @@ class CommentController extends BaseController
      * @throws AccessForbiddenException
      * @throws PageNotFoundException
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
         $values['project_id'] = $task['project_id'];
 
-        $this->response->html($this->helper->layout->task('comment/create', array(
+        $this->response->html($this->helper->layout->task('comment/create', [
             'values' => $values,
             'errors' => $errors,
-            'task' => $task
-        )));
+            'task'   => $task,
+        ]));
     }
 
     /**
@@ -55,7 +55,7 @@ class CommentController extends BaseController
                 $this->flash->failure(t('Unable to create your comment.'));
             }
 
-            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id']), 'comments'), true);
+            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']], 'comments'), true);
         } else {
             $this->create($values, $errors);
         }
@@ -70,7 +70,7 @@ class CommentController extends BaseController
      * @throws AccessForbiddenException
      * @throws PageNotFoundException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
         $comment = $this->getComment($task);
@@ -81,12 +81,12 @@ class CommentController extends BaseController
 
         $values['project_id'] = $task['project_id'];
 
-        $this->response->html($this->template->render('comment/edit', array(
-            'values' => $values,
-            'errors' => $errors,
+        $this->response->html($this->template->render('comment/edit', [
+            'values'  => $values,
+            'errors'  => $errors,
             'comment' => $comment,
-            'task' => $task,
-        )));
+            'task'    => $task,
+        ]));
     }
 
     /**
@@ -113,7 +113,7 @@ class CommentController extends BaseController
                 $this->flash->failure(t('Unable to update your comment.'));
             }
 
-            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
             return;
         }
 
@@ -130,11 +130,11 @@ class CommentController extends BaseController
         $task = $this->getTask();
         $comment = $this->getComment($task);
 
-        $this->response->html($this->template->render('comment/remove', array(
+        $this->response->html($this->template->render('comment/remove', [
             'comment' => $comment,
-            'task' => $task,
-            'title' => t('Remove a comment')
-        )));
+            'task'    => $task,
+            'title'   => t('Remove a comment'),
+        ]));
     }
 
     /**
@@ -154,7 +154,7 @@ class CommentController extends BaseController
             $this->flash->failure(t('Unable to remove this comment.'));
         }
 
-        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id']), 'comments'), true);
+        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']], 'comments'), true);
     }
 
     /**
@@ -171,8 +171,8 @@ class CommentController extends BaseController
         $this->response->redirect($this->helper->url->to(
             'TaskViewController',
             'show',
-            array('task_id' => $task['id']),
-            'comments'
+            ['task_id' => $task['id']],
+            'comments',
         ));
     }
 }

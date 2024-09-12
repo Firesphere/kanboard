@@ -21,7 +21,7 @@ class TaskPriorityFilter extends BaseComparisonFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('priority');
+        return ['priority'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskPriorityFilter extends BaseComparisonFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->applyComparisonFilter(TaskModel::TABLE.'.priority');
+        $this->applyComparisonFilter(TaskModel::TABLE . '.priority');
         return $this;
     }
 }

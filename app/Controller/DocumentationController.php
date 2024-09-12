@@ -2,8 +2,6 @@
 
 namespace Kanboard\Controller;
 
-use Parsedown;
-
 /**
  * Documentation Viewer
  *

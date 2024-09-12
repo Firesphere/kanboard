@@ -26,7 +26,7 @@ class TaskLinkModel extends Base
      * @var string
      */
     public const EVENT_CREATE_UPDATE = 'task_internal_link.create_update';
-    public const EVENT_DELETE        = 'task_internal_link.delete';
+    public const EVENT_DELETE = 'task_internal_link.delete';
 
     /**
      * Get projectId from $task_link_id
@@ -39,7 +39,7 @@ class TaskLinkModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.id', $task_link_id)
+            ->eq(self::TABLE . '.id', $task_link_id)
             ->join(TaskModel::TABLE, 'id', 'task_id')
             ->findOneColumn(TaskModel::TABLE . '.project_id') ?: 0;
     }
@@ -56,14 +56,14 @@ class TaskLinkModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.id',
-                self::TABLE.'.opposite_task_id',
-                self::TABLE.'.task_id',
-                self::TABLE.'.link_id',
-                LinkModel::TABLE.'.label',
-                LinkModel::TABLE.'.opposite_id AS opposite_link_id'
+                self::TABLE . '.id',
+                self::TABLE . '.opposite_task_id',
+                self::TABLE . '.task_id',
+                self::TABLE . '.link_id',
+                LinkModel::TABLE . '.label',
+                LinkModel::TABLE . '.opposite_id AS opposite_link_id',
             )
-            ->eq(self::TABLE.'.id', $task_link_id)
+            ->eq(self::TABLE . '.id', $task_link_id)
             ->join(LinkModel::TABLE, 'id', 'link_id')
             ->findOne();
     }
@@ -98,36 +98,36 @@ class TaskLinkModel extends Base
         return $this->db
                     ->table(self::TABLE)
                     ->columns(
-                        self::TABLE.'.id',
-                        self::TABLE.'.opposite_task_id AS task_id',
-                        LinkModel::TABLE.'.label',
-                        TaskModel::TABLE.'.title',
-                        TaskModel::TABLE.'.is_active',
-                        TaskModel::TABLE.'.project_id',
-                        TaskModel::TABLE.'.column_id',
-                        TaskModel::TABLE.'.color_id',
-                        TaskModel::TABLE.'.date_completed',
-                        TaskModel::TABLE.'.date_started',
-                        TaskModel::TABLE.'.date_due',
-                        TaskModel::TABLE.'.time_spent AS task_time_spent',
-                        TaskModel::TABLE.'.time_estimated AS task_time_estimated',
-                        TaskModel::TABLE.'.owner_id AS task_assignee_id',
-                        UserModel::TABLE.'.username AS task_assignee_username',
-                        UserModel::TABLE.'.name AS task_assignee_name',
-                        ColumnModel::TABLE.'.title AS column_title',
-                        ProjectModel::TABLE.'.name AS project_name'
+                        self::TABLE . '.id',
+                        self::TABLE . '.opposite_task_id AS task_id',
+                        LinkModel::TABLE . '.label',
+                        TaskModel::TABLE . '.title',
+                        TaskModel::TABLE . '.is_active',
+                        TaskModel::TABLE . '.project_id',
+                        TaskModel::TABLE . '.column_id',
+                        TaskModel::TABLE . '.color_id',
+                        TaskModel::TABLE . '.date_completed',
+                        TaskModel::TABLE . '.date_started',
+                        TaskModel::TABLE . '.date_due',
+                        TaskModel::TABLE . '.time_spent AS task_time_spent',
+                        TaskModel::TABLE . '.time_estimated AS task_time_estimated',
+                        TaskModel::TABLE . '.owner_id AS task_assignee_id',
+                        UserModel::TABLE . '.username AS task_assignee_username',
+                        UserModel::TABLE . '.name AS task_assignee_name',
+                        ColumnModel::TABLE . '.title AS column_title',
+                        ProjectModel::TABLE . '.name AS project_name',
                     )
-                    ->eq(self::TABLE.'.task_id', $task_id)
+                    ->eq(self::TABLE . '.task_id', $task_id)
                     ->join(LinkModel::TABLE, 'id', 'link_id')
                     ->join(TaskModel::TABLE, 'id', 'opposite_task_id')
                     ->join(ColumnModel::TABLE, 'id', 'column_id', TaskModel::TABLE)
                     ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE)
                     ->join(ProjectModel::TABLE, 'id', 'project_id', TaskModel::TABLE)
-                    ->asc(LinkModel::TABLE.'.id')
-                    ->desc(ColumnModel::TABLE.'.position')
-                    ->desc(TaskModel::TABLE.'.is_active')
-                    ->asc(TaskModel::TABLE.'.position')
-                    ->asc(TaskModel::TABLE.'.id')
+                    ->asc(LinkModel::TABLE . '.id')
+                    ->desc(ColumnModel::TABLE . '.position')
+                    ->desc(TaskModel::TABLE . '.is_active')
+                    ->asc(TaskModel::TABLE . '.position')
+                    ->asc(TaskModel::TABLE . '.id')
                     ->findAll();
     }
 
@@ -141,11 +141,11 @@ class TaskLinkModel extends Base
     public function getAllGroupedByLabel($task_id)
     {
         $links = $this->getAll($task_id);
-        $result = array();
+        $result = [];
 
         foreach ($links as $link) {
             if (! isset($result[$link['label']])) {
-                $result[$link['label']] = array();
+                $result[$link['label']] = [];
             }
 
             $result[$link['label']][] = $link;
@@ -177,7 +177,7 @@ class TaskLinkModel extends Base
         }
 
         $this->db->closeTransaction();
-        $this->fireEvents(array($task_link_id1, $task_link_id2), self::EVENT_CREATE_UPDATE);
+        $this->fireEvents([$task_link_id1, $task_link_id2], self::EVENT_CREATE_UPDATE);
 
         return $task_link_id1;
     }
@@ -209,7 +209,7 @@ class TaskLinkModel extends Base
         }
 
         $this->db->closeTransaction();
-        $this->fireEvents(array($task_link_id, $opposite_task_link['id']), self::EVENT_CREATE_UPDATE);
+        $this->fireEvents([$task_link_id, $opposite_task_link['id']], self::EVENT_CREATE_UPDATE);
 
         return true;
     }
@@ -277,11 +277,11 @@ class TaskLinkModel extends Base
      */
     protected function createTaskLink($task_id, $opposite_task_id, $link_id)
     {
-        return $this->db->table(self::TABLE)->persist(array(
+        return $this->db->table(self::TABLE)->persist([
             'task_id'          => $task_id,
             'opposite_task_id' => $opposite_task_id,
             'link_id'          => $link_id,
-        ));
+        ]);
     }
 
     /**
@@ -296,10 +296,10 @@ class TaskLinkModel extends Base
      */
     protected function updateTaskLink($task_link_id, $task_id, $opposite_task_id, $link_id)
     {
-        return $this->db->table(self::TABLE)->eq('id', $task_link_id)->update(array(
-            'task_id' => $task_id,
+        return $this->db->table(self::TABLE)->eq('id', $task_link_id)->update([
+            'task_id'          => $task_id,
             'opposite_task_id' => $opposite_task_id,
-            'link_id' => $link_id,
-        ));
+            'link_id'          => $link_id,
+        ]);
     }
 }

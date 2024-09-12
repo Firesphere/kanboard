@@ -31,7 +31,7 @@ class TaskCloseNotMovedColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(TaskModel::EVENT_DAILY_CRONJOB);
+        return [TaskModel::EVENT_DAILY_CRONJOB];
     }
 
     /**
@@ -42,10 +42,10 @@ class TaskCloseNotMovedColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'duration' => t('Duration in days'),
-            'column_id' => t('Column')
-        );
+        return [
+            'duration'  => t('Duration in days'),
+            'column_id' => t('Column'),
+        ];
     }
 
     /**
@@ -56,7 +56,7 @@ class TaskCloseNotMovedColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -68,8 +68,8 @@ class TaskCloseNotMovedColumn extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
-        $max = (int)$this->getParam('duration') * 86400;
+        $results = [];
+        $max = (int) $this->getParam('duration') * 86400;
 
         foreach ($data['tasks'] as $task) {
             $duration = time() - $task['date_moved'];

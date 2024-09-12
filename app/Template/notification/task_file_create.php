@@ -4,6 +4,6 @@
 
 <p><?= t('New attachment added "%s"', $file['name']) ?></p>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

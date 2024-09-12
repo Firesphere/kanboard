@@ -3,7 +3,7 @@
 </p>
 
 <p>
-    <?= $this->url->absoluteLink(t('Click here to join your team'), 'UserInviteController', 'signup', array('token' => $token)) ?>
+    <?= $this->url->absoluteLink(t('Click here to join your team'), 'UserInviteController', 'signup', ['token' => $token]) ?>
 </p>
 
 <?php if ($this->app->config('application_url')): ?>

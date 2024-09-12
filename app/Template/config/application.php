@@ -1,12 +1,12 @@
 <div class="page-header">
     <h2><?= t('Application settings') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ConfigController', 'save', array('redirect' => 'application')) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ConfigController', 'save', ['redirect' => 'application']) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>
         <?= $this->form->label(t('Application URL'), 'application_url') ?>
-        <?= $this->form->text('application_url', $values, $errors, array('placeholder="https://example.kanboard.org/"')) ?>
+        <?= $this->form->text('application_url', $values, $errors, ['placeholder="https://example.kanboard.org/"']) ?>
         <p class="form-help"><?= t('Example: https://example.kanboard.org/ (used to generate absolute URLs)') ?></p>
 
         <?= $this->form->label(t('Language'), 'application_language') ?>
@@ -32,7 +32,7 @@
         <?= $this->form->textarea('application_stylesheet', $values, $errors) ?>
     </fieldset>
 
-    <?= $this->hook->render('template:config:application', array('values' => $values, 'errors' => $errors)) ?>
+    <?= $this->hook->render('template:config:application', ['values' => $values, 'errors' => $errors]) ?>
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>

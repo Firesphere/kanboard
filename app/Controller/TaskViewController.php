@@ -37,20 +37,20 @@ class TaskViewController extends BaseController
             throw AccessForbiddenException::getInstance()->withoutLayout();
         }
 
-        $this->response->html($this->helper->layout->app('task/public', array(
-            'project' => $project,
-            'comments' => $this->commentModel->getAll($task['id']),
-            'subtasks' => $this->subtaskModel->getAll($task['id']),
-            'links' => $this->taskLinkModel->getAllGroupedByLabel($task['id']),
-            'task' => $task,
+        $this->response->html($this->helper->layout->app('task/public', [
+            'project'      => $project,
+            'comments'     => $this->commentModel->getAll($task['id']),
+            'subtasks'     => $this->subtaskModel->getAll($task['id']),
+            'links'        => $this->taskLinkModel->getAllGroupedByLabel($task['id']),
+            'task'         => $task,
             'columns_list' => $this->columnModel->getList($task['project_id']),
-            'colors_list' => $this->colorModel->getList(),
-            'tags' => $this->taskTagModel->getTagsByTask($task['id']),
-            'title' => $task['title'],
-            'no_layout' => true,
+            'colors_list'  => $this->colorModel->getList(),
+            'tags'         => $this->taskTagModel->getTagsByTask($task['id']),
+            'title'        => $task['title'],
+            'no_layout'    => true,
             'auto_refresh' => true,
             'not_editable' => true,
-        )));
+        ]));
     }
 
     /**
@@ -64,18 +64,18 @@ class TaskViewController extends BaseController
         $subtasks = $this->subtaskModel->getAll($task['id']);
         $commentSortingDirection = $this->userMetadataCacheDecorator->get(UserMetadataModel::KEY_COMMENT_SORTING_DIRECTION, 'ASC');
 
-        $this->response->html($this->helper->layout->task('task/show', array(
-            'task' => $task,
-            'project' => $this->projectModel->getById($task['project_id']),
-            'files' => $this->taskFileModel->getAllDocuments($task['id']),
-            'images' => $this->taskFileModel->getAllImages($task['id']),
-            'comments' => $this->commentModel->getAll($task['id'], $commentSortingDirection),
-            'subtasks' => $subtasks,
-            'internal_links' => $this->taskLinkModel->getAllGroupedByLabel($task['id']),
-            'external_links' => $this->taskExternalLinkModel->getAll($task['id']),
+        $this->response->html($this->helper->layout->task('task/show', [
+            'task'            => $task,
+            'project'         => $this->projectModel->getById($task['project_id']),
+            'files'           => $this->taskFileModel->getAllDocuments($task['id']),
+            'images'          => $this->taskFileModel->getAllImages($task['id']),
+            'comments'        => $this->commentModel->getAll($task['id'], $commentSortingDirection),
+            'subtasks'        => $subtasks,
+            'internal_links'  => $this->taskLinkModel->getAllGroupedByLabel($task['id']),
+            'external_links'  => $this->taskExternalLinkModel->getAll($task['id']),
             'link_label_list' => $this->linkModel->getList(0, false),
-            'tags' => $this->taskTagModel->getTagsByTask($task['id']),
-        )));
+            'tags'            => $this->taskTagModel->getTagsByTask($task['id']),
+        ]));
     }
 
     /**
@@ -87,14 +87,14 @@ class TaskViewController extends BaseController
     {
         $task = $this->getTask();
 
-        $this->response->html($this->helper->layout->task('task/analytics', array(
-            'task' => $task,
-            'project' => $this->projectModel->getById($task['project_id']),
-            'lead_time' => $this->taskAnalyticModel->getLeadTime($task),
-            'cycle_time' => $this->taskAnalyticModel->getCycleTime($task),
+        $this->response->html($this->helper->layout->task('task/analytics', [
+            'task'               => $task,
+            'project'            => $this->projectModel->getById($task['project_id']),
+            'lead_time'          => $this->taskAnalyticModel->getLeadTime($task),
+            'cycle_time'         => $this->taskAnalyticModel->getCycleTime($task),
             'time_spent_columns' => $this->taskAnalyticModel->getTimeSpentByColumn($task),
-            'tags' => $this->taskTagModel->getTagsByTask($task['id']),
-        )));
+            'tags'               => $this->taskTagModel->getTagsByTask($task['id']),
+        ]));
     }
 
     /**
@@ -107,19 +107,19 @@ class TaskViewController extends BaseController
         $task = $this->getTask();
 
         $subtask_paginator = $this->paginator
-            ->setUrl('TaskViewController', 'timetracking', array('task_id' => $task['id'], 'pagination' => 'subtasks'))
+            ->setUrl('TaskViewController', 'timetracking', ['task_id' => $task['id'], 'pagination' => 'subtasks'])
             ->setMax(15)
             ->setOrder('start')
             ->setDirection('DESC')
             ->setQuery($this->subtaskTimeTrackingModel->getTaskQuery($task['id']))
             ->calculateOnlyIf($this->request->getStringParam('pagination') === 'subtasks');
 
-        $this->response->html($this->helper->layout->task('task/time_tracking_details', array(
-            'task' => $task,
-            'project' => $this->projectModel->getById($task['project_id']),
+        $this->response->html($this->helper->layout->task('task/time_tracking_details', [
+            'task'              => $task,
+            'project'           => $this->projectModel->getById($task['project_id']),
             'subtask_paginator' => $subtask_paginator,
-            'tags' => $this->taskTagModel->getTagsByTask($task['id']),
-        )));
+            'tags'              => $this->taskTagModel->getTagsByTask($task['id']),
+        ]));
     }
 
     /**
@@ -131,11 +131,11 @@ class TaskViewController extends BaseController
     {
         $task = $this->getTask();
 
-        $this->response->html($this->helper->layout->task('task/transitions', array(
-            'task' => $task,
-            'project' => $this->projectModel->getById($task['project_id']),
+        $this->response->html($this->helper->layout->task('task/transitions', [
+            'task'        => $task,
+            'project'     => $this->projectModel->getById($task['project_id']),
             'transitions' => $this->transitionModel->getAllByTask($task['id']),
-            'tags' => $this->taskTagModel->getTagsByTask($task['id']),
-        )));
+            'tags'        => $this->taskTagModel->getTagsByTask($task['id']),
+        ]));
     }
 }

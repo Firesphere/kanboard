@@ -19,10 +19,10 @@ class ProjectFileController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_file/create', array(
-            'project' => $project,
+        $this->response->html($this->template->render('project_file/create', [
+            'project'  => $project,
             'max_size' => get_upload_max_size(),
-        )));
+        ]));
     }
 
     /**
@@ -38,16 +38,16 @@ class ProjectFileController extends BaseController
 
         if ($this->request->isAjax()) {
             if (! $result) {
-                $this->response->json(array('message' => t('Unable to upload files, check the permissions of your data folder.')), 500);
+                $this->response->json(['message' => t('Unable to upload files, check the permissions of your data folder.')], 500);
             } else {
-                $this->response->json(array('message' => 'OK'));
+                $this->response->json(['message' => 'OK']);
             }
         } else {
             if (! $result) {
                 $this->flash->failure(t('Unable to upload files, check the permissions of your data folder.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectOverviewController', 'show', array('project_id' => $project['id'])), true);
+            $this->response->redirect($this->helper->url->to('ProjectOverviewController', 'show', ['project_id' => $project['id']]), true);
         }
     }
 
@@ -68,7 +68,7 @@ class ProjectFileController extends BaseController
             $this->flash->failure(t('Unable to remove this file.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectOverviewController', 'show', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectOverviewController', 'show', ['project_id' => $project['id']]));
     }
 
     /**
@@ -81,9 +81,9 @@ class ProjectFileController extends BaseController
         $project = $this->getProject();
         $file = $this->projectFileModel->getById($this->request->getIntegerParam('file_id'));
 
-        $this->response->html($this->template->render('project_file/remove', array(
+        $this->response->html($this->template->render('project_file/remove', [
             'project' => $project,
-            'file' => $file,
-        )));
+            'file'    => $file,
+        ]));
     }
 }

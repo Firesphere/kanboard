@@ -39,10 +39,10 @@ class FileStorage implements ObjectStorageInterface
      */
     public function get($key)
     {
-        $filename = $this->path.DIRECTORY_SEPARATOR.$key;
+        $filename = $this->path . DIRECTORY_SEPARATOR . $key;
 
         if (! file_exists($filename)) {
-            throw new ObjectStorageException('File not found: '.$filename);
+            throw new ObjectStorageException('File not found: ' . $filename);
         }
 
         return file_get_contents($filename);
@@ -60,8 +60,8 @@ class FileStorage implements ObjectStorageInterface
     {
         $this->createFolder($key);
 
-        if (file_put_contents($this->path.DIRECTORY_SEPARATOR.$key, $blob) === false) {
-            throw new ObjectStorageException('Unable to write the file: '.$this->path.DIRECTORY_SEPARATOR.$key);
+        if (file_put_contents($this->path . DIRECTORY_SEPARATOR . $key, $blob) === false) {
+            throw new ObjectStorageException('Unable to write the file: ' . $this->path . DIRECTORY_SEPARATOR . $key);
         }
     }
 
@@ -74,10 +74,10 @@ class FileStorage implements ObjectStorageInterface
      */
     public function output($key)
     {
-        $filename = $this->path.DIRECTORY_SEPARATOR.$key;
+        $filename = $this->path . DIRECTORY_SEPARATOR . $key;
 
         if (! file_exists($filename)) {
-            throw new ObjectStorageException('File not found: '.$filename);
+            throw new ObjectStorageException('File not found: ' . $filename);
         }
 
         readfile($filename);
@@ -95,10 +95,10 @@ class FileStorage implements ObjectStorageInterface
     public function moveFile($src_filename, $key)
     {
         $this->createFolder($key);
-        $dst_filename = $this->path.DIRECTORY_SEPARATOR.$key;
+        $dst_filename = $this->path . DIRECTORY_SEPARATOR . $key;
 
         if (! rename($src_filename, $dst_filename)) {
-            throw new ObjectStorageException('Unable to move the file: '.$src_filename.' to '.$dst_filename);
+            throw new ObjectStorageException('Unable to move the file: ' . $src_filename . ' to ' . $dst_filename);
         }
 
         return true;
@@ -115,7 +115,7 @@ class FileStorage implements ObjectStorageInterface
     public function moveUploadedFile($filename, $key)
     {
         $this->createFolder($key);
-        return move_uploaded_file($filename, $this->path.DIRECTORY_SEPARATOR.$key);
+        return move_uploaded_file($filename, $this->path . DIRECTORY_SEPARATOR . $key);
     }
 
     /**
@@ -127,7 +127,7 @@ class FileStorage implements ObjectStorageInterface
      */
     public function remove($key)
     {
-        $filename = $this->path.DIRECTORY_SEPARATOR.$key;
+        $filename = $this->path . DIRECTORY_SEPARATOR . $key;
         $result = false;
 
         if (file_exists($filename)) {
@@ -135,7 +135,7 @@ class FileStorage implements ObjectStorageInterface
 
             // Remove parent folder if empty
             $parentFolder = dirname($filename);
-            $files = glob($parentFolder.DIRECTORY_SEPARATOR.'*');
+            $files = glob($parentFolder . DIRECTORY_SEPARATOR . '*');
 
             if ($files !== false && is_dir($parentFolder) && count($files) === 0) {
                 rmdir($parentFolder);
@@ -154,10 +154,10 @@ class FileStorage implements ObjectStorageInterface
      */
     private function createFolder($key)
     {
-        $folder = strpos($key, DIRECTORY_SEPARATOR) !== false ? $this->path.DIRECTORY_SEPARATOR.dirname($key) : $this->path;
+        $folder = strpos($key, DIRECTORY_SEPARATOR) !== false ? $this->path . DIRECTORY_SEPARATOR . dirname($key) : $this->path;
 
         if (! is_dir($folder) && ! mkdir($folder, 0755, true)) {
-            throw new ObjectStorageException('Unable to create folder: '.$folder);
+            throw new ObjectStorageException('Unable to create folder: ' . $folder);
         }
     }
 }

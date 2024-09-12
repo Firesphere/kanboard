@@ -20,7 +20,7 @@ class OrCriteria implements CriteriaInterface
     /**
      * @var FilterInterface[]
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * Set the Query

@@ -31,7 +31,7 @@ class TaskMoveColumnNotMovedPeriod extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(TaskModel::EVENT_DAILY_CRONJOB);
+        return [TaskModel::EVENT_DAILY_CRONJOB];
     }
 
     /**
@@ -42,11 +42,11 @@ class TaskMoveColumnNotMovedPeriod extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'duration' => t('Duration in days'),
-            'src_column_id' => t('Source column'),
+        return [
+            'duration'       => t('Duration in days'),
+            'src_column_id'  => t('Source column'),
             'dest_column_id' => t('Destination column'),
-        );
+        ];
     }
 
     /**
@@ -57,7 +57,7 @@ class TaskMoveColumnNotMovedPeriod extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -69,8 +69,8 @@ class TaskMoveColumnNotMovedPeriod extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
-        $max = (int)$this->getParam('duration') * 86400;
+        $results = [];
+        $max = (int) $this->getParam('duration') * 86400;
 
         foreach ($data['tasks'] as $task) {
             $duration = time() - $task['date_moved'];
@@ -82,7 +82,7 @@ class TaskMoveColumnNotMovedPeriod extends Base
                     $this->getParam('dest_column_id'),
                     1,
                     $task['swimlane_id'],
-                    false
+                    false,
                 );
             }
         }

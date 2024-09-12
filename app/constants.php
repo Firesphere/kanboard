@@ -1,25 +1,25 @@
 <?php
 
 // Root directory
-define('ROOT_DIR', __DIR__.DIRECTORY_SEPARATOR.'..');
+define('ROOT_DIR', __DIR__ . DIRECTORY_SEPARATOR . '..');
 
 // App directory
 define('APP_DIR', __DIR__);
 
 // Data directory location
-defined('DATA_DIR') or define('DATA_DIR', getenv('DATA_DIR') ?: ROOT_DIR.DIRECTORY_SEPARATOR.'data');
+defined('DATA_DIR') or define('DATA_DIR', getenv('DATA_DIR') ?: ROOT_DIR . DIRECTORY_SEPARATOR . 'data');
 
 // Files directory (attachments)
-defined('FILES_DIR') or define('FILES_DIR', getenv('FILES_DIR') ?: DATA_DIR.DIRECTORY_SEPARATOR.'files');
+defined('FILES_DIR') or define('FILES_DIR', getenv('FILES_DIR') ?: DATA_DIR . DIRECTORY_SEPARATOR . 'files');
 
 // Available cache drivers are "file" and "memory"
 defined('CACHE_DRIVER') or define('CACHE_DRIVER', getenv('CACHE_DRIVER') ?: 'memory');
 
 // Cache folder (file driver)
-defined('CACHE_DIR') or define('CACHE_DIR', getenv('CACHE_DIR') ?: DATA_DIR.DIRECTORY_SEPARATOR.'cache');
+defined('CACHE_DIR') or define('CACHE_DIR', getenv('CACHE_DIR') ?: DATA_DIR . DIRECTORY_SEPARATOR . 'cache');
 
 // Plugins settings
-defined('PLUGINS_DIR') or define('PLUGINS_DIR', getenv('PLUGINS_DIR') ?: ROOT_DIR.DIRECTORY_SEPARATOR.'plugins');
+defined('PLUGINS_DIR') or define('PLUGINS_DIR', getenv('PLUGINS_DIR') ?: ROOT_DIR . DIRECTORY_SEPARATOR . 'plugins');
 defined('PLUGIN_API_URL') or define('PLUGIN_API_URL', getenv('PLUGIN_API_URL') ?: 'https://kanboard.org/plugins.json');
 defined('PLUGIN_INSTALLER') or define('PLUGIN_INSTALLER', strtolower(getenv('PLUGIN_INSTALLER')) === 'true'); // Disabled by default for security reasons
 
@@ -30,7 +30,7 @@ defined('DEBUG') or define('DEBUG', strtolower(getenv('DEBUG')) === 'true');
 defined('LOG_DRIVER') or define('LOG_DRIVER', getenv('LOG_DRIVER') ?: 'system');
 
 // Logging file
-defined('LOG_FILE') or define('LOG_FILE', getenv('LOG_FILE') ?: DATA_DIR.DIRECTORY_SEPARATOR.'debug.log');
+defined('LOG_FILE') or define('LOG_FILE', getenv('LOG_FILE') ?: DATA_DIR . DIRECTORY_SEPARATOR . 'debug.log');
 
 // Application version
 defined('APP_VERSION') or define('APP_VERSION', getenv('APP_VERSION') ?: build_app_version('$Format:%d$', '$Format:%H$'));
@@ -42,7 +42,7 @@ defined('DB_RUN_MIGRATIONS') or define('DB_RUN_MIGRATIONS', getenv('DB_RUN_MIGRA
 defined('DB_DRIVER') or define('DB_DRIVER', getenv('DB_DRIVER') ?: 'sqlite');
 
 // Sqlite configuration
-defined('DB_FILENAME') or define('DB_FILENAME', getenv('DB_FILENAME') ?: DATA_DIR.DIRECTORY_SEPARATOR.'db.sqlite');
+defined('DB_FILENAME') or define('DB_FILENAME', getenv('DB_FILENAME') ?: DATA_DIR . DIRECTORY_SEPARATOR . 'db.sqlite');
 defined('DB_WAL_MODE') or define('DB_WAL_MODE', getenv('DB_WAL_MODE') ? strtolower(getenv('DB_WAL_MODE')) === 'true' : true);
 
 // Mysql/Postgres configuration

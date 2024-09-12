@@ -21,11 +21,11 @@ class UserListController extends BaseController
     {
         $paginator = $this->userPagination->getListingPaginator();
 
-        $this->response->html($this->helper->layout->app('user_list/listing', array(
-            'title' => t('Users').' ('.$paginator->getTotal().')',
+        $this->response->html($this->helper->layout->app('user_list/listing', [
+            'title'     => t('Users') . ' (' . $paginator->getTotal() . ')',
             'paginator' => $paginator,
-            'values' => array(),
-        )));
+            'values'    => [],
+        ]));
     }
 
     /**
@@ -40,21 +40,21 @@ class UserListController extends BaseController
 
         if ($search !== '' && ! $paginator->isEmpty()) {
             $paginator = $paginator
-                ->setUrl('UserListController', 'search', array('search' => $search))
+                ->setUrl('UserListController', 'search', ['search' => $search])
                 ->setQuery(
                     $this->userQuery
                     ->withFilter(new UserNameFilter($search))
-                    ->getQuery()
+                    ->getQuery(),
                 )
                 ->calculate();
         }
 
-        $this->response->html($this->helper->layout->app('user_list/listing', array(
-            'title' => t('Users').' ('.$paginator->getTotal().')',
-            'values' => array(
+        $this->response->html($this->helper->layout->app('user_list/listing', [
+            'title'  => t('Users') . ' (' . $paginator->getTotal() . ')',
+            'values' => [
                 'search' => $search,
-            ),
-            'paginator' => $paginator
-        )));
+            ],
+            'paginator' => $paginator,
+        ]));
     }
 }

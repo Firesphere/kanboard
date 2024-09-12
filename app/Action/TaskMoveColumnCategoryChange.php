@@ -31,11 +31,11 @@ class TaskMoveColumnCategoryChange extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_UPDATE,
             TaskModel::EVENT_CREATE,
             TaskModel::EVENT_CREATE_UPDATE,
-        );
+        ];
     }
 
     /**
@@ -46,10 +46,10 @@ class TaskMoveColumnCategoryChange extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'dest_column_id' => t('Destination column'),
-            'category_id' => t('Category'),
-        );
+            'category_id'    => t('Category'),
+        ];
     }
 
     /**
@@ -60,16 +60,16 @@ class TaskMoveColumnCategoryChange extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
                 'category_id',
                 'position',
                 'swimlane_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -87,7 +87,7 @@ class TaskMoveColumnCategoryChange extends Base
             $this->getParam('dest_column_id'),
             $data['task']['position'],
             $data['task']['swimlane_id'],
-            false
+            false,
         );
     }
 

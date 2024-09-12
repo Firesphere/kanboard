@@ -31,9 +31,9 @@ class TaskMoveSwimlaneCategoryChange extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_UPDATE,
-        );
+        ];
     }
 
     /**
@@ -44,10 +44,10 @@ class TaskMoveSwimlaneCategoryChange extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'dest_swimlane_id' => t('Destination swimlane'),
-            'category_id' => t('Category'),
-        );
+            'category_id'      => t('Category'),
+        ];
     }
 
     /**
@@ -58,16 +58,16 @@ class TaskMoveSwimlaneCategoryChange extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
                 'category_id',
                 'position',
                 'swimlane_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -85,7 +85,7 @@ class TaskMoveSwimlaneCategoryChange extends Base
             $data['task']['column_id'],
             $data['task']['position'],
             $this->getParam('dest_swimlane_id'),
-            false
+            false,
         );
     }
 

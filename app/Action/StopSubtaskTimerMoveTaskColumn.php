@@ -2,8 +2,8 @@
 
 namespace Kanboard\Action;
 
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\SubtaskModel;
+use Kanboard\Model\TaskModel;
 
 /**
  * Stop the timer of all subtasks when moving a task to another column.
@@ -32,9 +32,9 @@ class StopSubtaskTimerMoveTaskColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -45,9 +45,9 @@ class StopSubtaskTimerMoveTaskColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-        );
+        ];
     }
 
     /**
@@ -58,14 +58,14 @@ class StopSubtaskTimerMoveTaskColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'id',
                 'column_id',
                 'project_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -78,10 +78,10 @@ class StopSubtaskTimerMoveTaskColumn extends Base
     public function doAction(array $data)
     {
         $subtasks = $this->subtaskModel->getAll($data['task']['id']);
-        $results = array();
+        $results = [];
 
         foreach ($subtasks as $subtask) {
-            $results[] = $this->subtaskModel->update(array('id' => $subtask['id'], 'status' => SubtaskModel::STATUS_DONE));
+            $results[] = $this->subtaskModel->update(['id' => $subtask['id'], 'status' => SubtaskModel::STATUS_DONE]);
             $results[] = $this->subtaskTimeTrackingModel->logEndTime($subtask['id'], $subtask['user_id']);
         }
 

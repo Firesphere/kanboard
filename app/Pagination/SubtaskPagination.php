@@ -27,9 +27,9 @@ class SubtaskPagination extends Base
         $this->hook->reference('pagination:dashboard:subtask:query', $query);
 
         return $this->paginator
-            ->setUrl('DashboardController', 'subtasks', array('user_id' => $userId))
+            ->setUrl('DashboardController', 'subtasks', ['user_id' => $userId])
             ->setMax(50)
-            ->setOrder(TaskModel::TABLE.'.priority')
+            ->setOrder(TaskModel::TABLE . '.priority')
             ->setDirection('DESC')
             ->setFormatter($this->taskListSubtaskAssigneeFormatter->withUserId($userId)->withoutEmptyTasks())
             ->setQuery($query)

@@ -20,11 +20,11 @@ class ProjectViewController extends BaseController
         $project = $this->getProject();
         $columns = $this->columnModel->getAllWithTaskCount($project['id']);
 
-        $this->response->html($this->helper->layout->project('project_view/show', array(
+        $this->response->html($this->helper->layout->project('project_view/show', [
             'project' => $project,
             'columns' => $columns,
             'title'   => $project['name'],
-        )));
+        ]));
     }
 
     /**
@@ -36,10 +36,10 @@ class ProjectViewController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_view/share', array(
+        $this->response->html($this->helper->layout->project('project_view/share', [
             'project' => $project,
-            'title' => t('Public access'),
-        )));
+            'title'   => t('Public access'),
+        ]));
     }
 
     /**
@@ -54,13 +54,13 @@ class ProjectViewController extends BaseController
         $this->checkCSRFParam();
         $switch = $this->request->getStringParam('switch');
 
-        if ($this->projectModel->{$switch.'PublicAccess'}($project['id'])) {
+        if ($this->projectModel->{$switch . 'PublicAccess'}($project['id'])) {
             $this->flash->success(t('Project updated successfully.'));
         } else {
             $this->flash->failure(t('Unable to update this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'share', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'share', ['project_id' => $project['id']]));
     }
 
     /**
@@ -72,13 +72,13 @@ class ProjectViewController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_view/integrations', array(
-            'project' => $project,
-            'title' => t('Integrations'),
+        $this->response->html($this->helper->layout->project('project_view/integrations', [
+            'project'       => $project,
+            'title'         => t('Integrations'),
             'webhook_token' => $this->configModel->get('webhook_token'),
-            'values' => $this->projectMetadataModel->getAll($project['id']),
-            'errors' => array(),
-        )));
+            'values'        => $this->projectMetadataModel->getAll($project['id']),
+            'errors'        => [],
+        ]));
     }
 
     /**
@@ -92,7 +92,7 @@ class ProjectViewController extends BaseController
 
         $this->projectMetadataModel->save($project['id'], $this->request->getValues());
         $this->flash->success(t('Project updated successfully.'));
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'integrations', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'integrations', ['project_id' => $project['id']]));
     }
 
     /**
@@ -104,12 +104,12 @@ class ProjectViewController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_view/notifications', array(
+        $this->response->html($this->helper->layout->project('project_view/notifications', [
             'notifications' => $this->projectNotificationModel->readSettings($project['id']),
-            'types' => $this->projectNotificationTypeModel->getTypes(),
-            'project' => $project,
-            'title' => t('Notifications'),
-        )));
+            'types'         => $this->projectNotificationTypeModel->getTypes(),
+            'project'       => $project,
+            'title'         => t('Notifications'),
+        ]));
     }
 
     /**
@@ -124,7 +124,7 @@ class ProjectViewController extends BaseController
 
         $this->projectNotificationModel->saveSettings($project['id'], $values);
         $this->flash->success(t('Project updated successfully.'));
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'notifications', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'notifications', ['project_id' => $project['id']]));
     }
 
     /**
@@ -138,10 +138,10 @@ class ProjectViewController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_view/duplicate', array(
+        $this->response->html($this->helper->layout->project('project_view/duplicate', [
             'project' => $project,
-            'title' => t('Clone this project')
-        )));
+            'title'   => t('Clone this project'),
+        ]));
     }
 
     /**
@@ -162,7 +162,7 @@ class ProjectViewController extends BaseController
             $this->flash->failure(t('Unable to clone this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', array('project_id' => $project_id)));
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', ['project_id' => $project_id]));
     }
 
     /**
@@ -183,14 +183,14 @@ class ProjectViewController extends BaseController
             static function ($projectId) use ($project) {
                 return (int) $project['id'] !== $projectId;
             },
-            ARRAY_FILTER_USE_KEY
+            ARRAY_FILTER_USE_KEY,
         );
 
-        $this->response->html($this->helper->layout->project('project_view/importTasks', array(
-            'project' => $project,
-            'title' => t('Import Tasks'),
+        $this->response->html($this->helper->layout->project('project_view/importTasks', [
+            'project'  => $project,
+            'title'    => t('Import Tasks'),
             'projects' => $otherProjects,
-        )));
+        ]));
     }
 
     /**
@@ -208,7 +208,7 @@ class ProjectViewController extends BaseController
         $srcProjectId = $this->request->getRawFormValues()['projects'] ?? null;
 
         if (empty($srcProjectId)) {
-            $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', ['project_id' => $project['id']]));
             return;
         }
 
@@ -216,10 +216,10 @@ class ProjectViewController extends BaseController
             $this->flash->success(t('Tasks copied successfully.'));
         } else {
             $this->flash->failure(t('Unable to copy tasks.'));
-            $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectViewController', 'importTasks', ['project_id' => $project['id']]));
             return;
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', ['project_id' => $project['id']]));
     }
 }

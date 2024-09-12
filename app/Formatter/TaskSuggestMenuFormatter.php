@@ -36,26 +36,26 @@ class TaskSuggestMenuFormatter extends BaseFormatter implements FormatterInterfa
      */
     public function format()
     {
-        $result = array();
+        $result = [];
         $tasks = $this->query
             ->columns(
-                TaskModel::TABLE.'.id',
-                TaskModel::TABLE.'.title',
-                ProjectModel::TABLE.'.name AS project_name'
+                TaskModel::TABLE . '.id',
+                TaskModel::TABLE . '.title',
+                ProjectModel::TABLE . '.name AS project_name',
             )
-            ->asc(TaskModel::TABLE.'.id')
+            ->asc(TaskModel::TABLE . '.id')
             ->limit($this->limit)
             ->findAll();
 
         foreach ($tasks as $task) {
-            $html = '#'.$task['id'].' ';
-            $html .= $this->helper->text->e($task['title']).' ';
-            $html .= '<small>'.$this->helper->text->e($task['project_name']).'</small>';
+            $html = '#' . $task['id'] . ' ';
+            $html .= $this->helper->text->e($task['title']) . ' ';
+            $html .= '<small>' . $this->helper->text->e($task['project_name']) . '</small>';
 
-            $result[] = array(
+            $result[] = [
                 'value' => (string) $task['id'],
-                'html' => $html,
-            );
+                'html'  => $html,
+            ];
         }
 
         return $result;

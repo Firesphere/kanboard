@@ -34,14 +34,14 @@ class SubtaskTimeTrackingModel extends Base
                     ->columns('start')
                     ->eq($this->db->escapeIdentifier('user_id', self::TABLE), $user_id)
                     ->eq($this->db->escapeIdentifier('end', self::TABLE), 0)
-                    ->eq($this->db->escapeIdentifier('subtask_id', self::TABLE), SubtaskModel::TABLE.'.id')
+                    ->eq($this->db->escapeIdentifier('subtask_id', self::TABLE), SubtaskModel::TABLE . '.id')
                     ->limit(1)
                     ->buildSelectQuery();
         // need to interpolate values into the SQL text for use as a subquery
         // in SubtaskModel::getQuery()
         $sql = substr_replace($sql, $user_id, strpos($sql, '?'), 1);
         $sql = substr_replace($sql, 0, strpos($sql, '?'), 1);
-        $sql = substr_replace($sql, SubtaskModel::TABLE.'.id', strpos($sql, '?'), 1);
+        $sql = substr_replace($sql, SubtaskModel::TABLE . '.id', strpos($sql, '?'), 1);
         return $sql;
     }
 
@@ -63,8 +63,8 @@ class SubtaskTimeTrackingModel extends Base
                         $this->db->escapeIdentifier('start', self::TABLE),
                         $this->db->escapeIdentifier('time_spent', self::TABLE),
                         $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
-                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE).' AS subtask_title',
-                        $this->db->escapeIdentifier('title', TaskModel::TABLE).' AS task_title',
+                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
+                        $this->db->escapeIdentifier('title', TaskModel::TABLE) . ' AS task_title',
                         $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
                         $this->db->escapeIdentifier('color_id', TaskModel::TABLE),
                     )
@@ -92,10 +92,10 @@ class SubtaskTimeTrackingModel extends Base
                         $this->db->escapeIdentifier('time_spent', self::TABLE),
                         $this->db->escapeIdentifier('user_id', self::TABLE),
                         $this->db->escapeIdentifier('task_id', SubtaskModel::TABLE),
-                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE).' AS subtask_title',
+                        $this->db->escapeIdentifier('title', SubtaskModel::TABLE) . ' AS subtask_title',
                         $this->db->escapeIdentifier('project_id', TaskModel::TABLE),
                         $this->db->escapeIdentifier('username', UserModel::TABLE),
-                        $this->db->escapeIdentifier('name', UserModel::TABLE).' AS user_fullname',
+                        $this->db->escapeIdentifier('name', UserModel::TABLE) . ' AS user_fullname',
                     )
                     ->join(SubtaskModel::TABLE, 'id', 'subtask_id')
                     ->join(TaskModel::TABLE, 'id', 'task_id', SubtaskModel::TABLE)
@@ -167,7 +167,7 @@ class SubtaskTimeTrackingModel extends Base
             ! $this->hasTimer($subtask_id, $user_id) &&
             $this->db
                 ->table(self::TABLE)
-                ->insert(array('subtask_id' => $subtask_id, 'user_id' => $user_id, 'start' => time(), 'end' => 0));
+                ->insert(['subtask_id' => $subtask_id, 'user_id' => $user_id, 'start' => time(), 'end' => 0]);
     }
 
     /**
@@ -191,10 +191,10 @@ class SubtaskTimeTrackingModel extends Base
                     ->eq('subtask_id', $subtask_id)
                     ->eq('user_id', $user_id)
                     ->eq('end', 0)
-                    ->update(array(
-                        'end' => time(),
+                    ->update([
+                        'end'        => time(),
                         'time_spent' => $time_spent,
-                    ));
+                    ]);
     }
 
     /**
@@ -224,11 +224,11 @@ class SubtaskTimeTrackingModel extends Base
         $start->setTimestamp($start_time);
 
         if ($this->hook->exists($hook)) {
-            return $this->hook->first($hook, array(
+            return $this->hook->first($hook, [
                 'user_id' => $user_id,
-                'start' => $start,
-                'end' => $end,
-            ));
+                'start'   => $start,
+                'end'     => $end,
+            ]);
         }
 
         return $this->dateParser->getHours($start, $end);
@@ -246,11 +246,11 @@ class SubtaskTimeTrackingModel extends Base
     {
         $subtask = $this->subtaskModel->getById($subtask_id);
 
-        return $this->subtaskModel->update(array(
-            'id' => $subtask['id'],
+        return $this->subtaskModel->update([
+            'id'         => $subtask['id'],
             'time_spent' => $subtask['time_spent'] + $time_spent,
-            'task_id' => $subtask['task_id'],
-        ), false);
+            'task_id'    => $subtask['task_id'],
+        ], false);
     }
 
     /**
@@ -284,7 +284,7 @@ class SubtaskTimeTrackingModel extends Base
                     ->eq('task_id', $task_id)
                     ->columns(
                         'SUM(time_spent) AS time_spent',
-                        'SUM(time_estimated) AS time_estimated'
+                        'SUM(time_estimated) AS time_estimated',
                     )
                     ->findOne();
     }

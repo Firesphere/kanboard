@@ -3,8 +3,8 @@
 namespace Kanboard\Core;
 
 use Kanboard\Core\Filter\FormatterInterface;
-use Pimple\Container;
 use PicoDb\Table;
+use Pimple\Container;
 
 /**
  * Paginator Helper
@@ -76,7 +76,7 @@ class Paginator
      * @access private
      * @var array
      */
-    private $items = array();
+    private $items = [];
 
     /**
      * PicoDb Table instance
@@ -116,7 +116,7 @@ class Paginator
      * @access private
      * @var array
      */
-    private $params = array();
+    private $params = [];
 
     /**
      * @var FormatterInterface
@@ -169,7 +169,6 @@ class Paginator
     public function executeQuery()
     {
         if ($this->query !== null) {
-
             $this->query
                 ->offset($this->offset)
                 ->limit($this->limit);
@@ -187,7 +186,7 @@ class Paginator
             }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -200,7 +199,7 @@ class Paginator
      * @param  string      $anchor
      * @return $this
      */
-    public function setUrl($controller, $action, array $params = array(), $anchor = '')
+    public function setUrl($controller, $action, array $params = [], $anchor = '')
     {
         $this->controller = $controller;
         $this->action = $action;
@@ -389,11 +388,11 @@ class Paginator
      */
     public function getUrlParams($page, $order, $direction)
     {
-        $params = array(
-            'page' => $page,
-            'order' => $order,
+        $params = [
+            'page'      => $page,
+            'order'     => $order,
             'direction' => $direction,
-        );
+        ];
 
         return array_merge($this->params, $params);
     }
@@ -410,7 +409,7 @@ class Paginator
 
         if ($this->offset > 0) {
             $html .= $this->container['helper']->url->link(
-                '&larr; '.t('Previous'),
+                '&larr; ' . t('Previous'),
                 $this->controller,
                 $this->action,
                 $this->getUrlParams($this->page - 1, $this->order, $this->direction),
@@ -418,10 +417,10 @@ class Paginator
                 'js-modal-replace',
                 t('Previous'),
                 false,
-                $this->anchor
+                $this->anchor,
             );
         } else {
-            $html .= '&larr; '.t('Previous');
+            $html .= '&larr; ' . t('Previous');
         }
 
         $html .= '</span>';
@@ -441,7 +440,7 @@ class Paginator
 
         if (($this->total - $this->offset) > $this->limit) {
             $html .= $this->container['helper']->url->link(
-                t('Next').' &rarr;',
+                t('Next') . ' &rarr;',
                 $this->controller,
                 $this->action,
                 $this->getUrlParams($this->page + 1, $this->order, $this->direction),
@@ -449,10 +448,10 @@ class Paginator
                 'js-modal-replace',
                 t('Next'),
                 false,
-                $this->anchor
+                $this->anchor,
             );
         } else {
-            $html .= t('Next').' &rarr;';
+            $html .= t('Next') . ' &rarr;';
         }
 
         $html .= '</span>';
@@ -468,7 +467,7 @@ class Paginator
      */
     public function generatePageShowing()
     {
-        return '<span class="pagination-showing">'.t('Showing %d-%d of %d', (($this->getPage() - 1) * $this->getMax() + 1), min($this->getTotal(), $this->getPage() * $this->getMax()), $this->getTotal()).'</span>';
+        return '<span class="pagination-showing">' . t('Showing %d-%d of %d', (($this->getPage() - 1) * $this->getMax() + 1), min($this->getTotal(), $this->getPage() * $this->getMax()), $this->getTotal()) . '</span>';
     }
 
     /**
@@ -531,13 +530,13 @@ class Paginator
             $direction = $this->direction === 'DESC' ? 'ASC' : 'DESC';
         }
 
-        return $prefix.$this->container['helper']->url->link(
+        return $prefix . $this->container['helper']->url->link(
             $label,
             $this->controller,
             $this->action,
             $this->getUrlParams($this->page, $column, $direction),
             false,
-            'js-modal-replace'
+            'js-modal-replace',
         );
     }
 }

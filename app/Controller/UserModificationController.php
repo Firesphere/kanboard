@@ -19,7 +19,7 @@ class UserModificationController extends BaseController
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
         $user = $this->getUser();
 
@@ -28,15 +28,15 @@ class UserModificationController extends BaseController
             unset($values['password']);
         }
 
-        return $this->response->html($this->helper->layout->user('user_modification/show', array(
-            'values' => $values,
-            'errors' => $errors,
-            'user' => $user,
-            'themes' => $this->themeModel->getThemes(),
+        return $this->response->html($this->helper->layout->user('user_modification/show', [
+            'values'    => $values,
+            'errors'    => $errors,
+            'user'      => $user,
+            'themes'    => $this->themeModel->getThemes(),
             'timezones' => $this->timezoneModel->getTimezones(true),
             'languages' => $this->languageModel->getLanguages(true),
-            'roles' => $this->role->getApplicationRoles(),
-        )));
+            'roles'     => $this->role->getApplicationRoles(),
+        ]));
     }
 
     /**
@@ -48,16 +48,16 @@ class UserModificationController extends BaseController
         $values = $this->request->getValues();
 
         if (! $this->userSession->isAdmin()) {
-            $values = array(
-                'id' => $this->userSession->getId(),
+            $values = [
+                'id'       => $this->userSession->getId(),
                 'username' => isset($values['username']) ? $values['username'] : '',
-                'name' => isset($values['name']) ? $values['name'] : '',
-                'email' => isset($values['email']) ? $values['email'] : '',
-                'theme' => isset($values['theme']) ? $values['theme'] : '',
+                'name'     => isset($values['name']) ? $values['name'] : '',
+                'email'    => isset($values['email']) ? $values['email'] : '',
+                'theme'    => isset($values['theme']) ? $values['theme'] : '',
                 'timezone' => isset($values['timezone']) ? $values['timezone'] : '',
                 'language' => isset($values['language']) ? $values['language'] : '',
-                'filter' => isset($values['filter']) ? $values['filter'] : '',
-            );
+                'filter'   => isset($values['filter']) ? $values['filter'] : '',
+            ];
         }
 
         list($valid, $errors) = $this->userValidator->validateModification($values);
@@ -65,7 +65,7 @@ class UserModificationController extends BaseController
         if ($valid) {
             if ($this->userModel->update($values)) {
                 $this->flash->success(t('User updated successfully.'));
-                $this->response->redirect($this->helper->url->to('UserViewController', 'show', array('user_id' => $user['id'])), true);
+                $this->response->redirect($this->helper->url->to('UserViewController', 'show', ['user_id' => $user['id']]), true);
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this user.'));

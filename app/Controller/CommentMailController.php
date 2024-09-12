@@ -10,16 +10,16 @@ namespace Kanboard\Controller;
  */
 class CommentMailController extends BaseController
 {
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
 
-        $this->response->html($this->helper->layout->task('comment_mail/create', array(
+        $this->response->html($this->helper->layout->task('comment_mail/create', [
             'values'  => $values,
             'errors'  => $errors,
             'task'    => $task,
             'members' => $this->projectPermissionModel->getMembersWithEmail($task['project_id']),
-        )));
+        ]));
     }
 
     public function save()
@@ -41,7 +41,7 @@ class CommentMailController extends BaseController
                 $this->flash->failure(t('Unable to create your comment.'));
             }
 
-            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id']), 'comments'), true);
+            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']], 'comments'), true);
         } else {
             $this->create($values, $errors);
         }
@@ -49,7 +49,7 @@ class CommentMailController extends BaseController
 
     protected function sendByEmail(array $values, array $task)
     {
-        $html = $this->template->render('comment_mail/email', array('email' => $values, 'task' => $task));
+        $html = $this->template->render('comment_mail/email', ['email' => $values, 'task' => $task]);
         $emails = explode_csv_field($values['emails']);
 
         foreach ($emails as $email) {
@@ -57,14 +57,14 @@ class CommentMailController extends BaseController
                 $email,
                 $email,
                 $values['subject'],
-                $html
+                $html,
             );
         }
     }
 
     protected function prepareComment(array $values)
     {
-        $values['comment'] .= "\n\n_".t('Sent by email to "%s" (%s)', $values['emails'], $values['subject']).'_';
+        $values['comment'] .= "\n\n_" . t('Sent by email to "%s" (%s)', $values['emails'], $values['subject']) . '_';
 
         unset($values['subject']);
         unset($values['emails']);

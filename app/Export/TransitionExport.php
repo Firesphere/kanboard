@@ -23,7 +23,7 @@ class TransitionExport extends Base
      */
     public function export($project_id, $from, $to)
     {
-        $results = array($this->getColumns());
+        $results = [$this->getColumns()];
         $transitions = $this->transitionModel->getAllByProjectAndDate($project_id, $from, $to);
 
         foreach ($transitions as $transition) {
@@ -41,7 +41,7 @@ class TransitionExport extends Base
      */
     protected function getColumns()
     {
-        return array(
+        return [
             e('Id'),
             e('Task Title'),
             e('Source column'),
@@ -49,7 +49,7 @@ class TransitionExport extends Base
             e('Executer'),
             e('Date'),
             e('Time spent'),
-        );
+        ];
     }
 
     /**
@@ -61,15 +61,15 @@ class TransitionExport extends Base
      */
     protected function format(array $transition)
     {
-        $values = array(
+        $values = [
             (int) $transition['id'],
             $transition['title'],
             $transition['src_column'],
             $transition['dst_column'],
             $transition['name'] ?: $transition['username'],
             date($this->dateParser->getUserDateTimeFormat(), $transition['date']),
-            round($transition['time_spent'] / 3600, 2)
-        );
+            round($transition['time_spent'] / 3600, 2),
+        ];
 
         return $values;
     }

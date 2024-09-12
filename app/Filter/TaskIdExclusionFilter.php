@@ -21,7 +21,7 @@ class TaskIdExclusionFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('exclude');
+        return ['exclude'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskIdExclusionFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->notin(TaskModel::TABLE.'.id', $this->value);
+        $this->query->notin(TaskModel::TABLE . '.id', $this->value);
         return $this;
     }
 }

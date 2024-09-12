@@ -31,9 +31,9 @@ class TaskAssignCategoryColor extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE_UPDATE,
-        );
+        ];
     }
 
     /**
@@ -44,10 +44,10 @@ class TaskAssignCategoryColor extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'color_id' => t('Color'),
+        return [
+            'color_id'    => t('Color'),
             'category_id' => t('Category'),
-        );
+        ];
     }
 
     /**
@@ -58,13 +58,13 @@ class TaskAssignCategoryColor extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'color_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -76,10 +76,10 @@ class TaskAssignCategoryColor extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'          => $data['task_id'],
             'category_id' => $this->getParam('category_id'),
-        );
+        ];
 
         return $this->taskModificationModel->update($values);
     }

@@ -2,17 +2,17 @@
 
 namespace Schema;
 
-require_once __DIR__.'/Migration.php';
+require_once __DIR__ . '/Migration.php';
 
-use PDO;
-use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
+use Kanboard\Core\Security\Token;
+use PDO;
 
 const VERSION = 139;
 
 function version_139(PDO $pdo)
 {
-    $pdo->exec("ALTER TABLE `comments` ADD COLUMN `visibility` VARCHAR(25) NOT NULL DEFAULT '".Role::APP_USER."'");
+    $pdo->exec("ALTER TABLE `comments` ADD COLUMN `visibility` VARCHAR(25) NOT NULL DEFAULT '" . Role::APP_USER . "'");
 }
 
 function version_138(PDO $pdo)
@@ -140,7 +140,7 @@ function version_130(PDO $pdo)
     ];
 
     foreach ($tables as $table) {
-        $pdo->exec('ALTER TABLE `'.$table.'` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+        $pdo->exec('ALTER TABLE `' . $table . '` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
     }
 }
 
@@ -413,7 +413,7 @@ function version_106(PDO $pdo)
             `date` INT DEFAULT 0 NOT NULL,
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE,
             PRIMARY KEY(id)
-        )  ENGINE=InnoDB CHARSET=utf8"
+        )  ENGINE=InnoDB CHARSET=utf8",
     );
 }
 
@@ -481,7 +481,7 @@ function version_99(PDO $pdo)
 {
     $rq = $pdo->prepare('SELECT * FROM actions');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE actions SET action_name=? WHERE id=?');
 
@@ -493,10 +493,10 @@ function version_99(PDO $pdo)
         } elseif ($row['action_name'] === 'TaskLogMoveAnotherColumn') {
             $row['action_name'] = '\Kanboard\Action\CommentCreationMoveTaskColumn';
         } elseif ($row['action_name'][0] !== '\\') {
-            $row['action_name'] = '\Kanboard\Action\\'.$row['action_name'];
+            $row['action_name'] = '\Kanboard\Action\\' . $row['action_name'];
         }
 
-        $rq->execute(array($row['action_name'], $row['id']));
+        $rq->execute([$row['action_name'], $row['id']]);
     }
 }
 
@@ -507,11 +507,11 @@ function version_98(PDO $pdo)
 
 function version_97(PDO $pdo)
 {
-    $pdo->exec("ALTER TABLE `users` ADD COLUMN `role` VARCHAR(25) NOT NULL DEFAULT '".Role::APP_USER."'");
+    $pdo->exec("ALTER TABLE `users` ADD COLUMN `role` VARCHAR(25) NOT NULL DEFAULT '" . Role::APP_USER . "'");
 
     $rq = $pdo->prepare('SELECT * FROM `users`');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE `users` SET `role`=? WHERE `id`=?');
 
@@ -524,7 +524,7 @@ function version_97(PDO $pdo)
             $role = Role::APP_MANAGER;
         }
 
-        $rq->execute(array($role, $row['id']));
+        $rq->execute([$role, $row['id']]);
     }
 
     $pdo->exec('ALTER TABLE `users` DROP COLUMN `is_admin`');
@@ -544,19 +544,19 @@ function version_96(PDO $pdo)
         ) ENGINE=InnoDB CHARSET=utf8
     ");
 
-    $pdo->exec("ALTER TABLE `project_has_users` ADD COLUMN `role` VARCHAR(25) NOT NULL DEFAULT '".Role::PROJECT_VIEWER."'");
+    $pdo->exec("ALTER TABLE `project_has_users` ADD COLUMN `role` VARCHAR(25) NOT NULL DEFAULT '" . Role::PROJECT_VIEWER . "'");
 
     $rq = $pdo->prepare('SELECT * FROM project_has_users');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE `project_has_users` SET `role`=? WHERE `id`=?');
 
     foreach ($rows as $row) {
-        $rq->execute(array(
+        $rq->execute([
             $row['is_owner'] == 1 ? Role::PROJECT_MANAGER : Role::PROJECT_MEMBER,
             $row['id'],
-        ));
+        ]);
     }
 
     $pdo->exec('ALTER TABLE `project_has_users` DROP COLUMN `is_owner`');
@@ -712,7 +712,7 @@ function version_89(PDO $pdo)
 
     foreach ($user_ids as $user_id) {
         $rq = $pdo->prepare('INSERT INTO user_has_notification_types (user_id, notification_type) VALUES (?, ?)');
-        $rq->execute(array($user_id, 'email'));
+        $rq->execute([$user_id, 'email']);
     }
 }
 
@@ -873,7 +873,7 @@ function version_72(PDO $pdo)
 function version_71(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO `settings` VALUES (?, ?)');
-    $rq->execute(array('webhook_url', ''));
+    $rq->execute(['webhook_url', '']);
 
     $pdo->exec("DELETE FROM `settings` WHERE `option`='webhook_url_task_creation'");
     $pdo->exec("DELETE FROM `settings` WHERE `option`='webhook_url_task_modification'");
@@ -887,9 +887,9 @@ function version_70(PDO $pdo)
 function version_69(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('calendar_user_subtasks_time_tracking', 0));
-    $rq->execute(array('calendar_user_tasks', 'date_started'));
-    $rq->execute(array('calendar_project_tasks', 'date_started'));
+    $rq->execute(['calendar_user_subtasks_time_tracking', 0]);
+    $rq->execute(['calendar_user_tasks', 'date_started']);
+    $rq->execute(['calendar_project_tasks', 'date_started']);
 
     $pdo->exec("DELETE FROM `settings` WHERE `option`='subtask_forecast'");
 }
@@ -897,13 +897,13 @@ function version_69(PDO $pdo)
 function version_68(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_jabber', '0'));
-    $rq->execute(array('integration_jabber_server', ''));
-    $rq->execute(array('integration_jabber_domain', ''));
-    $rq->execute(array('integration_jabber_username', ''));
-    $rq->execute(array('integration_jabber_password', ''));
-    $rq->execute(array('integration_jabber_nickname', 'kanboard'));
-    $rq->execute(array('integration_jabber_room', ''));
+    $rq->execute(['integration_jabber', '0']);
+    $rq->execute(['integration_jabber_server', '']);
+    $rq->execute(['integration_jabber_domain', '']);
+    $rq->execute(['integration_jabber_username', '']);
+    $rq->execute(['integration_jabber_password', '']);
+    $rq->execute(['integration_jabber_nickname', 'kanboard']);
+    $rq->execute(['integration_jabber_room', '']);
 
     $pdo->exec("ALTER TABLE project_integrations ADD COLUMN jabber INTEGER DEFAULT '0'");
     $pdo->exec("ALTER TABLE project_integrations ADD COLUMN jabber_server VARCHAR(255) DEFAULT ''");
@@ -974,23 +974,23 @@ function version_61(PDO $pdo)
 function version_60(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_gravatar', '0'));
+    $rq->execute(['integration_gravatar', '0']);
 }
 
 function version_59(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_hipchat', '0'));
-    $rq->execute(array('integration_hipchat_api_url', 'https://api.hipchat.com'));
-    $rq->execute(array('integration_hipchat_room_id', ''));
-    $rq->execute(array('integration_hipchat_room_token', ''));
+    $rq->execute(['integration_hipchat', '0']);
+    $rq->execute(['integration_hipchat_api_url', 'https://api.hipchat.com']);
+    $rq->execute(['integration_hipchat_room_id', '']);
+    $rq->execute(['integration_hipchat_room_token', '']);
 }
 
 function version_58(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_slack_webhook', '0'));
-    $rq->execute(array('integration_slack_webhook_url', ''));
+    $rq->execute(['integration_slack_webhook', '0']);
+    $rq->execute(['integration_slack_webhook_url', '']);
 }
 
 function version_57(PDO $pdo)
@@ -998,7 +998,7 @@ function version_57(PDO $pdo)
     $pdo->exec('CREATE TABLE currencies (`currency` CHAR(3) NOT NULL UNIQUE, `rate` FLOAT DEFAULT 0) ENGINE=InnoDB CHARSET=utf8');
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_currency', 'USD'));
+    $rq->execute(['application_currency', 'USD']);
 }
 
 function version_56(PDO $pdo)
@@ -1028,13 +1028,13 @@ function version_56(PDO $pdo)
 function version_55(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('subtask_forecast', '0'));
+    $rq->execute(['subtask_forecast', '0']);
 }
 
 function version_54(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_stylesheet', ''));
+    $rq->execute(['application_stylesheet', '']);
 }
 
 function version_53(PDO $pdo)
@@ -1059,7 +1059,7 @@ function version_49(PDO $pdo)
             $task_id = $subtask['task_id'];
         }
 
-        $urq->execute(array($position, $subtask['id']));
+        $urq->execute([$position, $subtask['id']]);
         $position++;
     }
 }
@@ -1105,27 +1105,27 @@ function version_46(PDO $pdo)
     # On MariaDB clusters auto-increment size is normally != 1, so relying on increments of 1 would break
     $arq = $pdo->prepare('UPDATE links SET opposite_id=? WHERE label=?');
 
-    $rq->execute(array('relates to', 0));
+    $rq->execute(['relates to', 0]);
 
-    $rq->execute(array('blocks', 0));
-    $rq->execute(array('is blocked by', get_last_insert_id($pdo)));
-    $arq->execute(array(get_last_insert_id($pdo), 'blocks'));
+    $rq->execute(['blocks', 0]);
+    $rq->execute(['is blocked by', get_last_insert_id($pdo)]);
+    $arq->execute([get_last_insert_id($pdo), 'blocks']);
 
-    $rq->execute(array('duplicates', 0));
-    $rq->execute(array('is duplicated by', get_last_insert_id($pdo)));
-    $arq->execute(array(get_last_insert_id($pdo), 'duplicates'));
+    $rq->execute(['duplicates', 0]);
+    $rq->execute(['is duplicated by', get_last_insert_id($pdo)]);
+    $arq->execute([get_last_insert_id($pdo), 'duplicates']);
 
-    $rq->execute(array('is a parent of', 0));
-    $rq->execute(array('is a child of', get_last_insert_id($pdo)));
-    $arq->execute(array(get_last_insert_id($pdo), 'is a parent of'));
+    $rq->execute(['is a parent of', 0]);
+    $rq->execute(['is a child of', get_last_insert_id($pdo)]);
+    $arq->execute([get_last_insert_id($pdo), 'is a parent of']);
 
-    $rq->execute(array('is a milestone of', 0));
-    $rq->execute(array('targets milestone', get_last_insert_id($pdo)));
-    $arq->execute(array(get_last_insert_id($pdo), 'is a milestone of'));
+    $rq->execute(['is a milestone of', 0]);
+    $rq->execute(['targets milestone', get_last_insert_id($pdo)]);
+    $arq->execute([get_last_insert_id($pdo), 'is a milestone of']);
 
-    $rq->execute(array('is fixed by', 0));
-    $rq->execute(array('fixes', get_last_insert_id($pdo)));
-    $arq->execute(array(get_last_insert_id($pdo), 'is fixed by'));
+    $rq->execute(['is fixed by', 0]);
+    $rq->execute(['fixes', get_last_insert_id($pdo)]);
+    $arq->execute([get_last_insert_id($pdo), 'is fixed by']);
 }
 
 function version_45(PDO $pdo)
@@ -1169,8 +1169,8 @@ function version_44(PDO $pdo)
 function version_43(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('subtask_restriction', '0'));
-    $rq->execute(array('subtask_time_tracking', '0'));
+    $rq->execute(['subtask_restriction', '0']);
+    $rq->execute(['subtask_time_tracking', '0']);
 
     $pdo->exec("
         CREATE TABLE subtask_time_tracking (
@@ -1217,14 +1217,14 @@ function version_40(PDO $pdo)
     $rq = $pdo->prepare('UPDATE project_has_users SET is_owner=1 WHERE project_id=?');
 
     foreach ($project_ids as $project_id) {
-        $rq->execute(array($project_id));
+        $rq->execute([$project_id]);
     }
 }
 
 function version_39(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('project_categories', ''));
+    $rq->execute(['project_categories', '']);
 }
 
 function version_38(PDO $pdo)
@@ -1321,7 +1321,7 @@ function version_31(PDO $pdo)
 function version_30(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_date_format', 'm/d/Y'));
+    $rq->execute(['application_date_format', 'm/d/Y']);
 }
 
 function version_29(PDO $pdo)
@@ -1339,17 +1339,17 @@ function version_29(PDO $pdo)
     $parameters = $rq->fetch(PDO::FETCH_ASSOC);
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
-    $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
-    $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
-    $rq->execute(array('board_columns', $parameters['default_columns']));
-    $rq->execute(array('webhook_url_task_creation', $parameters['webhooks_url_task_creation']));
-    $rq->execute(array('webhook_url_task_modification', $parameters['webhooks_url_task_modification']));
-    $rq->execute(array('webhook_token', $parameters['webhooks_token']));
-    $rq->execute(array('api_token', $parameters['api_token']));
-    $rq->execute(array('application_language', $parameters['language']));
-    $rq->execute(array('application_timezone', $parameters['timezone']));
-    $rq->execute(array('application_url', defined('KANBOARD_URL') ? KANBOARD_URL : ''));
+    $rq->execute(['board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60]);
+    $rq->execute(['board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60]);
+    $rq->execute(['board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10]);
+    $rq->execute(['board_columns', $parameters['default_columns']]);
+    $rq->execute(['webhook_url_task_creation', $parameters['webhooks_url_task_creation']]);
+    $rq->execute(['webhook_url_task_modification', $parameters['webhooks_url_task_modification']]);
+    $rq->execute(['webhook_token', $parameters['webhooks_token']]);
+    $rq->execute(['api_token', $parameters['api_token']]);
+    $rq->execute(['application_language', $parameters['language']]);
+    $rq->execute(['application_timezone', $parameters['timezone']]);
+    $rq->execute(['application_url', defined('KANBOARD_URL') ? KANBOARD_URL : '']);
 
     $pdo->exec('DROP TABLE config');
 }
@@ -1468,7 +1468,7 @@ function version_20(PDO $pdo)
 function version_19(PDO $pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN api_token VARCHAR(255) DEFAULT ''");
-    $pdo->exec("UPDATE config SET api_token='".Token::getToken()."'");
+    $pdo->exec("UPDATE config SET api_token='" . Token::getToken() . "'");
 }
 
 function version_18(PDO $pdo)
@@ -1485,7 +1485,7 @@ function version_18(PDO $pdo)
             user_id INT,
             PRIMARY KEY (id),
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE
-        ) ENGINE=InnoDB CHARSET=utf8"
+        ) ENGINE=InnoDB CHARSET=utf8",
     );
 }
 
@@ -1501,7 +1501,7 @@ function version_17(PDO $pdo)
             task_id INT,
             PRIMARY KEY (id),
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE
-        ) ENGINE=InnoDB CHARSET=utf8"
+        ) ENGINE=InnoDB CHARSET=utf8",
     );
 }
 
@@ -1516,7 +1516,7 @@ function version_16(PDO $pdo)
             PRIMARY KEY (id),
             UNIQUE KEY `idx_project_category` (project_id, name),
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
-        ) ENGINE=InnoDB CHARSET=utf8"
+        ) ENGINE=InnoDB CHARSET=utf8",
     );
 
     $pdo->exec("ALTER TABLE tasks ADD COLUMN category_id INT DEFAULT 0");
@@ -1554,7 +1554,7 @@ function version_12(PDO $pdo)
             date_creation INT,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
             PRIMARY KEY (id)
-        ) ENGINE=InnoDB CHARSET=utf8"
+        ) ENGINE=InnoDB CHARSET=utf8",
     );
 
     $pdo->exec(
@@ -1569,7 +1569,7 @@ function version_12(PDO $pdo)
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
             PRIMARY KEY (id),
             INDEX (user_id)
-        ) ENGINE=InnoDB CHARSET=utf8"
+        ) ENGINE=InnoDB CHARSET=utf8",
     );
 }
 
@@ -1689,12 +1689,12 @@ function version_1(PDO $pdo)
     $pdo->exec("
         INSERT INTO users
         (username, password, is_admin)
-        VALUES ('admin', '".\password_hash('admin', PASSWORD_BCRYPT)."', '1')
+        VALUES ('admin', '" . \password_hash('admin', PASSWORD_BCRYPT) . "', '1')
     ");
 
     $pdo->exec("
         INSERT INTO config
         (webhooks_token)
-        VALUES ('".Token::getToken()."')
+        VALUES ('" . Token::getToken() . "')
     ");
 }

@@ -2,12 +2,12 @@
 
 namespace Kanboard\ServiceProvider;
 
+use Kanboard\Core\Http\Client as HttpClient;
+use Kanboard\Core\Http\OAuth2;
+use Kanboard\Core\Paginator;
+use Kanboard\Core\Tool;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Kanboard\Core\Paginator;
-use Kanboard\Core\Http\OAuth2;
-use Kanboard\Core\Tool;
-use Kanboard\Core\Http\Client as HttpClient;
 
 /**
  * Class ClassProvider
@@ -17,16 +17,16 @@ use Kanboard\Core\Http\Client as HttpClient;
  */
 class ClassProvider implements ServiceProviderInterface
 {
-    private $classes = array(
-        'Analytic' => array(
+    private $classes = [
+        'Analytic' => [
             'TaskDistributionAnalytic',
             'UserDistributionAnalytic',
             'EstimatedTimeComparisonAnalytic',
             'AverageLeadCycleTimeAnalytic',
             'AverageTimeSpentColumnAnalytic',
             'EstimatedActualColumnAnalytic',
-        ),
-        'Model' => array(
+        ],
+        'Model' => [
             'ActionModel',
             'ActionParameterModel',
             'AvatarFileModel',
@@ -99,8 +99,8 @@ class ClassProvider implements ServiceProviderInterface
             'UserNotificationFilterModel',
             'UserUnreadNotificationModel',
             'UserMetadataModel',
-        ),
-        'Validator' => array(
+        ],
+        'Validator' => [
             'ActionValidator',
             'AuthValidator',
             'CategoryValidator',
@@ -123,48 +123,48 @@ class ClassProvider implements ServiceProviderInterface
             'TaskValidator',
             'UserValidator',
             'PredefinedTaskDescriptionValidator',
-        ),
-        'Import' => array(
+        ],
+        'Import' => [
             'UserImport',
-        ),
-        'Export' => array(
+        ],
+        'Export' => [
             'SubtaskExport',
             'TaskExport',
             'TransitionExport',
-        ),
-        'Pagination' => array(
+        ],
+        'Pagination' => [
             'DashboardPagination',
             'ProjectPagination',
             'SubtaskPagination',
             'TaskPagination',
             'UserPagination',
-        ),
-        'Core' => array(
+        ],
+        'Core' => [
             'DateParser',
             'Lexer',
-        ),
-        'Core\Event' => array(
+        ],
+        'Core\Event' => [
             'EventManager',
-        ),
-        'Core\Http' => array(
+        ],
+        'Core\Http' => [
             'Request',
             'Response',
             'RememberMeCookie',
-        ),
-        'Core\Plugin' => array(
+        ],
+        'Core\Plugin' => [
             'Hook',
-        ),
-        'Core\Security' => array(
+        ],
+        'Core\Security' => [
             'Token',
             'Role',
-        ),
-        'Core\User' => array(
+        ],
+        'Core\User' => [
             'GroupSync',
             'UserSync',
             'UserSession',
             'UserProfile',
-        )
-    );
+        ],
+    ];
 
     public function register(Container $container)
     {
@@ -182,11 +182,11 @@ class ClassProvider implements ServiceProviderInterface
             return new HttpClient($c);
         };
 
-        $container['cspRules'] = array(
+        $container['cspRules'] = [
             'default-src' => "'self'",
-            'style-src' => "'self' 'unsafe-inline'",
-            'img-src' => '* data:',
-        );
+            'style-src'   => "'self' 'unsafe-inline'",
+            'img-src'     => '* data:',
+        ];
 
         return $container;
     }

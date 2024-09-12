@@ -21,7 +21,7 @@ class TaskStartDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('started');
+        return ['started'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskStartDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_started');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_started');
         return $this;
     }
 }

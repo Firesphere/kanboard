@@ -15,22 +15,22 @@
                         <ul>
                             <?php if ($this->file->getPreviewType($file['name']) !== null): ?>
                                 <li>
-                                    <?= $this->modal->large('eye', t('View file'), 'FileViewerController', 'show', array('project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag'])) ?>
+                                    <?= $this->modal->large('eye', t('View file'), 'FileViewerController', 'show', ['project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']]) ?>
                                 </li>
                             <?php elseif ($this->file->getBrowserViewType($file['name']) !== null): ?>
                                 <li>
-                                    <?= $this->url->icon('eye', t('View file'), 'FileViewerController', 'browser', array('project_id' => $project['id'], 'file_id' => $file['id']), false, '', '', true) ?>
+                                    <?= $this->url->icon('eye', t('View file'), 'FileViewerController', 'browser', ['project_id' => $project['id'], 'file_id' => $file['id']], false, '', '', true) ?>
                                 </li>
                             <?php endif ?>
                             <li>
-                                <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', array('project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag'])) ?>
+                                <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', ['project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']]) ?>
                             </li>
                             <?php if ($this->user->hasProjectAccess('ProjectFileController', 'remove', $project['id'])): ?>
                                 <li>
-                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectFileController', 'confirm', array('project_id' => $project['id'], 'file_id' => $file['id'])) ?>
+                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectFileController', 'confirm', ['project_id' => $project['id'], 'file_id' => $file['id']]) ?>
                                 </li>
                             <?php endif ?>
-                            <?= $this->hook->render('template:project-overview:documents:dropdown', array('project' => $project, 'file' => $file)) ?>
+                            <?= $this->hook->render('template:project-overview:documents:dropdown', ['project' => $project, 'file' => $file]) ?>
                         </ul>
                     </div>
                 </td>

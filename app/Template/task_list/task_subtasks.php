@@ -11,10 +11,10 @@
                 <?php endif ?>
             </span>
             <span class="subtask-cell subtask-time-tracking-cell">
-                <?= $this->render('subtask/timer', array(
+                <?= $this->render('subtask/timer', [
                     'task'    => $task,
                     'subtask' => $subtask,
-                )) ?>
+                ]) ?>
             </span>
         </div>
     <?php endforeach ?>

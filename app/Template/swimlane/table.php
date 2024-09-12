@@ -1,6 +1,6 @@
 <table
     class="swimlanes-table table-striped table-scrolling"
-    data-save-position-url="<?= $this->url->href('SwimlaneController', 'move', array('project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>">
+    data-save-position-url="<?= $this->url->href('SwimlaneController', 'move', ['project_id' => $project['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>">
     <thead>
         <tr>
             <th><?= t('Name') ?></th>
@@ -21,18 +21,18 @@
                     <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                     <ul>
                         <li>
-                            <?= $this->modal->medium('edit', t('Edit'), 'SwimlaneController', 'edit', array('project_id' => $project['id'], 'swimlane_id' => $swimlane['id'])) ?>
+                            <?= $this->modal->medium('edit', t('Edit'), 'SwimlaneController', 'edit', ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']]) ?>
                         </li>
                         <li>
                             <?php if ($swimlane['is_active']): ?>
-                                <?= $this->url->icon('toggle-off', t('Disable'), 'SwimlaneController', 'disable', array('project_id' => $project['id'], 'swimlane_id' => $swimlane['id']), true) ?>
+                                <?= $this->url->icon('toggle-off', t('Disable'), 'SwimlaneController', 'disable', ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']], true) ?>
                             <?php else: ?>
-                                <?= $this->url->icon('toggle-on', t('Enable'), 'SwimlaneController', 'enable', array('project_id' => $project['id'], 'swimlane_id' => $swimlane['id']), true) ?>
+                                <?= $this->url->icon('toggle-on', t('Enable'), 'SwimlaneController', 'enable', ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']], true) ?>
                             <?php endif ?>
                         </li>
                         <?php if ($swimlane['nb_open_tasks'] == 0 && $swimlane['nb_closed_tasks'] == 0): ?>
                             <li>
-                                <?= $this->modal->confirm('trash-o', t('Remove'), 'SwimlaneController', 'confirm', array('project_id' => $project['id'], 'swimlane_id' => $swimlane['id'])) ?>
+                                <?= $this->modal->confirm('trash-o', t('Remove'), 'SwimlaneController', 'confirm', ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']]) ?>
                             </li>
                         <?php endif ?>
                     </ul>

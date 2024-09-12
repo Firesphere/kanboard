@@ -3,9 +3,11 @@
 namespace Kanboard\ServiceProvider;
 
 use Kanboard\Console\CronjobCommand;
+use Kanboard\Console\CssCommand;
 use Kanboard\Console\DatabaseMigrationCommand;
 use Kanboard\Console\DatabaseVersionCommand;
 use Kanboard\Console\JobCommand;
+use Kanboard\Console\JsCommand;
 use Kanboard\Console\LocaleComparatorCommand;
 use Kanboard\Console\LocaleSyncCommand;
 use Kanboard\Console\PluginInstallCommand;
@@ -24,8 +26,6 @@ use Kanboard\Console\TaskTriggerCommand;
 use Kanboard\Console\TransitionExportCommand;
 use Kanboard\Console\VersionCommand;
 use Kanboard\Console\WorkerCommand;
-use Kanboard\Console\CssCommand;
-use Kanboard\Console\JsCommand;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\Console\Application;

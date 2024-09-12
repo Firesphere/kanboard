@@ -28,14 +28,14 @@ class ProjectRoleRestrictionModel extends Base
      */
     public function getRules()
     {
-        return array(
+        return [
             self::RULE_TASK_CREATION        => t('Task creation is not permitted'),
             self::RULE_TASK_SUPPRESSION     => t('Task suppression is not permitted'),
             self::RULE_TASK_OPEN_CLOSE      => t('Closing or opening a task is not permitted'),
             self::RULE_TASK_MOVE            => t('Moving a task is not permitted'),
             self::RULE_TASK_CHANGE_ASSIGNEE => t('Changing assignee is not permitted'),
             self::RULE_TASK_UPDATE_ASSIGNED => t('Update only assigned tasks is permitted'),
-        );
+        ];
     }
 
     /**
@@ -69,9 +69,9 @@ class ProjectRoleRestrictionModel extends Base
                 'restriction_id',
                 'project_id',
                 'role_id',
-                'rule'
+                'rule',
             )
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->findAll();
 
         foreach ($restrictions as &$restriction) {
@@ -97,9 +97,9 @@ class ProjectRoleRestrictionModel extends Base
                 'project_id',
                 'role_id',
                 'rule',
-                'pr.role'
+                'pr.role',
             )
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->eq('role', $role)
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
             ->findAll();
@@ -116,11 +116,11 @@ class ProjectRoleRestrictionModel extends Base
     public function create($project_id, $role_id, $rule)
     {
         return $this->db->table(self::TABLE)
-            ->persist(array(
+            ->persist([
                 'project_id' => $project_id,
-                'role_id' => $role_id,
-                'rule' => $rule,
-            ));
+                'role_id'    => $role_id,
+                'rule'       => $rule,
+            ]);
     }
 
     /**
@@ -151,11 +151,11 @@ class ProjectRoleRestrictionModel extends Base
             ->findAll();
 
         foreach ($rows as $row) {
-            $result = $this->db->table(self::TABLE)->persist(array(
+            $result = $this->db->table(self::TABLE)->persist([
                 'project_id' => $project_dst_id,
-                'role_id' => $role_dst_id,
-                'rule' => $row['rule'],
-            ));
+                'role_id'    => $role_dst_id,
+                'rule'       => $row['rule'],
+            ]);
 
             if (! $result) {
                 return false;

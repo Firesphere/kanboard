@@ -19,15 +19,15 @@ class UserCredentialController extends BaseController
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function changePassword(array $values = array(), array $errors = array())
+    public function changePassword(array $values = [], array $errors = [])
     {
         $user = $this->getUser();
 
-        return $this->response->html($this->helper->layout->user('user_credential/password', array(
-            'values' => $values + array('id' => $user['id']),
+        return $this->response->html($this->helper->layout->user('user_credential/password', [
+            'values' => $values + ['id' => $user['id']],
             'errors' => $errors,
-            'user' => $user,
-        )));
+            'user'   => $user,
+        ]));
     }
 
     /**
@@ -44,18 +44,18 @@ class UserCredentialController extends BaseController
         list($valid, $errors) = $this->userValidator->validatePasswordModification($values);
 
         if (! $this->userSession->isAdmin()) {
-            $values = array(
-                'id' => $this->userSession->getId(),
-                'password' => isset($values['password']) ? $values['password'] : '',
+            $values = [
+                'id'           => $this->userSession->getId(),
+                'password'     => isset($values['password']) ? $values['password'] : '',
                 'confirmation' => isset($values['confirmation']) ? $values['confirmation'] : '',
-            );
+            ];
         }
 
         if ($valid) {
             if ($this->userModel->update($values)) {
                 $this->flash->success(t('Password modified successfully.'));
                 $this->userLockingModel->resetFailedLogin($user['username']);
-                $this->response->redirect($this->helper->url->to('UserViewController', 'show', array('user_id' => $user['id'])), true);
+                $this->response->redirect($this->helper->url->to('UserViewController', 'show', ['user_id' => $user['id']]), true);
                 return;
             } else {
                 $this->flash->failure(t('Unable to change the password.'));
@@ -74,7 +74,7 @@ class UserCredentialController extends BaseController
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function changeAuthentication(array $values = array(), array $errors = array())
+    public function changeAuthentication(array $values = [], array $errors = [])
     {
         $user = $this->getUser();
 
@@ -83,11 +83,11 @@ class UserCredentialController extends BaseController
             unset($values['password']);
         }
 
-        return $this->response->html($this->helper->layout->user('user_credential/authentication', array(
+        return $this->response->html($this->helper->layout->user('user_credential/authentication', [
             'values' => $values,
             'errors' => $errors,
-            'user' => $user,
-        )));
+            'user'   => $user,
+        ]));
     }
 
     /**
@@ -99,13 +99,13 @@ class UserCredentialController extends BaseController
     public function saveAuthentication()
     {
         $user = $this->getUser();
-        $values = $this->request->getValues() + array('disable_login_form' => 0, 'is_ldap_user' => 0);
+        $values = $this->request->getValues() + ['disable_login_form' => 0, 'is_ldap_user' => 0];
         list($valid, $errors) = $this->userValidator->validateModification($values);
 
         if ($valid) {
             if ($this->userModel->update($values)) {
                 $this->flash->success(t('User updated successfully.'));
-                $this->response->redirect($this->helper->url->to('UserCredentialController', 'changeAuthentication', array('user_id' => $user['id'])), true);
+                $this->response->redirect($this->helper->url->to('UserCredentialController', 'changeAuthentication', ['user_id' => $user['id']]), true);
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this user.'));
@@ -129,6 +129,6 @@ class UserCredentialController extends BaseController
             $this->flash->failure(t('Unable to unlock the user.'));
         }
 
-        $this->response->redirect($this->helper->url->to('UserViewController', 'show', array('user_id' => $user['id'])));
+        $this->response->redirect($this->helper->url->to('UserViewController', 'show', ['user_id' => $user['id']]));
     }
 }

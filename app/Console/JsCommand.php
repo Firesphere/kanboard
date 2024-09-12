@@ -52,7 +52,7 @@ class JsCommand extends BaseCommand
         'assets/js/src/Swimlane.js',
         'assets/js/src/Task.js',
         'assets/js/src/BoardDragAndDrop.js',
-        'assets/js/src/Bootstrap.js'
+        'assets/js/src/Bootstrap.js',
     ];
 
     private $vendorFiles = [

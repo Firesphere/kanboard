@@ -4,13 +4,13 @@
 <div class="page-header">
     <h2><?= t('Create and send a comment by email') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('CommentMailController', 'save', array('task_id' => $task['id'])) ?>" autocomplete="off" class="js-mail-form">
+<form method="post" action="<?= $this->url->href('CommentMailController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off" class="js-mail-form">
     <?= $this->form->csrf() ?>
     <?= $this->form->hidden('task_id', $values) ?>
     <?= $this->form->hidden('user_id', $values) ?>
 
     <?= $this->form->label(t('Email'), 'emails') ?>
-    <?= $this->form->text('emails', $values, $errors, array('autofocus', 'required', 'tabindex="1"')) ?>
+    <?= $this->form->text('emails', $values, $errors, ['autofocus', 'required', 'tabindex="1"']) ?>
 
     <?php if (! empty($members)): ?>
         <div class="dropdown">
@@ -26,7 +26,7 @@
     <?php endif ?>
 
     <?= $this->form->label(t('Subject'), 'subject') ?>
-    <?= $this->form->text('subject', $values, $errors, array('required', 'tabindex="2"')) ?>
+    <?= $this->form->text('subject', $values, $errors, ['required', 'tabindex="2"']) ?>
 
     <?php if (! empty($project['predefined_email_subjects'])): ?>
         <div class="dropdown">
@@ -45,7 +45,7 @@
         </div>
     <?php endif ?>
 
-    <?= $this->form->textEditor('comment', $values, $errors, array('required' => true, 'tabindex' => 3, 'aria-label' => t('New comment'))) ?>
+    <?= $this->form->textEditor('comment', $values, $errors, ['required' => true, 'tabindex' => 3, 'aria-label' => t('New comment')]) ?>
 
     <?php
     $formName = 'visibility';
@@ -66,10 +66,10 @@ $attribute[] = ('hidden');
     }
 ?>
 
-    <?= $this->form->select($formName, $visibilityOptions, array(), array(), $attribute) ?>
+    <?= $this->form->select($formName, $visibilityOptions, [], [], $attribute) ?>
 
-    <?= $this->modal->submitButtons(array(
-    'submitLabel' => t('Send by email'),
-    'tabindex'    => 4,
-)) ?>
+    <?= $this->modal->submitButtons([
+        'submitLabel' => t('Send by email'),
+        'tabindex'    => 4,
+    ]) ?>
 </form>

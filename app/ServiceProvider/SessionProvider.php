@@ -2,10 +2,10 @@
 
 namespace Kanboard\ServiceProvider;
 
+use Kanboard\Core\Session\FlashMessage;
+use Kanboard\Core\Session\SessionManager;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Kanboard\Core\Session\SessionManager;
-use Kanboard\Core\Session\FlashMessage;
 
 /**
  * Session Provider

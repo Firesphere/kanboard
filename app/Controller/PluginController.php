@@ -21,12 +21,12 @@ class PluginController extends BaseController
      */
     public function show()
     {
-        $this->response->html($this->helper->layout->plugin('plugin/show', array(
-            'plugins' => $this->pluginLoader->getPlugins(),
+        $this->response->html($this->helper->layout->plugin('plugin/show', [
+            'plugins'              => $this->pluginLoader->getPlugins(),
             'incompatible_plugins' => $this->pluginLoader->getIncompatiblePlugins(),
-            'title' => t('Installed Plugins'),
-            'is_configured' => Installer::isConfigured(),
-        )));
+            'title'                => t('Installed Plugins'),
+            'is_configured'        => Installer::isConfigured(),
+        ]));
     }
 
     /**
@@ -34,18 +34,18 @@ class PluginController extends BaseController
      */
     public function directory()
     {
-        $installedPlugins = array();
+        $installedPlugins = [];
 
         foreach ($this->pluginLoader->getPlugins() as $plugin) {
             $installedPlugins[$plugin->getPluginName()] = $plugin->getPluginVersion();
         }
 
-        $this->response->html($this->helper->layout->plugin('plugin/directory', array(
+        $this->response->html($this->helper->layout->plugin('plugin/directory', [
             'installed_plugins' => $installedPlugins,
             'available_plugins' => Directory::getInstance($this->container)->getAvailablePlugins(),
-            'title' => t('Plugin Directory'),
-            'is_configured' => Installer::isConfigured(),
-        )));
+            'title'             => t('Plugin Directory'),
+            'is_configured'     => Installer::isConfigured(),
+        ]));
     }
 
     /**
@@ -98,13 +98,13 @@ class PluginController extends BaseController
         $pluginId = $this->request->getStringParam('pluginId');
         $plugins = array_merge(
             $this->pluginLoader->getPlugins(),
-            $this->pluginLoader->getIncompatiblePlugins()
+            $this->pluginLoader->getIncompatiblePlugins(),
         );
 
-        $this->response->html($this->template->render('plugin/remove', array(
+        $this->response->html($this->template->render('plugin/remove', [
             'plugin_id' => $pluginId,
-            'plugin' => $plugins[$pluginId],
-        )));
+            'plugin'    => $plugins[$pluginId],
+        ]));
     }
 
     /**

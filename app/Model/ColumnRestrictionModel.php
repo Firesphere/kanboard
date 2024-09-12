@@ -14,10 +14,10 @@ class ColumnRestrictionModel extends Base
 {
     public const TABLE = 'column_has_restrictions';
 
-    public const RULE_ALLOW_TASK_CREATION    = 'allow.task_creation';
-    public const RULE_ALLOW_TASK_OPEN_CLOSE  = 'allow.task_open_close';
-    public const RULE_BLOCK_TASK_CREATION    = 'block.task_creation';
-    public const RULE_BLOCK_TASK_OPEN_CLOSE  = 'block.task_open_close';
+    public const RULE_ALLOW_TASK_CREATION = 'allow.task_creation';
+    public const RULE_ALLOW_TASK_OPEN_CLOSE = 'allow.task_open_close';
+    public const RULE_BLOCK_TASK_CREATION = 'block.task_creation';
+    public const RULE_BLOCK_TASK_OPEN_CLOSE = 'block.task_open_close';
 
     /**
      * Get rules
@@ -26,12 +26,12 @@ class ColumnRestrictionModel extends Base
      */
     public function getRules()
     {
-        return array(
+        return [
             self::RULE_ALLOW_TASK_CREATION    => t('Task creation is permitted for this column'),
             self::RULE_ALLOW_TASK_OPEN_CLOSE  => t('Closing or opening a task is permitted for this column'),
             self::RULE_BLOCK_TASK_CREATION    => t('Task creation is blocked for this column'),
             self::RULE_BLOCK_TASK_OPEN_CLOSE  => t('Closing or opening a task is blocked for this column'),
-        );
+        ];
     }
 
     /**
@@ -52,12 +52,12 @@ class ColumnRestrictionModel extends Base
                 'column_id',
                 'rule',
                 'pr.role',
-                'c.title as column_title'
+                'c.title as column_title',
             )
             ->left(ColumnModel::TABLE, 'c', 'id', self::TABLE, 'column_id')
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
-            ->eq(self::TABLE.'.project_id', $project_id)
-            ->eq(self::TABLE.'.restriction_id', $restriction_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
+            ->eq(self::TABLE . '.restriction_id', $restriction_id)
             ->findOne();
     }
 
@@ -79,11 +79,11 @@ class ColumnRestrictionModel extends Base
                 'column_id',
                 'rule',
                 'pr.role',
-                'c.title as column_title'
+                'c.title as column_title',
             )
             ->left(ColumnModel::TABLE, 'c', 'id', self::TABLE, 'column_id')
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->findAll();
 
         foreach ($restrictions as &$restriction) {
@@ -110,9 +110,9 @@ class ColumnRestrictionModel extends Base
                 'role_id',
                 'column_id',
                 'rule',
-                'pr.role'
+                'pr.role',
             )
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->eq('pr.role', $role)
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
             ->findAll();
@@ -131,12 +131,12 @@ class ColumnRestrictionModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->persist(array(
+            ->persist([
                 'project_id' => $project_id,
-                'role_id' => $role_id,
-                'column_id' => $column_id,
-                'rule' => $rule,
-            ));
+                'role_id'    => $role_id,
+                'column_id'  => $column_id,
+                'rule'       => $rule,
+            ]);
     }
 
     /**
@@ -175,12 +175,12 @@ class ColumnRestrictionModel extends Base
                 return false;
             }
 
-            $result = $this->db->table(self::TABLE)->persist(array(
+            $result = $this->db->table(self::TABLE)->persist([
                 'project_id' => $project_dst_id,
-                'role_id' => $role_dst_id,
-                'column_id' => $dst_column_id,
-                'rule' => $row['rule'],
-            ));
+                'role_id'    => $role_dst_id,
+                'column_id'  => $dst_column_id,
+                'rule'       => $row['rule'],
+            ]);
 
             if (! $result) {
                 return false;

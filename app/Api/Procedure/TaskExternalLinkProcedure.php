@@ -24,7 +24,7 @@ class TaskExternalLinkProcedure extends BaseProcedure
         try {
             return $this->externalLinkManager->getProvider($providerName)->getDependencies();
         } catch (ExternalLinkProviderNotFound $e) {
-            $this->logger->error(__METHOD__.': '.$e->getMessage());
+            $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
             return false;
         }
     }
@@ -53,24 +53,24 @@ class TaskExternalLinkProcedure extends BaseProcedure
 
             $link = $provider->getLink();
 
-            $values = array(
-                'task_id' => $task_id,
-                'title' => $title ?: $link->getTitle(),
-                'url' => $link->getUrl(),
-                'link_type' => $provider->getType(),
+            $values = [
+                'task_id'    => $task_id,
+                'title'      => $title ?: $link->getTitle(),
+                'url'        => $link->getUrl(),
+                'link_type'  => $provider->getType(),
                 'dependency' => $dependency,
-            );
+            ];
 
             list($valid, $errors) = $this->externalLinkValidator->validateCreation($values);
 
             if (! $valid) {
-                $this->logger->error(__METHOD__.': '.var_export($errors));
+                $this->logger->error(__METHOD__ . ': ' . var_export($errors));
                 return false;
             }
 
             return $this->taskExternalLinkModel->create($values);
         } catch (ExternalLinkProviderNotFound $e) {
-            $this->logger->error(__METHOD__.': '.$e->getMessage());
+            $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
         }
 
         return false;
@@ -81,17 +81,17 @@ class TaskExternalLinkProcedure extends BaseProcedure
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateExternalTaskLink', $task_id);
 
         $link = $this->taskExternalLinkModel->getById($link_id);
-        $values = $this->filterValues(array(
-            'title' => $title,
-            'url' => $url,
+        $values = $this->filterValues([
+            'title'      => $title,
+            'url'        => $url,
             'dependency' => $dependency,
-        ));
+        ]);
 
         $values = array_merge($link, $values);
         list($valid, $errors) = $this->externalLinkValidator->validateModification($values);
 
         if (! $valid) {
-            $this->logger->error(__METHOD__.': '.var_export($errors));
+            $this->logger->error(__METHOD__ . ': ' . var_export($errors));
             return false;
         }
 

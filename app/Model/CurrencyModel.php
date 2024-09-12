@@ -27,7 +27,7 @@ class CurrencyModel extends Base
      */
     public function getCurrencies()
     {
-        return array(
+        return [
             'ARS' => t('ARS - Argentine Peso'),
             'AUD' => t('AUD - Australian Dollar'),
             'BAM' => t('BAM - Konvertible Mark'),
@@ -53,7 +53,7 @@ class CurrencyModel extends Base
             'USD' => t('USD - US Dollar'),
             'VBL' => t('VES - Venezuelan Bolívar'),
             'XBT' => t('XBT - Bitcoin'),
-        );
+        ];
     }
 
     /**
@@ -104,7 +104,7 @@ class CurrencyModel extends Base
             return $this->update($currency, $rate);
         }
 
-        return $this->db->table(self::TABLE)->insert(array('currency' => $currency, 'rate' => $rate));
+        return $this->db->table(self::TABLE)->insert(['currency' => $currency, 'rate' => $rate]);
     }
 
     /**
@@ -117,6 +117,6 @@ class CurrencyModel extends Base
      */
     public function update($currency, $rate)
     {
-        return $this->db->table(self::TABLE)->eq('currency', $currency)->update(array('rate' => $rate));
+        return $this->db->table(self::TABLE)->eq('currency', $currency)->update(['rate' => $rate]);
     }
 }

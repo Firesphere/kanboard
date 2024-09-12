@@ -8,10 +8,10 @@
                 $this->text->e($task['category_name']),
                 'TaskModificationController',
                 'edit',
-                array('task_id' => $task['id']),
+                ['task_id' => $task['id']],
                 false,
                 'js-modal-large' . (! empty($task['category_description']) ? ' tooltip' : ''),
-                t('Change category')
+                t('Change category'),
             ) ?>
             <?php if (! empty($task['category_description'])): ?>
                 <?= $this->app->tooltipMarkdown($task['category_description']) ?>
@@ -79,27 +79,27 @@
     <div class="task-board-icons-row">
 
         <?php if ($task['recurrence_status'] == \Kanboard\Model\TaskModel::RECURRING_STATUS_PENDING): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-refresh fa-rotate-90"></i>', $this->url->href('BoardTooltipController', 'recurrence', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-refresh fa-rotate-90"></i>', $this->url->href('BoardTooltipController', 'recurrence', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if ($task['recurrence_status'] == \Kanboard\Model\TaskModel::RECURRING_STATUS_PROCESSED): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-refresh fa-rotate-90 fa-inverse"></i>', $this->url->href('BoardTooltipController', 'recurrence', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-refresh fa-rotate-90 fa-inverse"></i>', $this->url->href('BoardTooltipController', 'recurrence', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if (! empty($task['nb_links'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-code-fork fa-fw"></i>'.$task['nb_links'], $this->url->href('BoardTooltipController', 'tasklinks', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-code-fork fa-fw"></i>' . $task['nb_links'], $this->url->href('BoardTooltipController', 'tasklinks', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if (! empty($task['nb_external_links'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-external-link fa-fw"></i>'.$task['nb_external_links'], $this->url->href('BoardTooltipController', 'externallinks', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-external-link fa-fw"></i>' . $task['nb_external_links'], $this->url->href('BoardTooltipController', 'externallinks', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if (! empty($task['nb_subtasks'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-bars fa-fw"></i>'.round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0).'%', $this->url->href('BoardTooltipController', 'subtasks', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-bars fa-fw"></i>' . round($task['nb_completed_subtasks'] / $task['nb_subtasks'] * 100, 0) . '%', $this->url->href('BoardTooltipController', 'subtasks', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if (! empty($task['nb_files'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-paperclip fa-fw"></i>'.$task['nb_files'], $this->url->href('BoardTooltipController', 'attachments', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-paperclip fa-fw"></i>' . $task['nb_files'], $this->url->href('BoardTooltipController', 'attachments', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if ($task['nb_comments'] > 0): ?>
@@ -112,14 +112,14 @@
                     $task['nb_comments'],
                     'CommentListController',
                     'show',
-                    array('task_id' => $task['id']),
-                    $task['nb_comments'] == 1 ? t('%d comment', $task['nb_comments']) : t('%d comments', $task['nb_comments'])
+                    ['task_id' => $task['id']],
+                    $task['nb_comments'] == 1 ? t('%d comment', $task['nb_comments']) : t('%d comments', $task['nb_comments']),
                 ) ?>
             <?php endif ?>
         <?php endif ?>
 
         <?php if (! empty($task['description'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-file-text-o"></i>', $this->url->href('BoardTooltipController', 'description', array('task_id' => $task['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-file-text-o"></i>', $this->url->href('BoardTooltipController', 'description', ['task_id' => $task['id']])) ?>
         <?php endif ?>
 
         <?php if ($task['is_active'] == 1): ?>
@@ -133,8 +133,8 @@
 
         <?= $this->task->renderPriority($task['priority']) ?>
 
-        <?= $this->hook->render('template:board:task:icons', array('task' => $task)) ?>
+        <?= $this->hook->render('template:board:task:icons', ['task' => $task]) ?>
     </div>
 </div>
 
-<?= $this->hook->render('template:board:task:footer', array('task' => $task)) ?>
+<?= $this->hook->render('template:board:task:footer', ['task' => $task]) ?>

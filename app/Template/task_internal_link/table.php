@@ -19,12 +19,12 @@
             <td>
                 <?php if ($is_public): ?>
                     <?= $this->url->link(
-                        $this->text->e('#'.$link['task_id'].' '.$link['title']),
+                        $this->text->e('#' . $link['task_id'] . ' ' . $link['title']),
                         'TaskViewController',
                         'readonly',
-                        array('task_id' => $link['task_id'], 'token' => $project['token']),
+                        ['task_id' => $link['task_id'], 'token' => $project['token']],
                         false,
-                        $link['is_active'] ? '' : 'task-link-closed'
+                        $link['is_active'] ? '' : 'task-link-closed',
                     ) ?>
                 <?php else: ?>
                     <?php if ($editable && $this->user->hasProjectAccess('Tasklink', 'edit', $task['project_id'])): ?>
@@ -32,22 +32,22 @@
                             <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li>
-                                    <?= $this->modal->medium('edit', t('Edit'), 'TaskInternalLinkController', 'edit', array('link_id' => $link['id'], 'task_id' => $task['id'])) ?>
+                                    <?= $this->modal->medium('edit', t('Edit'), 'TaskInternalLinkController', 'edit', ['link_id' => $link['id'], 'task_id' => $task['id']]) ?>
                                 </li>
                                 <li>
-                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TaskInternalLinkController', 'confirm', array('link_id' => $link['id'], 'task_id' => $task['id'])) ?>
+                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TaskInternalLinkController', 'confirm', ['link_id' => $link['id'], 'task_id' => $task['id']]) ?>
                                 </li>
                             </ul>
                         </div>
                     <?php endif ?>
 
                     <?= $this->url->link(
-                        $this->text->e('#'.$link['task_id'].' '.$link['title']),
+                        $this->text->e('#' . $link['task_id'] . ' ' . $link['title']),
                         'TaskViewController',
                         'show',
-                        array('task_id' => $link['task_id']),
+                        ['task_id' => $link['task_id']],
                         false,
-                        $link['is_active'] ? '' : 'task-link-closed'
+                        $link['is_active'] ? '' : 'task-link-closed',
                     ) ?>
                 <?php endif ?>
 
@@ -56,7 +56,7 @@
             <td>
                 <?php if (! empty($link['task_assignee_username'])): ?>
                     <?php if ($editable): ?>
-                        <?= $this->url->link($this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']), 'UserViewController', 'show', array('user_id' => $link['task_assignee_id'])) ?>
+                        <?= $this->url->link($this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']), 'UserViewController', 'show', ['user_id' => $link['task_assignee_id']]) ?>
                     <?php else: ?>
                         <?= $this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']) ?>
                     <?php endif ?>

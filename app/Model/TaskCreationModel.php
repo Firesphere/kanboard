@@ -22,7 +22,7 @@ class TaskCreationModel extends Base
     public function create(array $values)
     {
         $position = empty($values['position']) ? 0 : $values['position'];
-        $tags = array();
+        $tags = [];
 
         if (isset($values['tags'])) {
             $tags = $values['tags'];
@@ -43,7 +43,7 @@ class TaskCreationModel extends Base
 
             $this->queueManager->push($this->taskEventJob->withParams(
                 $task_id,
-                array(TaskModel::EVENT_CREATE_UPDATE, TaskModel::EVENT_CREATE)
+                [TaskModel::EVENT_CREATE_UPDATE, TaskModel::EVENT_CREATE],
             ));
         }
 
@@ -60,11 +60,11 @@ class TaskCreationModel extends Base
      */
     protected function prepare(array &$values)
     {
-        $values = $this->dateParser->convert($values, array('date_due'), true);
-        $values = $this->dateParser->convert($values, array('date_started'), true);
+        $values = $this->dateParser->convert($values, ['date_due'], true);
+        $values = $this->dateParser->convert($values, ['date_started'], true);
 
-        $this->helper->model->removeFields($values, array('another_task', 'duplicate_multiple_projects'));
-        $this->helper->model->resetFields($values, array('creator_id', 'owner_id', 'date_due', 'date_started', 'score', 'category_id', 'time_estimated', 'time_spent'));
+        $this->helper->model->removeFields($values, ['another_task', 'duplicate_multiple_projects']);
+        $this->helper->model->resetFields($values, ['creator_id', 'owner_id', 'date_due', 'date_started', 'score', 'category_id', 'time_estimated', 'time_spent']);
 
         if (empty($values['column_id'])) {
             $values['column_id'] = $this->columnModel->getFirstColumnId($values['project_id']);

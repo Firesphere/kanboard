@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'ColumnMoveRestrictionController',
         'remove',
-        array('project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id'])
+        ['project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id']],
     ) ?>
 </div>

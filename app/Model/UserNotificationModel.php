@@ -69,7 +69,7 @@ class UserNotificationModel extends Base
      */
     public function getUsersWithNotificationEnabled($project_id, $exclude_user_id = 0)
     {
-        $users = array();
+        $users = [];
         $members = $this->getProjectUserMembersWithNotificationEnabled($project_id, $exclude_user_id);
         $groups = $this->getProjectGroupMembersWithNotificationEnabled($project_id, $exclude_user_id);
 
@@ -91,7 +91,7 @@ class UserNotificationModel extends Base
      */
     public function enableNotification($user_id)
     {
-        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(array('notifications_enabled' => 1));
+        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(['notifications_enabled' => 1]);
     }
 
     /**
@@ -103,7 +103,7 @@ class UserNotificationModel extends Base
      */
     public function disableNotification($user_id)
     {
-        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(array('notifications_enabled' => 0));
+        return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(['notifications_enabled' => 0]);
     }
 
     /**
@@ -115,7 +115,7 @@ class UserNotificationModel extends Base
      */
     public function saveSettings($user_id, array $values)
     {
-        $types = empty($values['notification_types']) ? array() : array_keys($values['notification_types']);
+        $types = empty($values['notification_types']) ? [] : array_keys($values['notification_types']);
 
         if (! empty($types)) {
             $this->enableNotification($user_id);
@@ -124,7 +124,7 @@ class UserNotificationModel extends Base
         }
 
         $filter = empty($values['notifications_filter']) ? UserNotificationFilterModel::FILTER_BOTH : $values['notifications_filter'];
-        $project_ids = empty($values['notification_projects']) ? array() : array_keys($values['notification_projects']);
+        $project_ids = empty($values['notification_projects']) ? [] : array_keys($values['notification_projects']);
 
         $this->userNotificationFilterModel->saveFilter($user_id, $filter);
         $this->userNotificationFilterModel->saveSelectedProjects($user_id, $project_ids);
@@ -158,12 +158,12 @@ class UserNotificationModel extends Base
     {
         return $this->db
             ->table(ProjectUserRoleModel::TABLE)
-            ->columns(UserModel::TABLE.'.id', UserModel::TABLE.'.username', UserModel::TABLE.'.name', UserModel::TABLE.'.email', UserModel::TABLE.'.language', UserModel::TABLE.'.notifications_filter')
+            ->columns(UserModel::TABLE . '.id', UserModel::TABLE . '.username', UserModel::TABLE . '.name', UserModel::TABLE . '.email', UserModel::TABLE . '.language', UserModel::TABLE . '.notifications_filter')
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->eq(ProjectUserRoleModel::TABLE.'.project_id', $project_id)
-            ->eq(UserModel::TABLE.'.notifications_enabled', '1')
-            ->eq(UserModel::TABLE.'.is_active', 1)
-            ->neq(UserModel::TABLE.'.id', $exclude_user_id)
+            ->eq(ProjectUserRoleModel::TABLE . '.project_id', $project_id)
+            ->eq(UserModel::TABLE . '.notifications_enabled', '1')
+            ->eq(UserModel::TABLE . '.is_active', 1)
+            ->neq(UserModel::TABLE . '.id', $exclude_user_id)
             ->findAll();
     }
 
@@ -171,13 +171,13 @@ class UserNotificationModel extends Base
     {
         return $this->db
             ->table(ProjectGroupRoleModel::TABLE)
-            ->columns(UserModel::TABLE.'.id', UserModel::TABLE.'.username', UserModel::TABLE.'.name', UserModel::TABLE.'.email', UserModel::TABLE.'.language', UserModel::TABLE.'.notifications_filter')
+            ->columns(UserModel::TABLE . '.id', UserModel::TABLE . '.username', UserModel::TABLE . '.name', UserModel::TABLE . '.email', UserModel::TABLE . '.language', UserModel::TABLE . '.notifications_filter')
             ->join(GroupMemberModel::TABLE, 'group_id', 'group_id', ProjectGroupRoleModel::TABLE)
             ->join(UserModel::TABLE, 'id', 'user_id', GroupMemberModel::TABLE)
-            ->eq(ProjectGroupRoleModel::TABLE.'.project_id', $project_id)
-            ->eq(UserModel::TABLE.'.notifications_enabled', '1')
-            ->neq(UserModel::TABLE.'.id', $exclude_user_id)
-            ->eq(UserModel::TABLE.'.is_active', 1)
+            ->eq(ProjectGroupRoleModel::TABLE . '.project_id', $project_id)
+            ->eq(UserModel::TABLE . '.notifications_enabled', '1')
+            ->neq(UserModel::TABLE . '.id', $exclude_user_id)
+            ->eq(UserModel::TABLE . '.is_active', 1)
             ->findAll();
     }
 }

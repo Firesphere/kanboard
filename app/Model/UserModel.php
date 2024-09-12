@@ -2,10 +2,10 @@
 
 namespace Kanboard\Model;
 
-use PicoDb\Database;
 use Kanboard\Core\Base;
-use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
+use Kanboard\Core\Security\Token;
+use PicoDb\Database;
 
 /**
  * User model
@@ -219,7 +219,7 @@ class UserModel extends Base
         $listing = $this->prepareList($users);
 
         if ($prepend) {
-            return array(UserModel::EVERYBODY_ID => t('Everybody')) + $listing;
+            return [UserModel::EVERYBODY_ID => t('Everybody')] + $listing;
         }
 
         return $listing;
@@ -234,7 +234,7 @@ class UserModel extends Base
      */
     public function prepareList(array $users)
     {
-        $result = array();
+        $result = [];
 
         foreach ($users as $user) {
             $result[$user['id']] = $this->helper->user->getFullname($user);
@@ -265,10 +265,10 @@ class UserModel extends Base
             $values['username'] = trim($values['username']);
         }
 
-        $this->helper->model->removeFields($values, array('confirmation', 'current_password'));
-        $this->helper->model->resetFields($values, array('is_ldap_user', 'disable_login_form'));
-        $this->helper->model->convertNullFields($values, array('gitlab_id'));
-        $this->helper->model->convertIntegerFields($values, array('gitlab_id'));
+        $this->helper->model->removeFields($values, ['confirmation', 'current_password']);
+        $this->helper->model->resetFields($values, ['is_ldap_user', 'disable_login_form']);
+        $this->helper->model->convertNullFields($values, ['gitlab_id']);
+        $this->helper->model->convertIntegerFields($values, ['gitlab_id']);
     }
 
     /**
@@ -311,8 +311,8 @@ class UserModel extends Base
     public function disable($user_id)
     {
         $this->db->startTransaction();
-        $result1 = $this->db->table(self::TABLE)->eq('id', $user_id)->update(array('is_active' => 0));
-        $result2 = $this->db->table(ProjectModel::TABLE)->eq('is_private', 1)->eq('owner_id', $user_id)->update(array('is_active' => 0));
+        $result1 = $this->db->table(self::TABLE)->eq('id', $user_id)->update(['is_active' => 0]);
+        $result2 = $this->db->table(ProjectModel::TABLE)->eq('is_private', 1)->eq('owner_id', $user_id)->update(['is_active' => 0]);
         $this->db->closeTransaction();
         return $result1 && $result2;
     }
@@ -326,7 +326,7 @@ class UserModel extends Base
      */
     public function enable($user_id)
     {
-        return $this->db->table(self::TABLE)->eq('id', $user_id)->update(array('is_active' => 1));
+        return $this->db->table(self::TABLE)->eq('id', $user_id)->update(['is_active' => 1]);
     }
 
     /**
@@ -341,28 +341,27 @@ class UserModel extends Base
         $this->avatarFileModel->remove($user_id);
 
         return $this->db->transaction(function (Database $db) use ($user_id) {
-
             // All assigned tasks are now unassigned (no foreign key)
-            if (! $db->table(TaskModel::TABLE)->eq('owner_id', $user_id)->update(array('owner_id' => 0))) {
+            if (! $db->table(TaskModel::TABLE)->eq('owner_id', $user_id)->update(['owner_id' => 0])) {
                 return false;
             }
 
             // All assigned subtasks are now unassigned (no foreign key)
-            if (! $db->table(SubtaskModel::TABLE)->eq('user_id', $user_id)->update(array('user_id' => 0))) {
+            if (! $db->table(SubtaskModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
                 return false;
             }
 
             // All comments are not assigned anymore (no foreign key)
-            if (! $db->table(CommentModel::TABLE)->eq('user_id', $user_id)->update(array('user_id' => 0))) {
+            if (! $db->table(CommentModel::TABLE)->eq('user_id', $user_id)->update(['user_id' => 0])) {
                 return false;
             }
 
             // All private projects are removed
             $project_ids = $db->table(ProjectModel::TABLE)
                 ->eq('is_private', 1)
-                ->eq(ProjectUserRoleModel::TABLE.'.user_id', $user_id)
+                ->eq(ProjectUserRoleModel::TABLE . '.user_id', $user_id)
                 ->join(ProjectUserRoleModel::TABLE, 'project_id', 'id')
-                ->findAllByColumn(ProjectModel::TABLE.'.id');
+                ->findAllByColumn(ProjectModel::TABLE . '.id');
 
             if (! empty($project_ids)) {
                 $db->table(ProjectModel::TABLE)->in('id', $project_ids)->remove();
@@ -387,7 +386,7 @@ class UserModel extends Base
         return $this->db
                     ->table(self::TABLE)
                     ->eq('id', $user_id)
-                    ->save(array('token' => Token::getToken()));
+                    ->save(['token' => Token::getToken()]);
     }
 
     /**
@@ -402,7 +401,7 @@ class UserModel extends Base
         return $this->db
                     ->table(self::TABLE)
                     ->eq('id', $user_id)
-                    ->save(array('token' => ''));
+                    ->save(['token' => '']);
     }
 
     public function getOrCreateExternalUserId($username, $name, $externalIdColumn, $externalId)
@@ -410,12 +409,12 @@ class UserModel extends Base
         $userId = $this->db->table(self::TABLE)->eq($externalIdColumn, $externalId)->findOneColumn('id');
 
         if (empty($userId)) {
-            $userId = $this->create(array(
-                'username' => $username,
-                'name' => $name,
-                'is_ldap_user' => 1,
+            $userId = $this->create([
+                'username'        => $username,
+                'name'            => $name,
+                'is_ldap_user'    => 1,
                 $externalIdColumn => $externalId,
-            ));
+            ]);
         }
 
         return $userId;

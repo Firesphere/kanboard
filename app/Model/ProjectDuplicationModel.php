@@ -22,7 +22,7 @@ class ProjectDuplicationModel extends Base
      */
     public function getOptionalSelection()
     {
-        return array(
+        return [
             'categoryModel',
             'projectRoleModel',
             'projectPermissionModel',
@@ -31,7 +31,7 @@ class ProjectDuplicationModel extends Base
             'customFilterModel',
             'projectMetadataModel',
             'projectTaskDuplicationModel',
-        );
+        ];
     }
 
     /**
@@ -42,7 +42,7 @@ class ProjectDuplicationModel extends Base
      */
     public function getPossibleSelection()
     {
-        return array(
+        return [
             'swimlaneModel',
             'boardModel',
             'categoryModel',
@@ -54,7 +54,7 @@ class ProjectDuplicationModel extends Base
             'customFilterModel',
             'projectMetadataModel',
             'projectTaskDuplicationModel',
-        );
+        ];
     }
 
     /**
@@ -67,13 +67,13 @@ class ProjectDuplicationModel extends Base
      */
     public function getClonedProjectName($name, $max_length = 50)
     {
-        $suffix = ' ('.t('Clone').')';
+        $suffix = ' (' . t('Clone') . ')';
 
-        if (strlen($name.$suffix) > $max_length) {
+        if (strlen($name . $suffix) > $max_length) {
             $name = substr($name, 0, $max_length - strlen($suffix));
         }
 
-        return $name.$suffix;
+        return $name . $suffix;
     }
 
     /**
@@ -87,7 +87,7 @@ class ProjectDuplicationModel extends Base
      * @param  string     $identifier           Identifier of the project
      * @return integer                          Cloned Project Id
      */
-    public function duplicate($src_project_id, $selection = array('projectPermissionModel', 'categoryModel', 'actionModel'), $owner_id = 0, $name = null, $private = null, $identifier = null)
+    public function duplicate($src_project_id, $selection = ['projectPermissionModel', 'categoryModel', 'actionModel'], $owner_id = 0, $name = null, $private = null, $identifier = null)
     {
         $this->db->startTransaction();
 
@@ -101,7 +101,6 @@ class ProjectDuplicationModel extends Base
 
         // Clone Swimlanes, Columns, Categories, Permissions and Actions
         foreach ($this->getPossibleSelection() as $model) {
-
             // Skip if optional part has not been selected
             if (in_array($model, $this->getOptionalSelection()) && ! in_array($model, $selection)) {
                 continue;
@@ -148,21 +147,21 @@ class ProjectDuplicationModel extends Base
             $identifier = strtoupper($identifier);
         }
 
-        $values = array(
-            'name' => $name ?: $this->getClonedProjectName($project['name']),
-            'is_active' => 1,
-            'last_modified' => time(),
-            'token' => '',
-            'is_public' => 0,
-            'is_private' => $private ? 1 : $is_private,
-            'owner_id' => $owner_id,
-            'priority_default' => $project['priority_default'],
-            'priority_start' => $project['priority_start'],
-            'priority_end' => $project['priority_end'],
+        $values = [
+            'name'                     => $name ?: $this->getClonedProjectName($project['name']),
+            'is_active'                => 1,
+            'last_modified'            => time(),
+            'token'                    => '',
+            'is_public'                => 0,
+            'is_private'               => $private ? 1 : $is_private,
+            'owner_id'                 => $owner_id,
+            'priority_default'         => $project['priority_default'],
+            'priority_start'           => $project['priority_start'],
+            'priority_end'             => $project['priority_end'],
             'per_swimlane_task_limits' => empty($project['per_swimlane_task_limits']) ? 0 : 1,
-            'task_limit' => $project['task_limit'],
-            'identifier' => $identifier,
-        );
+            'task_limit'               => $project['task_limit'],
+            'identifier'               => $identifier,
+        ];
 
         return $this->db->table(ProjectModel::TABLE)->persist($values);
     }

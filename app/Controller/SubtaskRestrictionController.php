@@ -23,15 +23,15 @@ class SubtaskRestrictionController extends BaseController
         $subtask = $this->getSubtask($task);
         $subtaskInProgress = $this->subtaskStatusModel->getSubtaskInProgress($this->userSession->getId());
 
-        $this->response->html($this->template->render('subtask_restriction/show', array(
-            'status_list' => array(
+        $this->response->html($this->template->render('subtask_restriction/show', [
+            'status_list' => [
                 SubtaskModel::STATUS_TODO => 'Todo',
                 SubtaskModel::STATUS_DONE => 'Done',
-            ),
+            ],
             'subtask_inprogress' => $subtaskInProgress,
-            'subtask' => $subtask,
-            'task' => $task,
-        )));
+            'subtask'            => $subtask,
+            'task'               => $task,
+        ]));
     }
 
     /**
@@ -47,18 +47,18 @@ class SubtaskRestrictionController extends BaseController
 
         if (! empty($values)) {
             // Change status of the previous "in progress" subtask
-            $this->subtaskModel->update(array(
+            $this->subtaskModel->update([
                 'id'      => $values['id'],
                 'status'  => $values['status'],
-            ));
+            ]);
 
             // Set the current subtask to "in progress"
-            $this->subtaskModel->update(array(
+            $this->subtaskModel->update([
                 'id'      => $subtask['id'],
                 'status'  => SubtaskModel::STATUS_INPROGRESS,
-            ));
+            ]);
         }
 
-        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
     }
 }

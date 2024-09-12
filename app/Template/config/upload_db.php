@@ -12,5 +12,5 @@
     <?= $this->form->label(t('Database file'), 'file') ?>
     <?= $this->form->file('file') ?>
 
-    <?= $this->modal->submitButtons(array('submitLabel' => t('Upload'))) ?>
+    <?= $this->modal->submitButtons(['submitLabel' => t('Upload')]) ?>
 </form>

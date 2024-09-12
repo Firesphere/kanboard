@@ -3,18 +3,18 @@
 namespace Kanboard\Subscriber;
 
 use Kanboard\Event\GenericEvent;
-use Kanboard\Model\TaskLinkModel;
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\CommentModel;
 use Kanboard\Model\SubtaskModel;
 use Kanboard\Model\TaskFileModel;
+use Kanboard\Model\TaskLinkModel;
+use Kanboard\Model\TaskModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class NotificationSubscriber extends BaseSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_USER_MENTION      => 'handleEvent',
             TaskModel::EVENT_CREATE            => 'handleEvent',
             TaskModel::EVENT_UPDATE            => 'handleEvent',
@@ -36,7 +36,7 @@ class NotificationSubscriber extends BaseSubscriber implements EventSubscriberIn
             TaskFileModel::EVENT_DESTROY       => 'handleEvent',
             TaskLinkModel::EVENT_CREATE_UPDATE => 'handleEvent',
             TaskLinkModel::EVENT_DELETE        => 'handleEvent',
-        );
+        ];
     }
 
     public function handleEvent(GenericEvent $event, $eventName)

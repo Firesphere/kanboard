@@ -15,7 +15,7 @@ class PredefinedTaskDescriptionModel extends Base
 
     public function getList($projectId)
     {
-        return array('' => t('None')) + $this->db->hashtable(self::TABLE)->eq('project_id', $projectId)->getAll('id', 'title');
+        return ['' => t('None')] + $this->db->hashtable(self::TABLE)->eq('project_id', $projectId)->getAll('id', 'title');
     }
 
     public function getById($projectId, $id)
@@ -30,19 +30,19 @@ class PredefinedTaskDescriptionModel extends Base
 
     public function create($projectId, $title, $description)
     {
-        return $this->db->table(self::TABLE)->persist(array(
-            'project_id' => $projectId,
-            'title' => $title,
+        return $this->db->table(self::TABLE)->persist([
+            'project_id'  => $projectId,
+            'title'       => $title,
             'description' => $description,
-        ));
+        ]);
     }
 
     public function update($projectId, $id, $title, $description)
     {
-        return $this->db->table(self::TABLE)->eq('project_id', $projectId)->eq('id', $id)->update(array(
-            'title' => $title,
+        return $this->db->table(self::TABLE)->eq('project_id', $projectId)->eq('id', $id)->update([
+            'title'       => $title,
             'description' => $description,
-        ));
+        ]);
     }
 
     public function remove($projectId, $id)

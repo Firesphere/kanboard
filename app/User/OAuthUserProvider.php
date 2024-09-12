@@ -18,7 +18,7 @@ abstract class OAuthUserProvider implements UserProviderInterface
      * @access protected
      * @var array
      */
-    protected $user = array();
+    protected $user = [];
 
     /**
      * Constructor
@@ -116,7 +116,7 @@ abstract class OAuthUserProvider implements UserProviderInterface
      */
     public function getExternalGroupIds()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -127,6 +127,6 @@ abstract class OAuthUserProvider implements UserProviderInterface
      */
     public function getExtraAttributes()
     {
-        return array();
+        return [];
     }
 }

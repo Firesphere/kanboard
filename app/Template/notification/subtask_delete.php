@@ -10,6 +10,6 @@
     <li><?= t('Assignee:') ?> <?= $this->text->e($subtask['name'] ?: $subtask['username'] ?: '?') ?></li>
 </ul>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

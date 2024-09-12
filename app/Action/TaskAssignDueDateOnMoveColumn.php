@@ -31,9 +31,9 @@ class TaskAssignDueDateOnMoveColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -44,26 +44,26 @@ class TaskAssignDueDateOnMoveColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'duration' => t('Duration in days'),
+        return [
+            'duration'  => t('Duration in days'),
             'column_id' => t('Column'),
-        );
+        ];
     }
     /**
-         * Get the required parameter for the event
-         *
-         * @access public
-         * @return string[]
-         */
+     * Get the required parameter for the event
+     *
+     * @access public
+     * @return string[]
+     */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
-            ),
+            ],
             'src_column_id',
-        );
+        ];
     }
 
     /**
@@ -75,10 +75,10 @@ class TaskAssignDueDateOnMoveColumn extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
-            'date_due' => strtotime('+'.$this->getParam('duration').'days'),
-        );
+        $values = [
+            'id'       => $data['task_id'],
+            'date_due' => strtotime('+' . $this->getParam('duration') . 'days'),
+        ];
 
         return $this->taskModificationModel->update($values, false);
     }

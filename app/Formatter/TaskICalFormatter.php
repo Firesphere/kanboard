@@ -68,7 +68,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
             $end = new DateTime();
             $end->setTimestamp($task[$endColumn] ?: time());
 
-            $vEvent = $this->getTaskIcalEvent($task, 'task-#'.$task['id'].'-'.$startColumn.'-'.$endColumn);
+            $vEvent = $this->getTaskIcalEvent($task, 'task-#' . $task['id'] . '-' . $startColumn . '-' . $endColumn);
             $vEvent->setDtStart($start);
             $vEvent->setDtEnd($end);
 
@@ -91,7 +91,7 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
             $date = new DateTime();
             $date->setTimestamp($task['date_due']);
 
-            $vEvent = $this->getTaskIcalEvent($task, 'task-#'.$task['id'].'-date_due');
+            $vEvent = $this->getTaskIcalEvent($task, 'task-#' . $task['id'] . '-date_due');
             $vEvent->setDtStart($date);
             $vEvent->setDtEnd($date);
 
@@ -125,24 +125,24 @@ class TaskICalFormatter extends BaseFormatter implements FormatterInterface
         $vEvent->setCreated($dateCreation);
         $vEvent->setModified($dateModif);
         $vEvent->setUseTimezone(true);
-        $vEvent->setSummary(t('#%d', $task['id']).' '.$task['title']);
+        $vEvent->setSummary(t('#%d', $task['id']) . ' ' . $task['title']);
         $vEvent->setDescription($task['description']);
         $vEvent->setDescriptionHTML($this->helper->text->markdown($task['description']));
-        $vEvent->setUrl($this->helper->url->base().$this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])));
+        $vEvent->setUrl($this->helper->url->base() . $this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
 
         if (! empty($task['owner_id'])) {
             $attendees = new Attendees();
             $attendees->add(
-                'MAILTO:'.($task['assignee_email'] ?: $task['assignee_username'].'@kanboard.local'),
-                array('CN' => $task['assignee_name'] ?: $task['assignee_username'])
+                'MAILTO:' . ($task['assignee_email'] ?: $task['assignee_username'] . '@kanboard.local'),
+                ['CN' => $task['assignee_name'] ?: $task['assignee_username']],
             );
             $vEvent->setAttendees($attendees);
         }
 
         if (! empty($task['creator_id'])) {
             $vEvent->setOrganizer(new Organizer(
-                'MAILTO:' . $task['creator_email'] ?: $task['creator_username'].'@kanboard.local',
-                array('CN' => $task['creator_name'] ?: $task['creator_username'])
+                'MAILTO:' . $task['creator_email'] ?: $task['creator_username'] . '@kanboard.local',
+                ['CN' => $task['creator_name'] ?: $task['creator_username']],
             ));
         }
 

@@ -2,17 +2,17 @@
 
 namespace Schema;
 
-require_once __DIR__.'/Migration.php';
+require_once __DIR__ . '/Migration.php';
 
-use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
+use Kanboard\Core\Security\Token;
 use PDO;
 
 const VERSION = 128;
 
 function version_128(PDO $pdo)
 {
-    $pdo->exec("ALTER TABLE comments ADD COLUMN visibility VARCHAR(25) NOT NULL DEFAULT '".Role::APP_USER."'");
+    $pdo->exec("ALTER TABLE comments ADD COLUMN visibility VARCHAR(25) NOT NULL DEFAULT '" . Role::APP_USER . "'");
 }
 
 function version_127(PDO $pdo)
@@ -156,7 +156,7 @@ function version_114(PDO $pdo)
 function version_113(PDO $pdo)
 {
     $pdo->exec(
-        'ALTER TABLE project_activities RENAME TO project_activities_bak'
+        'ALTER TABLE project_activities RENAME TO project_activities_bak',
     );
     $pdo->exec("
       CREATE TABLE project_activities (
@@ -173,10 +173,10 @@ function version_113(PDO $pdo)
       )
     ");
     $pdo->exec(
-        'INSERT INTO project_activities SELECT * FROM project_activities_bak'
+        'INSERT INTO project_activities SELECT * FROM project_activities_bak',
     );
     $pdo->exec(
-        'DROP TABLE project_activities_bak'
+        'DROP TABLE project_activities_bak',
     );
 }
 
@@ -326,7 +326,6 @@ function version_100(PDO $pdo)
 
     $pdo->exec("ALTER TABLE settings ADD COLUMN changed_by INTEGER DEFAULT 0 NOT NULL");
     $pdo->exec("ALTER TABLE settings ADD COLUMN changed_on INTEGER DEFAULT 0 NOT NULL");
-
 }
 
 function version_99(PDO $pdo)
@@ -350,7 +349,7 @@ function version_98(PDO $pdo)
             user_id INTEGER DEFAULT 0 NOT NULL,
             date INTEGER DEFAULT 0 NOT NULL,
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
-        )"
+        )",
     );
 }
 
@@ -412,7 +411,7 @@ function version_92(PDO $pdo)
 {
     $rq = $pdo->prepare('SELECT * FROM actions');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE actions SET action_name=? WHERE id=?');
 
@@ -424,20 +423,20 @@ function version_92(PDO $pdo)
         } elseif ($row['action_name'] === 'TaskLogMoveAnotherColumn') {
             $row['action_name'] = '\Kanboard\Action\CommentCreationMoveTaskColumn';
         } elseif ($row['action_name'][0] !== '\\') {
-            $row['action_name'] = '\Kanboard\Action\\'.$row['action_name'];
+            $row['action_name'] = '\Kanboard\Action\\' . $row['action_name'];
         }
 
-        $rq->execute(array($row['action_name'], $row['id']));
+        $rq->execute([$row['action_name'], $row['id']]);
     }
 }
 
 function version_91(PDO $pdo)
 {
-    $pdo->exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT '".Role::APP_USER."'");
+    $pdo->exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT '" . Role::APP_USER . "'");
 
     $rq = $pdo->prepare('SELECT * FROM users');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE users SET "role"=? WHERE "id"=?');
 
@@ -450,7 +449,7 @@ function version_91(PDO $pdo)
             $role = Role::APP_MANAGER;
         }
 
-        $rq->execute(array($role, $row['id']));
+        $rq->execute([$role, $row['id']]);
     }
 }
 
@@ -467,19 +466,19 @@ function version_90(PDO $pdo)
         )
     ");
 
-    $pdo->exec("ALTER TABLE project_has_users ADD COLUMN role TEXT NOT NULL DEFAULT '".Role::PROJECT_VIEWER."'");
+    $pdo->exec("ALTER TABLE project_has_users ADD COLUMN role TEXT NOT NULL DEFAULT '" . Role::PROJECT_VIEWER . "'");
 
     $rq = $pdo->prepare('SELECT * FROM project_has_users');
     $rq->execute();
-    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: array();
+    $rows = $rq->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
     $rq = $pdo->prepare('UPDATE project_has_users SET "role"=? WHERE "id"=?');
 
     foreach ($rows as $row) {
-        $rq->execute(array(
+        $rq->execute([
             $row['is_owner'] == 1 ? Role::PROJECT_MANAGER : Role::PROJECT_MEMBER,
             $row['id'],
-        ));
+        ]);
     }
 }
 
@@ -603,7 +602,7 @@ function version_85(PDO $pdo)
 
     foreach ($user_ids as $user_id) {
         $rq = $pdo->prepare('INSERT INTO user_has_notification_types (user_id, notification_type) VALUES (?, ?)');
-        $rq->execute(array($user_id, 'email'));
+        $rq->execute([$user_id, 'email']);
     }
 }
 
@@ -701,7 +700,7 @@ function version_73(PDO $pdo)
 function version_72(PDO $pdo)
 {
     $pdo->exec(
-        'ALTER TABLE comments RENAME TO comments_bak'
+        'ALTER TABLE comments RENAME TO comments_bak',
     );
 
     $pdo->exec(
@@ -713,15 +712,15 @@ function version_72(PDO $pdo)
             comment TEXT NOT NULL,
             reference VARCHAR(50),
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE
-        )'
+        )',
     );
 
     $pdo->exec(
-        'INSERT INTO comments SELECT * FROM comments_bak'
+        'INSERT INTO comments SELECT * FROM comments_bak',
     );
 
     $pdo->exec(
-        'DROP TABLE comments_bak'
+        'DROP TABLE comments_bak',
     );
 }
 
@@ -733,7 +732,7 @@ function version_71(PDO $pdo)
 function version_70(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('webhook_url', ''));
+    $rq->execute(['webhook_url', '']);
 
     $pdo->exec("DELETE FROM settings WHERE option='webhook_url_task_creation'");
     $pdo->exec("DELETE FROM settings WHERE option='webhook_url_task_modification'");
@@ -747,9 +746,9 @@ function version_69(PDO $pdo)
 function version_68(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('calendar_user_subtasks_time_tracking', 0));
-    $rq->execute(array('calendar_user_tasks', 'date_started'));
-    $rq->execute(array('calendar_project_tasks', 'date_started'));
+    $rq->execute(['calendar_user_subtasks_time_tracking', 0]);
+    $rq->execute(['calendar_user_tasks', 'date_started']);
+    $rq->execute(['calendar_project_tasks', 'date_started']);
 
     $pdo->exec("DELETE FROM settings WHERE option='subtask_forecast'");
 }
@@ -757,13 +756,13 @@ function version_68(PDO $pdo)
 function version_67(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_jabber', '0'));
-    $rq->execute(array('integration_jabber_server', ''));
-    $rq->execute(array('integration_jabber_domain', ''));
-    $rq->execute(array('integration_jabber_username', ''));
-    $rq->execute(array('integration_jabber_password', ''));
-    $rq->execute(array('integration_jabber_nickname', 'kanboard'));
-    $rq->execute(array('integration_jabber_room', ''));
+    $rq->execute(['integration_jabber', '0']);
+    $rq->execute(['integration_jabber_server', '']);
+    $rq->execute(['integration_jabber_domain', '']);
+    $rq->execute(['integration_jabber_username', '']);
+    $rq->execute(['integration_jabber_password', '']);
+    $rq->execute(['integration_jabber_nickname', 'kanboard']);
+    $rq->execute(['integration_jabber_room', '']);
 
     $pdo->exec("ALTER TABLE project_integrations ADD COLUMN jabber INTEGER DEFAULT '0'");
     $pdo->exec("ALTER TABLE project_integrations ADD COLUMN jabber_server TEXT DEFAULT ''");
@@ -833,23 +832,23 @@ function version_60(PDO $pdo)
 function version_59(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_gravatar', '0'));
+    $rq->execute(['integration_gravatar', '0']);
 }
 
 function version_58(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_hipchat', '0'));
-    $rq->execute(array('integration_hipchat_api_url', 'https://api.hipchat.com'));
-    $rq->execute(array('integration_hipchat_room_id', ''));
-    $rq->execute(array('integration_hipchat_room_token', ''));
+    $rq->execute(['integration_hipchat', '0']);
+    $rq->execute(['integration_hipchat_api_url', 'https://api.hipchat.com']);
+    $rq->execute(['integration_hipchat_room_id', '']);
+    $rq->execute(['integration_hipchat_room_token', '']);
 }
 
 function version_57(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('integration_slack_webhook', '0'));
-    $rq->execute(array('integration_slack_webhook_url', ''));
+    $rq->execute(['integration_slack_webhook', '0']);
+    $rq->execute(['integration_slack_webhook_url', '']);
 }
 
 function version_56(PDO $pdo)
@@ -857,7 +856,7 @@ function version_56(PDO $pdo)
     $pdo->exec('CREATE TABLE currencies ("currency" TEXT NOT NULL UNIQUE, "rate" REAL DEFAULT 0)');
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_currency', 'USD'));
+    $rq->execute(['application_currency', 'USD']);
 }
 
 function version_55(PDO $pdo)
@@ -886,13 +885,13 @@ function version_55(PDO $pdo)
 function version_54(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('subtask_forecast', '0'));
+    $rq->execute(['subtask_forecast', '0']);
 }
 
 function version_53(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_stylesheet', ''));
+    $rq->execute(['application_stylesheet', '']);
 }
 
 function version_52(PDO $pdo)
@@ -919,7 +918,7 @@ function version_48(PDO $pdo)
             $task_id = $subtask['task_id'];
         }
 
-        $urq->execute(array($position, $subtask['id']));
+        $urq->execute([$position, $subtask['id']]);
         $position++;
     }
 }
@@ -958,17 +957,17 @@ function version_45(PDO $pdo)
     $pdo->exec("CREATE UNIQUE INDEX task_has_links_unique ON task_has_links(link_id, task_id, opposite_task_id)");
 
     $rq = $pdo->prepare('INSERT INTO links (label, opposite_id) VALUES (?, ?)');
-    $rq->execute(array('relates to', 0));
-    $rq->execute(array('blocks', 3));
-    $rq->execute(array('is blocked by', 2));
-    $rq->execute(array('duplicates', 5));
-    $rq->execute(array('is duplicated by', 4));
-    $rq->execute(array('is a child of', 7));
-    $rq->execute(array('is a parent of', 6));
-    $rq->execute(array('targets milestone', 9));
-    $rq->execute(array('is a milestone of', 8));
-    $rq->execute(array('fixes', 11));
-    $rq->execute(array('is fixed by', 10));
+    $rq->execute(['relates to', 0]);
+    $rq->execute(['blocks', 3]);
+    $rq->execute(['is blocked by', 2]);
+    $rq->execute(['duplicates', 5]);
+    $rq->execute(['is duplicated by', 4]);
+    $rq->execute(['is a child of', 7]);
+    $rq->execute(['is a parent of', 6]);
+    $rq->execute(['targets milestone', 9]);
+    $rq->execute(['is a milestone of', 8]);
+    $rq->execute(['fixes', 11]);
+    $rq->execute(['is fixed by', 10]);
 }
 
 function version_44(PDO $pdo)
@@ -1012,8 +1011,8 @@ function version_43(PDO $pdo)
 function version_42(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('subtask_restriction', '0'));
-    $rq->execute(array('subtask_time_tracking', '0'));
+    $rq->execute(['subtask_restriction', '0']);
+    $rq->execute(['subtask_time_tracking', '0']);
 
     $pdo->exec("
         CREATE TABLE subtask_time_tracking (
@@ -1059,14 +1058,14 @@ function version_39(PDO $pdo)
     $rq = $pdo->prepare('UPDATE project_has_users SET is_owner=1 WHERE project_id=?');
 
     foreach ($project_ids as $project_id) {
-        $rq->execute(array($project_id));
+        $rq->execute([$project_id]);
     }
 }
 
 function version_38(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('project_categories', ''));
+    $rq->execute(['project_categories', '']);
 }
 
 function version_37(PDO $pdo)
@@ -1152,7 +1151,7 @@ function version_31(PDO $pdo)
 function version_30(PDO $pdo)
 {
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('application_date_format', 'm/d/Y'));
+    $rq->execute(['application_date_format', 'm/d/Y']);
 }
 
 function version_29(PDO $pdo)
@@ -1170,17 +1169,17 @@ function version_29(PDO $pdo)
     $parameters = $rq->fetch(PDO::FETCH_ASSOC);
 
     $rq = $pdo->prepare('INSERT INTO settings VALUES (?, ?)');
-    $rq->execute(array('board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60));
-    $rq->execute(array('board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60));
-    $rq->execute(array('board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10));
-    $rq->execute(array('board_columns', $parameters['default_columns']));
-    $rq->execute(array('webhook_url_task_creation', $parameters['webhooks_url_task_creation']));
-    $rq->execute(array('webhook_url_task_modification', $parameters['webhooks_url_task_modification']));
-    $rq->execute(array('webhook_token', $parameters['webhooks_token']));
-    $rq->execute(array('api_token', $parameters['api_token']));
-    $rq->execute(array('application_language', $parameters['language']));
-    $rq->execute(array('application_timezone', $parameters['timezone']));
-    $rq->execute(array('application_url', defined('KANBOARD_URL') ? KANBOARD_URL : ''));
+    $rq->execute(['board_highlight_period', defined('RECENT_TASK_PERIOD') ? RECENT_TASK_PERIOD : 48 * 60 * 60]);
+    $rq->execute(['board_public_refresh_interval', defined('BOARD_PUBLIC_CHECK_INTERVAL') ? BOARD_PUBLIC_CHECK_INTERVAL : 60]);
+    $rq->execute(['board_private_refresh_interval', defined('BOARD_CHECK_INTERVAL') ? BOARD_CHECK_INTERVAL : 10]);
+    $rq->execute(['board_columns', $parameters['default_columns']]);
+    $rq->execute(['webhook_url_task_creation', $parameters['webhooks_url_task_creation']]);
+    $rq->execute(['webhook_url_task_modification', $parameters['webhooks_url_task_modification']]);
+    $rq->execute(['webhook_token', $parameters['webhooks_token']]);
+    $rq->execute(['api_token', $parameters['api_token']]);
+    $rq->execute(['application_language', $parameters['language']]);
+    $rq->execute(['application_timezone', $parameters['timezone']]);
+    $rq->execute(['application_url', defined('KANBOARD_URL') ? KANBOARD_URL : '']);
 
     $pdo->exec('DROP TABLE config');
 }
@@ -1296,7 +1295,7 @@ function version_20(PDO $pdo)
 function version_19(PDO $pdo)
 {
     $pdo->exec("ALTER TABLE config ADD COLUMN api_token TEXT DEFAULT ''");
-    $pdo->exec("UPDATE config SET api_token='".Token::getToken()."'");
+    $pdo->exec("UPDATE config SET api_token='" . Token::getToken() . "'");
 }
 
 function version_18(PDO $pdo)
@@ -1312,7 +1311,7 @@ function version_18(PDO $pdo)
             task_id INTEGER NOT NULL,
             user_id INTEGER,
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE
-        )"
+        )",
     );
 }
 
@@ -1327,7 +1326,7 @@ function version_17(PDO $pdo)
             is_image INTEGER DEFAULT 0,
             task_id INTEGER NOT NULL,
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE
-        )"
+        )",
     );
 }
 
@@ -1341,7 +1340,7 @@ function version_16(PDO $pdo)
             project_id INTEGER NOT NULL,
             UNIQUE (project_id, name),
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
-        )"
+        )",
     );
 
     $pdo->exec("ALTER TABLE tasks ADD COLUMN category_id INTEGER DEFAULT 0");
@@ -1377,7 +1376,7 @@ function version_12(PDO $pdo)
             expiration INTEGER,
             date_creation INTEGER,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-        )'
+        )',
     );
 
     $pdo->exec(
@@ -1389,7 +1388,7 @@ function version_12(PDO $pdo)
             user_agent TEXT,
             date_creation INTEGER,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-        )'
+        )',
     );
 
     $pdo->exec('CREATE INDEX last_logins_user_idx ON last_logins(user_id)');
@@ -1398,7 +1397,7 @@ function version_12(PDO $pdo)
 function version_11(PDO $pdo)
 {
     $pdo->exec(
-        'ALTER TABLE comments RENAME TO comments_bak'
+        'ALTER TABLE comments RENAME TO comments_bak',
     );
 
     $pdo->exec(
@@ -1410,15 +1409,15 @@ function version_11(PDO $pdo)
             comment TEXT,
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-        )'
+        )',
     );
 
     $pdo->exec(
-        'INSERT INTO comments SELECT * FROM comments_bak'
+        'INSERT INTO comments SELECT * FROM comments_bak',
     );
 
     $pdo->exec(
-        'DROP TABLE comments_bak'
+        'DROP TABLE comments_bak',
     );
 }
 
@@ -1431,7 +1430,7 @@ function version_10(PDO $pdo)
             event_name TEXT NOT NULL,
             action_name TEXT NOT NULL,
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
-        )'
+        )',
     );
 
     $pdo->exec(
@@ -1441,7 +1440,7 @@ function version_10(PDO $pdo)
             name TEXT NOT NULL,
             value TEXT NOT NULL,
             FOREIGN KEY(action_id) REFERENCES actions(id) ON DELETE CASCADE
-        )'
+        )',
     );
 }
 
@@ -1461,7 +1460,7 @@ function version_8(PDO $pdo)
             comment TEXT,
             FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
             FOREIGN KEY(user_id) REFERENCES tasks(id) ON DELETE CASCADE
-        )'
+        )',
     );
 }
 
@@ -1561,12 +1560,12 @@ function version_1(PDO $pdo)
     $pdo->exec("
         INSERT INTO users
         (username, password, is_admin)
-        VALUES ('admin', '".\password_hash('admin', PASSWORD_BCRYPT)."', '1')
+        VALUES ('admin', '" . \password_hash('admin', PASSWORD_BCRYPT) . "', '1')
     ");
 
     $pdo->exec("
         INSERT INTO config
         (webhooks_token)
-        VALUES ('".Token::getToken()."')
+        VALUES ('" . Token::getToken() . "')
     ");
 }

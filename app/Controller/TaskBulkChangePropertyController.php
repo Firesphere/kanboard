@@ -13,10 +13,10 @@ class TaskBulkChangePropertyController extends BaseController
         }
 
         $this->response->html($this->template->render('task_bulk_change_property/show', [
-            'project' => $project,
-            'values' => $values,
-            'errors' => $errors,
-            'users_list' => $this->projectUserRoleModel->getAssignableUsersList($project['id']),
+            'project'         => $project,
+            'values'          => $values,
+            'errors'          => $errors,
+            'users_list'      => $this->projectUserRoleModel->getAssignableUsersList($project['id']),
             'categories_list' => $this->categoryModel->getList($project['id']),
         ]));
     }

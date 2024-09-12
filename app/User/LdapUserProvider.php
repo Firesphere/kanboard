@@ -209,7 +209,7 @@ class LdapUserProvider implements UserProviderInterface
      */
     public function getExtraAttributes()
     {
-        $attributes = array('is_ldap_user' => 1);
+        $attributes = ['is_ldap_user' => 1];
 
         if (! empty($this->language)) {
             $attributes['language'] = LanguageModel::findCode($this->language);

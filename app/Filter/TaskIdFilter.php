@@ -21,7 +21,7 @@ class TaskIdFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('id');
+        return ['id'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskIdFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->eq(TaskModel::TABLE.'.id', $this->value);
+        $this->query->eq(TaskModel::TABLE . '.id', $this->value);
         return $this;
     }
 }

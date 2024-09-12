@@ -21,7 +21,7 @@ class ProjectGroupRoleProjectFilter extends BaseFilter implements FilterInterfac
      */
     public function getAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -32,7 +32,7 @@ class ProjectGroupRoleProjectFilter extends BaseFilter implements FilterInterfac
      */
     public function apply()
     {
-        $this->query->eq(ProjectGroupRoleModel::TABLE.'.project_id', $this->value);
+        $this->query->eq(ProjectGroupRoleModel::TABLE . '.project_id', $this->value);
         return $this;
     }
 }

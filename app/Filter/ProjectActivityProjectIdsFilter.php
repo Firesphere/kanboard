@@ -21,7 +21,7 @@ class ProjectActivityProjectIdsFilter extends BaseFilter implements FilterInterf
      */
     public function getAttributes()
     {
-        return array('projects');
+        return ['projects'];
     }
 
     /**
@@ -33,9 +33,9 @@ class ProjectActivityProjectIdsFilter extends BaseFilter implements FilterInterf
     public function apply()
     {
         if (empty($this->value)) {
-            $this->query->eq(ProjectActivityModel::TABLE.'.project_id', 0);
+            $this->query->eq(ProjectActivityModel::TABLE . '.project_id', 0);
         } else {
-            $this->query->in(ProjectActivityModel::TABLE.'.project_id', $this->value);
+            $this->query->in(ProjectActivityModel::TABLE . '.project_id', $this->value);
         }
 
         return $this;

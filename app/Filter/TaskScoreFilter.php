@@ -20,7 +20,7 @@ class TaskScoreFilter extends BaseComparisonFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('score', 'complexity');
+        return ['score', 'complexity'];
     }
 
     /**
@@ -31,7 +31,7 @@ class TaskScoreFilter extends BaseComparisonFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->applyComparisonFilter(TaskModel::TABLE.'.score');
+        $this->applyComparisonFilter(TaskModel::TABLE . '.score');
         return $this;
     }
 }

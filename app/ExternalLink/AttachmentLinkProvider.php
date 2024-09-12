@@ -18,7 +18,7 @@ class AttachmentLinkProvider extends BaseLinkProvider implements ExternalLinkPro
      * @access protected
      * @var array
      */
-    protected $extensions = array(
+    protected $extensions = [
         'html',
         'htm',
         'xhtml',
@@ -29,7 +29,7 @@ class AttachmentLinkProvider extends BaseLinkProvider implements ExternalLinkPro
         'asp',
         'aspx',
         'cgi',
-    );
+    ];
 
     /**
      * Get provider name
@@ -61,9 +61,9 @@ class AttachmentLinkProvider extends BaseLinkProvider implements ExternalLinkPro
      */
     public function getDependencies()
     {
-        return array(
+        return [
             'related' => t('Related'),
-        );
+        ];
     }
 
     /**

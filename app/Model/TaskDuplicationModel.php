@@ -18,7 +18,7 @@ class TaskDuplicationModel extends Base
      * @access protected
      * @var string[]
      */
-    protected $fieldsToDuplicate = array(
+    protected $fieldsToDuplicate = [
         'title',
         'description',
         'date_due',
@@ -39,7 +39,7 @@ class TaskDuplicationModel extends Base
         'external_provider',
         'external_uri',
         'reference',
-    );
+    ];
 
     /**
      * Duplicate a task to the same project
@@ -51,7 +51,7 @@ class TaskDuplicationModel extends Base
     public function duplicate($task_id)
     {
         $values = $this->copyFields($task_id);
-        $values['title'] = t('[DUPLICATE]').' '.$values['title'];
+        $values['title'] = t('[DUPLICATE]') . ' ' . $values['title'];
 
         $new_task_id = $this->save($task_id, $values);
 
@@ -62,12 +62,12 @@ class TaskDuplicationModel extends Base
             $externalLinks = $this->taskExternalLinkModel->getAll($task_id);
             foreach ($externalLinks as $externalLink) {
                 $this->taskExternalLinkModel->create([
-                    'task_id' => $new_task_id,
+                    'task_id'    => $new_task_id,
                     'creator_id' => $externalLink['creator_id'],
                     'dependency' => $externalLink['dependency'],
-                    'title' => $externalLink['title'],
-                    'link_type' => $externalLink['link_type'],
-                    'url' => $externalLink['url'],
+                    'title'      => $externalLink['title'],
+                    'link_type'  => $externalLink['link_type'],
+                    'url'        => $externalLink['url'],
                 ]);
             }
         }
@@ -96,14 +96,14 @@ class TaskDuplicationModel extends Base
         if ($values['category_id'] > 0) {
             $values['category_id'] = $this->categoryModel->getIdByName(
                 $values['project_id'],
-                $this->categoryModel->getNameById($values['category_id'])
+                $this->categoryModel->getNameById($values['category_id']),
             );
         }
 
         // Check if the swimlane exists for the destination project
         $values['swimlane_id'] = $this->swimlaneModel->getIdByName(
             $values['project_id'],
-            $this->swimlaneModel->getNameById($values['swimlane_id'])
+            $this->swimlaneModel->getNameById($values['swimlane_id']),
         );
 
         if ($values['swimlane_id'] == 0) {
@@ -114,7 +114,7 @@ class TaskDuplicationModel extends Base
         if ($values['column_id'] > 0) {
             $values['column_id'] = $this->columnModel->getColumnIdByTitle(
                 $values['project_id'],
-                $this->columnModel->getColumnTitleById($values['column_id'])
+                $this->columnModel->getColumnTitleById($values['column_id']),
             );
 
             $values['column_id'] = $values['column_id'] ?: $this->columnModel->getFirstColumnId($values['project_id']);
@@ -123,7 +123,7 @@ class TaskDuplicationModel extends Base
         // Check if priority exists for destination project
         $values['priority'] = $this->projectTaskPriorityModel->getPriorityForProject(
             $values['project_id'],
-            empty($values['priority']) ? 0 : $values['priority']
+            empty($values['priority']) ? 0 : $values['priority'],
         );
 
         return $values;
@@ -139,7 +139,7 @@ class TaskDuplicationModel extends Base
     protected function copyFields($task_id)
     {
         $task = $this->taskFinderModel->getById($task_id);
-        $values = array();
+        $values = [];
 
         foreach ($this->fieldsToDuplicate as $field) {
             $values[$field] = $task[$field];

@@ -2,8 +2,8 @@
 
 namespace Kanboard\EventBuilder;
 
-use Kanboard\Event\ProjectFileEvent;
 use Kanboard\Event\GenericEvent;
+use Kanboard\Event\ProjectFileEvent;
 
 /**
  * Class ProjectFileEventBuilder
@@ -38,14 +38,14 @@ class ProjectFileEventBuilder extends BaseEventBuilder
         $file = $this->projectFileModel->getById($this->fileId);
 
         if (empty($file)) {
-            $this->logger->debug(__METHOD__.': File not found');
+            $this->logger->debug(__METHOD__ . ': File not found');
             return null;
         }
 
-        return new ProjectFileEvent(array(
-            'file' => $file,
+        return new ProjectFileEvent([
+            'file'    => $file,
             'project' => $this->projectModel->getById($file['project_id']),
-        ));
+        ]);
     }
 
     /**

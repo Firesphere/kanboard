@@ -5,8 +5,8 @@ namespace Kanboard\Core\Plugin;
 use Composer\Autoload\ClassLoader;
 use DirectoryIterator;
 use Exception;
-use LogicException;
 use Kanboard\Core\Tool;
+use LogicException;
 
 /**
  * Plugin Loader
@@ -22,8 +22,8 @@ class Loader extends \Kanboard\Core\Base
      * @access protected
      * @var array
      */
-    protected $plugins = array();
-    protected $incompatiblePlugins = array();
+    protected $plugins = [];
+    protected $incompatiblePlugins = [];
 
     /**
      * Get list of loaded plugins
@@ -94,10 +94,10 @@ class Loader extends \Kanboard\Core\Base
      */
     public function loadPlugin($pluginName)
     {
-        $className = '\Kanboard\Plugin\\'.$pluginName.'\\Plugin';
+        $className = '\Kanboard\Plugin\\' . $pluginName . '\\Plugin';
 
         if (! class_exists($className)) {
-            throw new LogicException('Unable to load this plugin class: '.$className);
+            throw new LogicException('Unable to load this plugin class: ' . $className);
         }
 
         return new $className($this->container);
@@ -118,7 +118,7 @@ class Loader extends \Kanboard\Core\Base
                 $this->loadSchema($pluginName);
 
                 if (method_exists($plugin, 'onStartup')) {
-                    $this->dispatcher->addListener('app.bootstrap', array($plugin, 'onStartup'));
+                    $this->dispatcher->addListener('app.bootstrap', [$plugin, 'onStartup']);
                 }
 
                 Tool::buildDIC($this->container, $plugin->getClasses());
@@ -128,10 +128,10 @@ class Loader extends \Kanboard\Core\Base
                 $this->plugins[$pluginName] = $plugin;
             } else {
                 $this->incompatiblePlugins[$pluginName] = $plugin;
-                $this->logger->error($pluginName.' is not compatible with this version');
+                $this->logger->error($pluginName . ' is not compatible with this version');
             }
         } catch (Exception $e) {
-            $this->logger->critical($pluginName.': '.$e->getMessage());
+            $this->logger->critical($pluginName . ': ' . $e->getMessage());
         }
     }
 }

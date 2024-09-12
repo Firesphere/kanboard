@@ -2,9 +2,9 @@
 
 namespace Kanboard\Core\Ldap;
 
-use LogicException;
 use Kanboard\Core\Security\Role;
 use Kanboard\User\LdapUserProvider;
+use LogicException;
 
 /**
  * LDAP User Finder
@@ -95,7 +95,7 @@ class User
         } elseif ('dn' == $this->getGroupUserAttribute()) {
             $userattr = $entry->getDn();
         }
-        $groupIds = array();
+        $groupIds = [];
 
         if (! empty($userattr) && $this->group !== null && $this->hasGroupUserFilter()) {
             $groups = $this->group->find(sprintf($this->getGroupUserFilter(), $userattr));
@@ -166,7 +166,7 @@ class User
             $this->getRole($groupIds),
             $groupIds,
             $entry->getFirstValue($this->getAttributePhoto()),
-            $entry->getFirstValue($this->getAttributeLanguage())
+            $entry->getFirstValue($this->getAttributeLanguage()),
         );
     }
 
@@ -180,14 +180,14 @@ class User
      */
     public function getAttributes()
     {
-        return array_values(array_filter(array(
+        return array_values(array_filter([
             $this->getAttributeUsername(),
             $this->getAttributeName(),
             $this->getAttributeEmail(),
             $this->getAttributeGroup(),
             $this->getAttributePhoto(),
             $this->getAttributeLanguage(),
-        )));
+        ]));
     }
 
     /**

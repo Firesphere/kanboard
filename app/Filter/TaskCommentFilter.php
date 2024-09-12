@@ -31,7 +31,7 @@ class TaskCommentFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('comment');
+        return ['comment'];
     }
 
     /**
@@ -55,7 +55,7 @@ class TaskCommentFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->inSubquery(TaskModel::TABLE.'.id', $this->getSubQuery());
+        $this->query->inSubquery(TaskModel::TABLE . '.id', $this->getSubQuery());
 
         return $this;
     }
@@ -70,7 +70,7 @@ class TaskCommentFilter extends BaseFilter implements FilterInterface
     {
         return $this->db
             ->table(CommentModel::TABLE)
-            ->columns(CommentModel::TABLE.'.task_id')
-            ->ilike(CommentModel::TABLE.'.comment', '%'.$this->value.'%');
+            ->columns(CommentModel::TABLE . '.task_id')
+            ->ilike(CommentModel::TABLE . '.comment', '%' . $this->value . '%');
     }
 }

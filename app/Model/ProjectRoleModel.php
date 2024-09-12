@@ -97,10 +97,10 @@ class ProjectRoleModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->persist(array(
+            ->persist([
                 'project_id' => $project_id,
-                'role' => $role,
-            ));
+                'role'       => $role,
+            ]);
     }
 
     /**
@@ -121,25 +121,25 @@ class ProjectRoleModel extends Base
             ->table(ProjectUserRoleModel::TABLE)
             ->eq('project_id', $project_id)
             ->eq('role', $previousRole['role'])
-            ->update(array(
-                'role' => $role
-            ));
+            ->update([
+                'role' => $role,
+            ]);
 
         $r2 = $this->db
             ->table(ProjectGroupRoleModel::TABLE)
             ->eq('project_id', $project_id)
             ->eq('role', $previousRole['role'])
-            ->update(array(
-                'role' => $role
-            ));
+            ->update([
+                'role' => $role,
+            ]);
 
         $r3 = $this->db
             ->table(self::TABLE)
             ->eq('role_id', $role_id)
             ->eq('project_id', $project_id)
-            ->update(array(
+            ->update([
                 'role' => $role,
-            ));
+            ]);
 
         if ($r1 && $r2 && $r3) {
             $this->db->closeTransaction();
@@ -167,17 +167,17 @@ class ProjectRoleModel extends Base
             ->table(ProjectUserRoleModel::TABLE)
             ->eq('project_id', $project_id)
             ->eq('role', $role['role'])
-            ->update(array(
-                'role' => Role::PROJECT_MEMBER
-            ));
+            ->update([
+                'role' => Role::PROJECT_MEMBER,
+            ]);
 
         $r2 = $this->db
             ->table(ProjectGroupRoleModel::TABLE)
             ->eq('project_id', $project_id)
             ->eq('role', $role['role'])
-            ->update(array(
-                'role' => Role::PROJECT_MEMBER
-            ));
+            ->update([
+                'role' => Role::PROJECT_MEMBER,
+            ]);
 
         $r3 = $this->db
             ->table(self::TABLE)
@@ -207,10 +207,10 @@ class ProjectRoleModel extends Base
 
         foreach ($rows as $row) {
             $role_src_id = $row['role_id'];
-            $role_dst_id = $this->db->table(self::TABLE)->persist(array(
+            $role_dst_id = $this->db->table(self::TABLE)->persist([
                 'project_id' => $project_dst_id,
-                'role' => $row['role'],
-            ));
+                'role'       => $row['role'],
+            ]);
 
             if (! $role_dst_id) {
                 return false;

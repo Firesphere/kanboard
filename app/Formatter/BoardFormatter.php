@@ -3,7 +3,6 @@
 namespace Kanboard\Formatter;
 
 use Kanboard\Core\Filter\FormatterInterface;
-use Kanboard\Model\ProjectModel;
 use Kanboard\Model\SwimlaneModel;
 use Kanboard\Model\TaskModel;
 
@@ -56,14 +55,14 @@ class BoardFormatter extends BaseFormatter implements FormatterInterface
         }
 
         if (empty($swimlanes) || empty($columns)) {
-            return array();
+            return [];
         }
 
         $this->hook->reference('formatter:board:query', $this->query);
 
         $tasks = $this->query
-            ->eq(TaskModel::TABLE.'.project_id', $this->projectId)
-            ->asc(TaskModel::TABLE.'.position')
+            ->eq(TaskModel::TABLE . '.project_id', $this->projectId)
+            ->asc(TaskModel::TABLE . '.position')
             ->findAll();
 
         $task_ids = array_column($tasks, 'id');

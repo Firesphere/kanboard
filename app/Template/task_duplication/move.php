@@ -5,26 +5,26 @@
 <?php if (empty($projects_list)): ?>
     <p class="alert"><?= t('There is no destination project available.') ?></p>
     <div class="form-actions">
-        <?= $this->url->link(t('cancel'), 'TaskViewController', 'show', array('task_id' => $task['id']), false, 'js-modal-close btn') ?>
+        <?= $this->url->link(t('cancel'), 'TaskViewController', 'show', ['task_id' => $task['id']], false, 'js-modal-close btn') ?>
     </div>
 <?php else: ?>
 
-    <form method="post" action="<?= $this->url->href('TaskDuplicationController', 'move', array('task_id' => $task['id'])) ?>" autocomplete="off">
+    <form method="post" action="<?= $this->url->href('TaskDuplicationController', 'move', ['task_id' => $task['id']]) ?>" autocomplete="off">
 
         <?= $this->form->csrf() ?>
         <?= $this->form->hidden('id', $values) ?>
 
         <?= $this->form->label(t('Project'), 'project_id') ?>
-        <?= $this->app->component('select-dropdown-autocomplete', array(
+        <?= $this->app->component('select-dropdown-autocomplete', [
             'name'         => 'project_id',
             'items'        => $projects_list,
             'defaultValue' => isset($values['project_id']) ? $values['project_id'] : null,
             'placeholder'  => t('Choose a project'),
-            'replace'      => array(
+            'replace'      => [
                 'regex' => 'PROJECT_ID',
-                'url' => $this->url->href('TaskDuplicationController', 'move', array('task_id' => $task['id'], 'dst_project_id' => 'PROJECT_ID')),
-            )
-        )) ?>
+                'url'   => $this->url->href('TaskDuplicationController', 'move', ['task_id' => $task['id'], 'dst_project_id' => 'PROJECT_ID']),
+            ],
+        ]) ?>
 
         <?= $this->form->label(t('Swimlane'), 'swimlane_id') ?>
         <?= $this->form->select('swimlane_id', $swimlanes_list, $values) ?>

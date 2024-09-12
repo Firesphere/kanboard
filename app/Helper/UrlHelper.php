@@ -41,10 +41,10 @@ class UrlHelper extends Base
      * @param  string  $class      CSS class attribute
      * @return string
      */
-    public function button($icon, $label, $controller, $action, array $params = array(), $class = '')
+    public function button($icon, $label, $controller, $action, array $params = [], $class = '')
     {
-        $html = '<i class="fa fa-'.$icon.' fa-fw"></i> '.$label;
-        $class = 'btn '.$class;
+        $html = '<i class="fa fa-' . $icon . ' fa-fw"></i> ' . $label;
+        $class = 'btn ' . $class;
         return $this->link($html, $controller, $action, $params, false, $class);
     }
 
@@ -65,9 +65,9 @@ class UrlHelper extends Base
      * @param  bool    $absolute
      * @return string
      */
-    public function icon($icon, $label, $controller, $action, array $params = array(), $csrf = false, $class = '', $title = '', $newTab = false, $anchor = '', $absolute = false)
+    public function icon($icon, $label, $controller, $action, array $params = [], $csrf = false, $class = '', $title = '', $newTab = false, $anchor = '', $absolute = false)
     {
-        $html = '<i class="fa fa-fw fa-'.$icon.'" aria-hidden="true"></i>'.$label;
+        $html = '<i class="fa fa-fw fa-' . $icon . '" aria-hidden="true"></i>' . $label;
         return $this->helper->url->link($html, $controller, $action, $params, $csrf, $class, $title, $newTab, $anchor, $absolute);
     }
 
@@ -87,9 +87,9 @@ class UrlHelper extends Base
      * @param  bool    $absolute
      * @return string
      */
-    public function link($label, $controller, $action, array $params = array(), $csrf = false, $class = '', $title = '', $newTab = false, $anchor = '', $absolute = false)
+    public function link($label, $controller, $action, array $params = [], $csrf = false, $class = '', $title = '', $newTab = false, $anchor = '', $absolute = false)
     {
-        return '<a href="'.$this->href($controller, $action, $params, $csrf, $anchor, $absolute).'" class="'.$class.'" title=\''.$title.'\' '.($newTab ? 'target="_blank"' : '').'>'.$label.'</a>';
+        return '<a href="' . $this->href($controller, $action, $params, $csrf, $anchor, $absolute) . '" class="' . $class . '" title=\'' . $title . '\' ' . ($newTab ? 'target="_blank"' : '') . '>' . $label . '</a>';
     }
 
     /**
@@ -101,7 +101,7 @@ class UrlHelper extends Base
      * @param  array $params
      * @return string
      */
-    public function absoluteLink($label, $controller, $action, array $params = array())
+    public function absoluteLink($label, $controller, $action, array $params = [])
     {
         return $this->link($label, $controller, $action, $params, false, '', '', true, '', true);
     }
@@ -118,7 +118,7 @@ class UrlHelper extends Base
      * @param  boolean  $absolute    Absolute or relative link
      * @return string
      */
-    public function href($controller, $action, array $params = array(), $csrf = false, $anchor = '', $absolute = false)
+    public function href($controller, $action, array $params = [], $csrf = false, $anchor = '', $absolute = false)
     {
         return $this->build('&amp;', $controller, $action, $params, $csrf, $anchor, $absolute);
     }
@@ -134,7 +134,7 @@ class UrlHelper extends Base
      * @param  boolean  $absolute    Absolute or relative link
      * @return string
      */
-    public function to($controller, $action, array $params = array(), $anchor = '', $absolute = false)
+    public function to($controller, $action, array $params = [], $anchor = '', $absolute = false)
     {
         return $this->build('&', $controller, $action, $params, false, $anchor, $absolute);
     }
@@ -167,7 +167,7 @@ class UrlHelper extends Base
                 $this->directory = parse_url(KANBOARD_URL, PHP_URL_PATH);
             } else {
                 $this->directory = str_replace('\\', '/', dirname($this->request->getServerVariable('PHP_SELF')));
-                $this->directory = $this->directory !== '/' ? $this->directory.'/' : '/';
+                $this->directory = $this->directory !== '/' ? $this->directory . '/' : '/';
                 $this->directory = str_replace('//', '/', $this->directory);
             }
         }
@@ -189,7 +189,7 @@ class UrlHelper extends Base
 
         $url = $this->request->isHTTPS() ? 'https://' : 'http://';
         $url .= $this->request->getServerVariable('SERVER_NAME');
-        $url .= $this->request->getServerVariable('SERVER_PORT') == 80 || $this->request->getServerVariable('SERVER_PORT') == 443 ? '' : ':'.$this->request->getServerVariable('SERVER_PORT');
+        $url .= $this->request->getServerVariable('SERVER_PORT') == 80 || $this->request->getServerVariable('SERVER_PORT') == 443 ? '' : ':' . $this->request->getServerVariable('SERVER_PORT');
         $url .= $this->dir() ?: '/';
 
         return $url;
@@ -208,10 +208,10 @@ class UrlHelper extends Base
      * @param  boolean  $absolute    Absolute or relative link
      * @return string
      */
-    protected function build($separator, $controller, $action, array $params = array(), $csrf = false, $anchor = '', $absolute = false)
+    protected function build($separator, $controller, $action, array $params = [], $csrf = false, $anchor = '', $absolute = false)
     {
         $path = $this->route->findUrl($controller, $action, $params);
-        $qs = array();
+        $qs = [];
 
         if (empty($path)) {
             $qs['controller'] = $controller;
@@ -226,9 +226,9 @@ class UrlHelper extends Base
         }
 
         if (! empty($qs)) {
-            $path .= '?'.http_build_query($qs, '', $separator);
+            $path .= '?' . http_build_query($qs, '', $separator);
         }
 
-        return ($absolute ? $this->base() : $this->dir()).$path.(empty($anchor) ? '' : '#'.$anchor);
+        return ($absolute ? $this->base() : $this->dir()) . $path . (empty($anchor) ? '' : '#' . $anchor);
     }
 }

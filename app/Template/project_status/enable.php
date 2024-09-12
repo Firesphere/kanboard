@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'ProjectStatusController',
         'enable',
-        array('project_id' => $project['id'])
+        ['project_id' => $project['id']],
     ) ?>
 </div>

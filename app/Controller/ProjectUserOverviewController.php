@@ -2,9 +2,9 @@
 
 namespace Kanboard\Controller;
 
-use Kanboard\Model\UserModel;
-use Kanboard\Model\TaskModel;
 use Kanboard\Core\Security\Role;
+use Kanboard\Model\TaskModel;
+use Kanboard\Model\UserModel;
 
 /**
  * Project User overview
@@ -24,33 +24,33 @@ class ProjectUserOverviewController extends BaseController
             $project_ids = $this->projectPermissionModel->getActiveProjectIds($this->userSession->getId());
         }
 
-        return array($user_id, $project_ids, $this->userModel->getActiveUsersList(true));
+        return [$user_id, $project_ids, $this->userModel->getActiveUsersList(true)];
     }
 
     private function role($role, $action, $title, $title_user)
     {
         list($user_id, $project_ids, $users) = $this->common();
 
-        $query = $this->projectPermissionModel->getQueryByRole($project_ids, $role)->callback(array($this->projectModel, 'applyColumnStats'));
+        $query = $this->projectPermissionModel->getQueryByRole($project_ids, $role)->callback([$this->projectModel, 'applyColumnStats']);
 
         if ($user_id !== UserModel::EVERYBODY_ID && isset($users[$user_id])) {
-            $query->eq(UserModel::TABLE.'.id', $user_id);
+            $query->eq(UserModel::TABLE . '.id', $user_id);
             $title = t($title_user, $users[$user_id]);
         }
 
         $paginator = $this->paginator
-            ->setUrl('ProjectUserOverviewController', $action, array('user_id' => $user_id))
+            ->setUrl('ProjectUserOverviewController', $action, ['user_id' => $user_id])
             ->setMax(30)
             ->setOrder('projects.name')
             ->setQuery($query)
             ->calculate();
 
-        $this->response->html($this->helper->layout->projectUser('project_user_overview/roles', array(
+        $this->response->html($this->helper->layout->projectUser('project_user_overview/roles', [
             'paginator' => $paginator,
-            'title' => $title,
-            'user_id' => $user_id,
-            'users' => $users,
-        )));
+            'title'     => $title,
+            'user_id'   => $user_id,
+            'users'     => $users,
+        ]));
     }
 
     private function tasks($is_active, $action, $title, $title_user)
@@ -60,23 +60,23 @@ class ProjectUserOverviewController extends BaseController
         $query = $this->taskFinderModel->getProjectUserOverviewQuery($project_ids, $is_active);
 
         if ($user_id !== UserModel::EVERYBODY_ID && isset($users[$user_id])) {
-            $query->eq(TaskModel::TABLE.'.owner_id', $user_id);
+            $query->eq(TaskModel::TABLE . '.owner_id', $user_id);
             $title = t($title_user, $users[$user_id]);
         }
 
         $paginator = $this->paginator
-            ->setUrl('ProjectUserOverviewController', $action, array('user_id' => $user_id))
+            ->setUrl('ProjectUserOverviewController', $action, ['user_id' => $user_id])
             ->setMax(50)
-            ->setOrder(TaskModel::TABLE.'.id')
+            ->setOrder(TaskModel::TABLE . '.id')
             ->setQuery($query)
             ->calculate();
 
-        $this->response->html($this->helper->layout->projectUser('project_user_overview/tasks', array(
+        $this->response->html($this->helper->layout->projectUser('project_user_overview/tasks', [
             'paginator' => $paginator,
-            'title' => $title,
-            'user_id' => $user_id,
-            'users' => $users,
-        )));
+            'title'     => $title,
+            'user_id'   => $user_id,
+            'users'     => $users,
+        ]));
     }
 
     /**
@@ -122,9 +122,9 @@ class ProjectUserOverviewController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_user_overview/tooltip_users', array(
+        $this->response->html($this->template->render('project_user_overview/tooltip_users', [
             'users' => $this->projectUserRoleModel->getAllUsersGroupedByRole($project['id']),
             'roles' => $this->projectRoleModel->getList($project['id']),
-        )));
+        ]));
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Kanboard\Core\User\Avatar\AvatarManager;
 use Kanboard\User\Avatar\AvatarFileProvider;
 use Kanboard\User\Avatar\LetterAvatarProvider;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
  * Avatar Provider

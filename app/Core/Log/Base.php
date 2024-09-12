@@ -61,10 +61,10 @@ abstract class Base extends AbstractLogger
      * @param  array $context
      * @return string
      */
-    protected function interpolate($message, array $context = array())
+    protected function interpolate($message, array $context = [])
     {
         // build a replacement array with braces around the context keys
-        $replace = array();
+        $replace = [];
 
         foreach ($context as $key => $val) {
             $replace['{' . $key . '}'] = $val;
@@ -82,8 +82,8 @@ abstract class Base extends AbstractLogger
      * @param  array  $context
      * @return string
      */
-    protected function formatMessage($level, $message, array $context = array())
+    protected function formatMessage($level, $message, array $context = [])
     {
-        return '['.date('Y-m-d H:i:s').'] ['.$level.'] '.$this->interpolate($message, $context).PHP_EOL;
+        return '[' . date('Y-m-d H:i:s') . '] [' . $level . '] ' . $this->interpolate($message, $context) . PHP_EOL;
     }
 }

@@ -5,7 +5,7 @@
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Emails'), 'emails') ?>
-    <?= $this->form->textarea('emails', $values, $errors, array('required', 'autofocus')) ?>
+    <?= $this->form->textarea('emails', $values, $errors, ['required', 'autofocus']) ?>
     <p class="form-help"><?= t('Enter one email address by line.') ?></p>
 
     <?= $this->form->label(t('Add these people to this project'), 'project_id') ?>

@@ -3,15 +3,15 @@
 namespace Kanboard\Subscriber;
 
 use Kanboard\Event\GenericEvent;
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\SubtaskModel;
+use Kanboard\Model\TaskModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProjectModificationDateSubscriber extends BaseSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE_UPDATE    => 'execute',
             TaskModel::EVENT_CLOSE            => 'execute',
             TaskModel::EVENT_OPEN             => 'execute',
@@ -22,12 +22,12 @@ class ProjectModificationDateSubscriber extends BaseSubscriber implements EventS
             TaskModel::EVENT_ASSIGNEE_CHANGE  => 'execute',
             SubtaskModel::EVENT_CREATE_UPDATE => 'execute',
             SubtaskModel::EVENT_DELETE        => 'execute',
-        );
+        ];
     }
 
     public function execute(GenericEvent $event)
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $this->projectModel->updateModificationDate($event['task']['project_id']);
     }
 }

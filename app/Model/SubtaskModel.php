@@ -2,8 +2,8 @@
 
 namespace Kanboard\Model;
 
-use PicoDb\Database;
 use Kanboard\Core\Base;
+use PicoDb\Database;
 
 /**
  * Subtask Model
@@ -34,9 +34,9 @@ class SubtaskModel extends Base
      *
      * @var string
      */
-    public const EVENT_UPDATE        = 'subtask.update';
-    public const EVENT_CREATE        = 'subtask.create';
-    public const EVENT_DELETE        = 'subtask.delete';
+    public const EVENT_UPDATE = 'subtask.update';
+    public const EVENT_CREATE = 'subtask.create';
+    public const EVENT_DELETE = 'subtask.delete';
     public const EVENT_CREATE_UPDATE = 'subtask.create_update';
 
     /**
@@ -50,7 +50,7 @@ class SubtaskModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.id', $subtaskId)
+            ->eq(self::TABLE . '.id', $subtaskId)
             ->join(TaskModel::TABLE, 'id', 'task_id')
             ->findOneColumn(TaskModel::TABLE . '.project_id') ?: 0;
     }
@@ -63,11 +63,11 @@ class SubtaskModel extends Base
      */
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_TODO       => 'Todo',
             self::STATUS_INPROGRESS => 'In progress',
             self::STATUS_DONE       => 'Done',
-        );
+        ];
     }
 
     /**
@@ -80,13 +80,13 @@ class SubtaskModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.*',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name'
+                self::TABLE . '.*',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
             )
             ->subquery($this->subtaskTimeTrackingModel->getTimerQuery($this->userSession->getId()), 'timer_start_date')
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->asc(self::TABLE.'.position');
+            ->asc(self::TABLE . '.position');
     }
 
     /**
@@ -99,7 +99,7 @@ class SubtaskModel extends Base
     {
         $query = $this->db->table(self::TABLE)
             ->eq('user_id', $userId)
-            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
+            ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
             ->join(Taskmodel::TABLE, 'id', 'task_id');
 
         $this->hook->reference('model:subtask:count:query', $query);
@@ -130,7 +130,7 @@ class SubtaskModel extends Base
     public function getAllByTaskIds(array $taskIds)
     {
         if (empty($taskIds)) {
-            return array();
+            return [];
         }
 
         return $this->subtaskListFormatter
@@ -148,11 +148,11 @@ class SubtaskModel extends Base
     public function getAllByTaskIdsAndAssignee(array $taskIds, $userId)
     {
         if (empty($taskIds)) {
-            return array();
+            return [];
         }
 
         return $this->subtaskListFormatter
-            ->withQuery($this->getQuery()->in('task_id', $taskIds)->eq(self::TABLE.'.user_id', $userId))
+            ->withQuery($this->getQuery()->in('task_id', $taskIds)->eq(self::TABLE . '.user_id', $userId))
             ->format();
     }
 
@@ -177,7 +177,7 @@ class SubtaskModel extends Base
     public function getByIdWithDetails($subtaskId)
     {
         $subtasks = $this->subtaskListFormatter
-            ->withQuery($this->getQuery()->eq(self::TABLE.'.id', $subtaskId))
+            ->withQuery($this->getQuery()->eq(self::TABLE . '.id', $subtaskId))
             ->format();
 
         if (! empty($subtasks)) {
@@ -219,7 +219,7 @@ class SubtaskModel extends Base
             $this->subtaskTimeTrackingModel->updateTaskTimeTracking($values['task_id']);
             $this->queueManager->push($this->subtaskEventJob->withParams(
                 $subtaskId,
-                array(self::EVENT_CREATE_UPDATE, self::EVENT_CREATE)
+                [self::EVENT_CREATE_UPDATE, self::EVENT_CREATE],
             ));
         }
 
@@ -248,8 +248,8 @@ class SubtaskModel extends Base
             if ($fireEvent) {
                 $this->queueManager->push($this->subtaskEventJob->withParams(
                     $subtask['id'],
-                    array(self::EVENT_CREATE_UPDATE, self::EVENT_UPDATE),
-                    $values
+                    [self::EVENT_CREATE_UPDATE, self::EVENT_UPDATE],
+                    $values,
                 ));
             }
         }
@@ -266,7 +266,7 @@ class SubtaskModel extends Base
      */
     public function remove($subtaskId)
     {
-        $this->subtaskEventJob->execute($subtaskId, array(self::EVENT_DELETE));
+        $this->subtaskEventJob->execute($subtaskId, [self::EVENT_DELETE]);
 
         $subtask = $this->getById($subtaskId);
         $result = $this->db->table(self::TABLE)->eq('id', $subtaskId)->remove();
@@ -287,7 +287,6 @@ class SubtaskModel extends Base
     public function duplicate($srcTaskId, $dstTaskId)
     {
         return $this->db->transaction(function (Database $db) use ($srcTaskId, $dstTaskId) {
-
             $subtasks = $db->table(SubtaskModel::TABLE)
                 ->columns('title', 'time_estimated', 'position', 'user_id')
                 ->eq('task_id', $srcTaskId)
@@ -312,8 +311,8 @@ class SubtaskModel extends Base
      */
     protected function prepare(array &$values)
     {
-        $this->helper->model->removeFields($values, array('another_subtask'));
-        $this->helper->model->resetFields($values, array('time_estimated', 'time_spent'));
+        $this->helper->model->removeFields($values, ['another_subtask']);
+        $this->helper->model->resetFields($values, ['time_estimated', 'time_spent']);
         $this->hook->reference('model:subtask:modification:prepare', $values);
     }
 

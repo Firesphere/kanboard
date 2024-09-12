@@ -15,10 +15,10 @@ class TaskBulkMoveColumnController extends BaseController
         }
 
         $this->response->html($this->template->render('task_bulk_move_column/show', [
-            'project' => $project,
-            'values' => $values,
-            'errors' => $errors,
-            'columns' => $this->columnModel->getList($project['id']),
+            'project'   => $project,
+            'values'    => $values,
+            'errors'    => $errors,
+            'columns'   => $this->columnModel->getList($project['id']),
             'swimlanes' => $this->swimlaneModel->getList($project['id'], false, true),
         ]));
     }

@@ -1,11 +1,11 @@
 <div class="page-header">
     <h2><?= $this->text->e($task['title']) ?> &gt; <?= t('Send by email') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('TaskMailController', 'send', array('task_id' => $task['id'])) ?>" autocomplete="off" class="js-mail-form">
+<form method="post" action="<?= $this->url->href('TaskMailController', 'send', ['task_id' => $task['id']]) ?>" autocomplete="off" class="js-mail-form">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Email'), 'emails') ?>
-    <?= $this->form->text('emails', $values, $errors, array('autofocus', 'required', 'tabindex="1"')) ?>
+    <?= $this->form->text('emails', $values, $errors, ['autofocus', 'required', 'tabindex="1"']) ?>
 
     <?php if (! empty($members)): ?>
     <div class="dropdown">
@@ -21,7 +21,7 @@
     <?php endif ?>
 
     <?= $this->form->label(t('Subject'), 'subject') ?>
-    <?= $this->form->text('subject', $values, $errors, array('required', 'tabindex="2"')) ?>
+    <?= $this->form->text('subject', $values, $errors, ['required', 'tabindex="2"']) ?>
 
     <?php if (! empty($project['predefined_email_subjects'])): ?>
         <div class="dropdown">
@@ -40,8 +40,8 @@
         </div>
     <?php endif ?>
 
-    <?= $this->modal->submitButtons(array(
+    <?= $this->modal->submitButtons([
         'submitLabel' => t('Send by email'),
         'tabindex'    => 3,
-    )) ?>
+    ]) ?>
 </form>

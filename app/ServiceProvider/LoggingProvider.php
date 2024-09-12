@@ -2,15 +2,15 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Psr\Log\LogLevel;
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
+use Kanboard\Core\Log\File;
 use Kanboard\Core\Log\Logger;
 use Kanboard\Core\Log\Stderr;
 use Kanboard\Core\Log\Stdout;
 use Kanboard\Core\Log\Syslog;
-use Kanboard\Core\Log\File;
 use Kanboard\Core\Log\System;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Class LoggingProvider

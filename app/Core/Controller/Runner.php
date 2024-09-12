@@ -70,7 +70,7 @@ class Runner extends Base
         $className = $this->getControllerClassName();
 
         if (DEBUG) {
-            $this->logger->debug(__METHOD__.' => '.$className.'::'.$this->router->getAction());
+            $this->logger->debug(__METHOD__ . ' => ' . $className . '::' . $this->router->getAction());
         }
 
         $controllerObject = new $className($this->container);
@@ -87,9 +87,9 @@ class Runner extends Base
     protected function getControllerClassName()
     {
         if ($this->router->getPlugin() !== '') {
-            $className = '\Kanboard\Plugin\\'.$this->router->getPlugin().'\Controller\\'.$this->router->getController();
+            $className = '\Kanboard\Plugin\\' . $this->router->getPlugin() . '\Controller\\' . $this->router->getController();
         } else {
-            $className = '\Kanboard\Controller\\'.$this->router->getController();
+            $className = '\Kanboard\Controller\\' . $this->router->getController();
         }
 
         if (! class_exists($className)) {

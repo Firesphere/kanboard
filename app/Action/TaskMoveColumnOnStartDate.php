@@ -31,7 +31,7 @@ class TaskMoveColumnOnStartDate extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(TaskModel::EVENT_DAILY_CRONJOB);
+        return [TaskModel::EVENT_DAILY_CRONJOB];
     }
 
     /**
@@ -42,10 +42,10 @@ class TaskMoveColumnOnStartDate extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'src_column_id' => t('Source column'),
+        return [
+            'src_column_id'  => t('Source column'),
             'dest_column_id' => t('Destination column'),
-        );
+        ];
     }
 
     /**
@@ -56,7 +56,7 @@ class TaskMoveColumnOnStartDate extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -68,10 +68,9 @@ class TaskMoveColumnOnStartDate extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
+        $results = [];
 
         foreach ($data['tasks'] as $task) {
-
             if ($task['date_started'] <= time() && $task['date_started'] > 0 && $task['column_id'] == $this->getParam('src_column_id')) {
                 $results[] = $this->taskPositionModel->movePosition(
                     $task['project_id'],
@@ -79,7 +78,7 @@ class TaskMoveColumnOnStartDate extends Base
                     $this->getParam('dest_column_id'),
                     1,
                     $task['swimlane_id'],
-                    false
+                    false,
                 );
             }
         }

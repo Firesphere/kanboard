@@ -39,22 +39,22 @@ class ProjectHeaderHelper extends Base
      */
     public function render(array $project, $controller, $action, $boardView = false, $plugin = '')
     {
-        $filters = array(
+        $filters = [
             'controller' => $controller,
-            'action' => $action,
+            'action'     => $action,
             'project_id' => $project['id'],
-            'search' => $this->getSearchQuery($project),
-            'plugin' => $plugin,
-        );
+            'search'     => $this->getSearchQuery($project),
+            'plugin'     => $plugin,
+        ];
 
-        return $this->template->render('project_header/header', array(
-            'project' => $project,
-            'filters' => $filters,
-            'categories_list' => $this->categoryModel->getList($project['id'], false),
-            'users_list' => $this->projectUserRoleModel->getAssignableUsersList($project['id'], false),
+        return $this->template->render('project_header/header', [
+            'project'             => $project,
+            'filters'             => $filters,
+            'categories_list'     => $this->categoryModel->getList($project['id'], false),
+            'users_list'          => $this->projectUserRoleModel->getAssignableUsersList($project['id'], false),
             'custom_filters_list' => $this->customFilterModel->getAll($project['id'], $this->userSession->getId()),
-            'board_view' => $boardView,
-        ));
+            'board_view'          => $boardView,
+        ]);
     }
 
     /**
@@ -67,10 +67,10 @@ class ProjectHeaderHelper extends Base
     public function getDescription(array &$project)
     {
         if ($project['owner_id'] > 0) {
-            $description = t('Project owner: ').'<strong>'.$this->helper->text->e($project['owner_name'] ?: $project['owner_username']).'</strong>'.PHP_EOL.PHP_EOL;
+            $description = t('Project owner: ') . '<strong>' . $this->helper->text->e($project['owner_name'] ?: $project['owner_username']) . '</strong>' . PHP_EOL . PHP_EOL;
 
             if (! empty($project['description'])) {
-                $description .= '<hr>'.PHP_EOL.PHP_EOL;
+                $description .= '<hr>' . PHP_EOL . PHP_EOL;
                 $description .= $this->helper->text->markdown($project['description'] ?: '');
             }
         } else {

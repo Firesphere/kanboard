@@ -31,9 +31,9 @@ class TaskMoveColumnClosed extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CLOSE,
-        );
+        ];
     }
 
     /**
@@ -44,9 +44,9 @@ class TaskMoveColumnClosed extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'dest_column_id' => t('Destination column'),
-        );
+        ];
     }
 
     /**
@@ -57,15 +57,15 @@ class TaskMoveColumnClosed extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
                 'swimlane_id',
                 'is_active',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -84,7 +84,7 @@ class TaskMoveColumnClosed extends Base
             1,
             $data['task']['swimlane_id'],
             true,
-            false
+            false,
         );
     }
 

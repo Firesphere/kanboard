@@ -29,7 +29,7 @@ class FeedController extends BaseController
         $events = $this->helper->projectActivity->getProjectsEvents($this->projectPermissionModel->getActiveProjectIds($user['id']));
 
         $this->response->xml($this->template->render('feed/user', [
-            'user' => $user,
+            'user'   => $user,
             'events' => $events,
         ]));
     }
@@ -52,7 +52,7 @@ class FeedController extends BaseController
 
         $this->response->xml($this->template->render('feed/project', [
             'project' => $project,
-            'events' => $events,
+            'events'  => $events,
         ]));
     }
 }

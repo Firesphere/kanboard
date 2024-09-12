@@ -20,7 +20,7 @@ class RememberMeAuth extends Base implements PreAuthenticationProviderInterface
      * @access protected
      * @var array
      */
-    protected $userInfo = array();
+    protected $userInfo = [];
 
     /**
      * Get authentication provider name
@@ -50,7 +50,7 @@ class RememberMeAuth extends Base implements PreAuthenticationProviderInterface
                 $this->rememberMeCookie->write(
                     $session['token'],
                     $this->rememberMeSessionModel->updateSequence($session['token']),
-                    $session['expiration']
+                    $session['expiration'],
                 );
 
                 $this->userInfo = $this->userModel->getById($session['user_id']);

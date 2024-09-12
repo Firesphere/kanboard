@@ -22,11 +22,11 @@ class ColumnController extends BaseController
         $project = $this->getProject();
         $columns = $this->columnModel->getAllWithTaskCount($project['id']);
 
-        $this->response->html($this->helper->layout->project('column/index', array(
+        $this->response->html($this->helper->layout->project('column/index', [
             'columns' => $columns,
             'project' => $project,
-            'title' => t('Edit columns')
-        )));
+            'title'   => t('Edit columns'),
+        ]));
     }
 
     /**
@@ -37,19 +37,19 @@ class ColumnController extends BaseController
      * @param array $errors
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
         if (empty($values)) {
-            $values = array('project_id' => $project['id']);
+            $values = ['project_id' => $project['id']];
         }
 
-        $this->response->html($this->template->render('column/create', array(
-            'values' => $values,
-            'errors' => $errors,
+        $this->response->html($this->template->render('column/create', [
+            'values'  => $values,
+            'errors'  => $errors,
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -60,7 +60,7 @@ class ColumnController extends BaseController
     public function save()
     {
         $project = $this->getProject();
-        $values = $this->request->getValues() + array('hide_in_dashboard' => 0);
+        $values = $this->request->getValues() + ['hide_in_dashboard' => 0];
         $values['project_id'] = $project['id'];
 
         list($valid, $errors) = $this->columnValidator->validateCreation($values);
@@ -71,15 +71,15 @@ class ColumnController extends BaseController
                 $values['title'],
                 $values['task_limit'],
                 $values['description'],
-                $values['hide_in_dashboard']
+                $values['hide_in_dashboard'],
             );
 
             if ($result !== false) {
                 $this->flash->success(t('Column created successfully.'));
-                $this->response->redirect($this->helper->url->to('ColumnController', 'index', array('project_id' => $project['id'])), true);
+                $this->response->redirect($this->helper->url->to('ColumnController', 'index', ['project_id' => $project['id']]), true);
                 return;
             } else {
-                $errors['title'] = array(t('Another column with the same name exists in the project'));
+                $errors['title'] = [t('Another column with the same name exists in the project')];
             }
         }
 
@@ -93,17 +93,17 @@ class ColumnController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
         $column = $this->getColumn($project);
 
-        $this->response->html($this->helper->layout->project('column/edit', array(
-            'errors' => $errors,
-            'values' => $values ?: $column,
+        $this->response->html($this->helper->layout->project('column/edit', [
+            'errors'  => $errors,
+            'values'  => $values ?: $column,
             'project' => $project,
-            'column' => $column,
-        )));
+            'column'  => $column,
+        ]));
     }
 
     /**
@@ -116,7 +116,7 @@ class ColumnController extends BaseController
         $project = $this->getProject();
         $column = $this->getColumn($project);
 
-        $values = $this->request->getValues() + array('hide_in_dashboard' => 0);
+        $values = $this->request->getValues() + ['hide_in_dashboard' => 0];
         $values['project_id'] = $project['id'];
         $values['id'] = $column['id'];
 
@@ -128,12 +128,12 @@ class ColumnController extends BaseController
                 $values['title'],
                 $values['task_limit'],
                 $values['description'],
-                $values['hide_in_dashboard']
+                $values['hide_in_dashboard'],
             );
 
             if ($result) {
                 $this->flash->success(t('Board updated successfully.'));
-                $this->response->redirect($this->helper->url->to('ColumnController', 'index', array('project_id' => $project['id'])), true);
+                $this->response->redirect($this->helper->url->to('ColumnController', 'index', ['project_id' => $project['id']]), true);
                 return;
             } else {
                 $this->flash->failure(t('Unable to update this board.'));
@@ -156,7 +156,7 @@ class ColumnController extends BaseController
 
         if (! empty($values) && isset($values['column_id']) && isset($values['position'])) {
             $result = $this->columnModel->changePosition($project['id'], $values['column_id'], $values['position']);
-            $this->response->json(array('result' => $result));
+            $this->response->json(['result' => $result]);
         } else {
             throw new AccessForbiddenException();
         }
@@ -172,10 +172,10 @@ class ColumnController extends BaseController
         $project = $this->getProject();
         $column = $this->getColumn($project);
 
-        $this->response->html($this->helper->layout->project('column/remove', array(
-            'column' => $column,
+        $this->response->html($this->helper->layout->project('column/remove', [
+            'column'  => $column,
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -195,6 +195,6 @@ class ColumnController extends BaseController
             $this->flash->failure(t('Unable to remove this column.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ColumnController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ColumnController', 'index', ['project_id' => $project['id']]));
     }
 }

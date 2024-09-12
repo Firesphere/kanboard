@@ -46,7 +46,7 @@ class ProjectRoleRestrictionCacheDecorator
      */
     public function getAllByRole($project_id, $role)
     {
-        $key = $this->cachePrefix.$project_id.$role;
+        $key = $this->cachePrefix . $project_id . $role;
         $projectRestrictions = $this->cache->get($key);
 
         if ($projectRestrictions === null) {

@@ -16,7 +16,7 @@ class Entries
      * @access protected
      * @var array
      */
-    protected $entries = array();
+    protected $entries = [];
 
     /**
      * Constructor
@@ -37,7 +37,7 @@ class Entries
      */
     public function getAll()
     {
-        $entities = array();
+        $entities = [];
 
         if (! isset($this->entries['count'])) {
             return $entities;
@@ -58,6 +58,6 @@ class Entries
      */
     public function getFirstEntry()
     {
-        return new Entry(isset($this->entries[0]) ? $this->entries[0] : array());
+        return new Entry(isset($this->entries[0]) ? $this->entries[0] : []);
     }
 }

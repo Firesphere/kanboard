@@ -30,23 +30,23 @@ class BoardViewController extends BaseController
 
         $query = $this->taskFinderModel
             ->getExtendedQuery()
-            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN);
+            ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN);
 
-        $this->response->html($this->helper->layout->app('board/view_public', array(
-            'project' => $project,
+        $this->response->html($this->helper->layout->app('board/view_public', [
+            'project'   => $project,
             'swimlanes' => $this->boardFormatter
                 ->withProjectId($project['id'])
                 ->withQuery($query)
                 ->format()
             ,
-            'title' => $project['name'],
-            'description' => $project['description'],
-            'no_layout' => true,
-            'not_editable' => true,
-            'board_public_refresh_interval' => $this->configModel->get('board_public_refresh_interval'),
+            'title'                          => $project['name'],
+            'description'                    => $project['description'],
+            'no_layout'                      => true,
+            'not_editable'                   => true,
+            'board_public_refresh_interval'  => $this->configModel->get('board_public_refresh_interval'),
             'board_private_refresh_interval' => $this->configModel->get('board_private_refresh_interval'),
-            'board_highlight_period' => $this->configModel->get('board_highlight_period'),
-        )));
+            'board_highlight_period'         => $this->configModel->get('board_highlight_period'),
+        ]));
     }
 
     /**
@@ -59,15 +59,15 @@ class BoardViewController extends BaseController
         $project = $this->getProject();
         $search = $this->helper->projectHeader->getSearchQuery($project);
 
-        $this->response->html($this->helper->layout->app('board/view_private', array(
-            'project' => $project,
-            'title' => $project['name'],
-            'description' => $this->helper->projectHeader->getDescription($project),
+        $this->response->html($this->helper->layout->app('board/view_private', [
+            'project'                        => $project,
+            'title'                          => $project['name'],
+            'description'                    => $this->helper->projectHeader->getDescription($project),
             'board_private_refresh_interval' => $this->configModel->get('board_private_refresh_interval'),
-            'board_highlight_period' => $this->configModel->get('board_highlight_period'),
-            'swimlanes' => $this->taskLexer
+            'board_highlight_period'         => $this->configModel->get('board_highlight_period'),
+            'swimlanes'                      => $this->taskLexer
                 ->build($search)
-                ->format($this->boardFormatter->withProjectId($project['id']))
-        )));
+                ->format($this->boardFormatter->withProjectId($project['id'])),
+        ]));
     }
 }

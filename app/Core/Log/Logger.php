@@ -20,7 +20,7 @@ class Logger extends AbstractLogger implements LoggerAwareInterface
      *
      * @access private
      */
-    private $loggers = array();
+    private $loggers = [];
 
     /**
      * Get level priority
@@ -69,7 +69,7 @@ class Logger extends AbstractLogger implements LoggerAwareInterface
      * @param  array   $context
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         foreach ($this->loggers as $logger) {
             if ($this->getLevelPriority($level) >= $this->getLevelPriority($logger->getLevel())) {

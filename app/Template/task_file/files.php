@@ -15,23 +15,23 @@
                         <ul>
                             <?php if ($this->file->getPreviewType($file['name']) !== null): ?>
                                 <li>
-                                    <?= $this->modal->large('eye', t('View file'), 'FileViewerController', 'show', array('task_id' => $task['id'], 'file_id' => $file['id'], 'etag' => $file['etag'])) ?>
+                                    <?= $this->modal->large('eye', t('View file'), 'FileViewerController', 'show', ['task_id' => $task['id'], 'file_id' => $file['id'], 'etag' => $file['etag']]) ?>
                                 </li>
                             <?php elseif ($this->file->getBrowserViewType($file['name']) !== null): ?>
                                 <li>
                                     <i class="fa fa-eye fa-fw"></i>
-                                    <?= $this->url->link(t('View file'), 'FileViewerController', 'browser', array('task_id' => $task['id'], 'file_id' => $file['id']), false, '', '', true) ?>
+                                    <?= $this->url->link(t('View file'), 'FileViewerController', 'browser', ['task_id' => $task['id'], 'file_id' => $file['id']], false, '', '', true) ?>
                                 </li>
                             <?php endif ?>
                             <li>
-                                <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', array('task_id' => $task['id'], 'file_id' => $file['id'], 'etag' => $file['etag'])) ?>
+                                <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', ['task_id' => $task['id'], 'file_id' => $file['id'], 'etag' => $file['etag']]) ?>
                             </li>
                             <?php if ($this->user->hasProjectAccess('TaskFileController', 'remove', $task['project_id'])): ?>
                                 <li>
-                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TaskFileController', 'confirm', array('task_id' => $task['id'], 'file_id' => $file['id'])) ?>
+                                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TaskFileController', 'confirm', ['task_id' => $task['id'], 'file_id' => $file['id']]) ?>
                                 </li>
                             <?php endif ?>
-                            <?= $this->hook->render('template:task-file:documents:dropdown', array('task' => $task, 'file' => $file)) ?>
+                            <?= $this->hook->render('template:task-file:documents:dropdown', ['task' => $task, 'file' => $file]) ?>
                         </ul>
                     </div>
                 </td>

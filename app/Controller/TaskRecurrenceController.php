@@ -19,7 +19,7 @@ class TaskRecurrenceController extends BaseController
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
 
@@ -27,15 +27,15 @@ class TaskRecurrenceController extends BaseController
             $values = $task;
         }
 
-        $this->response->html($this->template->render('task_recurrence/edit', array(
-            'values' => $values,
-            'errors' => $errors,
-            'task' => $task,
-            'recurrence_status_list' => $this->taskRecurrenceModel->getRecurrenceStatusList(),
-            'recurrence_trigger_list' => $this->taskRecurrenceModel->getRecurrenceTriggerList(),
+        $this->response->html($this->template->render('task_recurrence/edit', [
+            'values'                    => $values,
+            'errors'                    => $errors,
+            'task'                      => $task,
+            'recurrence_status_list'    => $this->taskRecurrenceModel->getRecurrenceStatusList(),
+            'recurrence_trigger_list'   => $this->taskRecurrenceModel->getRecurrenceTriggerList(),
             'recurrence_timeframe_list' => $this->taskRecurrenceModel->getRecurrenceTimeframeList(),
-            'recurrence_basedate_list' => $this->taskRecurrenceModel->getRecurrenceBasedateList(),
-        )));
+            'recurrence_basedate_list'  => $this->taskRecurrenceModel->getRecurrenceBasedateList(),
+        ]));
     }
 
     /**
@@ -58,7 +58,7 @@ class TaskRecurrenceController extends BaseController
                 $this->flash->failure(t('Unable to update your task.'));
             }
 
-            return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+            return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
         }
 
         return $this->edit($values, $errors);

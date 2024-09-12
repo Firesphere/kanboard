@@ -5,14 +5,14 @@
     <h2><?= t('Add a comment') ?></h2>
     <ul>
         <li>
-            <?= $this->modal->medium('paper-plane', t('Send by email'), 'CommentMailController', 'create', array('task_id' => $task['id'])) ?>
+            <?= $this->modal->medium('paper-plane', t('Send by email'), 'CommentMailController', 'create', ['task_id' => $task['id']]) ?>
         </li>
     </ul>
 </div>
-<form method="post" action="<?= $this->url->href('CommentController', 'save', array('task_id' => $task['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('CommentController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
-    <?= $this->form->textEditor('comment', $values, $errors, array('autofocus' => true, 'required' => true, 'aria-label' => t('New comment'))) ?>
+    <?= $this->form->textEditor('comment', $values, $errors, ['autofocus' => true, 'required' => true, 'aria-label' => t('New comment')]) ?>
 
     <?php
     $formName = 'visibility';
@@ -33,6 +33,6 @@ $attribute[] = ('hidden');
     }
 ?>
 
-    <?= $this->form->select($formName, $visibilityOptions, array(), array(), $attribute) ?>
+    <?= $this->form->select($formName, $visibilityOptions, [], [], $attribute) ?>
     <?= $this->modal->submitButtons() ?>
 </form>

@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'ProjectTagController',
         'remove',
-        array('tag_id' => $tag['id'], 'project_id' => $project['id'])
+        ['tag_id' => $tag['id'], 'project_id' => $project['id']],
     ) ?>
 </div>

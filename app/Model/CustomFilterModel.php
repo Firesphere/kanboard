@@ -32,17 +32,17 @@ class CustomFilterModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                UserModel::TABLE.'.name as owner_name',
-                UserModel::TABLE.'.username as owner_username',
-                self::TABLE.'.id',
-                self::TABLE.'.user_id',
-                self::TABLE.'.project_id',
-                self::TABLE.'.filter',
-                self::TABLE.'.name',
-                self::TABLE.'.is_shared',
-                self::TABLE.'.append'
+                UserModel::TABLE . '.name as owner_name',
+                UserModel::TABLE . '.username as owner_username',
+                self::TABLE . '.id',
+                self::TABLE . '.user_id',
+                self::TABLE . '.project_id',
+                self::TABLE . '.filter',
+                self::TABLE . '.name',
+                self::TABLE . '.is_shared',
+                self::TABLE . '.append',
             )
-            ->asc(self::TABLE.'.name')
+            ->asc(self::TABLE . '.name')
             ->join(UserModel::TABLE, 'id', 'user_id')
             ->beginOr()
             ->eq('is_shared', 1)
@@ -116,11 +116,11 @@ class CustomFilterModel extends Base
         $filters = $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.user_id',
-                self::TABLE.'.filter',
-                self::TABLE.'.name',
-                self::TABLE.'.is_shared',
-                self::TABLE.'.append'
+                self::TABLE . '.user_id',
+                self::TABLE . '.filter',
+                self::TABLE . '.name',
+                self::TABLE . '.is_shared',
+                self::TABLE . '.append',
             )
             ->eq('project_id', $src_project_id)
             ->findAll();

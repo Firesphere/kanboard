@@ -66,7 +66,7 @@ class Client extends Base
             $url,
             json_encode($data),
             array_merge(['Content-type: application/json'], $headers),
-            $raiseForErrors
+            $raiseForErrors,
         );
     }
 
@@ -86,7 +86,7 @@ class Client extends Base
             $url,
             json_encode($data),
             array_merge(['Content-type: application/json'], $headers),
-            $raiseForErrors
+            $raiseForErrors,
         ));
     }
 
@@ -107,7 +107,7 @@ class Client extends Base
             $url,
             http_build_query($data),
             array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
-            $raiseForErrors
+            $raiseForErrors,
         );
     }
 
@@ -127,7 +127,7 @@ class Client extends Base
             $url,
             http_build_query($data),
             array_merge(['Content-type: application/x-www-form-urlencoded'], $headers),
-            $raiseForErrors
+            $raiseForErrors,
         ));
     }
 
@@ -180,10 +180,10 @@ class Client extends Base
         $stream = @fopen(trim($url), 'r', false, stream_context_create($this->getContext($method, $content, $headers, $raiseForErrors)));
 
         if (! is_resource($stream)) {
-            $this->logger->error('HttpClient: request failed ('.$url.')');
+            $this->logger->error('HttpClient: request failed (' . $url . ')');
 
             if ($raiseForErrors) {
-                throw new ClientException('Unreachable URL: '.$url);
+                throw new ClientException('Unreachable URL: ' . $url);
             }
 
             return '';
@@ -196,17 +196,17 @@ class Client extends Base
             $statusCode = $this->getStatusCode($metadata['wrapper_data']);
 
             if ($statusCode >= 400) {
-                throw new InvalidStatusException('Request failed with status code '.$statusCode, $statusCode, $body);
+                throw new InvalidStatusException('Request failed with status code ' . $statusCode, $statusCode, $body);
             }
         }
 
         if (DEBUG) {
-            $this->logger->debug('HttpClient: url='.$url);
-            $this->logger->debug('HttpClient: headers='.var_export($headers, true));
-            $this->logger->debug('HttpClient: payload='.$content);
-            $this->logger->debug('HttpClient: metadata='.var_export($metadata, true));
-            $this->logger->debug('HttpClient: body='.$body);
-            $this->logger->debug('HttpClient: executionTime='.(microtime(true) - $startTime));
+            $this->logger->debug('HttpClient: url=' . $url);
+            $this->logger->debug('HttpClient: headers=' . var_export($headers, true));
+            $this->logger->debug('HttpClient: payload=' . $content);
+            $this->logger->debug('HttpClient: metadata=' . var_export($metadata, true));
+            $this->logger->debug('HttpClient: body=' . $body);
+            $this->logger->debug('HttpClient: executionTime=' . (microtime(true) - $startTime));
         }
 
         return $body;
@@ -264,7 +264,7 @@ class Client extends Base
 
         if (HTTP_PROXY_USERNAME) {
             curl_setopt($curlSession, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
-            curl_setopt($curlSession, CURLOPT_PROXYUSERPWD, HTTP_PROXY_USERNAME.':'.HTTP_PROXY_PASSWORD);
+            curl_setopt($curlSession, CURLOPT_PROXYUSERPWD, HTTP_PROXY_USERNAME . ':' . HTTP_PROXY_PASSWORD);
         }
 
         $body = curl_exec($curlSession);
@@ -273,10 +273,10 @@ class Client extends Base
             $errorMsg = curl_error($curlSession);
             curl_close($curlSession);
 
-            $this->logger->error('HttpClient: request failed ('.$url.' - '.$errorMsg.')');
+            $this->logger->error('HttpClient: request failed (' . $url . ' - ' . $errorMsg . ')');
 
             if ($raiseForErrors) {
-                throw new ClientException('Unreachable URL: '.$url.' ('.$errorMsg.')');
+                throw new ClientException('Unreachable URL: ' . $url . ' (' . $errorMsg . ')');
             }
 
             return '';
@@ -287,17 +287,17 @@ class Client extends Base
 
             if ($statusCode >= 400) {
                 curl_close($curlSession);
-                throw new InvalidStatusException('Request failed with status code '.$statusCode, $statusCode, $body);
+                throw new InvalidStatusException('Request failed with status code ' . $statusCode, $statusCode, $body);
             }
         }
 
         if (DEBUG) {
-            $this->logger->debug('HttpClient: url='.$url);
-            $this->logger->debug('HttpClient: headers='.var_export($headers, true));
-            $this->logger->debug('HttpClient: payload='.$content);
-            $this->logger->debug('HttpClient: metadata='.var_export(curl_getinfo($curlSession), true));
-            $this->logger->debug('HttpClient: body='.$body);
-            $this->logger->debug('HttpClient: executionTime='.(microtime(true) - $startTime));
+            $this->logger->debug('HttpClient: url=' . $url);
+            $this->logger->debug('HttpClient: headers=' . var_export($headers, true));
+            $this->logger->debug('HttpClient: payload=' . $content);
+            $this->logger->debug('HttpClient: metadata=' . var_export(curl_getinfo($curlSession), true));
+            $this->logger->debug('HttpClient: body=' . $body);
+            $this->logger->debug('HttpClient: executionTime=' . (microtime(true) - $startTime));
         }
 
         curl_close($curlSession);
@@ -317,37 +317,37 @@ class Client extends Base
     private function getContext($method, $content, array $headers, $raiseForErrors = false)
     {
         $default_headers = [
-            'User-Agent: '.self::HTTP_USER_AGENT,
+            'User-Agent: ' . self::HTTP_USER_AGENT,
             'Connection: close',
         ];
 
         if (HTTP_PROXY_USERNAME) {
-            $default_headers[] = 'Proxy-Authorization: Basic '.base64_encode(HTTP_PROXY_USERNAME.':'.HTTP_PROXY_PASSWORD);
+            $default_headers[] = 'Proxy-Authorization: Basic ' . base64_encode(HTTP_PROXY_USERNAME . ':' . HTTP_PROXY_PASSWORD);
         }
 
         $headers = array_merge($default_headers, $headers);
 
         $context = [
             'http' => [
-                'method' => $method,
+                'method'           => $method,
                 'protocol_version' => 1.1,
-                'timeout' => HTTP_TIMEOUT,
-                'max_redirects' => HTTP_MAX_REDIRECTS,
-                'header' => implode("\r\n", $headers),
-                'content' => $content,
-                'ignore_errors' => $raiseForErrors,
-            ]
+                'timeout'          => HTTP_TIMEOUT,
+                'max_redirects'    => HTTP_MAX_REDIRECTS,
+                'header'           => implode("\r\n", $headers),
+                'content'          => $content,
+                'ignore_errors'    => $raiseForErrors,
+            ],
         ];
 
         if (HTTP_PROXY_HOSTNAME) {
-            $context['http']['proxy'] = 'tcp://'.HTTP_PROXY_HOSTNAME.':'.HTTP_PROXY_PORT;
+            $context['http']['proxy'] = 'tcp://' . HTTP_PROXY_HOSTNAME . ':' . HTTP_PROXY_PORT;
             $context['http']['request_fulluri'] = true;
         }
 
         if (HTTP_VERIFY_SSL_CERTIFICATE === false) {
             $context['ssl'] = [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
                 'allow_self_signed' => true,
             ];
         }

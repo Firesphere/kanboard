@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= $this->text->e($project['name']) ?> &gt; <?= t('New task') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('TaskCreationController', 'save', array('project_id' => $project['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('TaskCreationController', 'save', ['project_id' => $project['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <div class="task-form-container">
@@ -11,7 +11,7 @@
             <?= $this->task->renderDescriptionTemplateDropdown($project['id']) ?>
             <?= $this->task->renderTagField($project) ?>
 
-            <?= $this->hook->render('template:task:form:first-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:first-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-secondary-column">
@@ -22,7 +22,7 @@
             <?= $this->task->renderColumnField($columns_list, $values, $errors) ?>
             <?= $this->task->renderPriorityField($project, $values) ?>
 
-            <?= $this->hook->render('template:task:form:second-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:second-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-secondary-column">
@@ -33,16 +33,16 @@
             <?= $this->task->renderScoreField($values, $errors) ?>
             <?= $this->task->renderReferenceField($values, $errors) ?>
 
-            <?= $this->hook->render('template:task:form:third-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:third-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-bottom">
 
-            <?= $this->hook->render('template:task:form:bottom-before-buttons', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:bottom-before-buttons', ['values' => $values, 'errors' => $errors]) ?>
 
             <?php if (! isset($duplicate)): ?>
-                <?= $this->form->checkbox('another_task', t('Create another task'), 1, isset($values['another_task']) && $values['another_task'] == 1, '', array("tabindex" => "16")) ?>
-                <?= $this->form->checkbox('duplicate_multiple_projects', t('Duplicate to multiple projects'), 1, false, '', array("tabindex" => "17")) ?>
+                <?= $this->form->checkbox('another_task', t('Create another task'), 1, isset($values['another_task']) && $values['another_task'] == 1, '', ["tabindex" => "16"]) ?>
+                <?= $this->form->checkbox('duplicate_multiple_projects', t('Duplicate to multiple projects'), 1, false, '', ["tabindex" => "17"]) ?>
             <?php endif ?>
 
             <?= $this->modal->submitButtons() ?>

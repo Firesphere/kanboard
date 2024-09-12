@@ -21,7 +21,7 @@ class ProjectActivityTaskIdFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('task_id');
+        return ['task_id'];
     }
 
     /**
@@ -32,7 +32,7 @@ class ProjectActivityTaskIdFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->eq(ProjectActivityModel::TABLE.'.task_id', $this->value);
+        $this->query->eq(ProjectActivityModel::TABLE . '.task_id', $this->value);
         return $this;
     }
 }

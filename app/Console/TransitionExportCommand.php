@@ -24,7 +24,7 @@ class TransitionExportCommand extends BaseCommand
         $data = $this->transitionExport->export(
             $input->getArgument('project_id'),
             $input->getArgument('start_date'),
-            $input->getArgument('end_date')
+            $input->getArgument('end_date'),
         );
 
         if (is_array($data)) {

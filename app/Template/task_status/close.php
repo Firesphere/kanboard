@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'TaskStatusController',
         'close',
-        array('task_id' => $task['id'], 'confirmation' => 'yes')
+        ['task_id' => $task['id'], 'confirmation' => 'yes'],
     ) ?>
 </div>

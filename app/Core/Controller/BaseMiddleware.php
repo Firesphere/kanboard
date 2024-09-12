@@ -49,7 +49,7 @@ abstract class BaseMiddleware extends Base
     {
         if ($this->nextMiddleware !== null) {
             if (DEBUG) {
-                $this->logger->debug(__METHOD__.' => ' . get_class($this->nextMiddleware));
+                $this->logger->debug(__METHOD__ . ' => ' . get_class($this->nextMiddleware));
             }
 
             $this->nextMiddleware->execute();

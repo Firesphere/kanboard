@@ -33,7 +33,7 @@ class TaskImport extends Base
 
     public function getColumnMapping()
     {
-        return array(
+        return [
             'reference'         => e('Reference'),
             'title'             => e('Title'),
             'description'       => e('Description'),
@@ -52,7 +52,7 @@ class TaskImport extends Base
             'is_active'         => e('Status'),
             'tags'              => e('Tags'),
             'external_link'     => e('External Link'),
-        );
+        ];
     }
 
     public function importTask(array $row, $lineNumber)
@@ -63,7 +63,7 @@ class TaskImport extends Base
             $taskId = $this->taskCreationModel->create($task);
 
             if ($taskId > 0) {
-                $this->logger->debug(__METHOD__.': imported successfully line '.$lineNumber);
+                $this->logger->debug(__METHOD__ . ': imported successfully line ' . $lineNumber);
                 $this->nbImportedTasks++;
 
                 if (! empty($row['tags'])) {
@@ -74,16 +74,16 @@ class TaskImport extends Base
                     $this->createExternalLink($taskId, $row['external_link']);
                 }
             } else {
-                $this->logger->error(__METHOD__.': creation error at line '.$lineNumber);
+                $this->logger->error(__METHOD__ . ': creation error at line ' . $lineNumber);
             }
         } else {
-            $this->logger->error(__METHOD__.': validation error at line '.$lineNumber);
+            $this->logger->error(__METHOD__ . ': validation error at line ' . $lineNumber);
         }
     }
 
     public function prepareTask(array $row)
     {
-        $values = array();
+        $values = [];
         $values['project_id'] = $this->projectId;
         $values['reference'] = $row['reference'];
         $values['title'] = $row['title'];
@@ -128,7 +128,7 @@ class TaskImport extends Base
 
         $this->helper->model->removeEmptyFields(
             $values,
-            array('owner_id', 'creator_id', 'color_id', 'column_id', 'category_id', 'swimlane_id', 'date_due', 'date_started', 'priority')
+            ['owner_id', 'creator_id', 'color_id', 'column_id', 'category_id', 'swimlane_id', 'date_due', 'date_started', 'priority'],
         );
 
         return $values;
@@ -136,13 +136,13 @@ class TaskImport extends Base
 
     protected function validateCreation(array $values)
     {
-        $v = new Validator($values, array(
+        $v = new Validator($values, [
             new Validators\Integer('project_id', t('This value must be an integer')),
             new Validators\Required('project_id', t('The project is required')),
             new Validators\Required('title', t('The title is required')),
             new Validators\MaxLength('title', t('The maximum length is %d characters', 65535), 65535),
             new Validators\MaxLength('reference', t('The maximum length is %d characters', 255), 255),
-        ));
+        ]);
 
         return $v->execute();
     }
@@ -157,23 +157,23 @@ class TaskImport extends Base
 
             $link = $provider->getLink();
             $dependencies = $provider->getDependencies();
-            $values = array(
-                'task_id' => $taskId,
-                'title' => $link->getTitle() ?: $link->getUrl(),
-                'url' => $link->getUrl(),
-                'link_type' => $provider->getType(),
+            $values = [
+                'task_id'    => $taskId,
+                'title'      => $link->getTitle() ?: $link->getUrl(),
+                'url'        => $link->getUrl(),
+                'link_type'  => $provider->getType(),
                 'dependency' => key($dependencies),
-            );
+            ];
 
             list($valid, $errors) = $this->externalLinkValidator->validateCreation($values);
 
             if ($valid) {
                 $this->taskExternalLinkModel->create($values);
             } else {
-                $this->logger->error(__METHOD__.': '.var_export($errors, true));
+                $this->logger->error(__METHOD__ . ': ' . var_export($errors, true));
             }
         } catch (ExternalLinkProviderNotFound $e) {
-            $this->logger->error(__METHOD__.': '.$e->getMessage());
+            $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
         }
     }
 }

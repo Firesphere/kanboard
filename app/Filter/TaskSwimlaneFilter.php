@@ -3,9 +3,7 @@
 namespace Kanboard\Filter;
 
 use Kanboard\Core\Filter\FilterInterface;
-use Kanboard\Model\ProjectModel;
 use Kanboard\Model\SwimlaneModel;
-use Kanboard\Model\TaskModel;
 
 /**
  * Filter tasks by swimlane
@@ -23,7 +21,7 @@ class TaskSwimlaneFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('swimlane');
+        return ['swimlane'];
     }
 
     /**
@@ -34,7 +32,7 @@ class TaskSwimlaneFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->ilike(SwimlaneModel::TABLE.'.name', $this->value);
+        $this->query->ilike(SwimlaneModel::TABLE . '.name', $this->value);
         return $this;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Kanboard\Model\ProjectModel;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Kanboard\Model\ProjectModel;
 
 /**
  * Project Validator
@@ -22,7 +22,7 @@ class ProjectValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Integer('id', t('This value must be an integer')),
             new Validators\Integer('priority_default', t('This value must be an integer')),
             new Validators\Integer('priority_start', t('This value must be an integer')),
@@ -36,7 +36,7 @@ class ProjectValidator extends BaseValidator
             new Validators\Unique('identifier', t('The identifier must be unique'), $this->db->getConnection(), ProjectModel::TABLE),
             new Validators\Email('email', t('Email address invalid')) ,
             new Validators\Unique('email', t('The project email must be unique across all projects'), $this->db->getConnection(), ProjectModel::TABLE),
-        );
+        ];
     }
 
     /**
@@ -52,16 +52,16 @@ class ProjectValidator extends BaseValidator
             $values['identifier'] = strtoupper($values['identifier']);
         }
 
-        $rules = array(
+        $rules = [
             new Validators\Required('name', t('The project name is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -77,16 +77,16 @@ class ProjectValidator extends BaseValidator
             $values['identifier'] = strtoupper($values['identifier']);
         }
 
-        $rules = array(
+        $rules = [
             new Validators\NotEmpty('name', t('This field cannot be empty')),
             new Validators\Required('id', t('This value is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 }

@@ -77,13 +77,13 @@ class CommentProcedure extends BaseProcedure
             }
         }
 
-        $values = array(
-            'task_id' => $task_id,
-            'user_id' => $user_id,
-            'comment' => $content,
-            'reference' => $reference,
+        $values = [
+            'task_id'    => $task_id,
+            'user_id'    => $user_id,
+            'comment'    => $content,
+            'reference'  => $reference,
             'visibility' => $visibility,
-        );
+        ];
 
         list($valid, ) = $this->commentValidator->validateCreation($values);
 
@@ -102,10 +102,10 @@ class CommentProcedure extends BaseProcedure
             }
         }
 
-        $values = array(
-            'id' => $id,
+        $values = [
+            'id'      => $id,
             'comment' => $content,
-        );
+        ];
 
         list($valid, ) = $this->commentValidator->validateModification($values);
         return $valid && $this->commentModel->update($values);

@@ -21,7 +21,7 @@ class ProjectActivityTaskStatusFilter extends BaseFilter implements FilterInterf
      */
     public function getAttributes()
     {
-        return array('status');
+        return ['status'];
     }
 
     /**
@@ -33,9 +33,9 @@ class ProjectActivityTaskStatusFilter extends BaseFilter implements FilterInterf
     public function apply()
     {
         if ($this->value === 'open') {
-            $this->query->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN);
+            $this->query->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN);
         } elseif ($this->value === 'closed') {
-            $this->query->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_CLOSED);
+            $this->query->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_CLOSED);
         }
 
         return $this;

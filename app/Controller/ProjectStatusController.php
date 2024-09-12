@@ -17,9 +17,9 @@ class ProjectStatusController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_status/enable', array(
+        $this->response->html($this->template->render('project_status/enable', [
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -36,7 +36,7 @@ class ProjectStatusController extends BaseController
             $this->flash->failure(t('Unable to activate this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', array('project_id' => $project['id'])), true);
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', ['project_id' => $project['id']]), true);
     }
 
     /**
@@ -46,9 +46,9 @@ class ProjectStatusController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_status/disable', array(
+        $this->response->html($this->template->render('project_status/disable', [
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -65,7 +65,7 @@ class ProjectStatusController extends BaseController
             $this->flash->failure(t('Unable to disable this project.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', array('project_id' => $project['id'])), true);
+        $this->response->redirect($this->helper->url->to('ProjectViewController', 'show', ['project_id' => $project['id']]), true);
     }
 
     /**
@@ -75,10 +75,10 @@ class ProjectStatusController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_status/remove', array(
+        $this->response->html($this->template->render('project_status/remove', [
             'project' => $project,
-            'title' => t('Remove project')
-        )));
+            'title'   => t('Remove project'),
+        ]));
     }
 
     /**

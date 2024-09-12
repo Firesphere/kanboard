@@ -56,15 +56,15 @@ class PasswordResetModel extends Base
 
         $token = $this->token->getToken();
 
-        $result = $this->db->table(self::TABLE)->insert(array(
-            'token' => $token,
-            'user_id' => $user_id,
+        $result = $this->db->table(self::TABLE)->insert([
+            'token'           => $token,
+            'user_id'         => $user_id,
             'date_expiration' => $expiration ?: time() + self::DURATION,
-            'date_creation' => time(),
-            'ip' => $this->request->getIpAddress(),
-            'user_agent' => $this->request->getUserAgent(),
-            'is_active' => 1,
-        ));
+            'date_creation'   => time(),
+            'ip'              => $this->request->getIpAddress(),
+            'user_agent'      => $this->request->getUserAgent(),
+            'is_active'       => 1,
+        ]);
 
         return $result ? $token : false;
     }
@@ -90,6 +90,6 @@ class PasswordResetModel extends Base
      */
     public function disable($user_id)
     {
-        return $this->db->table(self::TABLE)->eq('user_id', $user_id)->update(array('is_active' => 0));
+        return $this->db->table(self::TABLE)->eq('user_id', $user_id)->update(['is_active' => 0]);
     }
 }

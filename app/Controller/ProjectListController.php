@@ -37,10 +37,10 @@ class ProjectListController extends BaseController
             ->setQuery($query)
             ->calculate();
 
-        $this->response->html($this->helper->layout->app('project_list/listing', array(
+        $this->response->html($this->helper->layout->app('project_list/listing', [
             'paginator'   => $paginator,
             'title'       => t('Projects') . ' (' . $paginator->getTotal() . ')',
-            'values'      => array('search' => $search),
-        )));
+            'values'      => ['search' => $search],
+        ]));
     }
 }

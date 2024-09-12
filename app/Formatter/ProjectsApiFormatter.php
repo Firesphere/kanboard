@@ -11,7 +11,7 @@ use Kanboard\Core\Filter\FormatterInterface;
  */
 class ProjectsApiFormatter extends BaseFormatter implements FormatterInterface
 {
-    protected $projects = array();
+    protected $projects = [];
 
     public function withProjects($projects)
     {

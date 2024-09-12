@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('Board settings') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ConfigController', 'save', array('redirect' => 'board')) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ConfigController', 'save', ['redirect' => 'board']) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>
@@ -18,7 +18,7 @@
         <p class="form-help"><?= t('Frequency in second (0 to disable this feature, 10 seconds by default)') ?></p>
     </fieldset>
 
-    <?= $this->hook->render('template:config:board', array('values' => $values, 'errors' => $errors)) ?>
+    <?= $this->hook->render('template:config:board', ['values' => $values, 'errors' => $errors]) ?>
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>

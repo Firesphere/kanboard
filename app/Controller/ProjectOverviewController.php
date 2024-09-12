@@ -18,7 +18,7 @@ class ProjectOverviewController extends BaseController
         $project = $this->getProject();
         $columns = $this->columnModel->getAllWithTaskCount($project['id']);
 
-        $this->response->html($this->helper->layout->app('project_overview/show', array(
+        $this->response->html($this->helper->layout->app('project_overview/show', [
             'project'     => $project,
             'columns'     => $columns,
             'title'       => $project['name'],
@@ -28,6 +28,6 @@ class ProjectOverviewController extends BaseController
             'events'      => $this->helper->projectActivity->getProjectEvents($project['id'], 10),
             'images'      => $this->projectFileModel->getAllImages($project['id']),
             'files'       => $this->projectFileModel->getAllDocuments($project['id']),
-        )));
+        ]));
     }
 }

@@ -20,6 +20,6 @@ class System extends Base
      */
     public function log($level, $message, array $context = [])
     {
-        error_log('['.$level.'] '.$this->interpolate($message, $context));
+        error_log('[' . $level . '] ' . $this->interpolate($message, $context));
     }
 }

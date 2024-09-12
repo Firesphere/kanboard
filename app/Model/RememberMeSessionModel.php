@@ -73,7 +73,7 @@ class RememberMeSessionModel extends Base
      */
     public function create($user_id, $ip, $user_agent)
     {
-        $token = hash('sha256', $user_id.$user_agent.$ip.Token::getToken());
+        $token = hash('sha256', $user_id . $user_agent . $ip . Token::getToken());
         $sequence = Token::getToken();
         $expiration = time() + self::EXPIRATION;
 
@@ -82,21 +82,21 @@ class RememberMeSessionModel extends Base
         $this
             ->db
             ->table(self::TABLE)
-            ->insert(array(
-                'user_id' => $user_id,
-                'ip' => $ip,
-                'user_agent' => substr($user_agent, 0, 255),
-                'token' => $token,
-                'sequence' => $sequence,
-                'expiration' => $expiration,
+            ->insert([
+                'user_id'       => $user_id,
+                'ip'            => $ip,
+                'user_agent'    => substr($user_agent, 0, 255),
+                'token'         => $token,
+                'sequence'      => $sequence,
+                'expiration'    => $expiration,
                 'date_creation' => time(),
-            ));
+            ]);
 
-        return array(
-            'token' => $token,
-            'sequence' => $sequence,
+        return [
+            'token'      => $token,
+            'sequence'   => $sequence,
             'expiration' => $expiration,
-        );
+        ];
     }
 
     /**
@@ -145,7 +145,7 @@ class RememberMeSessionModel extends Base
             ->db
             ->table(self::TABLE)
             ->eq('token', $token)
-            ->update(array('sequence' => $sequence));
+            ->update(['sequence' => $sequence]);
 
         return $sequence;
     }

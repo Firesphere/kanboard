@@ -42,7 +42,7 @@ class ProjectActivityCreatorFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('creator');
+        return ['creator'];
     }
 
     /**
@@ -57,8 +57,8 @@ class ProjectActivityCreatorFilter extends BaseFilter implements FilterInterface
             $this->query->eq(ProjectActivityModel::TABLE . '.creator_id', $this->currentUserId);
         } else {
             $this->query->beginOr();
-            $this->query->ilike('uc.username', '%'.$this->value.'%');
-            $this->query->ilike('uc.name', '%'.$this->value.'%');
+            $this->query->ilike('uc.username', '%' . $this->value . '%');
+            $this->query->ilike('uc.name', '%' . $this->value . '%');
             $this->query->closeOr();
         }
     }

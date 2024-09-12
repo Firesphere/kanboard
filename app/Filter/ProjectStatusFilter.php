@@ -21,7 +21,7 @@ class ProjectStatusFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('status');
+        return ['status'];
     }
 
     /**
@@ -33,11 +33,11 @@ class ProjectStatusFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(ProjectModel::TABLE.'.is_active', $this->value);
+            $this->query->eq(ProjectModel::TABLE . '.is_active', $this->value);
         } elseif ($this->value === 'inactive' || $this->value === 'closed' || $this->value === 'disabled') {
-            $this->query->eq(ProjectModel::TABLE.'.is_active', 0);
+            $this->query->eq(ProjectModel::TABLE . '.is_active', 0);
         } else {
-            $this->query->eq(ProjectModel::TABLE.'.is_active', 1);
+            $this->query->eq(ProjectModel::TABLE . '.is_active', 1);
         }
 
         return $this;

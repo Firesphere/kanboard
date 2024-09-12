@@ -4,8 +4,8 @@ namespace Kanboard\Filter;
 
 use Kanboard\Core\Filter\FilterInterface;
 use Kanboard\Model\LinkModel;
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\TaskLinkModel;
+use Kanboard\Model\TaskModel;
 use PicoDb\Database;
 use PicoDb\Table;
 
@@ -46,7 +46,7 @@ class TaskLinkFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('link');
+        return ['link'];
     }
 
     /**
@@ -57,7 +57,7 @@ class TaskLinkFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->inSubquery(TaskModel::TABLE.'.id', $this->getSubQuery());
+        $this->query->inSubquery(TaskModel::TABLE . '.id', $this->getSubQuery());
     }
 
     /**
@@ -70,9 +70,9 @@ class TaskLinkFilter extends BaseFilter implements FilterInterface
     {
         return $this->db->table(TaskLinkModel::TABLE)
             ->columns(
-                TaskLinkModel::TABLE.'.task_id'
+                TaskLinkModel::TABLE . '.task_id',
             )
             ->join(LinkModel::TABLE, 'id', 'link_id', TaskLinkModel::TABLE)
-            ->ilike(LinkModel::TABLE.'.label', $this->value);
+            ->ilike(LinkModel::TABLE . '.label', $this->value);
     }
 }

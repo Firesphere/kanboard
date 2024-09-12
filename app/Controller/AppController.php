@@ -22,12 +22,12 @@ class AppController extends Base
     public function accessForbidden($withoutLayout = false, $message = '')
     {
         if ($this->request->isAjax()) {
-            $this->response->json(array('message' => $message ?: t('Access Forbidden')), 403);
+            $this->response->json(['message' => $message ?: t('Access Forbidden')], 403);
         } else {
-            $this->response->html($this->helper->layout->app('app/forbidden', array(
-                'title' => t('Access Forbidden'),
+            $this->response->html($this->helper->layout->app('app/forbidden', [
+                'title'     => t('Access Forbidden'),
                 'no_layout' => $withoutLayout,
-            )), 403);
+            ]), 403);
         }
     }
 
@@ -39,9 +39,9 @@ class AppController extends Base
      */
     public function notFound($withoutLayout = false)
     {
-        $this->response->html($this->helper->layout->app('app/notfound', array(
-            'title' => t('Page not found'),
+        $this->response->html($this->helper->layout->app('app/notfound', [
+            'title'     => t('Page not found'),
             'no_layout' => $withoutLayout,
-        )));
+        ]));
     }
 }

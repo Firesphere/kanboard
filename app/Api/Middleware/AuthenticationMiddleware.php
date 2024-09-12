@@ -35,7 +35,7 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
         if ($this->isUserAuthenticated($username, $password)) {
             $this->userSession->initialize($this->userCacheDecorator->getByUsername($username));
         } elseif (! $this->isAppAuthenticated($username, $password)) {
-            $this->logger->error('API authentication failure for '.$username);
+            $this->logger->error('API authentication failure for ' . $username);
             throw new AuthenticationFailureException('Wrong credentials');
         }
     }
@@ -59,7 +59,7 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
         }
 
         if ($this->userModel->has2FA($username)) {
-            $this->logger->info('This API user ('.$username.') as 2FA enabled: only API keys are authorized');
+            $this->logger->info('This API user (' . $username . ') as 2FA enabled: only API keys are authorized');
             $this->authenticationManager->reset();
             $this->authenticationManager->register(new ApiAccessTokenAuth($this->container));
         }

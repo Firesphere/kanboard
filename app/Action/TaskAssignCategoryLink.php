@@ -32,9 +32,9 @@ class TaskAssignCategoryLink extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskLinkModel::EVENT_CREATE_UPDATE,
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class TaskAssignCategoryLink extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'category_id' => t('Category'),
-            'link_id' => t('Link type'),
-        );
+            'link_id'     => t('Link type'),
+        ];
     }
 
     /**
@@ -59,12 +59,12 @@ class TaskAssignCategoryLink extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
-            'task_link' => array(
+        return [
+            'task_link' => [
                 'task_id',
                 'link_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -76,10 +76,10 @@ class TaskAssignCategoryLink extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_link']['task_id'],
+        $values = [
+            'id'          => $data['task_link']['task_id'],
             'category_id' => $this->getParam('category_id'),
-        );
+        ];
 
         return $this->taskModificationModel->update($values);
     }

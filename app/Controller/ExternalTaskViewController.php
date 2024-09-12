@@ -19,12 +19,12 @@ class ExternalTaskViewController extends BaseController
             $taskProvider = $this->externalTaskManager->getProvider($task['external_provider']);
             $externalTask = $taskProvider->fetch($task['external_uri'], $task['project_id']);
 
-            $this->response->html($this->template->render($taskProvider->getViewTemplate(), array(
-                'task' => $task,
+            $this->response->html($this->template->render($taskProvider->getViewTemplate(), [
+                'task'          => $task,
                 'external_task' => $externalTask,
-            )));
+            ]));
         } catch (ExternalTaskException $e) {
-            $this->response->html('<div class="alert alert-error">'.$e->getMessage().'</div>');
+            $this->response->html('<div class="alert alert-error">' . $e->getMessage() . '</div>');
         }
     }
 }

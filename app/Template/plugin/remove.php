@@ -8,6 +8,6 @@
     <?= $this->modal->confirmButtons(
         'PluginController',
         'uninstall',
-        array('pluginId' => $plugin_id)
+        ['pluginId' => $plugin_id],
     ) ?>
 </div>

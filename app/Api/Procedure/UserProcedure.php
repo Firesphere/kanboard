@@ -2,11 +2,11 @@
 
 namespace Kanboard\Api\Procedure;
 
-use LogicException;
-use Kanboard\Core\Security\Role;
 use Kanboard\Core\Ldap\Client as LdapClient;
 use Kanboard\Core\Ldap\ClientException as LdapException;
 use Kanboard\Core\Ldap\User as LdapUser;
+use Kanboard\Core\Security\Role;
+use LogicException;
 
 /**
  * User API controller
@@ -53,14 +53,14 @@ class UserProcedure extends BaseProcedure
 
     public function createUser($username, $password, $name = '', $email = '', $role = Role::APP_USER)
     {
-        $values = array(
-            'username' => $username,
-            'password' => $password,
+        $values = [
+            'username'     => $username,
+            'password'     => $password,
             'confirmation' => $password,
-            'name' => $name,
-            'email' => $email,
-            'role' => $role,
-        );
+            'name'         => $name,
+            'email'        => $email,
+            'role'         => $role,
+        ];
 
         list($valid, ) = $this->userValidator->validateCreation($values);
         return $valid ? $this->userModel->create($values) : false;
@@ -85,7 +85,6 @@ class UserProcedure extends BaseProcedure
         }
 
         try {
-
             $ldap = LdapClient::connect();
             $ldap->setLogger($this->logger);
             $user = LdapUser::getUser($ldap, $username);
@@ -99,16 +98,15 @@ class UserProcedure extends BaseProcedure
                 throw new LogicException('Username not found in LDAP profile, check the parameter LDAP_USER_ATTRIBUTE_USERNAME');
             }
 
-            $values = array(
-                'username' => $user->getUsername(),
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
-                'role' => $user->getRole() ?: Role::APP_USER,
+            $values = [
+                'username'     => $user->getUsername(),
+                'name'         => $user->getName(),
+                'email'        => $user->getEmail(),
+                'role'         => $user->getRole() ?: Role::APP_USER,
                 'is_ldap_user' => 1,
-            );
+            ];
 
             return $this->userModel->create($values);
-
         } catch (LdapException $e) {
             $this->logger->error($e->getMessage());
             return false;
@@ -117,13 +115,13 @@ class UserProcedure extends BaseProcedure
 
     public function updateUser($id, $username = null, $name = null, $email = null, $role = null)
     {
-        $values = $this->filterValues(array(
-            'id' => $id,
+        $values = $this->filterValues([
+            'id'       => $id,
             'username' => $username,
-            'name' => $name,
-            'email' => $email,
-            'role' => $role,
-        ));
+            'name'     => $name,
+            'email'    => $email,
+            'role'     => $role,
+        ]);
 
         list($valid, ) = $this->userValidator->validateApiModification($values);
         return $valid && $this->userModel->update($values);

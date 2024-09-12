@@ -72,7 +72,7 @@ class TaskFileModel extends FileModel
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.id', $file_id)
+            ->eq(self::TABLE . '.id', $file_id)
             ->join(TaskModel::TABLE, 'id', 'task_id')
             ->findOneColumn(TaskModel::TABLE . '.project_id') ?: 0;
     }
@@ -87,7 +87,7 @@ class TaskFileModel extends FileModel
      */
     public function uploadScreenshot($task_id, $blob)
     {
-        $original_filename = e('Screenshot taken %s', $this->helper->dt->datetime(time())).'.png';
+        $original_filename = e('Screenshot taken %s', $this->helper->dt->datetime(time())) . '.png';
         return $this->uploadContent($task_id, $original_filename, $blob);
     }
 

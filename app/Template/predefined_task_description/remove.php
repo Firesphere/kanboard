@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'PredefinedTaskDescriptionController',
         'remove',
-        array('project_id' => $project['id'], 'id' => $template['id'])
+        ['project_id' => $project['id'], 'id' => $template['id']],
     ) ?>
 </div>

@@ -26,7 +26,7 @@ class Version
         $appVersion = str_replace('v', '', $appVersion);
         $pluginCompatibleVersion = str_replace('v', '', $pluginCompatibleVersion);
 
-        foreach (array('>=', '>', '<=', '<') as $operator) {
+        foreach (['>=', '>', '<=', '<'] as $operator) {
             if (strpos($pluginCompatibleVersion, $operator) === 0) {
                 $pluginVersion = substr($pluginCompatibleVersion, strlen($operator));
                 return version_compare($appVersion, $pluginVersion, $operator);

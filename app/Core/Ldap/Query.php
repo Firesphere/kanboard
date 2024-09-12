@@ -24,7 +24,7 @@ class Query
      * @access protected
      * @var array
      */
-    protected $entries = array();
+    protected $entries = [];
 
     /**
      * Constructor
@@ -50,9 +50,9 @@ class Query
     public function execute($baseDn, $filter, array $attributes, $limit = 0)
     {
         if (DEBUG && $this->client->hasLogger()) {
-            $this->client->getLogger()->debug('BaseDN='.$baseDn);
-            $this->client->getLogger()->debug('Filter='.$filter);
-            $this->client->getLogger()->debug('Attributes='.implode(', ', $attributes));
+            $this->client->getLogger()->debug('BaseDN=' . $baseDn);
+            $this->client->getLogger()->debug('Filter=' . $filter);
+            $this->client->getLogger()->debug('Attributes=' . implode(', ', $attributes));
         }
 
         $sr = @ldap_search($this->client->getConnection(), $baseDn, $filter, $attributes, null, $limit);
@@ -68,7 +68,7 @@ class Query
         $this->entries = $entries;
 
         if (DEBUG && $this->client->hasLogger()) {
-            $this->client->getLogger()->debug('NbEntries='.$entries['count']);
+            $this->client->getLogger()->debug('NbEntries=' . $entries['count']);
         }
 
         return $this;

@@ -33,7 +33,7 @@ class TaskExport extends Base
         $taskIds = array_column($tasks, 'id');
         $tags = $this->taskTagModel->getTagsByTaskIds($taskIds);
         $colors = $this->colorModel->getList();
-        $results = array($this->getColumns());
+        $results = [$this->getColumns()];
 
         foreach ($tasks as &$task) {
             $task = $this->format($task, $colors, $tags);
@@ -86,7 +86,7 @@ class TaskExport extends Base
                 TaskModel::TABLE . '.date_started',
                 TaskModel::TABLE . '.time_estimated',
                 TaskModel::TABLE . '.time_spent',
-                TaskModel::TABLE . '.priority'
+                TaskModel::TABLE . '.priority',
             )
             ->join(UserModel::TABLE, 'id', 'owner_id', TaskModel::TABLE)
             ->left(UserModel::TABLE, 'uc', 'id', TaskModel::TABLE, 'creator_id')
@@ -97,7 +97,7 @@ class TaskExport extends Base
             ->gte(TaskModel::TABLE . '.date_creation', $from)
             ->lte(TaskModel::TABLE . '.date_creation', $to)
             ->eq(TaskModel::TABLE . '.project_id', $project_id)
-            ->asc(TaskModel::TABLE.'.id')
+            ->asc(TaskModel::TABLE . '.id')
             ->findAll();
     }
 
@@ -119,8 +119,8 @@ class TaskExport extends Base
 
         $task = $this->dateParser->format(
             $task,
-            array('date_due', 'date_modification', 'date_creation', 'date_started', 'date_completed'),
-            $this->dateParser->getUserDateTimeFormat()
+            ['date_due', 'date_modification', 'date_creation', 'date_started', 'date_completed'],
+            $this->dateParser->getUserDateTimeFormat(),
         );
 
         if (isset($tags[$task['id']])) {
@@ -139,7 +139,7 @@ class TaskExport extends Base
      */
     protected function getColumns()
     {
-        return array(
+        return [
             e('Task Id'),
             e('Reference'),
             e('Project'),
@@ -164,6 +164,6 @@ class TaskExport extends Base
             e('Time spent'),
             e('Priority'),
             e('Tags'),
-        );
+        ];
     }
 }

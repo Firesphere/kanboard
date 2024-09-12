@@ -11,7 +11,7 @@ namespace Kanboard\Core;
 class Thumbnail
 {
     protected $compression = -1;
-    protected $metadata = array();
+    protected $metadata = [];
     protected $srcImage;
     protected $dstImage;
 

@@ -16,7 +16,7 @@
         <?= $this->asset->colorCss() ?>
         <?= $this->asset->css('assets/css/vendor.min.css') ?>
         <?php if (! isset($not_editable)): ?>
-            <?= $this->asset->css('assets/css/'.$this->user->getTheme().'.min.css') ?>
+            <?= $this->asset->css('assets/css/' . $this->user->getTheme() . '.min.css') ?>
         <?php else: ?>
             <?= $this->asset->css('assets/css/light.min.css') ?>
         <?php endif ?>
@@ -63,12 +63,12 @@
         <?= $content_for_layout ?>
     <?php else: ?>
         <?= $this->hook->render('template:layout:top') ?>
-        <?= $this->render('header', array(
-            'title' => $title,
-            'description' => isset($description) ? $description : '',
-            'board_selector' => isset($board_selector) ? $board_selector : array(),
-            'project' => isset($project) ? $project : array(),
-        )) ?>
+        <?= $this->render('header', [
+            'title'          => $title,
+            'description'    => isset($description) ? $description : '',
+            'board_selector' => isset($board_selector) ? $board_selector : [],
+            'project'        => isset($project) ? $project : [],
+        ]) ?>
         <section class="page">
             <?= $this->app->flashMessage() ?>
             <?= $content_for_layout ?>

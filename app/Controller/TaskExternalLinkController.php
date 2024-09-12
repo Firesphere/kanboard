@@ -22,16 +22,16 @@ class TaskExternalLinkController extends BaseController
      * @throws PageNotFoundException
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      */
-    public function find(array $values = array(), array $errors = array())
+    public function find(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
 
-        $this->response->html($this->template->render('task_external_link/find', array(
+        $this->response->html($this->template->render('task_external_link/find', [
             'values' => $values,
             'errors' => $errors,
-            'task' => $task,
-            'types' => $this->externalLinkManager->getTypes(),
-        )));
+            'task'   => $task,
+            'types'  => $this->externalLinkManager->getTypes(),
+        ]));
     }
 
     /**
@@ -48,19 +48,18 @@ class TaskExternalLinkController extends BaseController
             $provider = $this->externalLinkManager->setUserInput($values)->find();
             $link = $provider->getLink();
 
-            $this->response->html($this->template->render('task_external_link/create', array(
-                'values' => array(
-                    'title' => $link->getTitle(),
-                    'url' => $link->getUrl(),
+            $this->response->html($this->template->render('task_external_link/create', [
+                'values' => [
+                    'title'     => $link->getTitle(),
+                    'url'       => $link->getUrl(),
                     'link_type' => $provider->getType(),
-                ),
+                ],
                 'dependencies' => $provider->getDependencies(),
-                'errors' => array(),
-                'task' => $task,
-            )));
-
+                'errors'       => [],
+                'task'         => $task,
+            ]));
         } catch (ExternalLinkProviderNotFound $e) {
-            $errors = array('text' => array(t('Unable to fetch link information.')));
+            $errors = ['text' => [t('Unable to fetch link information.')]];
             $this->find($values, $errors);
         }
     }
@@ -85,15 +84,15 @@ class TaskExternalLinkController extends BaseController
                 $this->flash->success(t('Unable to create your link.'));
             }
 
-            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+            $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
         } else {
             $provider = $this->externalLinkManager->getProvider($values['link_type']);
-            $this->response->html($this->template->render('task_external_link/create', array(
-                'values' => $values,
-                'errors' => $errors,
+            $this->response->html($this->template->render('task_external_link/create', [
+                'values'       => $values,
+                'errors'       => $errors,
                 'dependencies' => $provider->getDependencies(),
-                'task' => $task,
-            )));
+                'task'         => $task,
+            ]));
         }
     }
 
@@ -107,19 +106,19 @@ class TaskExternalLinkController extends BaseController
      * @throws PageNotFoundException
      * @throws \Kanboard\Core\Controller\AccessForbiddenException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $task = $this->getTask();
         $link = $this->getExternalTaskLink($task);
         $provider = $this->externalLinkManager->getProvider($link['link_type']);
 
-        $this->response->html($this->template->render('task_external_link/edit', array(
+        $this->response->html($this->template->render('task_external_link/edit', [
             'values'       => empty($values) ? $link : $values,
             'errors'       => $errors,
             'task'         => $task,
             'link'         => $link,
             'dependencies' => $provider->getDependencies(),
-        )));
+        ]));
     }
 
     /**
@@ -140,7 +139,7 @@ class TaskExternalLinkController extends BaseController
 
         if ($valid && $this->taskExternalLinkModel->update($values)) {
             $this->flash->success(t('Link updated successfully.'));
-            return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])), true);
+            return $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]), true);
         }
 
         return $this->edit($values, $errors);
@@ -156,10 +155,10 @@ class TaskExternalLinkController extends BaseController
         $task = $this->getTask();
         $link = $this->getExternalTaskLink($task);
 
-        $this->response->html($this->template->render('task_external_link/remove', array(
+        $this->response->html($this->template->render('task_external_link/remove', [
             'link' => $link,
             'task' => $task,
-        )));
+        ]));
     }
 
     /**
@@ -179,6 +178,6 @@ class TaskExternalLinkController extends BaseController
             $this->flash->failure(t('Unable to remove this link.'));
         }
 
-        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])));
+        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
     }
 }

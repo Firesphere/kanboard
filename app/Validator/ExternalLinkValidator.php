@@ -24,10 +24,10 @@ class ExternalLinkValidator extends BaseValidator
     {
         $v = new Validator($values, $this->commonValidationRules());
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -39,16 +39,16 @@ class ExternalLinkValidator extends BaseValidator
      */
     public function validateModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -59,7 +59,7 @@ class ExternalLinkValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Required('url', t('Field required')),
             new Validators\MaxLength('url', t('The maximum length is %d characters', 65535), 65535),
             new Validators\Required('title', t('Field required')),
@@ -71,6 +71,6 @@ class ExternalLinkValidator extends BaseValidator
             new Validators\Integer('id', t('This value must be an integer')),
             new Validators\Required('task_id', t('Field required')),
             new Validators\Integer('task_id', t('This value must be an integer')),
-        );
+        ];
     }
 }

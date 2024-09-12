@@ -7,15 +7,15 @@
         <?= t('Do you really want to remove this comment?') ?>
     </p>
 
-    <?= $this->render('comment/show', array(
-        'comment' => $comment,
-        'task' => $task,
-        'hide_actions' => true
-    )) ?>
+    <?= $this->render('comment/show', [
+        'comment'      => $comment,
+        'task'         => $task,
+        'hide_actions' => true,
+    ]) ?>
 
     <?= $this->modal->confirmButtons(
         'CommentController',
         'remove',
-        array('task_id' => $task['id'], 'comment_id' => $comment['id'])
+        ['task_id' => $task['id'], 'comment_id' => $comment['id']],
     ) ?>
 </div>

@@ -31,9 +31,9 @@ class TaskEmailNoActivity extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_DAILY_CRONJOB,
-        );
+        ];
     }
 
     /**
@@ -44,11 +44,11 @@ class TaskEmailNoActivity extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'user_id' => t('User that will receive the email'),
-            'subject' => t('Email subject'),
+        return [
+            'user_id'  => t('User that will receive the email'),
+            'subject'  => t('Email subject'),
             'duration' => t('Duration in days'),
-        );
+        ];
     }
 
     /**
@@ -59,7 +59,7 @@ class TaskEmailNoActivity extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -83,8 +83,8 @@ class TaskEmailNoActivity extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
-        $max = (int)$this->getParam('duration') * 86400;
+        $results = [];
+        $max = (int) $this->getParam('duration') * 86400;
         $user = $this->userModel->getById($this->getParam('user_id'));
 
         if (! empty($user['email'])) {
@@ -116,7 +116,7 @@ class TaskEmailNoActivity extends Base
             $user['email'],
             $user['name'] ?: $user['username'],
             $this->getParam('subject'),
-            $this->template->render('notification/task_create', array('task' => $task))
+            $this->template->render('notification/task_create', ['task' => $task]),
         );
 
         return true;

@@ -154,11 +154,11 @@ class TagModel extends Base
      */
     public function create($project_id, $tag, $color_id = null)
     {
-        return $this->db->table(self::TABLE)->persist(array(
+        return $this->db->table(self::TABLE)->persist([
             'project_id' => $project_id,
-            'name' => $tag,
-            'color_id' => $color_id,
-        ));
+            'name'       => $tag,
+            'color_id'   => $color_id,
+        ]);
     }
 
     /**
@@ -172,16 +172,16 @@ class TagModel extends Base
     public function update($tag_id, $tag, $color_id = null, $project_id = null)
     {
         if ($project_id !== null) {
-            return $this->db->table(self::TABLE)->eq('id', $tag_id)->update(array(
-                'name' => $tag,
-                'color_id' => $color_id,
+            return $this->db->table(self::TABLE)->eq('id', $tag_id)->update([
+                'name'       => $tag,
+                'color_id'   => $color_id,
                 'project_id' => $project_id,
-            ));
+            ]);
         } else {
-            return $this->db->table(self::TABLE)->eq('id', $tag_id)->update(array(
-                'name' => $tag,
+            return $this->db->table(self::TABLE)->eq('id', $tag_id)->update([
+                'name'     => $tag,
                 'color_id' => $color_id,
-            ));
+            ]);
         }
     }
 

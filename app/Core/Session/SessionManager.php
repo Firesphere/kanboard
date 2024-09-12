@@ -72,7 +72,7 @@ class SessionManager extends Base
             $params['path'],
             $params['domain'],
             $params['secure'],
-            $params['httponly']
+            $params['httponly'],
         );
 
         session_unset();
@@ -92,7 +92,7 @@ class SessionManager extends Base
             $this->helper->url->dir() ?: '/',
             null,
             $this->request->isHTTPS(),
-            true
+            true,
         );
 
         // Avoid session id in the URL

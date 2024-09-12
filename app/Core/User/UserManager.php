@@ -16,7 +16,7 @@ class UserManager
      * @access protected
      * @var array
      */
-    protected $providers = array();
+    protected $providers = [];
 
     /**
      * Register a new group backend provider
@@ -40,7 +40,7 @@ class UserManager
      */
     public function find($input)
     {
-        $groups = array();
+        $groups = [];
 
         foreach ($this->providers as $provider) {
             $groups = array_merge($groups, $provider->find($input));
@@ -58,7 +58,7 @@ class UserManager
      */
     protected function removeDuplicates(array $users)
     {
-        $result = array();
+        $result = [];
 
         foreach ($users as $user) {
             if (! isset($result[$user->getUsername()])) {

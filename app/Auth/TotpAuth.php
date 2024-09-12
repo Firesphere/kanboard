@@ -2,11 +2,11 @@
 
 namespace Kanboard\Auth;
 
-use Otp\Otp;
-use Otp\GoogleAuthenticator;
 use Base32\Base32;
 use Kanboard\Core\Base;
 use Kanboard\Core\Security\PostAuthenticationProviderInterface;
+use Otp\GoogleAuthenticator;
+use Otp\Otp;
 
 /**
  * TOTP Authentication Provider
@@ -60,10 +60,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
      *
      * @access public
      */
-    public function beforeCode()
-    {
-
-    }
+    public function beforeCode() {}
 
     /**
      * Set validation code
@@ -123,7 +120,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
             return '';
         }
 
-        $options = array('issuer' => TOTP_ISSUER);
+        $options = ['issuer' => TOTP_ISSUER];
         return GoogleAuthenticator::getQrCodeUrl('totp', $label, $this->secret, null, $options);
     }
 
@@ -140,7 +137,7 @@ class TotpAuth extends Base implements PostAuthenticationProviderInterface
             return '';
         }
 
-        $options = array('issuer' => TOTP_ISSUER);
+        $options = ['issuer' => TOTP_ISSUER];
         return GoogleAuthenticator::getKeyUri('totp', $label, $this->secret, null, $options);
     }
 }

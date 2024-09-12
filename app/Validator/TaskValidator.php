@@ -21,7 +21,7 @@ class TaskValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Integer('id', t('This value must be an integer')),
             new Validators\Integer('project_id', t('This value must be an integer')),
             new Validators\Integer('column_id', t('This value must be an integer')),
@@ -46,7 +46,7 @@ class TaskValidator extends BaseValidator
             new Validators\Date('date_started', t('Invalid date'), $this->dateParser->getParserFormats()),
             new Validators\Numeric('time_spent', t('This value must be numeric')),
             new Validators\Numeric('time_estimated', t('This value must be numeric')),
-        );
+        ];
     }
 
     public function validateStartAndDueDate(array $values)
@@ -56,11 +56,11 @@ class TaskValidator extends BaseValidator
             $endDate = $this->dateParser->getTimestamp($values['date_due']);
 
             if ($startDate > $endDate) {
-                return array(false, array('date_started' => array(t('The start date is greater than the end date'))));
+                return [false, ['date_started' => [t('The start date is greater than the end date')]]];
             }
         }
 
-        return array(true, array());
+        return [true, []];
     }
 
     /**
@@ -72,10 +72,10 @@ class TaskValidator extends BaseValidator
      */
     public function validateCreation(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('project_id', t('The project is required')),
             new Validators\Required('title', t('The title is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
         $result = $v->execute();
@@ -85,7 +85,7 @@ class TaskValidator extends BaseValidator
             list($result, $errors) = $this->validateStartAndDueDate($values);
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 
     /**
@@ -97,20 +97,20 @@ class TaskValidator extends BaseValidator
      */
     public function validateBulkCreation(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('tasks', t('Field required')),
             new Validators\Required('column_id', t('Field required')),
             new Validators\Required('swimlane_id', t('Field required')),
             new Validators\Integer('category_id', t('This value must be an integer')),
             new Validators\Integer('swimlane_id', t('This value must be an integer')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -122,16 +122,16 @@ class TaskValidator extends BaseValidator
      */
     public function validateEditRecurrence(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
 
@@ -144,10 +144,10 @@ class TaskValidator extends BaseValidator
      */
     public function validateModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
             new Validators\Required('title', t('The title is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
         $result = $v->execute();
@@ -157,7 +157,7 @@ class TaskValidator extends BaseValidator
             list($result, $errors) = $this->validateStartAndDueDate($values);
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 
     /**
@@ -169,9 +169,9 @@ class TaskValidator extends BaseValidator
      */
     public function validateApiModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
         $result = $v->execute();
@@ -181,7 +181,7 @@ class TaskValidator extends BaseValidator
             list($result, $errors) = $this->validateStartAndDueDate($values);
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 
     /**
@@ -193,17 +193,17 @@ class TaskValidator extends BaseValidator
      */
     public function validateProjectModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
             new Validators\Required('project_id', t('The project is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -215,16 +215,16 @@ class TaskValidator extends BaseValidator
      */
     public function validateEmailCreation(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('subject', t('This field is required')),
             new Validators\Required('emails', t('This field is required')),
-        );
+        ];
 
         $v = new Validator($values, $rules);
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 }

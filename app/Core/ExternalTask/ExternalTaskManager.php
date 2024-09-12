@@ -10,7 +10,7 @@ namespace Kanboard\Core\ExternalTask;
  */
 class ExternalTaskManager
 {
-    protected $providers = array();
+    protected $providers = [];
 
     /**
      * Register a new task provider
@@ -37,7 +37,7 @@ class ExternalTaskManager
             return $this->providers[$name];
         }
 
-        throw new ProviderNotFoundException('Unable to load this provider: '.$name);
+        throw new ProviderNotFoundException('Unable to load this provider: ' . $name);
     }
 
     /**
@@ -53,7 +53,7 @@ class ExternalTaskManager
             return array_combine($providers, $providers);
         }
 
-        return array();
+        return [];
     }
 
     /**

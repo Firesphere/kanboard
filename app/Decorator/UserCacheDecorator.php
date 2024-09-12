@@ -46,7 +46,7 @@ class UserCacheDecorator
      */
     public function getByUsername($username)
     {
-        $key = $this->cachePrefix.$username;
+        $key = $this->cachePrefix . $username;
         $user = $this->cache->get($key);
 
         if ($user === null) {

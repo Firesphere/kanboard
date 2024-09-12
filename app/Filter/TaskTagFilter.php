@@ -32,7 +32,7 @@ class TaskTagFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('tag');
+        return ['tag'];
     }
 
     /**
@@ -62,7 +62,7 @@ class TaskTagFilter extends BaseFilter implements FilterInterface
             $sub_query = $this->getQueryOfTaskIdsWithGivenTag();
         }
 
-        $this->query->inSubquery(TaskModel::TABLE.'.id', $sub_query);
+        $this->query->inSubquery(TaskModel::TABLE . '.id', $sub_query);
 
         return $this;
     }
@@ -80,8 +80,8 @@ class TaskTagFilter extends BaseFilter implements FilterInterface
     {
         return $this->db
             ->table(TagModel::TABLE)
-            ->columns(TaskTagModel::TABLE.'.task_id')
-            ->ilike(TagModel::TABLE.'.name', '%'.$this->value.'%')
+            ->columns(TaskTagModel::TABLE . '.task_id')
+            ->ilike(TagModel::TABLE . '.name', '%' . $this->value . '%')
             ->join(TaskTagModel::TABLE, 'tag_id', 'id');
     }
 }

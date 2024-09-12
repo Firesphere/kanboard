@@ -10,10 +10,10 @@
                     $this->text->e($task['category_name']),
                     'TaskModificationController',
                     'edit',
-                    array('task_id' => $task['id']),
+                    ['task_id' => $task['id']],
                     false,
                     'js-modal-medium' . (! empty($task['category_description']) ? ' tooltip' : ''),
-                    t('Change category')
+                    t('Change category'),
                 ) ?>
                 <?php if (! empty($task['category_description'])): ?>
                     <?= $this->app->tooltipMarkdown($task['category_description']) ?>

@@ -3,10 +3,8 @@
 namespace Kanboard\Model;
 
 use Kanboard\Core\Base;
-use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
-use Kanboard\Model\TaskModel;
-use Kanboard\Model\TaskFileModel;
+use Kanboard\Core\Security\Token;
 
 /**
  * Project model
@@ -73,8 +71,8 @@ class ProjectModel extends Base
     public function getByIdWithOwner($project_id)
     {
         return $this->db->table(self::TABLE)
-            ->columns(self::TABLE.'.*', UserModel::TABLE.'.username AS owner_username', UserModel::TABLE.'.name AS owner_name')
-            ->eq(self::TABLE.'.id', $project_id)
+            ->columns(self::TABLE . '.*', UserModel::TABLE . '.username AS owner_username', UserModel::TABLE . '.name AS owner_name')
+            ->eq(self::TABLE . '.id', $project_id)
             ->join(UserModel::TABLE, 'id', 'owner_id')
             ->findOne();
     }
@@ -90,12 +88,12 @@ class ProjectModel extends Base
     {
         return $this->db->table(self::TABLE)
             ->columns(
-                self::TABLE.'.*',
-                UserModel::TABLE.'.username AS owner_username',
-                UserModel::TABLE.'.name AS owner_name',
-                "(SELECT count(*) FROM tasks WHERE tasks.project_id=projects.id AND tasks.is_active='1') AS nb_active_tasks"
+                self::TABLE . '.*',
+                UserModel::TABLE . '.username AS owner_username',
+                UserModel::TABLE . '.name AS owner_name',
+                "(SELECT count(*) FROM tasks WHERE tasks.project_id=projects.id AND tasks.is_active='1') AS nb_active_tasks",
             )
-            ->eq(self::TABLE.'.id', $project_id)
+            ->eq(self::TABLE . '.id', $project_id)
             ->join(UserModel::TABLE, 'id', 'owner_id')
             ->join(TaskModel::TABLE, 'project_id', 'id')
             ->findOne();
@@ -205,7 +203,7 @@ class ProjectModel extends Base
     public function getAllByIds(array $project_ids)
     {
         if (empty($project_ids)) {
-            return array();
+            return [];
         }
 
         return $this->db->table(self::TABLE)->in('id', $project_ids)->asc('name')->findAll();
@@ -239,7 +237,7 @@ class ProjectModel extends Base
         }
 
         if ($prependNone) {
-            return array(t('None')) + $projects;
+            return [t('None')] + $projects;
         }
 
         return $projects;
@@ -337,15 +335,15 @@ class ProjectModel extends Base
     public function getQueryColumnStats(array $project_ids)
     {
         if (empty($project_ids)) {
-            return $this->db->table(ProjectModel::TABLE)->eq(ProjectModel::TABLE.'.id', 0);
+            return $this->db->table(ProjectModel::TABLE)->eq(ProjectModel::TABLE . '.id', 0);
         }
 
         return $this->db
             ->table(ProjectModel::TABLE)
-            ->columns(self::TABLE.'.*', UserModel::TABLE.'.username AS owner_username', UserModel::TABLE.'.name AS owner_name')
+            ->columns(self::TABLE . '.*', UserModel::TABLE . '.username AS owner_username', UserModel::TABLE . '.name AS owner_name')
             ->join(UserModel::TABLE, 'id', 'owner_id')
-            ->in(self::TABLE.'.id', $project_ids)
-            ->callback(array($this, 'applyColumnStats'));
+            ->in(self::TABLE . '.id', $project_ids)
+            ->callback([$this, 'applyColumnStats']);
     }
 
     /**
@@ -358,14 +356,14 @@ class ProjectModel extends Base
     public function getQueryByProjectIds(array $projectIds)
     {
         if (empty($projectIds)) {
-            return $this->db->table(ProjectModel::TABLE)->eq(ProjectModel::TABLE.'.id', 0);
+            return $this->db->table(ProjectModel::TABLE)->eq(ProjectModel::TABLE . '.id', 0);
         }
 
         return $this->db
             ->table(ProjectModel::TABLE)
-            ->columns(self::TABLE.'.*', UserModel::TABLE.'.username AS owner_username', UserModel::TABLE.'.name AS owner_name')
+            ->columns(self::TABLE . '.*', UserModel::TABLE . '.username AS owner_username', UserModel::TABLE . '.name AS owner_name')
             ->join(UserModel::TABLE, 'id', 'owner_id')
-            ->in(self::TABLE.'.id', $projectIds);
+            ->in(self::TABLE . '.id', $projectIds);
     }
 
     /**
@@ -394,7 +392,7 @@ class ProjectModel extends Base
             $values['identifier'] = strtoupper($values['identifier']);
         }
 
-        $this->helper->model->convertIntegerFields($values, array('priority_default', 'priority_start', 'priority_end', 'task_limit'));
+        $this->helper->model->convertIntegerFields($values, ['priority_default', 'priority_start', 'priority_end', 'task_limit']);
 
         if (! $this->db->table(self::TABLE)->save($values)) {
             $this->db->cancelTransaction();
@@ -449,9 +447,9 @@ class ProjectModel extends Base
      */
     public function updateModificationDate($project_id)
     {
-        return $this->db->table(self::TABLE)->eq('id', $project_id)->update(array(
-            'last_modified' => time()
-        ));
+        return $this->db->table(self::TABLE)->eq('id', $project_id)->update([
+            'last_modified' => time(),
+        ]);
     }
 
     /**
@@ -481,7 +479,7 @@ class ProjectModel extends Base
 
         $values['per_swimlane_task_limits'] = empty($values['per_swimlane_task_limits']) ? 0 : 1;
 
-        $this->helper->model->convertIntegerFields($values, array('priority_default', 'priority_start', 'priority_end', 'task_limit'));
+        $this->helper->model->convertIntegerFields($values, ['priority_default', 'priority_start', 'priority_end', 'task_limit']);
 
         $updates = $values;
         unset($updates['id']);
@@ -504,9 +502,9 @@ class ProjectModel extends Base
         // Remove all task attachments
         $file_ids = $this->db
             ->table(TaskFileModel::TABLE)
-            ->eq(TaskModel::TABLE.'.project_id', $project_id)
+            ->eq(TaskModel::TABLE . '.project_id', $project_id)
             ->join(TaskModel::TABLE, 'id', 'task_id', TaskFileModel::TABLE)
-            ->findAllByColumn(TaskFileModel::TABLE.'.id');
+            ->findAllByColumn(TaskFileModel::TABLE . '.id');
 
         foreach ($file_ids as $file_id) {
             $this->taskFileModel->remove($file_id);
@@ -542,7 +540,7 @@ class ProjectModel extends Base
                $this->db
                     ->table(self::TABLE)
                     ->eq('id', $project_id)
-                    ->update(array('is_active' => 1));
+                    ->update(['is_active' => 1]);
     }
 
     /**
@@ -558,7 +556,7 @@ class ProjectModel extends Base
                $this->db
                     ->table(self::TABLE)
                     ->eq('id', $project_id)
-                    ->update(array('is_active' => 0));
+                    ->update(['is_active' => 0]);
     }
 
     /**
@@ -574,7 +572,7 @@ class ProjectModel extends Base
                $this->db
                     ->table(self::TABLE)
                     ->eq('id', $project_id)
-                    ->save(array('is_public' => 1, 'token' => Token::getToken()));
+                    ->save(['is_public' => 1, 'token' => Token::getToken()]);
     }
 
     /**
@@ -590,7 +588,7 @@ class ProjectModel extends Base
                $this->db
                     ->table(self::TABLE)
                     ->eq('id', $project_id)
-                    ->save(array('is_public' => 0, 'token' => ''));
+                    ->save(['is_public' => 0, 'token' => '']);
     }
 
     /**
@@ -606,6 +604,6 @@ class ProjectModel extends Base
                $this->db
                     ->table(self::TABLE)
                     ->eq('id', $project_id)
-                    ->save(array('enable_global_tags' => $global_tags));
+                    ->save(['enable_global_tags' => $global_tags]);
     }
 }

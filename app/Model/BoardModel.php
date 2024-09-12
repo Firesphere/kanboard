@@ -20,7 +20,7 @@ class BoardModel extends Base
      */
     public function getDefaultColumns()
     {
-        return array(t('Backlog'), t('Ready'), t('Work in progress'), t('Done'));
+        return [t('Backlog'), t('Ready'), t('Work in progress'), t('Done')];
     }
 
     /**
@@ -32,15 +32,15 @@ class BoardModel extends Base
     public function getUserColumns()
     {
         $column_names = array_unique(explode_csv_field($this->configModel->get('board_columns', implode(',', $this->getDefaultColumns()))));
-        $columns = array();
+        $columns = [];
 
         foreach ($column_names as $column_name) {
-            $columns[] = array(
-                'title' => $column_name,
-                'task_limit' => 0,
-                'description' => '',
+            $columns[] = [
+                'title'             => $column_name,
+                'task_limit'        => 0,
+                'description'       => '',
                 'hide_in_dashboard' => 0,
-            );
+            ];
         }
 
         return $columns;
@@ -59,14 +59,14 @@ class BoardModel extends Base
         $position = 0;
 
         foreach ($columns as $column) {
-            $values = array(
-                'title' => $column['title'],
-                'position' => ++$position,
-                'project_id' => $project_id,
-                'task_limit' => $column['task_limit'],
-                'description' => $column['description'],
+            $values = [
+                'title'             => $column['title'],
+                'position'          => ++$position,
+                'project_id'        => $project_id,
+                'task_limit'        => $column['task_limit'],
+                'description'       => $column['description'],
                 'hide_in_dashboard' => $column['hide_in_dashboard'] ?: 0, // Avoid SQL error with Postgres
-            );
+            ];
 
             if (! $this->db->table(ColumnModel::TABLE)->save($values)) {
                 return false;

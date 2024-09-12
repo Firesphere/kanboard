@@ -17,8 +17,8 @@ class DatabaseVersionCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('<info>Current version: '.DatabaseProvider::getSchemaVersion($this->container['db']).'</info>');
-        $output->writeln('<info>Last version: '.\Schema\VERSION.'</info>');
+        $output->writeln('<info>Current version: ' . DatabaseProvider::getSchemaVersion($this->container['db']) . '</info>');
+        $output->writeln('<info>Last version: ' . \Schema\VERSION . '</info>');
         return 0;
     }
 }

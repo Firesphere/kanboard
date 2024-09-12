@@ -32,7 +32,7 @@ if (DB_DRIVER === 'dblib' && !extension_loaded('pdo_dblib')) {
 }
 
 // Check other extensions
-foreach (array('gd', 'mbstring', 'hash', 'openssl', 'json', 'hash', 'ctype', 'filter', 'session', 'dom', 'filter', 'SimpleXML', 'xml') as $ext) {
+foreach (['gd', 'mbstring', 'hash', 'openssl', 'json', 'hash', 'ctype', 'filter', 'session', 'dom', 'filter', 'SimpleXML', 'xml'] as $ext) {
     if (!extension_loaded($ext)) {
         throw new Exception('This PHP extension is required: "' . $ext . '"');
     }

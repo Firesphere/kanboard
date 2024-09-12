@@ -3,7 +3,6 @@
 namespace Kanboard\Controller;
 
 use Kanboard\Filter\TaskProjectFilter;
-use Kanboard\Model\TaskModel;
 
 /**
  * Task List Controller
@@ -48,7 +47,7 @@ class TaskListController extends BaseController
         $this->userSession->setListOrder($project['id'], $order, $direction);
 
         $paginator = $this->paginator
-            ->setUrl('TaskListController', 'show', array('project_id' => $project['id'], 'csrf_token' => $this->token->getReusableCSRFToken()))
+            ->setUrl('TaskListController', 'show', ['project_id' => $project['id'], 'csrf_token' => $this->token->getReusableCSRFToken()])
             ->setMax(30)
             ->setOrder($order)
             ->setDirection($direction)
@@ -57,15 +56,15 @@ class TaskListController extends BaseController
                 $this->taskLexer
                 ->build($search)
                 ->withFilter(new TaskProjectFilter($project['id']))
-                ->getQuery()
+                ->getQuery(),
             )
             ->calculate();
 
-        $this->response->html($this->helper->layout->app('task_list/listing', array(
+        $this->response->html($this->helper->layout->app('task_list/listing', [
             'project'     => $project,
             'title'       => $project['name'],
             'description' => $this->helper->projectHeader->getDescription($project),
             'paginator'   => $paginator,
-        )));
+        ]));
     }
 }

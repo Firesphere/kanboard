@@ -31,10 +31,10 @@ class TaskAssignSpecificUser extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE_UPDATE,
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class TaskAssignSpecificUser extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-            'user_id' => t('Assignee'),
-        );
+            'user_id'   => t('Assignee'),
+        ];
     }
 
     /**
@@ -59,13 +59,13 @@ class TaskAssignSpecificUser extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -77,10 +77,10 @@ class TaskAssignSpecificUser extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'       => $data['task_id'],
             'owner_id' => $this->getParam('user_id'),
-        );
+        ];
 
         return $this->taskModificationModel->update($values);
     }

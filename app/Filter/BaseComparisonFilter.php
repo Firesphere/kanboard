@@ -17,12 +17,12 @@ abstract class BaseComparisonFilter extends BaseFilter
      */
     protected function parseOperator()
     {
-        $operators = array(
+        $operators = [
             '<=' => 'lte',
             '>=' => 'gte',
-            '<' => 'lt',
-            '>' => 'gt',
-        );
+            '<'  => 'lt',
+            '>'  => 'gt',
+        ];
 
         foreach ($operators as $operator => $method) {
             if (strpos($this->value, $operator) === 0) {

@@ -17,17 +17,17 @@ class ProjectEditController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_edit/show', array(
-            'owners' => $this->projectUserRoleModel->getAssignableUsersList($project['id'], true),
-            'values' => empty($values) ? $project : $values,
-            'errors' => $errors,
+        $this->response->html($this->helper->layout->project('project_edit/show', [
+            'owners'  => $this->projectUserRoleModel->getAssignableUsersList($project['id'], true),
+            'values'  => empty($values) ? $project : $values,
+            'errors'  => $errors,
             'project' => $project,
-            'title' => t('Edit project')
-        )));
+            'title'   => t('Edit project'),
+        ]));
     }
 
     /**
@@ -46,7 +46,7 @@ class ProjectEditController extends BaseController
         if ($valid) {
             if ($this->projectModel->update($values)) {
                 $this->flash->success(t('Project updated successfully.'));
-                return $this->response->redirect($this->helper->url->to('ProjectEditController', 'show', array('project_id' => $project['id'])), true);
+                return $this->response->redirect($this->helper->url->to('ProjectEditController', 'show', ['project_id' => $project['id']]), true);
             } else {
                 $this->flash->failure(t('Unable to update this project.'));
             }
@@ -73,7 +73,7 @@ class ProjectEditController extends BaseController
             }
         } elseif ($project['is_private'] == 1 && ! isset($values['is_private'])) {
             if ($this->helper->user->hasProjectAccess('ProjectCreationController', 'create', $project['id'])) {
-                $values += array('is_private' => 0);
+                $values += ['is_private' => 0];
             }
         }
 

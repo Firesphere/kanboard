@@ -8,14 +8,14 @@ class BootstrapSubscriber extends BaseSubscriber implements EventSubscriberInter
 {
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             'app.bootstrap' => 'execute',
-        );
+        ];
     }
 
     public function execute()
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $this->languageModel->loadCurrentLanguage();
         $this->timezoneModel->setCurrentTimezone();
         $this->actionManager->attachEvents();
@@ -32,10 +32,10 @@ class BootstrapSubscriber extends BaseSubscriber implements EventSubscriberInter
                 $this->logger->debug('SQL: ' . $message);
             }
 
-            $this->logger->debug('APP: nb_queries={nb}', array('nb' => $this->db->getStatementHandler()->getNbQueries()));
-            $this->logger->debug('APP: rendering_time={time}', array('time' => microtime(true) - $this->request->getStartTime()));
-            $this->logger->debug('APP: memory_usage='.$this->helper->text->bytes(memory_get_usage()));
-            $this->logger->debug('APP: uri='.$this->request->getUri());
+            $this->logger->debug('APP: nb_queries={nb}', ['nb' => $this->db->getStatementHandler()->getNbQueries()]);
+            $this->logger->debug('APP: rendering_time={time}', ['time' => microtime(true) - $this->request->getStartTime()]);
+            $this->logger->debug('APP: memory_usage=' . $this->helper->text->bytes(memory_get_usage()));
+            $this->logger->debug('APP: uri=' . $this->request->getUri());
             $this->logger->debug('###############################################');
         }
     }

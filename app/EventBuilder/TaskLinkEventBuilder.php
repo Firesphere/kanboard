@@ -38,14 +38,14 @@ class TaskLinkEventBuilder extends BaseEventBuilder
         $taskLink = $this->taskLinkModel->getById($this->taskLinkId);
 
         if (empty($taskLink)) {
-            $this->logger->debug(__METHOD__.': TaskLink not found');
+            $this->logger->debug(__METHOD__ . ': TaskLink not found');
             return null;
         }
 
-        return new TaskLinkEvent(array(
+        return new TaskLinkEvent([
             'task_link' => $taskLink,
-            'task' => $this->taskFinderModel->getDetails($taskLink['task_id']),
-        ));
+            'task'      => $this->taskFinderModel->getDetails($taskLink['task_id']),
+        ]);
     }
 
     /**

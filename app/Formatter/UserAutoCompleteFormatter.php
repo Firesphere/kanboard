@@ -2,8 +2,8 @@
 
 namespace Kanboard\Formatter;
 
-use Kanboard\Core\User\UserProviderInterface;
 use Kanboard\Core\Filter\FormatterInterface;
+use Kanboard\Core\User\UserProviderInterface;
 
 /**
  * Auto-complete formatter for users
@@ -42,17 +42,17 @@ class UserAutoCompleteFormatter extends BaseFormatter implements FormatterInterf
      */
     public function format()
     {
-        $result = array();
+        $result = [];
 
         foreach ($this->users as $user) {
-            $result[] = array(
-                'id' => $user->getInternalId(),
-                'username' => $user->getUsername(),
-                'external_id' => $user->getExternalId(),
+            $result[] = [
+                'id'                 => $user->getInternalId(),
+                'username'           => $user->getUsername(),
+                'external_id'        => $user->getExternalId(),
                 'external_id_column' => $user->getExternalIdColumn(),
-                'value' => $user->getName() === '' ? $user->getUsername() : $user->getName(),
-                'label' => $user->getName() === '' ? $user->getUsername() : $user->getName().' ('.$user->getUsername().')',
-            );
+                'value'              => $user->getName() === '' ? $user->getUsername() : $user->getName(),
+                'label'              => $user->getName() === '' ? $user->getUsername() : $user->getName() . ' (' . $user->getUsername() . ')',
+            ];
         }
 
         return $result;

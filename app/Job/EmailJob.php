@@ -24,7 +24,7 @@ class EmailJob extends BaseJob
      */
     public function withParams($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail)
     {
-        $this->jobParams = array($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail);
+        $this->jobParams = [$recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail];
         return $this;
     }
 
@@ -44,12 +44,12 @@ class EmailJob extends BaseJob
         $transport = $this->helper->mail->getMailTransport();
         $startTime = microtime(true);
 
-        $this->logger->debug(__METHOD__.' Sending email to: '.$recipientEmail.' using transport: '.$transport);
+        $this->logger->debug(__METHOD__ . ' Sending email to: ' . $recipientEmail . ' using transport: ' . $transport);
 
         $this->emailClient
             ->getTransport($transport)
             ->sendEmail($recipientEmail, $recipientName, $subject, $html, $authorName, $authorEmail);
 
-        $this->logger->debug(__METHOD__.' Email sent in '.round(microtime(true) - $startTime, 6).' seconds');
+        $this->logger->debug(__METHOD__ . ' Email sent in ' . round(microtime(true) - $startTime, 6) . ' seconds');
     }
 }

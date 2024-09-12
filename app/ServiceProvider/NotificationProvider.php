@@ -2,12 +2,12 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
-use Kanboard\Model\UserNotificationTypeModel;
 use Kanboard\Model\ProjectNotificationTypeModel;
+use Kanboard\Model\UserNotificationTypeModel;
 use Kanboard\Notification\MailNotification as MailNotification;
 use Kanboard\Notification\WebNotification as WebNotification;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
  * Notification Provider

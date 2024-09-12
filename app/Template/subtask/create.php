@@ -12,14 +12,14 @@
     </p>
 <?php endif ?>
 
-<form method="post" action="<?= $this->url->href('SubtaskController', 'save', array('task_id' => $task['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('SubtaskController', 'save', ['task_id' => $task['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
-    <?= $this->subtask->renderBulkTitleField($values, $errors, array('autofocus')) ?>
+    <?= $this->subtask->renderBulkTitleField($values, $errors, ['autofocus']) ?>
     <?= $this->subtask->renderAssigneeField($users_list, $values, $errors) ?>
     <?= $this->subtask->renderTimeEstimatedField($values, $errors) ?>
 
-    <?= $this->hook->render('template:subtask:form:create', array('values' => $values, 'errors' => $errors)) ?>
+    <?= $this->hook->render('template:subtask:form:create', ['values' => $values, 'errors' => $errors]) ?>
 
     <?= $this->form->checkbox('another_subtask', t('Create another sub-task'), 1, isset($values['another_subtask']) && $values['another_subtask'] == 1) ?>
 

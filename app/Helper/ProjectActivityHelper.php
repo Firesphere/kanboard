@@ -26,14 +26,14 @@ class ProjectActivityHelper extends Base
     public function searchEvents($search)
     {
         $projects = $this->projectUserRoleModel->getActiveProjectsByUser($this->userSession->getId());
-        $events = array();
+        $events = [];
 
         if ($search !== '') {
             $queryBuilder = $this->projectActivityLexer->build($search);
             $queryBuilder
                 ->withFilter(new ProjectActivityProjectIdsFilter(array_keys($projects)))
                 ->getQuery()
-                ->desc(ProjectActivityModel::TABLE.'.id')
+                ->desc(ProjectActivityModel::TABLE . '.id')
                 ->limit(500)
             ;
 
@@ -57,7 +57,7 @@ class ProjectActivityHelper extends Base
             ->withFilter(new ProjectActivityProjectIdFilter($project_id));
 
         $queryBuilder->getQuery()
-            ->desc(ProjectActivityModel::TABLE.'.id')
+            ->desc(ProjectActivityModel::TABLE . '.id')
             ->limit($limit)
         ;
 
@@ -78,7 +78,7 @@ class ProjectActivityHelper extends Base
             ->withFilter(new ProjectActivityProjectIdsFilter($project_ids));
 
         $queryBuilder->getQuery()
-            ->desc(ProjectActivityModel::TABLE.'.id')
+            ->desc(ProjectActivityModel::TABLE . '.id')
             ->limit($limit)
         ;
 
@@ -97,7 +97,7 @@ class ProjectActivityHelper extends Base
         $queryBuilder = $this->projectActivityQuery
             ->withFilter(new ProjectActivityTaskIdFilter($task_id));
 
-        $queryBuilder->getQuery()->desc(ProjectActivityModel::TABLE.'.id');
+        $queryBuilder->getQuery()->desc(ProjectActivityModel::TABLE . '.id');
 
         return $queryBuilder->format($this->projectActivityEventFormatter);
     }

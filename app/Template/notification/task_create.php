@@ -4,11 +4,11 @@
 
 <ul>
     <li>
-        <?= t('Created:').' '.$this->dt->datetime($task['date_creation']) ?>
+        <?= t('Created:') . ' ' . $this->dt->datetime($task['date_creation']) ?>
     </li>
     <?php if ($task['date_due']): ?>
     <li>
-        <strong><?= t('Due date:').' '.$this->dt->datetime($task['date_due']) ?></strong>
+        <strong><?= t('Due date:') . ' ' . $this->dt->datetime($task['date_due']) ?></strong>
     </li>
     <?php endif ?>
     <?php if (! empty($task['creator_username'])): ?>
@@ -29,7 +29,7 @@
         <?= t('Column on the board:') ?>
         <strong><?= $this->text->e($task['column_title']) ?></strong>
     </li>
-    <li><?= t('Task position:').' '.$this->text->e($task['position']) ?></li>
+    <li><?= t('Task position:') . ' ' . $this->text->e($task['position']) ?></li>
     <?php if (! empty($task['category_name'])): ?>
     <li>
         <?= t('Category:') ?> <strong><?= $this->text->e($task['category_name']) ?></strong>
@@ -42,6 +42,6 @@
     <?= $this->text->markdown($task['description'], true) ?>
 <?php endif ?>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

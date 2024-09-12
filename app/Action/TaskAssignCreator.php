@@ -31,9 +31,9 @@ class TaskAssignCreator extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -44,9 +44,9 @@ class TaskAssignCreator extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-        );
+        ];
     }
 
     /**
@@ -57,14 +57,14 @@ class TaskAssignCreator extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
                 'creator_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -76,10 +76,10 @@ class TaskAssignCreator extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'       => $data['task_id'],
             'owner_id' => $data['task']['creator_id'],
-        );
+        ];
 
         return $this->taskModificationModel->update($values);
     }

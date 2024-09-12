@@ -8,6 +8,6 @@
     <?= $this->modal->confirmButtons(
         'UserStatusController',
         'remove',
-        array('user_id' => $user['id'])
+        ['user_id' => $user['id']],
     ) ?>
 </div>

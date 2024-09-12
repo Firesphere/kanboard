@@ -10,15 +10,15 @@ class RecurringTaskSubscriber extends BaseSubscriber implements EventSubscriberI
 {
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN => 'onMove',
             TaskModel::EVENT_CLOSE       => 'onClose',
-        );
+        ];
     }
 
     public function onMove(TaskEvent $event)
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $task = $event['task'];
 
         if ($task['recurrence_status'] == TaskModel::RECURRING_STATUS_PENDING) {
@@ -32,7 +32,7 @@ class RecurringTaskSubscriber extends BaseSubscriber implements EventSubscriberI
 
     public function onClose(TaskEvent $event)
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $task = $event['task'];
 
         if ($task['recurrence_status'] == TaskModel::RECURRING_STATUS_PENDING && $task['recurrence_trigger'] == TaskModel::RECURRING_TRIGGER_CLOSE) {

@@ -18,7 +18,7 @@ class TaskHelper extends Base
      * @access private
      * @var array
      */
-    private $columns = array();
+    private $columns = [];
 
     public function getColors()
     {
@@ -47,12 +47,12 @@ class TaskHelper extends Base
             'title',
             $values,
             $errors,
-            array(
+            [
                 'autofocus',
                 'required',
                 'tabindex="1"',
-                'placeholder="'.t('Title').'"'
-            )
+                'placeholder="' . t('Title') . '"',
+            ],
         );
 
         return $html;
@@ -60,7 +60,7 @@ class TaskHelper extends Base
 
     public function renderDescriptionField(array $values, array $errors)
     {
-        return $this->helper->form->textEditor('description', $values, $errors, array('tabindex' => 2, 'aria-label' => t('Description')));
+        return $this->helper->form->textEditor('description', $values, $errors, ['tabindex' => 2, 'aria-label' => t('Description')]);
     }
 
     public function renderDescriptionTemplateDropdown($projectId)
@@ -69,12 +69,12 @@ class TaskHelper extends Base
 
         if (! empty($templates)) {
             $html = '<div class="dropdown dropdown-smaller">';
-            $html .= '<a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>'.t('Template for the task description').' <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
+            $html .= '<a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>' . t('Template for the task description') . ' <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
             $html .= '<ul>';
 
             foreach ($templates as $template) {
                 $html .= '<li>';
-                $html .= '<a href="#" data-template-target="textarea[name=description]" data-template="'.$this->helper->text->e($template['description']).'" class="js-template">';
+                $html .= '<a href="#" data-template-target="textarea[name=description]" data-template="' . $this->helper->text->e($template['description']) . '" class="js-template">';
                 $html .= $this->helper->text->e($template['title']);
                 $html .= '</a>';
                 $html .= '</li>';
@@ -87,7 +87,7 @@ class TaskHelper extends Base
         return '';
     }
 
-    public function renderTagField(array $project, array $tags = array())
+    public function renderTagField(array $project, array $tags = [])
     {
         $options = $this->tagModel->getAssignableList($project['id'], $project['enable_global_tags']);
 
@@ -100,7 +100,7 @@ class TaskHelper extends Base
                 '<option value="%s" %s>%s</option>',
                 $this->helper->text->e($tag),
                 in_array($tag, $tags) ? 'selected="selected"' : '',
-                $this->helper->text->e($tag)
+                $this->helper->text->e($tag),
             );
         }
 
@@ -115,27 +115,27 @@ class TaskHelper extends Base
         return $html;
     }
 
-    public function renderAssigneeField(array $users, array $values, array $errors = array(), array $attributes = array())
+    public function renderAssigneeField(array $users, array $values, array $errors = [], array $attributes = [])
     {
         if (isset($values['project_id']) && ! $this->helper->projectRole->canChangeAssignee($values)) {
             return '';
         }
 
-        $attributes = array_merge(array('tabindex="5"'), $attributes);
+        $attributes = array_merge(['tabindex="5"'], $attributes);
 
         $html = $this->helper->form->label(t('Assignee'), 'owner_id');
         $html .= $this->helper->form->select('owner_id', $users, $values, $errors, $attributes);
         $html .= '&nbsp;';
         $html .= '<small>';
-        $html .= '<a href="#" class="assign-me" data-target-id="form-owner_id" data-current-id="'.$this->userSession->getId().'" title="'.t('Assign to me').'" aria-label="'.t('Assign to me').'">'.t('Me').'</a>';
+        $html .= '<a href="#" class="assign-me" data-target-id="form-owner_id" data-current-id="' . $this->userSession->getId() . '" title="' . t('Assign to me') . '" aria-label="' . t('Assign to me') . '">' . t('Me') . '</a>';
         $html .= '</small>';
 
         return $html;
     }
 
-    public function renderCategoryField(array $categories, array $values, array $errors = array(), array $attributes = array(), $allow_one_item = false)
+    public function renderCategoryField(array $categories, array $values, array $errors = [], array $attributes = [], $allow_one_item = false)
     {
-        $attributes = array_merge(array('tabindex="6"'), $attributes);
+        $attributes = array_merge(['tabindex="6"'], $attributes);
         $html = '';
 
         if (! (! $allow_one_item && count($categories) === 1 && key($categories) == 0)) {
@@ -146,9 +146,9 @@ class TaskHelper extends Base
         return $html;
     }
 
-    public function renderSwimlaneField(array $swimlanes, array $values, array $errors = array(), array $attributes = array())
+    public function renderSwimlaneField(array $swimlanes, array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="7"'), $attributes);
+        $attributes = array_merge(['tabindex="7"'], $attributes);
         $html = '';
 
         if (count($swimlanes) > 1) {
@@ -159,9 +159,9 @@ class TaskHelper extends Base
         return $html;
     }
 
-    public function renderColumnField(array $columns, array $values, array $errors = array(), array $attributes = array())
+    public function renderColumnField(array $columns, array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="8"'), $attributes);
+        $attributes = array_merge(['tabindex="8"'], $attributes);
 
         $html = $this->helper->form->label(t('Column'), 'column_id');
         $html .= $this->helper->form->select('column_id', $columns, $values, $errors, $attributes);
@@ -173,17 +173,17 @@ class TaskHelper extends Base
     {
         $range = range($project['priority_start'], $project['priority_end']);
         $options = array_combine($range, $range);
-        $values += array('priority' => $project['priority_default']);
+        $values += ['priority' => $project['priority_default']];
 
         $html = $this->helper->form->label(t('Priority'), 'priority');
-        $html .= $this->helper->form->select('priority', $options, $values, array(), array('tabindex="9"'));
+        $html .= $this->helper->form->select('priority', $options, $values, [], ['tabindex="9"']);
 
         return $html;
     }
 
-    public function renderScoreField(array $values, array $errors = array(), array $attributes = array())
+    public function renderScoreField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="14"'), $attributes);
+        $attributes = array_merge(['tabindex="14"'], $attributes);
 
         $html = $this->helper->form->label(t('Complexity'), 'score');
         $html .= $this->helper->form->number('score', $values, $errors, $attributes);
@@ -191,9 +191,9 @@ class TaskHelper extends Base
         return $html;
     }
 
-    public function renderReferenceField(array $values, array $errors = array(), array $attributes = array())
+    public function renderReferenceField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="15"'), $attributes);
+        $attributes = array_merge(['tabindex="15"'], $attributes);
 
         $html = $this->helper->form->label(t('Reference'), 'reference');
         $html .= $this->helper->form->text('reference', $values, $errors, $attributes, 'form-input-small');
@@ -201,45 +201,45 @@ class TaskHelper extends Base
         return $html;
     }
 
-    public function renderTimeEstimatedField(array $values, array $errors = array(), array $attributes = array())
+    public function renderTimeEstimatedField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="12"'), $attributes);
+        $attributes = array_merge(['tabindex="12"'], $attributes);
 
         $html = $this->helper->form->label(t('Original estimate'), 'time_estimated');
         $html .= $this->helper->form->numeric('time_estimated', $values, $errors, $attributes);
-        $html .= ' '.t('hours');
+        $html .= ' ' . t('hours');
 
         return $html;
     }
 
-    public function renderTimeSpentField(array $values, array $errors = array(), array $attributes = array())
+    public function renderTimeSpentField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="13"'), $attributes);
+        $attributes = array_merge(['tabindex="13"'], $attributes);
 
         $html = $this->helper->form->label(t('Time spent'), 'time_spent');
         $html .= $this->helper->form->numeric('time_spent', $values, $errors, $attributes);
-        $html .= ' '.t('hours');
+        $html .= ' ' . t('hours');
 
         return $html;
     }
 
-    public function renderStartDateField(array $values, array $errors = array(), array $attributes = array())
+    public function renderStartDateField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="11"'), $attributes);
+        $attributes = array_merge(['tabindex="11"'], $attributes);
         return $this->helper->form->datetime(t('Start Date'), 'date_started', $values, $errors, $attributes);
     }
 
-    public function renderDueDateField(array $values, array $errors = array(), array $attributes = array())
+    public function renderDueDateField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="10"'), $attributes);
+        $attributes = array_merge(['tabindex="10"'], $attributes);
         return $this->helper->form->datetime(t('Due Date'), 'date_due', $values, $errors, $attributes);
     }
 
     public function renderPriority($priority)
     {
-        $html = '<span class="task-priority" title="'.t('Task priority').'">';
-        $html .= '<span class="ui-helper-hidden-accessible">'.t('Task priority').' </span>';
-        $html .= $this->helper->text->e($priority >= 0 ? 'P'.$priority : '-P'.abs($priority));
+        $html = '<span class="task-priority" title="' . t('Task priority') . '">';
+        $html .= '<span class="ui-helper-hidden-accessible">' . t('Task priority') . ' </span>';
+        $html .= $this->helper->text->e($priority >= 0 ? 'P' . $priority : '-P' . abs($priority));
         $html .= '</span>';
 
         return $html;
@@ -280,11 +280,11 @@ class TaskHelper extends Base
                 t('Add a new task'),
                 'TaskCreationController',
                 'show',
-                array(
+                [
                     'project_id'  => $column['project_id'],
                     'column_id'   => $column['id'],
                     'swimlane_id' => $swimlane['id'],
-                )
+                ],
             );
         } else {
             $html .= '<div class="dropdown">';
@@ -295,26 +295,26 @@ class TaskHelper extends Base
                 t('Add a new Kanboard task'),
                 'TaskCreationController',
                 'show',
-                array(
+                [
                     'project_id'  => $column['project_id'],
                     'column_id'   => $column['id'],
                     'swimlane_id' => $swimlane['id'],
-                )
+                ],
             );
 
-            $html .= '<li>'.$link.'</li>';
+            $html .= '<li>' . $link . '</li>';
 
             foreach ($providers as $provider) {
                 $link = $this->helper->url->link(
                     $provider->getMenuAddLabel(),
                     'ExternalTaskCreationController',
                     'step1',
-                    array('project_id' => $column['project_id'], 'swimlane_id' => $swimlane['id'], 'column_id' => $column['id'], 'provider_name' => $provider->getName()),
+                    ['project_id' => $column['project_id'], 'swimlane_id' => $swimlane['id'], 'column_id' => $column['id'], 'provider_name' => $provider->getName()],
                     false,
-                    'js-modal-large'
+                    'js-modal-large',
                 );
 
-                $html .= '<li>'.$provider->getIcon().' '.$link.'</li>';
+                $html .= '<li>' . $provider->getIcon() . ' ' . $link . '</li>';
             }
 
             $html .= '</ul></div>';

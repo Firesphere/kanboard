@@ -33,14 +33,14 @@ class ProjectActivityModel extends Base
      */
     public function createEvent($project_id, $task_id, $creator_id, $event_name, array $data)
     {
-        return $this->db->table(self::TABLE)->insert(array(
-            'project_id' => $project_id,
-            'task_id' => $task_id,
-            'creator_id' => $creator_id,
-            'event_name' => $event_name,
+        return $this->db->table(self::TABLE)->insert([
+            'project_id'    => $project_id,
+            'task_id'       => $task_id,
+            'creator_id'    => $creator_id,
+            'event_name'    => $event_name,
             'date_creation' => time(),
-            'data' => json_encode($data),
-        ));
+            'data'          => json_encode($data),
+        ]);
     }
 
     /**
@@ -55,11 +55,11 @@ class ProjectActivityModel extends Base
             ->db
             ->table(ProjectActivityModel::TABLE)
             ->columns(
-                ProjectActivityModel::TABLE.'.*',
+                ProjectActivityModel::TABLE . '.*',
                 'uc.username AS author_username',
                 'uc.name AS author_name',
                 'uc.email',
-                'uc.avatar_path'
+                'uc.avatar_path',
             )
             ->join(TaskModel::TABLE, 'id', 'task_id')
             ->join(ProjectModel::TABLE, 'id', 'project_id')

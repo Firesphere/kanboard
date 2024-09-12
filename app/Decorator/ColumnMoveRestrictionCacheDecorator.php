@@ -46,7 +46,7 @@ class ColumnMoveRestrictionCacheDecorator
      */
     public function getSortableColumns($project_id, $role)
     {
-        $key = $this->cachePrefix.$project_id.$role;
+        $key = $this->cachePrefix . $project_id . $role;
         $columnIds = $this->cache->get($key);
 
         if ($columnIds === null) {

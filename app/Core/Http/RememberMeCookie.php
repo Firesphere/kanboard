@@ -29,7 +29,7 @@ class RememberMeCookie extends Base
      */
     public function encode($token, $sequence)
     {
-        return implode('|', array($token, $sequence));
+        return implode('|', [$token, $sequence]);
     }
 
     /**
@@ -43,10 +43,10 @@ class RememberMeCookie extends Base
     {
         list($token, $sequence) = explode('|', $value);
 
-        return array(
-            'token' => $token,
+        return [
+            'token'    => $token,
             'sequence' => $sequence,
-        );
+        ];
     }
 
     /**
@@ -78,7 +78,7 @@ class RememberMeCookie extends Base
             $this->helper->url->dir(),
             '',
             $this->request->isHTTPS(),
-            true
+            true,
         );
     }
 
@@ -114,7 +114,7 @@ class RememberMeCookie extends Base
             $this->helper->url->dir(),
             '',
             $this->request->isHTTPS(),
-            true
+            true,
         );
     }
 }

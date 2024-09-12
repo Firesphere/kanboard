@@ -7,9 +7,9 @@ use Symfony\Contracts\EventDispatcher\Event as BaseEvent;
 
 class GenericEvent extends BaseEvent implements ArrayAccess
 {
-    protected $container = array();
+    protected $container = [];
 
-    public function __construct(array $values = array())
+    public function __construct(array $values = [])
     {
         $this->container = $values;
     }

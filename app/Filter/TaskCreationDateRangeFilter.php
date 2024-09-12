@@ -21,7 +21,7 @@ class TaskCreationDateRangeFilter extends BaseDateRangeFilter implements FilterI
      */
     public function getAttributes()
     {
-        return array('createdRange');
+        return ['createdRange'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskCreationDateRangeFilter extends BaseDateRangeFilter implements FilterI
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_creation');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_creation');
         return $this;
     }
 }

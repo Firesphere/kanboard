@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $dbUrlParser = new PicoDb\UrlParser();
 
@@ -15,20 +15,20 @@ if ($dbUrlParser->isEnvironmentVariableDefined()) {
     define('DB_NAME', $dbSettings['database']);
 }
 
-$config_file = implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'data', 'config.php'));
+$config_file = implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'data', 'config.php']);
 
 if (file_exists($config_file)) {
     require $config_file;
 }
 
-$config_file = implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'config.php'));
+$config_file = implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'config.php']);
 
 if (file_exists($config_file)) {
     require $config_file;
 }
 
-require __DIR__.'/constants.php';
-require __DIR__.'/check_setup.php';
+require __DIR__ . '/constants.php';
+require __DIR__ . '/check_setup.php';
 
 $container = new Pimple\Container();
 $container->register(new Kanboard\ServiceProvider\MailProvider());

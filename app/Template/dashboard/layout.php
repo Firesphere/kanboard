@@ -17,11 +17,11 @@
             <li>
                 <?= $this->modal->medium('dashboard', t('My activity stream'), 'ActivityController', 'user') ?>
             </li>
-            <?= $this->hook->render('template:dashboard:page-header:menu', array('user' => $user)) ?>
+            <?= $this->hook->render('template:dashboard:page-header:menu', ['user' => $user]) ?>
         </ul>
     </div>
     <section class="sidebar-container" id="dashboard">
-        <?= $this->render($sidebar_template, array('user' => $user)) ?>
+        <?= $this->render($sidebar_template, ['user' => $user]) ?>
         <div class="sidebar-content">
             <?= $content_for_sublayout ?>
         </div>

@@ -35,14 +35,14 @@ class SubtaskProcedure extends BaseProcedure
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'createSubtask', $task_id);
 
-        $values = array(
-            'title' => $title,
-            'task_id' => $task_id,
-            'user_id' => $user_id,
+        $values = [
+            'title'          => $title,
+            'task_id'        => $task_id,
+            'user_id'        => $user_id,
             'time_estimated' => $time_estimated,
-            'time_spent' => $time_spent,
-            'status' => $status,
-        );
+            'time_spent'     => $time_spent,
+            'status'         => $status,
+        ];
 
         list($valid, ) = $this->subtaskValidator->validateCreation($values);
         return $valid ? $this->subtaskModel->create($values) : false;
@@ -52,16 +52,16 @@ class SubtaskProcedure extends BaseProcedure
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateSubtask', $task_id);
 
-        $values = array(
-            'id' => $id,
-            'task_id' => $task_id,
-            'title' => $title,
-            'user_id' => $user_id,
+        $values = [
+            'id'             => $id,
+            'task_id'        => $task_id,
+            'title'          => $title,
+            'user_id'        => $user_id,
             'time_estimated' => $time_estimated,
-            'time_spent' => $time_spent,
-            'status' => $status,
-            'position' => $position
-        );
+            'time_spent'     => $time_spent,
+            'status'         => $status,
+            'position'       => $position,
+        ];
 
         foreach ($values as $key => $value) {
             if (is_null($value)) {

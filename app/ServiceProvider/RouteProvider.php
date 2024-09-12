@@ -2,10 +2,10 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Kanboard\Core\Http\Route;
 use Kanboard\Core\Http\Router;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
  * Route Provider

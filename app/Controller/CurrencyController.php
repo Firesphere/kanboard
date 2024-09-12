@@ -17,12 +17,12 @@ class CurrencyController extends BaseController
      */
     public function show()
     {
-        $this->response->html($this->helper->layout->config('currency/show', array(
+        $this->response->html($this->helper->layout->config('currency/show', [
             'application_currency' => $this->configModel->get('application_currency'),
             'rates'                => $this->currencyModel->getAll(),
             'currencies'           => $this->currencyModel->getCurrencies(),
             'title'                => t('Settings') . ' &gt; ' . t('Currency rates'),
-        )));
+        ]));
     }
 
     /**
@@ -32,13 +32,13 @@ class CurrencyController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
-        $this->response->html($this->template->render('currency/create', array(
+        $this->response->html($this->template->render('currency/create', [
             'values'     => $values,
             'errors'     => $errors,
             'currencies' => $this->currencyModel->getCurrencies(),
-        )));
+        ]));
     }
 
     /**
@@ -71,17 +71,17 @@ class CurrencyController extends BaseController
      * @param array $values
      * @param array $errors
      */
-    public function change(array $values = array(), array $errors = array())
+    public function change(array $values = [], array $errors = [])
     {
         if (empty($values)) {
             $values['application_currency'] = $this->configModel->get('application_currency');
         }
 
-        $this->response->html($this->template->render('currency/change', array(
+        $this->response->html($this->template->render('currency/change', [
             'values'     => $values,
             'errors'     => $errors,
             'currencies' => $this->currencyModel->getCurrencies(),
-        )));
+        ]));
     }
 
     /**

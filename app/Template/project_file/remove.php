@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'ProjectFileController',
         'remove',
-        array('project_id' => $project['id'], 'file_id' => $file['id'])
+        ['project_id' => $project['id'], 'file_id' => $file['id']],
     ) ?>
 </div>

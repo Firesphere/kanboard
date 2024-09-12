@@ -3,10 +3,10 @@
     <ul>
         <li class="no-hover"><strong><?= $this->text->e($this->user->getFullname()) ?></strong></li>
         <li>
-            <?= $this->url->icon('tachometer', t('My dashboard'), 'DashboardController', 'show', array('user_id' => $this->user->getId())) ?>
+            <?= $this->url->icon('tachometer', t('My dashboard'), 'DashboardController', 'show', ['user_id' => $this->user->getId()]) ?>
         </li>
         <li>
-            <?= $this->url->icon('home', t('My profile'), 'UserViewController', 'show', array('user_id' => $this->user->getId())) ?>
+            <?= $this->url->icon('home', t('My profile'), 'UserViewController', 'show', ['user_id' => $this->user->getId()]) ?>
         </li>
         <li>
             <?= $this->url->icon('folder', t('Projects management'), 'ProjectListController', 'show') ?>

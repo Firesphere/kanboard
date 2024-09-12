@@ -4,7 +4,7 @@
     <?php if (! empty($notifications)): ?>
     <ul>
         <li>
-            <?= $this->modal->replaceIconLink('check-square-o', t('Mark all as read'), 'WebNotificationController', 'flush', array('user_id' => $user['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>
+            <?= $this->modal->replaceIconLink('check-square-o', t('Mark all as read'), 'WebNotificationController', 'flush', ['user_id' => $user['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
         </li>
     </ul>
     <?php endif ?>
@@ -46,7 +46,7 @@
                     $this->text->e($notification['event_data']['task']['project_name']),
                     'BoardViewController',
                     'show',
-                    array('project_id' => $notification['event_data']['task']['project_id'])
+                    ['project_id' => $notification['event_data']['task']['project_id']],
                 ) ?> &gt;
             <?php elseif (isset($notification['event_data']['project_name'])): ?>
                 <?= $this->text->e($notification['event_data']['project_name']) ?> &gt;
@@ -55,12 +55,12 @@
             <?php if ($this->text->contains($notification['event_name'], 'task.overdue') && count($notification['event_data']['tasks']) > 1): ?>
                 <?= $notification['title'] ?>
             <?php else: ?>
-                <?= $this->url->link($notification['title'], 'WebNotificationController', 'redirect', array('notification_id' => $notification['id'], 'user_id' => $user['id'])) ?>
+                <?= $this->url->link($notification['title'], 'WebNotificationController', 'redirect', ['notification_id' => $notification['id'], 'user_id' => $user['id']]) ?>
             <?php endif ?>
         </span>
         <div class="table-list-details">
             <?= $this->dt->datetime($notification['date_creation']) ?>
-            <?= $this->modal->replaceIconLink('check', t('Mark as read'), 'WebNotificationController', 'remove', array('user_id' => $user['id'], 'notification_id' => $notification['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>
+            <?= $this->modal->replaceIconLink('check', t('Mark as read'), 'WebNotificationController', 'remove', ['user_id' => $user['id'], 'notification_id' => $notification['id'], 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
         </div>
     </div>
     <?php endforeach ?>

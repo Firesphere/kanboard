@@ -10,6 +10,4 @@ use Exception;
  * @package  externalLink
  * @author   Frederic Guillot
  */
-class ExternalLinkProviderNotFound extends Exception
-{
-}
+class ExternalLinkProviderNotFound extends Exception {}

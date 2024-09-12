@@ -39,7 +39,7 @@ class SubtaskHelper extends Base
             $html = '<i class="fa fa-check-square-o fa-fw"></i>';
         }
 
-        return $html.$this->helper->text->e($subtask['title']);
+        return $html . $this->helper->text->e($subtask['title']);
     }
 
     /**
@@ -58,14 +58,14 @@ class SubtaskHelper extends Base
             $html = $this->renderTitle($subtask);
         } else {
             $title = $this->renderTitle($subtask);
-            $params = array(
+            $params = [
                 'project_id' => $task['project_id'],
                 'task_id'    => $subtask['task_id'],
                 'subtask_id' => $subtask['id'],
                 'user_id'    => $userId,
                 'fragment'   => $fragment,
                 'csrf_token' => $this->token->getReusableCSRFToken(),
-            );
+            ];
 
             if ($subtask['status'] == 0 && $this->hasSubtaskInProgress()) {
                 $html = $this->helper->url->link($title, 'SubtaskRestrictionController', 'show', $params, false, 'js-modal-confirm', $this->getSubtaskTooltip($subtask));
@@ -74,23 +74,23 @@ class SubtaskHelper extends Base
             }
         }
 
-        return '<span class="subtask-title">'.$html.'</span>';
+        return '<span class="subtask-title">' . $html . '</span>';
     }
 
     public function renderTimer(array $task, array $subtask)
     {
         $html = '<span class="subtask-timer-toggle">';
-        $params = array(
-            'task_id' => $subtask['task_id'],
+        $params = [
+            'task_id'    => $subtask['task_id'],
             'subtask_id' => $subtask['id'],
-            'timer' => '',
+            'timer'      => '',
             'csrf_token' => $this->token->getReusableCSRFToken(),
-        );
+        ];
 
         if ($subtask['is_timer_started']) {
             $params['timer'] = 'stop';
             $html .= $this->helper->url->icon('pause', t('Stop timer'), 'SubtaskStatusController', 'timer', $params, false, 'js-subtask-toggle-timer');
-            $html .= ' (' . $this->helper->dt->age($subtask['timer_start_date']) .')';
+            $html .= ' (' . $this->helper->dt->age($subtask['timer_start_date']) . ')';
         } else {
             $params['timer'] = 'start';
             $html .= $this->helper->url->icon('play-circle-o', t('Start timer'), 'SubtaskStatusController', 'timer', $params, false, 'js-subtask-toggle-timer');
@@ -101,20 +101,20 @@ class SubtaskHelper extends Base
         return $html;
     }
 
-    public function renderBulkTitleField(array $values, array $errors = array(), array $attributes = array())
+    public function renderBulkTitleField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="1"', 'required'), $attributes);
+        $attributes = array_merge(['tabindex="1"', 'required'], $attributes);
 
         $html = $this->helper->form->label(t('Title'), 'title');
         $html .= $this->helper->form->textarea('title', $values, $errors, $attributes);
-        $html .= '<p class="form-help">'.t('Enter one subtask by line.').'</p>';
+        $html .= '<p class="form-help">' . t('Enter one subtask by line.') . '</p>';
 
         return $html;
     }
 
-    public function renderTitleField(array $values, array $errors = array(), array $attributes = array())
+    public function renderTitleField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="1"', 'required'), $attributes);
+        $attributes = array_merge(['tabindex="1"', 'required'], $attributes);
 
         $html = $this->helper->form->label(t('Title'), 'title');
         $html .= $this->helper->form->text('title', $values, $errors, $attributes, 'form-max-width');
@@ -122,38 +122,38 @@ class SubtaskHelper extends Base
         return $html;
     }
 
-    public function renderAssigneeField(array $users, array $values, array $errors = array(), array $attributes = array())
+    public function renderAssigneeField(array $users, array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="2"'), $attributes);
+        $attributes = array_merge(['tabindex="2"'], $attributes);
 
         $html = $this->helper->form->label(t('Assignee'), 'user_id');
         $html .= $this->helper->form->select('user_id', $users, $values, $errors, $attributes);
         $html .= '&nbsp;';
         $html .= '<small>';
-        $html .= '<a href="#" class="assign-me" data-target-id="form-user_id" data-current-id="'.$this->userSession->getId().'" title="'.t('Assign to me').'" aria-label="'.t('Assign to me').'">'.t('Me').'</a>';
+        $html .= '<a href="#" class="assign-me" data-target-id="form-user_id" data-current-id="' . $this->userSession->getId() . '" title="' . t('Assign to me') . '" aria-label="' . t('Assign to me') . '">' . t('Me') . '</a>';
         $html .= '</small>';
 
         return $html;
     }
 
-    public function renderTimeEstimatedField(array $values, array $errors = array(), array $attributes = array())
+    public function renderTimeEstimatedField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="3"'), $attributes);
+        $attributes = array_merge(['tabindex="3"'], $attributes);
 
         $html = $this->helper->form->label(t('Original estimate'), 'time_estimated');
         $html .= $this->helper->form->numeric('time_estimated', $values, $errors, $attributes);
-        $html .= ' '.t('hours');
+        $html .= ' ' . t('hours');
 
         return $html;
     }
 
-    public function renderTimeSpentField(array $values, array $errors = array(), array $attributes = array())
+    public function renderTimeSpentField(array $values, array $errors = [], array $attributes = [])
     {
-        $attributes = array_merge(array('tabindex="4"'), $attributes);
+        $attributes = array_merge(['tabindex="4"'], $attributes);
 
         $html = $this->helper->form->label(t('Time spent'), 'time_spent');
         $html .= $this->helper->form->numeric('time_spent', $values, $errors, $attributes);
-        $html .= ' '.t('hours');
+        $html .= ' ' . t('hours');
 
         return $html;
     }

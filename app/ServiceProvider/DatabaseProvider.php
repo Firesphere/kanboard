@@ -3,10 +3,10 @@
 namespace Kanboard\ServiceProvider;
 
 use LogicException;
-use RuntimeException;
+use PicoDb\Database;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use PicoDb\Database;
+use RuntimeException;
 
 /**
  * Class DatabaseProvider
@@ -101,7 +101,7 @@ class DatabaseProvider implements ServiceProviderInterface
     {
         if (! $db->schema()->check(\Schema\VERSION)) {
             $messages = $db->getLogMessages();
-            throw new RuntimeException('Unable to run SQL migrations: '.implode(', ', $messages).' (You may have to fix it manually)');
+            throw new RuntimeException('Unable to run SQL migrations: ' . implode(', ', $messages) . ' (You may have to fix it manually)');
         }
 
         return true;
@@ -115,10 +115,10 @@ class DatabaseProvider implements ServiceProviderInterface
      */
     private function getSqliteInstance()
     {
-        require_once __DIR__.'/../Schema/Sqlite.php';
+        require_once __DIR__ . '/../Schema/Sqlite.php';
 
         return new Database([
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'filename' => DB_FILENAME,
             'wal_mode' => DB_WAL_MODE,
         ]);
@@ -132,22 +132,22 @@ class DatabaseProvider implements ServiceProviderInterface
      */
     private function getMysqlInstance()
     {
-        require_once __DIR__.'/../Schema/Mysql.php';
+        require_once __DIR__ . '/../Schema/Mysql.php';
 
-        return new Database(array(
-            'driver'   => 'mysql',
-            'hostname' => DB_HOSTNAME,
-            'username' => DB_USERNAME,
-            'password' => DB_PASSWORD,
-            'database' => DB_NAME,
-            'charset'  => 'utf8mb4',
-            'port'     => DB_PORT,
-            'ssl_key'  => DB_SSL_KEY,
-            'ssl_ca'   => DB_SSL_CA,
-            'ssl_cert' => DB_SSL_CERT,
+        return new Database([
+            'driver'             => 'mysql',
+            'hostname'           => DB_HOSTNAME,
+            'username'           => DB_USERNAME,
+            'password'           => DB_PASSWORD,
+            'database'           => DB_NAME,
+            'charset'            => 'utf8mb4',
+            'port'               => DB_PORT,
+            'ssl_key'            => DB_SSL_KEY,
+            'ssl_ca'             => DB_SSL_CA,
+            'ssl_cert'           => DB_SSL_CERT,
             'verify_server_cert' => DB_VERIFY_SERVER_CERT,
-            'timeout'  => DB_TIMEOUT,
-        ));
+            'timeout'            => DB_TIMEOUT,
+        ]);
     }
 
     /**
@@ -158,9 +158,9 @@ class DatabaseProvider implements ServiceProviderInterface
      */
     private function getPostgresInstance()
     {
-        require_once __DIR__.'/../Schema/Postgres.php';
+        require_once __DIR__ . '/../Schema/Postgres.php';
 
-        return new Database(array(
+        return new Database([
             'driver'   => 'postgres',
             'hostname' => DB_HOSTNAME,
             'username' => DB_USERNAME,
@@ -168,7 +168,7 @@ class DatabaseProvider implements ServiceProviderInterface
             'database' => DB_NAME,
             'port'     => DB_PORT,
             'timeout'  => DB_TIMEOUT,
-        ));
+        ]);
     }
 
     /**
@@ -179,9 +179,9 @@ class DatabaseProvider implements ServiceProviderInterface
      */
     private function getMssqlInstance()
     {
-        require_once __DIR__.'/../Schema/Mssql.php';
+        require_once __DIR__ . '/../Schema/Mssql.php';
 
-        return new Database(array(
+        return new Database([
             'driver'   => DB_DRIVER,
             'hostname' => DB_HOSTNAME,
             'username' => DB_USERNAME,
@@ -191,6 +191,6 @@ class DatabaseProvider implements ServiceProviderInterface
             'odbc-dsn' => DB_ODBC_DSN,
             'timeout'  => DB_TIMEOUT,
             'appname'  => 'Kanboard',
-        ));
+        ]);
     }
 }

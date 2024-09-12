@@ -29,7 +29,7 @@ class WebLink extends BaseLink implements ExternalLinkInterface
         $components = parse_url($this->url);
 
         if (! empty($components['host']) && ! empty($components['path'])) {
-            return $components['host'].$components['path'];
+            return $components['host'] . $components['path'];
         }
 
         return t('Title not found');

@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Gregwar\Captcha\CaptchaBuilder;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Gregwar\Captcha\CaptchaBuilder;
 
 /**
  * Password Reset Validator
@@ -23,7 +23,7 @@ class PasswordResetValidator extends BaseValidator
      */
     public function validateCreation(array $values)
     {
-        return $this->executeValidators(array('validateFields', 'validateCaptcha'), $values);
+        return $this->executeValidators(['validateFields', 'validateCaptcha'], $values);
     }
 
     /**
@@ -37,10 +37,10 @@ class PasswordResetValidator extends BaseValidator
     {
         $v = new Validator($values, $this->commonPasswordValidationRules());
 
-        return array(
+        return [
             $v->execute(),
             $v->getErrors(),
-        );
+        ];
     }
 
     /**
@@ -52,16 +52,16 @@ class PasswordResetValidator extends BaseValidator
      */
     protected function validateFields(array $values)
     {
-        $v = new Validator($values, array(
+        $v = new Validator($values, [
             new Validators\Required('captcha', t('This value is required')),
             new Validators\Required('username', t('The username is required')),
             new Validators\MaxLength('username', t('The maximum length is %d characters', 191), 191),
-        ));
+        ]);
 
-        return array(
+        return [
             $v->execute(),
             $v->getErrors(),
-        );
+        ];
     }
 
     /**
@@ -73,7 +73,7 @@ class PasswordResetValidator extends BaseValidator
      */
     protected function validateCaptcha(array $values)
     {
-        $errors = array();
+        $errors = [];
 
         if (! session_exists('captcha')) {
             $result = false;
@@ -83,13 +83,13 @@ class PasswordResetValidator extends BaseValidator
             $result = $builder->testPhrase(isset($values['captcha']) ? $values['captcha'] : '');
 
             if (! $result) {
-                $errors['captcha'] = array(t('Invalid captcha'));
+                $errors['captcha'] = [t('Invalid captcha')];
             }
 
             // Invalidate captcha to avoid reuse.
             session_remove('captcha');
         }
 
-        return array($result, $errors);
+        return [$result, $errors];
     }
 }

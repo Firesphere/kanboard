@@ -67,8 +67,8 @@ class UserSync extends Base
         $userId = $this->userModel->create($properties);
 
         if ($userId === false) {
-            $this->logger->error('Unable to create user profile: '.$user->getExternalId());
-            return array();
+            $this->logger->error('Unable to create user profile: ' . $user->getExternalId());
+            return [];
         }
 
         return $this->userModel->getById($userId);

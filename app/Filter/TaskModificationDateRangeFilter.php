@@ -21,7 +21,7 @@ class TaskModificationDateRangeFilter extends BaseDateRangeFilter implements Fil
      */
     public function getAttributes()
     {
-        return array('updatedRange', 'modifiedRange');
+        return ['updatedRange', 'modifiedRange'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskModificationDateRangeFilter extends BaseDateRangeFilter implements Fil
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_modification');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_modification');
         return $this;
     }
 }

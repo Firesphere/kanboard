@@ -55,10 +55,10 @@ class SubtaskStatusController extends BaseController
             $this->subtaskTimeTrackingModel->updateTaskTimeTracking($task['id']);
         }
 
-        $this->response->html($this->template->render('subtask/timer', array(
+        $this->response->html($this->template->render('subtask/timer', [
             'task'    => $task,
             'subtask' => $this->subtaskModel->getByIdWithDetails($subtask['id']),
-        )));
+        ]));
     }
 
     /**
@@ -70,11 +70,11 @@ class SubtaskStatusController extends BaseController
      */
     protected function renderTable(array $task)
     {
-        return $this->template->render('subtask/table', array(
+        return $this->template->render('subtask/table', [
             'task'     => $task,
             'subtasks' => $this->subtaskModel->getAll($task['id']),
             'editable' => true,
-        ));
+        ]);
     }
 
     /**
@@ -89,14 +89,14 @@ class SubtaskStatusController extends BaseController
         $userId = $this->request->getIntegerParam('user_id');
 
         if ($userId > 0) {
-            $task['subtasks'] = $this->subtaskModel->getAllByTaskIdsAndAssignee(array($task['id']), $userId);
+            $task['subtasks'] = $this->subtaskModel->getAllByTaskIdsAndAssignee([$task['id']], $userId);
         } else {
             $task['subtasks'] = $this->subtaskModel->getAll($task['id']);
         }
 
-        return $this->template->render('task_list/task_subtasks', array(
+        return $this->template->render('task_list/task_subtasks', [
             'task'    => $task,
             'user_id' => $userId,
-        ));
+        ]);
     }
 }

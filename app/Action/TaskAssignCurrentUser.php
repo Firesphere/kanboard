@@ -31,9 +31,9 @@ class TaskAssignCurrentUser extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE,
-        );
+        ];
     }
 
     /**
@@ -44,7 +44,7 @@ class TaskAssignCurrentUser extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -55,9 +55,9 @@ class TaskAssignCurrentUser extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-        );
+        ];
     }
 
     /**
@@ -73,10 +73,10 @@ class TaskAssignCurrentUser extends Base
             return false;
         }
 
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'       => $data['task_id'],
             'owner_id' => $this->userSession->getId(),
-        );
+        ];
 
         return $this->taskModificationModel->update($values);
     }

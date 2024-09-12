@@ -22,6 +22,6 @@
     <?php endif ?>
 </ul>
 
-<?= $this->render('notification/footer', array('task' => $task)) ?>
+<?= $this->render('notification/footer', ['task' => $task]) ?>
 </body>
 </html>

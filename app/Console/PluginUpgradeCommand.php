@@ -32,12 +32,12 @@ class PluginUpgradeCommand extends BaseCommand
             $pluginDetails = $this->getPluginDetails($availablePlugins, $installedPlugin);
 
             if ($pluginDetails === null) {
-                $output->writeln('<error>* Plugin not available in the directory: '.$installedPlugin->getPluginName().'</error>');
+                $output->writeln('<error>* Plugin not available in the directory: ' . $installedPlugin->getPluginName() . '</error>');
             } elseif ($pluginDetails['version'] > $installedPlugin->getPluginVersion()) {
-                $output->writeln('<comment>* Updating plugin: '.$installedPlugin->getPluginName().'</comment>');
+                $output->writeln('<comment>* Updating plugin: ' . $installedPlugin->getPluginName() . '</comment>');
                 $installer->update($pluginDetails['download']);
             } else {
-                $output->writeln('<info>* Plugin up to date: '.$installedPlugin->getPluginName().'</info>');
+                $output->writeln('<info>* Plugin up to date: ' . $installedPlugin->getPluginName() . '</info>');
             }
         }
         return 0;

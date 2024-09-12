@@ -27,7 +27,7 @@
                 <td><?= $this->text->e($plugin->getCompatibleVersion()) ?></td>
                 <?php if ($is_configured): ?>
                     <td>
-                        <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', array('pluginId' => $pluginFolder)) ?>
+                        <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', ['pluginId' => $pluginFolder]) ?>
                     </td>
                 <?php endif ?>
             </tr>
@@ -68,7 +68,7 @@
         <td><?= $this->text->e($plugin->getPluginVersion()) ?></td>
         <?php if ($is_configured): ?>
             <td>
-                <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', array('pluginId' => $pluginFolder)) ?>
+                <?= $this->modal->confirm('trash-o', t('Uninstall'), 'PluginController', 'confirm', ['pluginId' => $pluginFolder]) ?>
             </td>
         <?php endif ?>
     </tr>

@@ -172,15 +172,15 @@ class SwimlaneModel extends Base
      */
     public function getAllWithTaskCount($project_id)
     {
-        $result = array(
-            'active' => array(),
-            'inactive' => array(),
-        );
+        $result = [
+            'active'   => [],
+            'inactive' => [],
+        ];
 
         $swimlanes = $this->db->table(self::TABLE)
             ->columns('id', 'name', 'description', 'project_id', 'position', 'is_active', 'task_limit')
-            ->subquery("SELECT COUNT(*) FROM ".TaskModel::TABLE." WHERE swimlane_id=".self::TABLE.".id AND is_active='1'", 'nb_open_tasks')
-            ->subquery("SELECT COUNT(*) FROM ".TaskModel::TABLE." WHERE swimlane_id=".self::TABLE.".id AND is_active='0'", 'nb_closed_tasks')
+            ->subquery("SELECT COUNT(*) FROM " . TaskModel::TABLE . " WHERE swimlane_id=" . self::TABLE . ".id AND is_active='1'", 'nb_open_tasks')
+            ->subquery("SELECT COUNT(*) FROM " . TaskModel::TABLE . " WHERE swimlane_id=" . self::TABLE . ".id AND is_active='0'", 'nb_closed_tasks')
             ->eq('project_id', $project_id)
             ->asc('position')
             ->asc('name')
@@ -208,7 +208,7 @@ class SwimlaneModel extends Base
      */
     public function getList($projectId, $prepend = false, $onlyActive = false)
     {
-        $swimlanes = array();
+        $swimlanes = [];
 
         if ($prepend) {
             $swimlanes[-1] = t('All swimlanes');
@@ -217,7 +217,7 @@ class SwimlaneModel extends Base
         return $swimlanes + $this->db
             ->hashtable(self::TABLE)
             ->eq('project_id', $projectId)
-            ->in('is_active', $onlyActive ? array(self::ACTIVE) : array(self::ACTIVE, self::INACTIVE))
+            ->in('is_active', $onlyActive ? [self::ACTIVE] : [self::ACTIVE, self::INACTIVE])
             ->orderBy('position', 'asc')
             ->getAll('id', 'name');
     }
@@ -237,14 +237,14 @@ class SwimlaneModel extends Base
             return 0;
         }
 
-        return $this->db->table(self::TABLE)->persist(array(
+        return $this->db->table(self::TABLE)->persist([
             'project_id'  => $projectId,
             'name'        => $name,
             'description' => $description,
             'position'    => $this->getLastPosition($projectId),
             'is_active'   => 1,
             'task_limit'  => intval($task_limit),
-        ));
+        ]);
     }
 
     /**
@@ -296,10 +296,10 @@ class SwimlaneModel extends Base
             ->table(self::TABLE)
             ->eq('id', $swimlaneId)
             ->eq('project_id', $projectId)
-            ->update(array(
+            ->update([
                 'is_active' => self::INACTIVE,
-                'position' => 0,
-            ));
+                'position'  => 0,
+            ]);
 
         if ($result) {
             $this->updatePositions($projectId);
@@ -322,10 +322,10 @@ class SwimlaneModel extends Base
             ->table(self::TABLE)
             ->eq('id', $swimlaneId)
             ->eq('project_id', $projectId)
-            ->update(array(
+            ->update([
                 'is_active' => self::ACTIVE,
-                'position' => $this->getLastPosition($projectId),
-            ));
+                'position'  => $this->getLastPosition($projectId),
+            ]);
     }
 
     /**
@@ -381,7 +381,7 @@ class SwimlaneModel extends Base
         foreach ($swimlanes as $swimlane_id) {
             $this->db->table(self::TABLE)
                 ->eq('id', $swimlane_id)
-                ->update(array('position' => ++$position));
+                ->update(['position' => ++$position]);
         }
 
         return true;
@@ -410,18 +410,18 @@ class SwimlaneModel extends Base
             ->findAllByColumn('id');
 
         $offset = 1;
-        $results = array();
+        $results = [];
 
         foreach ($swimlaneIds as $currentSwimlaneId) {
             if ($offset == $position) {
                 $offset++;
             }
 
-            $results[] = $this->db->table(self::TABLE)->eq('id', $currentSwimlaneId)->update(array('position' => $offset));
+            $results[] = $this->db->table(self::TABLE)->eq('id', $currentSwimlaneId)->update(['position' => $offset]);
             $offset++;
         }
 
-        $results[] = $this->db->table(self::TABLE)->eq('id', $swimlaneId)->update(array('position' => $position));
+        $results[] = $this->db->table(self::TABLE)->eq('id', $swimlaneId)->update(['position' => $position]);
 
         return !in_array(false, $results, true);
     }
@@ -440,13 +440,13 @@ class SwimlaneModel extends Base
 
         foreach ($swimlanes as $swimlane) {
             if (! $this->db->table(self::TABLE)->eq('project_id', $projectDstId)->eq('name', $swimlane['name'])->exists()) {
-                $values = array(
+                $values = [
                     'name'        => $swimlane['name'],
                     'description' => $swimlane['description'],
                     'position'    => $swimlane['position'],
                     'is_active'   => $swimlane['is_active'] ? self::ACTIVE : self::INACTIVE, // Avoid SQL error with Postgres
                     'project_id'  => $projectDstId,
-                );
+                ];
 
                 if (! $this->db->table(self::TABLE)->persist($values)) {
                     return false;

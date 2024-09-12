@@ -13,10 +13,10 @@ use Kanboard\Core\Filter\FormatterInterface;
 class BoardColumnFormatter extends BaseFormatter implements FormatterInterface
 {
     protected $swimlaneId = 0;
-    protected $columns = array();
-    protected $tasks = array();
-    protected $tags = array();
-    protected $taskCountBySwimlaneAndColumn = array();
+    protected $columns = [];
+    protected $tasks = [];
+    protected $tags = [];
+    protected $taskCountBySwimlaneAndColumn = [];
 
     /**
      * Set swimlaneId

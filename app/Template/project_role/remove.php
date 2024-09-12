@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'ProjectRoleController',
         'remove',
-        array('project_id' => $project['id'], 'role_id' => $role['role_id'])
+        ['project_id' => $project['id'], 'role_id' => $role['role_id']],
     ) ?>
 </div>

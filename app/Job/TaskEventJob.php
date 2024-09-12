@@ -24,9 +24,9 @@ class TaskEventJob extends BaseJob
      * @param  array  $task
      * @return $this
      */
-    public function withParams($taskId, array $eventNames, array $changes = array(), array $values = array(), array $task = array())
+    public function withParams($taskId, array $eventNames, array $changes = [], array $values = [], array $task = [])
     {
-        $this->jobParams = array($taskId, $eventNames, $changes, $values, $task);
+        $this->jobParams = [$taskId, $eventNames, $changes, $values, $task];
         return $this;
     }
 
@@ -39,7 +39,7 @@ class TaskEventJob extends BaseJob
      * @param  array  $values
      * @param  array  $task
      */
-    public function execute($taskId, array $eventNames, array $changes = array(), array $values = array(), array $task = array())
+    public function execute($taskId, array $eventNames, array $changes = [], array $values = [], array $task = [])
     {
         $event = TaskEventBuilder::getInstance($this->container)
             ->withTaskId($taskId)
@@ -64,7 +64,7 @@ class TaskEventJob extends BaseJob
      */
     protected function fireEvent($eventName, TaskEvent $event)
     {
-        $this->logger->debug(__METHOD__.' Event fired: '.$eventName);
+        $this->logger->debug(__METHOD__ . ' Event fired: ' . $eventName);
         $this->dispatcher->dispatch($event, $eventName);
 
         if ($eventName === TaskModel::EVENT_CREATE) {

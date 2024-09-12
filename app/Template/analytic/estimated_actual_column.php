@@ -7,11 +7,11 @@
 <?php if (empty($metrics)): ?>
     <p class="alert"><?= t('Not enough data to show the graph.') ?></p>
 <?php else: ?>
-    <?= $this->app->component('chart-project-estimated-actual-column', array(
-        'metrics' => $metrics,
-        'labelSpent' => t('Hours Spent'),
+    <?= $this->app->component('chart-project-estimated-actual-column', [
+        'metrics'        => $metrics,
+        'labelSpent'     => t('Hours Spent'),
         'labelEstimated' => t('Hours Estimated'),
-    )) ?>
+    ]) ?>
 
     <table class="table-striped">
         <tr>

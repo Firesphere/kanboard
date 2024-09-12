@@ -22,7 +22,7 @@ class TaskCategoryFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('category');
+        return ['category'];
     }
 
     /**
@@ -35,13 +35,13 @@ class TaskCategoryFilter extends BaseFilter implements FilterInterface
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
             $this->query->beginOr();
-            $this->query->eq(TaskModel::TABLE.'.category_id', $this->value);
-            $this->query->eq(CategoryModel::TABLE.'.name', $this->value);
+            $this->query->eq(TaskModel::TABLE . '.category_id', $this->value);
+            $this->query->eq(CategoryModel::TABLE . '.name', $this->value);
             $this->query->closeOr();
         } elseif ($this->value === 'none') {
-            $this->query->eq(TaskModel::TABLE.'.category_id', 0);
+            $this->query->eq(TaskModel::TABLE . '.category_id', 0);
         } else {
-            $this->query->eq(CategoryModel::TABLE.'.name', $this->value);
+            $this->query->eq(CategoryModel::TABLE . '.name', $this->value);
         }
 
         return $this;

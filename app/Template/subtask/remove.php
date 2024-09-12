@@ -15,6 +15,6 @@
     <?= $this->modal->confirmButtons(
         'SubtaskController',
         'remove',
-        array('task_id' => $task['id'], 'subtask_id' => $subtask['id'])
+        ['task_id' => $task['id'], 'subtask_id' => $subtask['id']],
     ) ?>
 </div>

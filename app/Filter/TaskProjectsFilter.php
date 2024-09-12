@@ -21,7 +21,7 @@ class TaskProjectsFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('projects');
+        return ['projects'];
     }
 
     /**
@@ -33,9 +33,9 @@ class TaskProjectsFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (empty($this->value)) {
-            $this->query->eq(TaskModel::TABLE.'.project_id', 0);
+            $this->query->eq(TaskModel::TABLE . '.project_id', 0);
         } else {
-            $this->query->in(TaskModel::TABLE.'.project_id', $this->value);
+            $this->query->in(TaskModel::TABLE . '.project_id', $this->value);
         }
 
         return $this;

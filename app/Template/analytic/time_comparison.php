@@ -6,8 +6,8 @@
 
 <div class="panel">
     <ul>
-        <li><?= t('Estimated hours: ').'<strong>'.$this->text->e($metrics['open']['time_estimated'] + $metrics['closed']['time_estimated']) ?></strong></li>
-        <li><?= t('Actual hours: ').'<strong>'.$this->text->e($metrics['open']['time_spent'] + $metrics['closed']['time_spent']) ?></strong></li>
+        <li><?= t('Estimated hours: ') . '<strong>' . $this->text->e($metrics['open']['time_estimated'] + $metrics['closed']['time_estimated']) ?></strong></li>
+        <li><?= t('Actual hours: ') . '<strong>' . $this->text->e($metrics['open']['time_spent'] + $metrics['closed']['time_spent']) ?></strong></li>
     </ul>
 </div>
 
@@ -17,13 +17,13 @@
     <?php if ($paginator->isEmpty()): ?>
         <p class="alert"><?= t('No tasks found.') ?></p>
     <?php elseif (! $paginator->isEmpty()): ?>
-        <?= $this->app->component('chart-project-time-comparison', array(
-            'metrics' => $metrics,
-            'labelSpent' => t('Hours Spent'),
+        <?= $this->app->component('chart-project-time-comparison', [
+            'metrics'        => $metrics,
+            'labelSpent'     => t('Hours Spent'),
             'labelEstimated' => t('Hours Estimated'),
-            'labelClosed' => t('Closed'),
-            'labelOpen' => t('Open'),
-        )) ?>
+            'labelClosed'    => t('Closed'),
+            'labelOpen'      => t('Open'),
+        ]) ?>
 
         <table class="table-fixed table-small table-scrolling">
             <tr>
@@ -36,10 +36,10 @@
             <?php foreach ($paginator->getCollection() as $task): ?>
             <tr>
                 <td class="task-table color-<?= $task['color_id'] ?>">
-                    <?= $this->url->link('#'.$this->text->e($task['id']), 'TaskViewController', 'show', array('task_id' => $task['id']), false, '', t('View this task')) ?>
+                    <?= $this->url->link('#' . $this->text->e($task['id']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
                 </td>
                 <td>
-                    <?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', array('task_id' => $task['id']), false, '', t('View this task')) ?>
+                    <?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', ['task_id' => $task['id']], false, '', t('View this task')) ?>
                 </td>
                 <td>
                     <?php if ($task['is_active'] == \Kanboard\Model\TaskModel::STATUS_OPEN): ?>

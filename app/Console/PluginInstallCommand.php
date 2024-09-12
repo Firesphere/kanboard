@@ -31,7 +31,7 @@ class PluginInstallCommand extends BaseCommand
             $output->writeln('<info>Plugin installed successfully</info>');
             return 0;
         } catch (PluginInstallerException $e) {
-            $output->writeln('<error>'.$e->getMessage().'</error>');
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
             return 1;
         }
     }

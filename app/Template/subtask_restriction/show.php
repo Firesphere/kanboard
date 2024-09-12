@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('You already have one subtask in progress') ?></h2>
 </div>
-<form action="<?= $this->url->href('SubtaskRestrictionController', 'save', array('task_id' => $task['id'], 'subtask_id' => $subtask['id'])) ?>" method="post">
+<form action="<?= $this->url->href('SubtaskRestrictionController', 'save', ['task_id' => $task['id'], 'subtask_id' => $subtask['id']]) ?>" method="post">
     <?= $this->form->csrf() ?>
 
     <?php if (empty($subtask_inprogress)): ?>

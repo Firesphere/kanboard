@@ -7,9 +7,9 @@
 <?php if (empty($metrics)): ?>
     <p class="alert"><?= t('Not enough data to show the graph.') ?></p>
 <?php else: ?>
-    <?= $this->app->component('chart-project-task-distribution', array(
+    <?= $this->app->component('chart-project-task-distribution', [
         'metrics' => $metrics,
-    )) ?>
+    ]) ?>
 
     <table class="table-striped">
         <tr>

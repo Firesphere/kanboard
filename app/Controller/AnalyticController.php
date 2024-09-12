@@ -23,16 +23,16 @@ class AnalyticController extends BaseController
         $project = $this->getProject();
         list($from, $to) = $this->getDates();
 
-        $this->response->html($this->helper->layout->analytic('analytic/lead_cycle_time', array(
-            'values' => array(
+        $this->response->html($this->helper->layout->analytic('analytic/lead_cycle_time', [
+            'values' => [
                 'from' => $from,
-                'to' => $to,
-            ),
+                'to'   => $to,
+            ],
             'project' => $project,
             'average' => $this->averageLeadCycleTimeAnalytic->build($project['id']),
             'metrics' => $this->projectDailyStatsModel->getRawMetrics($project['id'], $from, $to),
-            'title' => t('Lead and cycle time'),
-        )));
+            'title'   => t('Lead and cycle time'),
+        ]));
     }
 
     /**
@@ -45,22 +45,22 @@ class AnalyticController extends BaseController
         $project = $this->getProject();
 
         $paginator = $this->paginator
-            ->setUrl('AnalyticController', 'timeComparison', array('project_id' => $project['id']))
+            ->setUrl('AnalyticController', 'timeComparison', ['project_id' => $project['id']])
             ->setMax(30)
-            ->setOrder(TaskModel::TABLE.'.id')
+            ->setOrder(TaskModel::TABLE . '.id')
             ->setQuery(
                 $this->taskQuery
                 ->withFilter(new TaskProjectFilter($project['id']))
-                ->getQuery()
+                ->getQuery(),
             )
             ->calculate();
 
-        $this->response->html($this->helper->layout->analytic('analytic/time_comparison', array(
-            'project' => $project,
+        $this->response->html($this->helper->layout->analytic('analytic/time_comparison', [
+            'project'   => $project,
             'paginator' => $paginator,
-            'metrics' => $this->estimatedTimeComparisonAnalytic->build($project['id']),
-            'title' => t('Estimated vs actual time'),
-        )));
+            'metrics'   => $this->estimatedTimeComparisonAnalytic->build($project['id']),
+            'title'     => t('Estimated vs actual time'),
+        ]));
     }
 
     /**
@@ -72,11 +72,11 @@ class AnalyticController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->analytic('analytic/avg_time_columns', array(
+        $this->response->html($this->helper->layout->analytic('analytic/avg_time_columns', [
             'project' => $project,
             'metrics' => $this->averageTimeSpentColumnAnalytic->build($project['id']),
-            'title' => t('Average time into each column'),
-        )));
+            'title'   => t('Average time into each column'),
+        ]));
     }
 
     /**
@@ -88,11 +88,11 @@ class AnalyticController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->analytic('analytic/task_distribution', array(
+        $this->response->html($this->helper->layout->analytic('analytic/task_distribution', [
             'project' => $project,
             'metrics' => $this->taskDistributionAnalytic->build($project['id']),
-            'title' => t('Task distribution'),
-        )));
+            'title'   => t('Task distribution'),
+        ]));
     }
 
     /**
@@ -104,11 +104,11 @@ class AnalyticController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->analytic('analytic/user_distribution', array(
+        $this->response->html($this->helper->layout->analytic('analytic/user_distribution', [
             'project' => $project,
             'metrics' => $this->userDistributionAnalytic->build($project['id']),
-            'title' => t('User repartition'),
-        )));
+            'title'   => t('User repartition'),
+        ]));
     }
 
     /**
@@ -140,11 +140,11 @@ class AnalyticController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->analytic('analytic/estimated_actual_column', array(
+        $this->response->html($this->helper->layout->analytic('analytic/estimated_actual_column', [
             'project' => $project,
             'metrics' => $this->estimatedActualColumnAnalytic->build($project['id']),
-            'title' => t('Estimated vs actual time per column'),
-        )));
+            'title'   => t('Estimated vs actual time per column'),
+        ]));
     }
 
     /**
@@ -161,18 +161,18 @@ class AnalyticController extends BaseController
         list($from, $to) = $this->getDates();
 
         $displayGraph = $this->projectDailyColumnStatsModel->countDays($project['id'], $from, $to) >= 2;
-        $metrics = $displayGraph ? $this->projectDailyColumnStatsModel->getAggregatedMetrics($project['id'], $from, $to, $column) : array();
+        $metrics = $displayGraph ? $this->projectDailyColumnStatsModel->getAggregatedMetrics($project['id'], $from, $to, $column) : [];
 
-        $this->response->html($this->helper->layout->analytic($template, array(
-            'values'        => array(
+        $this->response->html($this->helper->layout->analytic($template, [
+            'values'        => [
                 'from' => $from,
                 'to'   => $to,
-            ),
+            ],
             'display_graph' => $displayGraph,
             'metrics'       => $metrics,
             'project'       => $project,
             'title'         => $title,
-        )));
+        ]));
     }
 
     private function getDates()
@@ -187,6 +187,6 @@ class AnalyticController extends BaseController
             $to = $this->dateParser->getIsoDate($values['to']);
         }
 
-        return array($from, $to);
+        return [$from, $to];
     }
 }

@@ -35,12 +35,12 @@ class ProjectDailyStatsModel extends Base
 
         $this->db->table(self::TABLE)->eq('day', $date)->eq('project_id', $project_id)->remove();
 
-        $this->db->table(self::TABLE)->insert(array(
-            'day' => $date,
-            'project_id' => $project_id,
-            'avg_lead_time' => $lead_cycle_time['avg_lead_time'],
+        $this->db->table(self::TABLE)->insert([
+            'day'            => $date,
+            'project_id'     => $project_id,
+            'avg_lead_time'  => $lead_cycle_time['avg_lead_time'],
             'avg_cycle_time' => $lead_cycle_time['avg_cycle_time'],
-        ));
+        ]);
 
         $this->db->closeTransaction();
 

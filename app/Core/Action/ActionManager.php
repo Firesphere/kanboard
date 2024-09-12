@@ -3,9 +3,9 @@
 namespace Kanboard\Core\Action;
 
 use Exception;
-use RuntimeException;
-use Kanboard\Core\Base;
 use Kanboard\Action\Base as ActionBase;
+use Kanboard\Core\Base;
+use RuntimeException;
 
 /**
  * Action Manager
@@ -21,7 +21,7 @@ class ActionManager extends Base
      * @access private
      * @var ActionBase[]
      */
-    private $actions = array();
+    private $actions = [];
 
     /**
      * Register a new automatic action
@@ -49,7 +49,7 @@ class ActionManager extends Base
             return $this->actions[$name];
         }
 
-        throw new RuntimeException('Automatic Action Not Found: '.$name);
+        throw new RuntimeException('Automatic Action Not Found: ' . $name);
     }
 
     /**
@@ -60,7 +60,7 @@ class ActionManager extends Base
      */
     public function getAvailableActions()
     {
-        $actions = array();
+        $actions = [];
 
         foreach ($this->actions as $action) {
             if (count($action->getEvents()) > 0) {
@@ -82,14 +82,14 @@ class ActionManager extends Base
      */
     public function getAvailableParameters(array $actions)
     {
-        $params = array();
+        $params = [];
 
         foreach ($actions as $action) {
             try {
                 $currentAction = $this->getAction($action['action_name']);
                 $params[$currentAction->getName()] = $currentAction->getActionRequiredParameters();
             } catch (Exception $e) {
-                $this->logger->error(__METHOD__.': '.$e->getMessage());
+                $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
             }
         }
 
@@ -105,7 +105,7 @@ class ActionManager extends Base
      */
     public function getCompatibleEvents($name)
     {
-        $events = array();
+        $events = [];
         $actionEvents = $this->getAction($name)->getEvents();
 
         foreach ($this->eventManager->getAll() as $event => $description) {
@@ -140,9 +140,9 @@ class ActionManager extends Base
                     $listener->setParam($param_name, $param_value);
                 }
 
-                $this->dispatcher->addListener($action['event_name'], array($listener, 'execute'));
+                $this->dispatcher->addListener($action['event_name'], [$listener, 'execute']);
             } catch (Exception $e) {
-                $this->logger->error(__METHOD__.': '.$e->getMessage());
+                $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
             }
         }
 

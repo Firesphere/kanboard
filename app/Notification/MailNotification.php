@@ -35,7 +35,7 @@ class MailNotification extends Base implements NotificationInterface
                 $user['email'],
                 $user['name'] ?: $user['username'],
                 $this->getMailSubject($event_name, $event_data),
-                $this->getMailContent($event_name, $event_data)
+                $this->getMailContent($event_name, $event_data),
             );
         }
     }
@@ -48,9 +48,7 @@ class MailNotification extends Base implements NotificationInterface
      * @param  string    $event_name
      * @param  array     $event_data
      */
-    public function notifyProject(array $project, $event_name, array $event_data)
-    {
-    }
+    public function notifyProject(array $project, $event_name, array $event_data) {}
 
     /**
      * Get the mail content for a given template name
@@ -62,7 +60,7 @@ class MailNotification extends Base implements NotificationInterface
      */
     public function getMailContent($event_name, array $event_data)
     {
-        return $this->template->render('notification/'.str_replace('.', '_', $event_name), $event_data);
+        return $this->template->render('notification/' . str_replace('.', '_', $event_name), $event_data);
     }
 
     /**
@@ -78,7 +76,7 @@ class MailNotification extends Base implements NotificationInterface
         return sprintf(
             '[%s] %s',
             isset($eventData['project_name']) ? $eventData['project_name'] : $eventData['task']['project_name'],
-            $this->notificationModel->getTitleWithoutAuthor($eventName, $eventData)
+            $this->notificationModel->getTitleWithoutAuthor($eventName, $eventData),
         );
     }
 }

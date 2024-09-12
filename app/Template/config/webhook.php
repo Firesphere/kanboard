@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('Webhook settings') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('ConfigController', 'save', array('redirect' => 'webhook')) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('ConfigController', 'save', ['redirect' => 'webhook']) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->label(t('Webhook URL'), 'webhook_url') ?>
@@ -20,4 +20,4 @@
     <strong><?= $this->text->e($values['webhook_token']) ?></strong>
 </div>
 
-<?= $this->url->link(t('Reset token'), 'ConfigController', 'token', array('type' => 'webhook'), true, 'btn btn-red') ?>
+<?= $this->url->link(t('Reset token'), 'ConfigController', 'token', ['type' => 'webhook'], true, 'btn btn-red') ?>

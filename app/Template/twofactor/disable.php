@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'TwoFactorController',
         'disable',
-        array('user_id' => $user['id'], 'disable' => 'yes')
+        ['user_id' => $user['id'], 'disable' => 'yes'],
     ) ?>
 </div>

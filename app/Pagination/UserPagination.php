@@ -25,7 +25,7 @@ class UserPagination extends Base
         return $this->paginator
             ->setUrl('UserListController', 'show')
             ->setMax(30)
-            ->setOrder(UserModel::TABLE.'.username')
+            ->setOrder(UserModel::TABLE . '.username')
             ->setQuery($this->userModel->getQuery())
             ->calculate();
     }

@@ -21,7 +21,7 @@ class ApiAccessTokenAuth extends Base implements PasswordAuthenticationProviderI
      * @access protected
      * @var array
      */
-    protected $userInfo = array();
+    protected $userInfo = [];
 
     /**
      * Username

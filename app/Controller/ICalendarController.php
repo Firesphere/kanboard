@@ -2,6 +2,7 @@
 
 namespace Kanboard\Controller;
 
+use Eluceo\iCal\Component\Calendar as iCalendar;
 use Kanboard\Core\Controller\AccessForbiddenException;
 use Kanboard\Core\Filter\QueryBuilder;
 use Kanboard\Filter\TaskAssigneeFilter;
@@ -9,7 +10,6 @@ use Kanboard\Filter\TaskDueDateRangeFilter;
 use Kanboard\Filter\TaskProjectFilter;
 use Kanboard\Filter\TaskStatusFilter;
 use Kanboard\Model\TaskModel;
-use Eluceo\iCal\Component\Calendar as iCalendar;
 
 /**
  * iCalendar Controller
@@ -41,7 +41,7 @@ class ICalendarController extends BaseController
         $queryDueDateOnly = QueryBuilder::create()
             ->withQuery($this->taskFinderModel->getICalQuery())
             ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
-            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange)))
+            ->withFilter(new TaskDueDateRangeFilter([$startRange, $endRange]))
             ->withFilter(new TaskAssigneeFilter($user['id']))
             ->getQuery();
 
@@ -82,7 +82,7 @@ class ICalendarController extends BaseController
             ->withQuery($this->taskFinderModel->getICalQuery())
             ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
             ->withFilter(new TaskProjectFilter($project['id']))
-            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange)))
+            ->withFilter(new TaskDueDateRangeFilter([$startRange, $endRange]))
             ->getQuery();
 
         $queryStartAndDueDate = QueryBuilder::create()
@@ -104,12 +104,12 @@ class ICalendarController extends BaseController
         $start_column = $this->db->escapeIdentifier($start_column);
         $end_column = $this->db->escapeIdentifier($end_column);
 
-        $conditions = array(
+        $conditions = [
             "($start_column >= '$start_time' AND $start_column <= '$end_time')",
             "($start_column <= '$start_time' AND $end_column >= '$start_time')",
             "($start_column <= '$start_time' AND ($end_column = '0' OR $end_column IS NULL))",
-        );
+        ];
 
-        return $start_column.' IS NOT NULL AND '.$start_column.' > 0 AND ('.implode(' OR ', $conditions).')';
+        return $start_column . ' IS NOT NULL AND ' . $start_column . ' > 0 AND (' . implode(' OR ', $conditions) . ')';
     }
 }

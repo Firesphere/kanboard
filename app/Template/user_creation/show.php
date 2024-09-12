@@ -10,7 +10,7 @@
                 <legend><?= t('Profile') ?></legend>
 
                 <?= $this->form->label(t('Username'), 'username') ?>
-                <?= $this->form->text('username', $values, $errors, array('autofocus', 'required', 'maxlength="191"', 'autocomplete="username"')) ?>
+                <?= $this->form->text('username', $values, $errors, ['autofocus', 'required', 'maxlength="191"', 'autocomplete="username"']) ?>
 
                 <?= $this->form->label(t('Name'), 'name') ?>
                 <?= $this->form->text('name', $values, $errors, ['autocomplete="name"']) ?>

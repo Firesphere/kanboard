@@ -87,11 +87,11 @@ class CssCommand extends BaseCommand
     ];
 
     private $vendorFiles = [
-        self::CSS_VENDOR_PATH.'jquery-ui/jquery-ui.min.css',
-        self::CSS_VENDOR_PATH.'jqueryui-timepicker-addon/jquery-ui-timepicker-addon.min.css',
-        self::CSS_VENDOR_PATH.'select2/css/select2.min.css',
-        self::CSS_VENDOR_PATH.'font-awesome/css/font-awesome.min.css',
-        self::CSS_VENDOR_PATH.'c3/c3.min.css',
+        self::CSS_VENDOR_PATH . 'jquery-ui/jquery-ui.min.css',
+        self::CSS_VENDOR_PATH . 'jqueryui-timepicker-addon/jquery-ui-timepicker-addon.min.css',
+        self::CSS_VENDOR_PATH . 'select2/css/select2.min.css',
+        self::CSS_VENDOR_PATH . 'font-awesome/css/font-awesome.min.css',
+        self::CSS_VENDOR_PATH . 'c3/c3.min.css',
     ];
 
     protected function configure()
@@ -104,9 +104,9 @@ class CssCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes'.DIRECTORY_SEPARATOR.'light.css'], $this->appFiles), 'light.min.css');
-        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes'.DIRECTORY_SEPARATOR.'dark.css'], $this->appFiles), 'dark.min.css');
-        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes'.DIRECTORY_SEPARATOR.'auto.css'], $this->appFiles), 'auto.min.css');
+        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes' . DIRECTORY_SEPARATOR . 'light.css'], $this->appFiles), 'light.min.css');
+        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes' . DIRECTORY_SEPARATOR . 'dark.css'], $this->appFiles), 'dark.min.css');
+        $this->minifyFiles(self::CSS_SRC_PATH, array_merge(['themes' . DIRECTORY_SEPARATOR . 'auto.css'], $this->appFiles), 'auto.min.css');
         $this->minifyFiles(self::CSS_SRC_PATH, $this->printFiles, 'print.min.css');
 
         $vendorBundle = concat_files($this->vendorFiles);
@@ -119,7 +119,7 @@ class CssCommand extends BaseCommand
         $minifier = new Minify\CSS();
 
         foreach ($files as $file) {
-            $filename = $folder.$file;
+            $filename = $folder . $file;
             if (! file_exists($filename)) {
                 die("$filename not found\n");
             }

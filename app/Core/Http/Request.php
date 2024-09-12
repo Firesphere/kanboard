@@ -2,8 +2,8 @@
 
 namespace Kanboard\Core\Http;
 
-use Pimple\Container;
 use Kanboard\Core\Base;
+use Pimple\Container;
 
 /**
  * Request class
@@ -36,7 +36,7 @@ class Request extends Base
      * @param array $files
      * @param array $cookies
      */
-    public function __construct(Container $container, array $server = array(), array $get = array(), array $post = array(), array $files = array(), array $cookies = array())
+    public function __construct(Container $container, array $server = [], array $get = [], array $post = [], array $files = [], array $cookies = [])
     {
         parent::__construct($container);
         $this->server = empty($server) ? $_SERVER : $server;
@@ -108,7 +108,7 @@ class Request extends Base
             return $this->filterValues($this->post);
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -151,7 +151,7 @@ class Request extends Base
      */
     public function getJson()
     {
-        return json_decode($this->getBody(), true) ?: array();
+        return json_decode($this->getBody(), true) ?: [];
     }
 
     /**
@@ -191,7 +191,7 @@ class Request extends Base
      */
     public function getFileInfo($name)
     {
-        return isset($this->files[$name]) ? $this->files[$name] : array();
+        return isset($this->files[$name]) ? $this->files[$name] : [];
     }
 
     /**
@@ -265,7 +265,7 @@ class Request extends Base
      */
     public function getHeader($name)
     {
-        $name = 'HTTP_'.str_replace('-', '_', strtoupper($name));
+        $name = 'HTTP_' . str_replace('-', '_', strtoupper($name));
         return $this->getServerVariable($name);
     }
 
@@ -343,7 +343,7 @@ class Request extends Base
      */
     public function getIpAddress()
     {
-        $keys = array(
+        $keys = [
             'HTTP_X_REAL_IP',
             'HTTP_CLIENT_IP',
             'HTTP_X_FORWARDED_FOR',
@@ -351,8 +351,8 @@ class Request extends Base
             'HTTP_X_CLUSTER_CLIENT_IP',
             'HTTP_FORWARDED_FOR',
             'HTTP_FORWARDED',
-            'REMOTE_ADDR'
-        );
+            'REMOTE_ADDR',
+        ];
 
         foreach ($keys as $key) {
             if ($this->getServerVariable($key) !== '') {
@@ -391,7 +391,6 @@ class Request extends Base
     protected function filterValues(array $values)
     {
         foreach ($values as $key => $value) {
-
             // IE11 Workaround when submitting multipart/form-data
             if (strpos($key, '-----------------------------') === 0) {
                 unset($values[$key]);

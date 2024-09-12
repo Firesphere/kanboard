@@ -2,17 +2,17 @@
     <div class="file-thumbnails">
         <?php foreach ($images as $file): ?>
             <div class="file-thumbnail">
-                <?= $this->app->component('image-slideshow', array(
-                    'images' => $images,
-                    'image' => $file,
+                <?= $this->app->component('image-slideshow', [
+                    'images'        => $images,
+                    'image'         => $file,
                     'regex_file_id' => 'FILE_ID',
-                    'regex_etag' => 'ETAG',
-                    'url' => array(
-                        'image' => $this->url->to('FileViewerController', 'image', array('file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG')),
-                        'thumbnail' => $this->url->to('FileViewerController', 'thumbnail', array('file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG')),
-                        'download' => $this->url->to('FileViewerController', 'download', array('file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG')),
-                    )
-                )) ?>
+                    'regex_etag'    => 'ETAG',
+                    'url'           => [
+                        'image'     => $this->url->to('FileViewerController', 'image', ['file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG']),
+                        'thumbnail' => $this->url->to('FileViewerController', 'thumbnail', ['file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG']),
+                        'download'  => $this->url->to('FileViewerController', 'download', ['file_id' => 'FILE_ID', 'project_id' => $project['id'], 'etag' => 'ETAG']),
+                    ],
+                ]) ?>
 
                 <div class="file-thumbnail-content">
                     <div class="file-thumbnail-title">
@@ -20,22 +20,22 @@
                             <a href="#" class="dropdown-menu dropdown-menu-link-text"><?= $this->text->e($file['name']) ?> <i class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li>
-                                    <?= $this->url->icon('external-link', t('View file'), 'FileViewerController', 'image', array('project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']), false, '', '', true) ?>
+                                    <?= $this->url->icon('external-link', t('View file'), 'FileViewerController', 'image', ['project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']], false, '', '', true) ?>
                                 </li>
                                 <li>
-                                    <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', array('project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag'])) ?>
+                                    <?= $this->url->icon('download', t('Download'), 'FileViewerController', 'download', ['project_id' => $project['id'], 'file_id' => $file['id'], 'etag' => $file['etag']]) ?>
                                 </li>
                                 <?php if ($this->user->hasProjectAccess('ProjectFileController', 'remove', $project['id'])): ?>
                                     <li>
-                                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectFileController', 'confirm', array('project_id' => $project['id'], 'file_id' => $file['id'])) ?>
+                                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectFileController', 'confirm', ['project_id' => $project['id'], 'file_id' => $file['id']]) ?>
                                     </li>
                                 <?php endif ?>
-                                <?= $this->hook->render('template:project-overview:images:dropdown', array('project' => $project, 'file' => $file)) ?>
+                                <?= $this->hook->render('template:project-overview:images:dropdown', ['project' => $project, 'file' => $file]) ?>
                             </ul>
                         </div>
                     </div>
                     <div class="file-thumbnail-description">
-                        <?= $this->app->tooltipMarkdown(t('Uploaded: %s', $this->dt->datetime($file['date']))."\n\n".t('Size: %s', $this->text->bytes($file['size']))) ?>
+                        <?= $this->app->tooltipMarkdown(t('Uploaded: %s', $this->dt->datetime($file['date'])) . "\n\n" . t('Size: %s', $this->text->bytes($file['size']))) ?>
                         <?php if (! empty($file['user_id'])): ?>
                             <?= t('Uploaded by %s', $file['user_name'] ?: $file['username']) ?>
                         <?php else: ?>

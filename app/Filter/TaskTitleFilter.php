@@ -21,7 +21,7 @@ class TaskTitleFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('title');
+        return ['title'];
     }
 
     /**
@@ -34,11 +34,11 @@ class TaskTitleFilter extends BaseFilter implements FilterInterface
     {
         if (ctype_digit((string) $this->value) || (strlen($this->value) > 1 && $this->value[0] === '#' && ctype_digit(substr($this->value, 1)))) {
             $this->query->beginOr();
-            $this->query->eq(TaskModel::TABLE.'.id', str_replace('#', '', $this->value));
-            $this->query->ilike(TaskModel::TABLE.'.title', '%'.$this->value.'%');
+            $this->query->eq(TaskModel::TABLE . '.id', str_replace('#', '', $this->value));
+            $this->query->ilike(TaskModel::TABLE . '.title', '%' . $this->value . '%');
             $this->query->closeOr();
         } else {
-            $this->query->ilike(TaskModel::TABLE.'.title', '%'.$this->value.'%');
+            $this->query->ilike(TaskModel::TABLE . '.title', '%' . $this->value . '%');
         }
 
         return $this;

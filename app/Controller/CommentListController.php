@@ -17,11 +17,11 @@ class CommentListController extends BaseController
         $task = $this->getTask();
         $commentSortingDirection = $this->userMetadataCacheDecorator->get(UserMetadataModel::KEY_COMMENT_SORTING_DIRECTION, 'ASC');
 
-        $this->response->html($this->template->render('comment_list/show', array(
+        $this->response->html($this->template->render('comment_list/show', [
             'task'     => $task,
             'comments' => $this->commentModel->getAll($task['id'], $commentSortingDirection),
             'editable' => $this->helper->user->hasProjectAccess('CommentController', 'edit', $task['project_id']),
-        )));
+        ]));
     }
 
     public function save()

@@ -13,17 +13,17 @@
             <tr>
                 <td><?= $this->text->e($user['name'] ?: $user['username']) ?></td>
                 <td>
-                    <?= $this->app->component('project-select-role', array(
-                        'roles' => $roles,
-                        'role' => $user['role'],
-                        'id' => $user['id'],
+                    <?= $this->app->component('project-select-role', [
+                        'roles'     => $roles,
+                        'role'      => $user['role'],
+                        'id'        => $user['id'],
                         'ariaLabel' => t('Role'),
-                        'url' => $this->url->to('ProjectPermissionController', 'changeUserRole', array('project_id' => $project['id'])),
-                    )) ?>
+                        'url'       => $this->url->to('ProjectPermissionController', 'changeUserRole', ['project_id' => $project['id']]),
+                    ]) ?>
                 </td>
                 <td>
                     <?php if (! $this->user->isCurrentUser($user['id'])): ?>
-                        <?= $this->url->icon('trash-o', t('Remove'), 'ProjectPermissionController', 'removeUser', array('project_id' => $project['id'], 'user_id' => $user['id']), true) ?>
+                        <?= $this->url->icon('trash-o', t('Remove'), 'ProjectPermissionController', 'removeUser', ['project_id' => $project['id'], 'user_id' => $user['id']], true) ?>
                     <?php endif ?>
                 </td>
             </tr>
@@ -33,7 +33,7 @@
 
 <?php if ($project['is_private'] == 0): ?>
     <div class="panel">
-        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addUser', array('project_id' => $project['id'])) ?>" autocomplete="off" class="form-inline">
+        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addUser', ['project_id' => $project['id']]) ?>" autocomplete="off" class="form-inline">
             <?= $this->form->csrf() ?>
             <?= $this->form->hidden('user_id', $values) ?>
             <?= $this->form->hidden('username', $values) ?>
@@ -45,18 +45,18 @@
                 'name',
                 $values,
                 $errors,
-                array(
+                [
                     'required',
-                    'placeholder="'.t('Enter user name...').'"',
-                    'title="'.t('Enter user name...').'"',
+                    'placeholder="' . t('Enter user name...') . '"',
+                    'title="' . t('Enter user name...') . '"',
                     'data-dst-field="user_id"',
                     'data-dst-extra-fields="external_id,external_id_column,username"',
-                    'data-search-url="'.$this->url->href('UserAjaxController', 'autocomplete').'"',
-                ),
-                'autocomplete'
+                    'data-search-url="' . $this->url->href('UserAjaxController', 'autocomplete') . '"',
+                ],
+                'autocomplete',
             ) ?>
 
-            <?= $this->form->select('role', $roles, $values, $errors, array('aria-label="'.t('Role').'"')) ?>
+            <?= $this->form->select('role', $roles, $values, $errors, ['aria-label="' . t('Role') . '"']) ?>
 
             <button type="submit" class="btn btn-blue"><?= t('Add') ?></button>
         </form>

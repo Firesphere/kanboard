@@ -30,7 +30,7 @@ class TaskMoveColumnOnDueDate extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(TaskModel::EVENT_DAILY_CRONJOB);
+        return [TaskModel::EVENT_DAILY_CRONJOB];
     }
 
     /**
@@ -41,11 +41,11 @@ class TaskMoveColumnOnDueDate extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'duration' => t('Duration in days'),
-            'src_column_id' => t('Source column'),
+        return [
+            'duration'       => t('Duration in days'),
+            'src_column_id'  => t('Source column'),
             'dest_column_id' => t('Destination column'),
-        );
+        ];
     }
 
     /**
@@ -56,7 +56,7 @@ class TaskMoveColumnOnDueDate extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -68,8 +68,8 @@ class TaskMoveColumnOnDueDate extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
-        $min = (int)$this->getParam('duration') * 86400;
+        $results = [];
+        $min = (int) $this->getParam('duration') * 86400;
 
         foreach ($data['tasks'] as $task) {
             $duration = $task['date_due'] - time();
@@ -81,7 +81,7 @@ class TaskMoveColumnOnDueDate extends Base
                     $this->getParam('dest_column_id'),
                     1,
                     $task['swimlane_id'],
-                    true
+                    true,
                 );
             }
         }

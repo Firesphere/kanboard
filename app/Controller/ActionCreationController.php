@@ -19,11 +19,11 @@ class ActionCreationController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('action_creation/create', array(
-            'project' => $project,
-            'values' => array('project_id' => $project['id']),
+        $this->response->html($this->template->render('action_creation/create', [
+            'project'           => $project,
+            'values'            => ['project_id' => $project['id']],
             'available_actions' => $this->actionManager->getAvailableActions(),
-        )));
+        ]));
     }
 
     /**
@@ -41,12 +41,12 @@ class ActionCreationController extends BaseController
             return $this->create();
         }
 
-        return $this->response->html($this->template->render('action_creation/event', array(
-            'values' => $values,
-            'project' => $project,
+        return $this->response->html($this->template->render('action_creation/event', [
+            'values'            => $values,
+            'project'           => $project,
             'available_actions' => $this->actionManager->getAvailableActions(),
-            'events' => $this->actionManager->getCompatibleEvents($values['action_name']),
-        )));
+            'events'            => $this->actionManager->getCompatibleEvents($values['action_name']),
+        ]));
     }
 
     /**
@@ -69,27 +69,27 @@ class ActionCreationController extends BaseController
         $action_params = $action->getActionRequiredParameters();
 
         if (empty($action_params)) {
-            $this->doCreation($project, $values + array('params' => array()));
+            $this->doCreation($project, $values + ['params' => []]);
         }
 
         $projects_list = $this->projectUserRoleModel->getActiveProjectsByUser($this->userSession->getId());
         unset($projects_list[$project['id']]);
 
-        $this->response->html($this->template->render('action_creation/params', array(
-            'values' => $values,
-            'action_params' => $action_params,
-            'columns_list' => $this->columnModel->getList($project['id']),
-            'users_list' => $this->projectUserRoleModel->getAssignableUsersList($project['id']),
-            'projects_list' => $projects_list,
-            'colors_list' => $this->colorModel->getList(),
-            'categories_list' => $this->categoryModel->getList($project['id']),
-            'links_list' => $this->linkModel->getList(0, false),
-            'priorities_list' => $this->projectTaskPriorityModel->getPriorities($project),
-            'project' => $project,
+        $this->response->html($this->template->render('action_creation/params', [
+            'values'            => $values,
+            'action_params'     => $action_params,
+            'columns_list'      => $this->columnModel->getList($project['id']),
+            'users_list'        => $this->projectUserRoleModel->getAssignableUsersList($project['id']),
+            'projects_list'     => $projects_list,
+            'colors_list'       => $this->colorModel->getList(),
+            'categories_list'   => $this->categoryModel->getList($project['id']),
+            'links_list'        => $this->linkModel->getList(0, false),
+            'priorities_list'   => $this->projectTaskPriorityModel->getPriorities($project),
+            'project'           => $project,
             'available_actions' => $this->actionManager->getAvailableActions(),
-            'swimlane_list' => $this->swimlaneModel->getList($project['id']),
-            'events' => $this->actionManager->getCompatibleEvents($values['action_name']),
-        )));
+            'swimlane_list'     => $this->swimlaneModel->getList($project['id']),
+            'events'            => $this->actionManager->getCompatibleEvents($values['action_name']),
+        ]));
     }
 
     /**
@@ -122,6 +122,6 @@ class ActionCreationController extends BaseController
             }
         }
 
-        $this->response->redirect($this->helper->url->to('ActionController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ActionController', 'index', ['project_id' => $project['id']]));
     }
 }

@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'SwimlaneController',
         'remove',
-        array('project_id' => $project['id'], 'swimlane_id' => $swimlane['id'])
+        ['project_id' => $project['id'], 'swimlane_id' => $swimlane['id']],
     ) ?>
 </div>

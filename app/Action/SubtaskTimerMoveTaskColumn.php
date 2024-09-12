@@ -2,8 +2,8 @@
 
 namespace Kanboard\Action;
 
-use Kanboard\Model\TaskModel;
 use Kanboard\Model\SubtaskModel;
+use Kanboard\Model\TaskModel;
 
 /**
  * Create a subtask and activate the timer when moving a task to another column.
@@ -32,9 +32,9 @@ class SubtaskTimerMoveTaskColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class SubtaskTimerMoveTaskColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-            'subtask' => t('Subtask Title'),
-        );
+            'subtask'   => t('Subtask Title'),
+        ];
     }
 
     /**
@@ -59,15 +59,15 @@ class SubtaskTimerMoveTaskColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'id',
                 'column_id',
                 'project_id',
                 'creator_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -79,12 +79,12 @@ class SubtaskTimerMoveTaskColumn extends Base
      */
     public function doAction(array $data)
     {
-        $subtaskID = $this->subtaskModel->create(array(
-            'title' => $this->getParam('subtask'),
+        $subtaskID = $this->subtaskModel->create([
+            'title'   => $this->getParam('subtask'),
             'user_id' => $data['task']['creator_id'],
             'task_id' => $data['task']['id'],
-            'status' => SubtaskModel::STATUS_INPROGRESS,
-        ));
+            'status'  => SubtaskModel::STATUS_INPROGRESS,
+        ]);
 
         if ($subtaskID !== false) {
             return $this->subtaskTimeTrackingModel->toggleTimer($subtaskID, $data['task']['creator_id'], SubtaskModel::STATUS_INPROGRESS);

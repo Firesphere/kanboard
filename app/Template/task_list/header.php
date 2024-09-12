@@ -30,12 +30,12 @@
     <div class="table-list-header-menu">
         <?php if (isset($project)): ?>
             <?php if ($this->user->hasSubtaskListActivated()): ?>
-                <?= $this->url->icon('tasks', t('Hide subtasks'), 'TaskListController', 'show', array('project_id' => $project['id'], 'hide_subtasks' => 1, 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>
+                <?= $this->url->icon('tasks', t('Hide subtasks'), 'TaskListController', 'show', ['project_id' => $project['id'], 'hide_subtasks' => 1, 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
             <?php else: ?>
-                <?= $this->url->icon('tasks', t('Show subtasks'), 'TaskListController', 'show', array('project_id' => $project['id'], 'show_subtasks' => 1, 'csrf_token' => $this->app->getToken()->getReusableCSRFToken())) ?>
+                <?= $this->url->icon('tasks', t('Show subtasks'), 'TaskListController', 'show', ['project_id' => $project['id'], 'show_subtasks' => 1, 'csrf_token' => $this->app->getToken()->getReusableCSRFToken()]) ?>
             <?php endif ?>
         <?php endif ?>
 
-        <?= $this->render('task_list/sort_menu', array('paginator' => $paginator)) ?>
+        <?= $this->render('task_list/sort_menu', ['paginator' => $paginator]) ?>
     </div>
 </div>

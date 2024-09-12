@@ -42,7 +42,7 @@ class FileViewerController extends BaseController
      */
     protected function renderFileWithCache(array $file, $mimetype)
     {
-        if ($this->request->getHeader('If-None-Match') === '"'.$file['etag'].'"') {
+        if ($this->request->getHeader('If-None-Match') === '"' . $file['etag'] . '"') {
             $this->response->status(304);
         } else {
             try {
@@ -80,12 +80,12 @@ class FileViewerController extends BaseController
             $params['task_id'] = $file['task_id'];
         }
 
-        $this->response->html($this->template->render('file_viewer/show', array(
-            'file' => $file,
-            'params' => $params,
-            'type' => $type,
+        $this->response->html($this->template->render('file_viewer/show', [
+            'file'    => $file,
+            'params'  => $params,
+            'type'    => $type,
             'content' => $this->getFileContent($file),
-        )));
+        ]));
     }
 
     /**
@@ -124,14 +124,12 @@ class FileViewerController extends BaseController
         $this->response->withCache(5 * 86400, $file['etag']);
         $this->response->withContentType('image/png');
 
-        if ($this->request->getHeader('If-None-Match') === '"'.$file['etag'].'"') {
+        if ($this->request->getHeader('If-None-Match') === '"' . $file['etag'] . '"') {
             $this->response->status(304);
         } else {
-
             $this->response->send();
 
             try {
-
                 $this->objectStorage->output($filename);
             } catch (ObjectStorageException $e) {
                 $this->logger->error($e->getMessage());

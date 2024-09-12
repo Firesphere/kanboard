@@ -34,10 +34,10 @@ class TaskPositionModel extends Base
             ->eq('id', $task_id)
             ->eq('project_id', $project_id)
             ->update([
-                'swimlane_id' => $swimlane_id,
-                'column_id' => $column_id,
-                'position' => $position,
-                'date_moved' => time(),
+                'swimlane_id'       => $swimlane_id,
+                'column_id'         => $column_id,
+                'position'          => $position,
+                'date_moved'        => time(),
                 'date_modification' => time(),
             ]);
 
@@ -189,7 +189,6 @@ class TaskPositionModel extends Base
         $offset = 1;
 
         foreach ($tasks_ids as $current_task_id) {
-
             // Insert the new task
             if ($position == $offset) {
                 if (! $this->saveTaskPosition($task_id, $offset, $column_id, $swimlane_id)) {
@@ -225,10 +224,10 @@ class TaskPositionModel extends Base
     {
         $now = time();
 
-        return $this->db->table(TaskModel::TABLE)->eq('id', $task_id)->update(array(
-            'date_moved' => $now,
+        return $this->db->table(TaskModel::TABLE)->eq('id', $task_id)->update([
+            'date_moved'        => $now,
             'date_modification' => $now,
-        ));
+        ]);
     }
 
     /**
@@ -243,11 +242,11 @@ class TaskPositionModel extends Base
      */
     private function saveTaskPosition($task_id, $position, $column_id, $swimlane_id)
     {
-        $result = $this->db->table(TaskModel::TABLE)->eq('id', $task_id)->update(array(
-            'position' => $position,
-            'column_id' => $column_id,
+        $result = $this->db->table(TaskModel::TABLE)->eq('id', $task_id)->update([
+            'position'    => $position,
+            'column_id'   => $column_id,
             'swimlane_id' => $swimlane_id,
-        ));
+        ]);
 
         if (! $result) {
             $this->db->cancelTransaction();
@@ -268,47 +267,47 @@ class TaskPositionModel extends Base
      */
     private function fireEvents(array $task, $new_column_id, $new_position, $new_swimlane_id)
     {
-        $changes = array(
-            'project_id' => $task['project_id'],
-            'position' => $new_position,
-            'column_id' => $new_column_id,
-            'swimlane_id' => $new_swimlane_id,
-            'src_column_id' => $task['column_id'],
-            'dst_column_id' => $new_column_id,
-            'date_moved' => $task['date_moved'],
-            'recurrence_status' => $task['recurrence_status'],
+        $changes = [
+            'project_id'         => $task['project_id'],
+            'position'           => $new_position,
+            'column_id'          => $new_column_id,
+            'swimlane_id'        => $new_swimlane_id,
+            'src_column_id'      => $task['column_id'],
+            'dst_column_id'      => $new_column_id,
+            'date_moved'         => $task['date_moved'],
+            'recurrence_status'  => $task['recurrence_status'],
             'recurrence_trigger' => $task['recurrence_trigger'],
-        );
+        ];
 
         if ($task['swimlane_id'] != $new_swimlane_id) {
             $this->taskEventJob->execute(
                 $task['id'],
-                array(TaskModel::EVENT_MOVE_SWIMLANE),
+                [TaskModel::EVENT_MOVE_SWIMLANE],
                 $changes,
-                $changes
+                $changes,
             );
 
             if ($task['column_id'] != $new_column_id) {
                 $this->taskEventJob->execute(
                     $task['id'],
-                    array(TaskModel::EVENT_MOVE_COLUMN),
+                    [TaskModel::EVENT_MOVE_COLUMN],
                     $changes,
-                    $changes
+                    $changes,
                 );
             }
         } elseif ($task['column_id'] != $new_column_id) {
             $this->taskEventJob->execute(
                 $task['id'],
-                array(TaskModel::EVENT_MOVE_COLUMN),
+                [TaskModel::EVENT_MOVE_COLUMN],
                 $changes,
-                $changes
+                $changes,
             );
         } elseif ($task['position'] != $new_position) {
             $this->taskEventJob->execute(
                 $task['id'],
-                array(TaskModel::EVENT_MOVE_POSITION),
+                [TaskModel::EVENT_MOVE_POSITION],
                 $changes,
-                $changes
+                $changes,
             );
         }
     }

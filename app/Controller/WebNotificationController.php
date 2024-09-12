@@ -20,11 +20,11 @@ class WebNotificationController extends BaseController
         $user = $this->getUser();
         $notifications = $this->userUnreadNotificationModel->getAll($user['id']);
 
-        $this->response->html($this->template->render('web_notification/show', array(
+        $this->response->html($this->template->render('web_notification/show', [
             'notifications'    => $notifications,
             'nb_notifications' => count($notifications),
             'user'             => $user,
-        )));
+        ]));
     }
 
     /**
@@ -71,14 +71,14 @@ class WebNotificationController extends BaseController
             $this->response->redirect($this->helper->url->to(
                 'TaskViewController',
                 'show',
-                array('task_id' => $this->notificationModel->getTaskIdFromEvent($notification['event_name'], $notification['event_data'])),
-                'comment-'.$notification['event_data']['comment']['id']
+                ['task_id' => $this->notificationModel->getTaskIdFromEvent($notification['event_name'], $notification['event_data'])],
+                'comment-' . $notification['event_data']['comment']['id'],
             ));
         } else {
             $this->response->redirect($this->helper->url->to(
                 'TaskViewController',
                 'show',
-                array('task_id' => $this->notificationModel->getTaskIdFromEvent($notification['event_name'], $notification['event_data']))
+                ['task_id' => $this->notificationModel->getTaskIdFromEvent($notification['event_name'], $notification['event_data'])],
             ));
         }
     }

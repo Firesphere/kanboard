@@ -12,7 +12,7 @@
         <?= $this->form->hidden('action', $values) ?>
 
         <div class="input-addon">
-            <?= $this->form->text('search', $values, array(), array(empty($values['search']) ? 'autofocus' : '', 'placeholder="'.t('Search').'"', 'aria-label="'.t('Search').'"'), 'input-addon-field') ?>
+            <?= $this->form->text('search', $values, [], [empty($values['search']) ? 'autofocus' : '', 'placeholder="' . t('Search') . '"', 'aria-label="' . t('Search') . '"'], 'input-addon-field') ?>
             <div class="input-addon-item">
                 <?= $this->render('app/filters_helper') ?>
             </div>
@@ -36,5 +36,5 @@
 <?php elseif (! empty($values['search']) && $nb_events === 0): ?>
     <p class="alert"><?= t('Nothing found.') ?></p>
 <?php else: ?>
-    <?= $this->render('event/events', array('events' => $events)) ?>
+    <?= $this->render('event/events', ['events' => $events]) ?>
 <?php endif ?>

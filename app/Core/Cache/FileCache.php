@@ -78,7 +78,7 @@ class FileCache extends BaseCache
      */
     protected function getFilenameFromKey($key)
     {
-        return CACHE_DIR.DIRECTORY_SEPARATOR.$key;
+        return CACHE_DIR . DIRECTORY_SEPARATOR . $key;
     }
 
     /**
@@ -91,7 +91,7 @@ class FileCache extends BaseCache
     {
         if (! is_dir(CACHE_DIR)) {
             if (! mkdir(CACHE_DIR, 0755)) {
-                throw new LogicException('Unable to create cache directory: '.CACHE_DIR);
+                throw new LogicException('Unable to create cache directory: ' . CACHE_DIR);
             }
         }
     }

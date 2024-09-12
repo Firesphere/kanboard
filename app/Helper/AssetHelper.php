@@ -22,8 +22,8 @@ class AssetHelper extends Base
     public function js($filename, $async = false)
     {
         $dir = dirname(__DIR__, 2);
-        $filepath = $dir.'/'.$filename;
-        return '<script '.($async ? 'async' : '').' defer type="text/javascript" src="'.$this->helper->url->dir().$filename.'?'.filemtime($filepath).'"></script>';
+        $filepath = $dir . '/' . $filename;
+        return '<script ' . ($async ? 'async' : '') . ' defer type="text/javascript" src="' . $this->helper->url->dir() . $filename . '?' . filemtime($filepath) . '"></script>';
     }
 
     /**
@@ -37,8 +37,8 @@ class AssetHelper extends Base
     public function css($filename, $is_file = true, $media = 'screen')
     {
         $dir = dirname(__DIR__, 2);
-        $filepath = $dir.'/'.$filename;
-        return '<link rel="stylesheet" href="'.$this->helper->url->dir().$filename.($is_file ? '?'.filemtime($filepath) : '').'" media="'.$media.'">';
+        $filepath = $dir . '/' . $filename;
+        return '<link rel="stylesheet" href="' . $this->helper->url->dir() . $filename . ($is_file ? '?' . filemtime($filepath) : '') . '" media="' . $media . '">';
     }
 
     /**
@@ -50,7 +50,7 @@ class AssetHelper extends Base
     public function customCss()
     {
         if ($this->configModel->get('application_stylesheet')) {
-            return '<style>'.$this->configModel->get('application_stylesheet').'</style>';
+            return '<style>' . $this->configModel->get('application_stylesheet') . '</style>';
         }
 
         return '';
@@ -64,6 +64,6 @@ class AssetHelper extends Base
      */
     public function colorCss()
     {
-        return '<style>'.$this->colorModel->getCss().'</style>';
+        return '<style>' . $this->colorModel->getCss() . '</style>';
     }
 }

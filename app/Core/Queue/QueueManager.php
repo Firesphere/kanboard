@@ -45,11 +45,11 @@ class QueueManager extends Base
         $jobClassName = get_class($job);
 
         if ($this->queue !== null) {
-            $this->logger->debug(__METHOD__.': Job pushed in queue: '.$jobClassName);
+            $this->logger->debug(__METHOD__ . ': Job pushed in queue: ' . $jobClassName);
             $this->queue->push(JobHandler::getInstance($this->container)->serializeJob($job));
         } else {
-            $this->logger->debug(__METHOD__.': Job executed synchronously: '.$jobClassName);
-            call_user_func_array(array($job, 'execute'), $job->getJobParams());
+            $this->logger->debug(__METHOD__ . ': Job executed synchronously: ' . $jobClassName);
+            call_user_func_array([$job, 'execute'], $job->getJobParams());
         }
 
         return $this;

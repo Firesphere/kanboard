@@ -17,7 +17,7 @@ class Translator
      * @access public
      * @var array
      */
-    public static $locales = array();
+    public static $locales = [];
 
     /**
      * Instance
@@ -66,7 +66,7 @@ class Translator
 
         return call_user_func_array(
             'sprintf',
-            $args
+            $args,
         );
     }
 
@@ -88,7 +88,7 @@ class Translator
 
         return call_user_func_array(
             'sprintf',
-            $args
+            $args,
         );
     }
 
@@ -107,7 +107,7 @@ class Translator
             $number,
             $this->get('number.decimals', 2),
             $this->get('number.decimals_separator', '.'),
-            $this->get('number.thousands_separator', ',')
+            $this->get('number.thousands_separator', ','),
         );
     }
 
@@ -133,7 +133,7 @@ class Translator
         $str .= $this->number($amount);
 
         if ($position === 'after') {
-            $str .= ' '.$symbol;
+            $str .= ' ' . $symbol;
         }
 
         return $str;
@@ -170,7 +170,7 @@ class Translator
             $path = self::getDefaultFolder();
         }
 
-        $filename = implode(DIRECTORY_SEPARATOR, array($path, $language, 'translations.php'));
+        $filename = implode(DIRECTORY_SEPARATOR, [$path, $language, 'translations.php']);
 
         if (file_exists($filename)) {
             self::$locales = array_merge(self::$locales, require($filename));
@@ -185,7 +185,7 @@ class Translator
      */
     public static function unload()
     {
-        self::$locales = array();
+        self::$locales = [];
     }
 
     /**
@@ -196,6 +196,6 @@ class Translator
      */
     public static function getDefaultFolder()
     {
-        return implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'Locale'));
+        return implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'Locale']);
     }
 }

@@ -4,8 +4,8 @@ namespace Kanboard\Model;
 
 use Exception;
 use Kanboard\Core\Base;
-use Kanboard\Core\Thumbnail;
 use Kanboard\Core\ObjectStorage\ObjectStorageException;
+use Kanboard\Core\Thumbnail;
 
 /**
  * Base File Model
@@ -71,19 +71,19 @@ abstract class FileModel extends Base
         return $this->db
             ->table($this->getTable())
             ->columns(
-                $this->getTable().'.id',
-                $this->getTable().'.name',
-                $this->getTable().'.path',
-                $this->getTable().'.is_image',
-                $this->getTable().'.'.$this->getForeignKey(),
-                $this->getTable().'.date',
-                $this->getTable().'.user_id',
-                $this->getTable().'.size',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name as user_name'
+                $this->getTable() . '.id',
+                $this->getTable() . '.name',
+                $this->getTable() . '.path',
+                $this->getTable() . '.is_image',
+                $this->getTable() . '.' . $this->getForeignKey(),
+                $this->getTable() . '.date',
+                $this->getTable() . '.user_id',
+                $this->getTable() . '.size',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name as user_name',
             )
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->asc($this->getTable().'.name');
+            ->asc($this->getTable() . '.name');
     }
 
     /**
@@ -162,15 +162,15 @@ abstract class FileModel extends Base
      */
     public function create($foreign_key_id, $name, $path, $size)
     {
-        $values = array(
+        $values = [
             $this->getForeignKey() => $foreign_key_id,
-            'name' => substr($name, 0, 255),
-            'path' => $path,
-            'is_image' => $this->isImage($name) ? 1 : 0,
-            'size' => $size,
-            'user_id' => $this->userSession->getId() ?: 0,
-            'date' => time(),
-        );
+            'name'                 => substr($name, 0, 255),
+            'path'                 => $path,
+            'is_image'             => $this->isImage($name) ? 1 : 0,
+            'size'                 => $size,
+            'user_id'              => $this->userSession->getId() ?: 0,
+            'date'                 => time(),
+        ];
 
         $result = $this->db->table($this->getTable())->insert($values);
 
@@ -193,7 +193,7 @@ abstract class FileModel extends Base
     public function removeAll($id)
     {
         $file_ids = $this->db->table($this->getTable())->eq($this->getForeignKey(), $id)->asc('id')->findAllByColumn('id');
-        $results = array();
+        $results = [];
 
         foreach ($file_ids as $file_id) {
             $results[] = $this->remove($file_id);
@@ -262,7 +262,7 @@ abstract class FileModel extends Base
      */
     public function getThumbnailPath($key)
     {
-        return 'thumbnails'.DIRECTORY_SEPARATOR.$key;
+        return 'thumbnails' . DIRECTORY_SEPARATOR . $key;
     }
 
     /**
@@ -275,7 +275,7 @@ abstract class FileModel extends Base
      */
     public function generatePath($id, $filename)
     {
-        return $this->getPathPrefix().DIRECTORY_SEPARATOR.$id.DIRECTORY_SEPARATOR.hash('sha1', $filename.time());
+        return $this->getPathPrefix() . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . hash('sha1', $filename . time());
     }
 
     /**
@@ -294,12 +294,12 @@ abstract class FileModel extends Base
             }
 
             foreach (array_keys($files['error']) as $key) {
-                $file = array(
-                    'name' => $files['name'][$key],
+                $file = [
+                    'name'     => $files['name'][$key],
                     'tmp_name' => $files['tmp_name'][$key],
-                    'size' => $files['size'][$key],
-                    'error' => $files['error'][$key],
-                );
+                    'size'     => $files['size'][$key],
+                    'error'    => $files['error'][$key],
+                ];
 
                 $this->uploadFile($id, $file);
             }
@@ -331,7 +331,7 @@ abstract class FileModel extends Base
             $this->objectStorage->moveUploadedFile($file['tmp_name'], $destination_filename);
             $this->create($id, $file['name'], $destination_filename, $file['size']);
         } else {
-            throw new Exception('File not uploaded: '.var_export($file['error'], true));
+            throw new Exception('File not uploaded: ' . var_export($file['error'], true));
         }
     }
 
@@ -353,7 +353,7 @@ abstract class FileModel extends Base
             }
 
             if (empty($data)) {
-                $this->logger->error(__METHOD__.': Content upload with no data');
+                $this->logger->error(__METHOD__ . ': Content upload with no data');
                 return false;
             }
 
@@ -368,7 +368,7 @@ abstract class FileModel extends Base
                 $id,
                 $originalFilename,
                 $destinationFilename,
-                strlen($data)
+                strlen($data),
             );
         } catch (ObjectStorageException $e) {
             $this->logger->error($e->getMessage());

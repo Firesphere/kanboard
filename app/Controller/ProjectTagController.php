@@ -14,24 +14,24 @@ class ProjectTagController extends BaseController
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_tag/index', array(
+        $this->response->html($this->helper->layout->project('project_tag/index', [
             'project' => $project,
             'tags'    => $this->tagModel->getAllByProject($project['id']),
             'colors'  => $this->colorModel->getList(),
             'title'   => t('Project tags management'),
-        )));
+        ]));
     }
 
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('project_tag/create', array(
+        $this->response->html($this->template->render('project_tag/create', [
             'project' => $project,
             'values'  => $values,
             'colors'  => $this->colorModel->getList(),
             'errors'  => $errors,
-        )));
+        ]));
     }
 
     public function save()
@@ -49,13 +49,13 @@ class ProjectTagController extends BaseController
                 $this->flash->failure(t('Unable to create this tag.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
         } else {
             $this->create($values, $errors);
         }
     }
 
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
         $tag = $this->getProjectTag($project);
@@ -64,13 +64,13 @@ class ProjectTagController extends BaseController
             $values = $tag;
         }
 
-        $this->response->html($this->template->render('project_tag/edit', array(
+        $this->response->html($this->template->render('project_tag/edit', [
             'project' => $project,
             'tag'     => $tag,
             'values'  => $values,
             'colors'  => $this->colorModel->getList(),
             'errors'  => $errors,
-        )));
+        ]));
     }
 
     public function update()
@@ -90,7 +90,7 @@ class ProjectTagController extends BaseController
                 $this->flash->failure(t('Unable to update this tag.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
         } else {
             $this->edit($values, $errors);
         }
@@ -101,10 +101,10 @@ class ProjectTagController extends BaseController
         $project = $this->getProject();
         $tag = $this->getProjectTag($project);
 
-        $this->response->html($this->template->render('project_tag/remove', array(
+        $this->response->html($this->template->render('project_tag/remove', [
             'tag'     => $tag,
             'project' => $project,
-        )));
+        ]));
     }
 
     public function remove()
@@ -119,7 +119,7 @@ class ProjectTagController extends BaseController
             $this->flash->failure(t('Unable to remove this tag.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -132,10 +132,10 @@ class ProjectTagController extends BaseController
         $project = $this->getProject();
         $tag = $this->getProjectTag($project);
 
-        $this->response->html($this->template->render('project_tag/make_global', array(
+        $this->response->html($this->template->render('project_tag/make_global', [
             'tag'     => $tag,
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -155,7 +155,7 @@ class ProjectTagController extends BaseController
                 $this->flash->failure(t('Unable to update this tag.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
         }
     }
 
@@ -173,10 +173,9 @@ class ProjectTagController extends BaseController
 
         if ($this->projectModel->changeGlobalTagUsage($project['id'], $values['enable_global_tags'])) {
             $this->flash->success(t('Project updated successfully.'));
-            return $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', array('project_id' => $project['id'])));
+            return $this->response->redirect($this->helper->url->to('ProjectTagController', 'index', ['project_id' => $project['id']]));
         } else {
             $this->flash->failure(t('Unable to update this project.'));
         }
-
     }
 }

@@ -29,7 +29,7 @@ class GroupModel extends Base
     {
         return $this->db->table(self::TABLE)
             ->columns('id', 'name', 'external_id')
-            ->subquery('SELECT COUNT(*) FROM '.GroupMemberModel::TABLE.' WHERE group_id='.self::TABLE.'.id', 'nb_users');
+            ->subquery('SELECT COUNT(*) FROM ' . GroupMemberModel::TABLE . ' WHERE group_id=' . self::TABLE . '.id', 'nb_users');
     }
 
     /**
@@ -92,7 +92,7 @@ class GroupModel extends Base
      */
     public function search($input)
     {
-        return $this->db->table(self::TABLE)->ilike('name', '%'.$input.'%')->asc('name')->findAll();
+        return $this->db->table(self::TABLE)->ilike('name', '%' . $input . '%')->asc('name')->findAll();
     }
 
     /**
@@ -117,10 +117,10 @@ class GroupModel extends Base
      */
     public function create($name, $external_id = '')
     {
-        return $this->db->table(self::TABLE)->persist(array(
-            'name' => $name,
+        return $this->db->table(self::TABLE)->persist([
+            'name'        => $name,
             'external_id' => $external_id,
-        ));
+        ]);
     }
 
     /**

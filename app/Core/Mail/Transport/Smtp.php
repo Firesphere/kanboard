@@ -29,13 +29,13 @@ class Smtp extends Mail
         $transport->setEncryption(MAIL_SMTP_ENCRYPTION);
 
         if (HTTP_VERIFY_SSL_CERTIFICATE === false) {
-            $transport->setStreamOptions(array(
-                'ssl' => array(
+            $transport->setStreamOptions([
+                'ssl' => [
                     'allow_self_signed' => true,
                     'verify_peer'       => false,
                     'verify_peer_name'  => false,
-                )
-            ));
+                ],
+            ]);
         }
 
         return $transport;

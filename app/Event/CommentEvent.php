@@ -2,6 +2,4 @@
 
 namespace Kanboard\Event;
 
-class CommentEvent extends GenericEvent
-{
-}
+class CommentEvent extends GenericEvent {}

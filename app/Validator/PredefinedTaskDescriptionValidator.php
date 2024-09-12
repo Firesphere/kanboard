@@ -9,14 +9,14 @@ class PredefinedTaskDescriptionValidator extends BaseValidator
 {
     public function validate(array $values)
     {
-        $v = new Validator($values, array(
+        $v = new Validator($values, [
             new Validators\Required('title', t('This value is required')),
             new Validators\Required('description', t('This value is required')),
-        ));
+        ]);
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 }

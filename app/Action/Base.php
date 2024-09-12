@@ -18,7 +18,7 @@ abstract class Base extends \Kanboard\Core\Base
      * @access private
      * @var array
      */
-    private $compatibleEvents = array();
+    private $compatibleEvents = [];
 
     /**
      * Keep history of executed events
@@ -42,7 +42,7 @@ abstract class Base extends \Kanboard\Core\Base
      * @access private
      * @var array
      */
-    private $params = array();
+    private $params = [];
 
     /**
      * Get automatic action name
@@ -53,7 +53,7 @@ abstract class Base extends \Kanboard\Core\Base
      */
     final public function getName()
     {
-        return '\\'.get_called_class();
+        return '\\' . get_called_class();
     }
 
     /**
@@ -119,13 +119,13 @@ abstract class Base extends \Kanboard\Core\Base
      */
     public function __toString()
     {
-        $params = array();
+        $params = [];
 
         foreach ($this->params as $key => $value) {
-            $params[] = $key.'='.var_export($value, true);
+            $params[] = $key . '=' . var_export($value, true);
         }
 
-        return $this->getName().'('.implode('|', $params).')';
+        return $this->getName() . '(' . implode('|', $params) . ')';
     }
 
     /**
@@ -227,7 +227,7 @@ abstract class Base extends \Kanboard\Core\Base
      * @param  array   $data   Event data dictionary
      * @return bool            True if all keys are there
      */
-    public function hasRequiredParameters(array $data, array $parameters = array())
+    public function hasRequiredParameters(array $data, array $parameters = [])
     {
         $parameters = $parameters ?: $this->getEventRequiredParameters();
 
@@ -253,7 +253,7 @@ abstract class Base extends \Kanboard\Core\Base
     public function execute(GenericEvent $event, $eventName)
     {
         $data = $event->getAll();
-        $hash = md5(serialize($data).$eventName);
+        $hash = md5(serialize($data) . $eventName);
 
         // Do not call twice the same action with the same arguments.
         if (isset($this->callStack[$hash])) {
@@ -269,7 +269,7 @@ abstract class Base extends \Kanboard\Core\Base
             $executed = $this->doAction($data);
         }
 
-        $this->logger->debug($this.' ['.$eventName.'] => executable='.var_export($executable, true).' exec_success='.var_export($executed, true));
+        $this->logger->debug($this . ' [' . $eventName . '] => executable=' . var_export($executable, true) . ' exec_success=' . var_export($executed, true));
 
         return $executed;
     }

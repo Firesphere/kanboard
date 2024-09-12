@@ -24,9 +24,9 @@
 
 <div class="margin-bottom">
     <form method="get" action="<?= $this->url->dir() ?>" class="search">
-        <?= $this->form->hidden('controller', array('controller' => 'ProjectListController')) ?>
-        <?= $this->form->hidden('action', array('action' => 'show')) ?>
-        <?= $this->form->text('search', $values, array(), array('placeholder="'.t('Search').'"', 'aria-label="'.t('Search').'"')) ?>
+        <?= $this->form->hidden('controller', ['controller' => 'ProjectListController']) ?>
+        <?= $this->form->hidden('action', ['action' => 'show']) ?>
+        <?= $this->form->text('search', $values, [], ['placeholder="' . t('Search') . '"', 'aria-label="' . t('Search') . '"']) ?>
     </form>
 </div>
 
@@ -34,20 +34,20 @@
     <p class="alert"><?= t('There is no project.') ?></p>
 <?php else: ?>
     <div class="table-list">
-        <?= $this->render('project_list/header', array('paginator' => $paginator)) ?>
+        <?= $this->render('project_list/header', ['paginator' => $paginator]) ?>
         <?php foreach ($paginator->getCollection() as $project): ?>
             <div class="table-list-row table-border-left">
-                <?= $this->render('project_list/project_title', array(
+                <?= $this->render('project_list/project_title', [
                     'project' => $project,
-                )) ?>
+                ]) ?>
 
-                <?= $this->render('project_list/project_details', array(
+                <?= $this->render('project_list/project_details', [
                     'project' => $project,
-                )) ?>
+                ]) ?>
 
-                <?= $this->render('project_list/project_icons', array(
+                <?= $this->render('project_list/project_icons', [
                     'project' => $project,
-                )) ?>
+                ]) ?>
             </div>
         <?php endforeach ?>
     </div>

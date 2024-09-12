@@ -22,12 +22,12 @@ class SwimlaneController extends BaseController
         $project = $this->getProject();
         $swimlanes = $this->swimlaneModel->getAllWithTaskCount($project['id']);
 
-        $this->response->html($this->helper->layout->project('swimlane/index', array(
-            'active_swimlanes' => $swimlanes['active'],
+        $this->response->html($this->helper->layout->project('swimlane/index', [
+            'active_swimlanes'   => $swimlanes['active'],
             'inactive_swimlanes' => $swimlanes['inactive'],
-            'project' => $project,
-            'title' => t('Swimlanes')
-        )));
+            'project'            => $project,
+            'title'              => t('Swimlanes'),
+        ]));
     }
 
     /**
@@ -38,15 +38,15 @@ class SwimlaneController extends BaseController
      * @param array $errors
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->template->render('swimlane/create', array(
-            'values' => $values + array('project_id' => $project['id']),
-            'errors' => $errors,
+        $this->response->html($this->template->render('swimlane/create', [
+            'values'  => $values + ['project_id' => $project['id']],
+            'errors'  => $errors,
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -65,10 +65,10 @@ class SwimlaneController extends BaseController
         if ($valid) {
             if ($this->swimlaneModel->create($project['id'], $values['name'], $values['description'], $values['task_limit']) !== false) {
                 $this->flash->success(t('Your swimlane has been created successfully.'));
-                $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', array('project_id' => $project['id'])), true);
+                $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]), true);
                 return;
             } else {
-                $errors = array('name' => array(t('Another swimlane with the same name exists in the project')));
+                $errors = ['name' => [t('Another swimlane with the same name exists in the project')]];
             }
         }
 
@@ -83,16 +83,16 @@ class SwimlaneController extends BaseController
      * @param array $errors
      * @throws \Kanboard\Core\Controller\PageNotFoundException
      */
-    public function edit(array $values = array(), array $errors = array())
+    public function edit(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
         $swimlane = $this->getSwimlane($project);
 
-        $this->response->html($this->helper->layout->project('swimlane/edit', array(
-            'values' => empty($values) ? $swimlane : $values,
-            'errors' => $errors,
+        $this->response->html($this->helper->layout->project('swimlane/edit', [
+            'values'  => empty($values) ? $swimlane : $values,
+            'errors'  => $errors,
             'project' => $project,
-        )));
+        ]));
     }
 
     /**
@@ -113,9 +113,9 @@ class SwimlaneController extends BaseController
         if ($valid) {
             if ($this->swimlaneModel->update($values['id'], $values)) {
                 $this->flash->success(t('Swimlane updated successfully.'));
-                return $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', array('project_id' => $project['id'])));
+                return $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]));
             } else {
-                $errors = array('name' => array(t('Another swimlane with the same name exists in the project')));
+                $errors = ['name' => [t('Another swimlane with the same name exists in the project')]];
             }
         }
 
@@ -132,10 +132,10 @@ class SwimlaneController extends BaseController
         $project = $this->getProject();
         $swimlane = $this->getSwimlane($project);
 
-        $this->response->html($this->helper->layout->project('swimlane/remove', array(
-            'project' => $project,
+        $this->response->html($this->helper->layout->project('swimlane/remove', [
+            'project'  => $project,
             'swimlane' => $swimlane,
-        )));
+        ]));
     }
 
     /**
@@ -155,7 +155,7 @@ class SwimlaneController extends BaseController
             $this->flash->failure(t('Unable to remove this swimlane.'));
         }
 
-        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -175,7 +175,7 @@ class SwimlaneController extends BaseController
             $this->flash->failure(t('Unable to update this swimlane.'));
         }
 
-        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -195,7 +195,7 @@ class SwimlaneController extends BaseController
             $this->flash->failure(t('Unable to update this swimlane.'));
         }
 
-        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('SwimlaneController', 'index', ['project_id' => $project['id']]));
     }
 
     /**
@@ -211,7 +211,7 @@ class SwimlaneController extends BaseController
 
         if (! empty($values) && isset($values['swimlane_id']) && isset($values['position'])) {
             $result = $this->swimlaneModel->changePosition($project['id'], $values['swimlane_id'], $values['position']);
-            $this->response->json(array('result' => $result));
+            $this->response->json(['result' => $result]);
         } else {
             throw new AccessForbiddenException();
         }

@@ -37,10 +37,10 @@ class UserLockingModel extends Base
     {
         return $this->db->table(UserModel::TABLE)
             ->eq('username', $username)
-            ->update(array(
-                'nb_failed_login' => 0,
+            ->update([
+                'nb_failed_login'      => 0,
                 'lock_expiration_date' => 0,
-            ));
+            ]);
     }
 
     /**
@@ -85,9 +85,9 @@ class UserLockingModel extends Base
     {
         return $this->db->table(UserModel::TABLE)
             ->eq('username', $username)
-            ->update(array(
-                'lock_expiration_date' => time() + $duration * 60
-            ));
+            ->update([
+                'lock_expiration_date' => time() + $duration * 60,
+            ]);
     }
 
     /**

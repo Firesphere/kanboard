@@ -53,7 +53,7 @@ class ActionParameterModel extends Base
      */
     private function toDictionary(array $params)
     {
-        $result = array();
+        $result = [];
 
         foreach ($params as $param) {
             $result[$param['action_id']][$param['name']] = $param['value'];
@@ -85,11 +85,11 @@ class ActionParameterModel extends Base
     public function create($action_id, array $values)
     {
         foreach ($values['params'] as $name => $value) {
-            $param = array(
+            $param = [
                 'action_id' => $action_id,
-                'name' => $name,
-                'value' => $value,
-            );
+                'name'      => $name,
+                'value'     => $value,
+            ];
 
             if (! $this->db->table(self::TABLE)->save($param)) {
                 return false;
@@ -114,15 +114,15 @@ class ActionParameterModel extends Base
             $value = $this->resolveParameter($project_id, $name, $value);
 
             if ($value === false) {
-                $this->logger->error('ActionParameter::duplicateParameters => unable to resolve '.$name.'='.$value);
+                $this->logger->error('ActionParameter::duplicateParameters => unable to resolve ' . $name . '=' . $value);
                 return false;
             }
 
-            $values = array(
+            $values = [
                 'action_id' => $action_id,
-                'name' => $name,
-                'value' => $value,
-            );
+                'name'      => $name,
+                'value'     => $value,
+            ];
 
             if (! $this->db->table(self::TABLE)->insert($values)) {
                 return false;

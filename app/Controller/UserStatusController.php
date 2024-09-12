@@ -19,9 +19,9 @@ class UserStatusController extends BaseController
     {
         $user = $this->getUser();
 
-        $this->response->html($this->helper->layout->user('user_status/remove', array(
+        $this->response->html($this->helper->layout->user('user_status/remove', [
             'user' => $user,
-        )));
+        ]));
     }
 
     /**
@@ -52,9 +52,9 @@ class UserStatusController extends BaseController
     {
         $user = $this->getUser();
 
-        $this->response->html($this->helper->layout->user('user_status/enable', array(
+        $this->response->html($this->helper->layout->user('user_status/enable', [
             'user' => $user,
-        )));
+        ]));
     }
 
     /**
@@ -85,9 +85,9 @@ class UserStatusController extends BaseController
     {
         $user = $this->getUser();
 
-        $this->response->html($this->helper->layout->user('user_status/disable', array(
+        $this->response->html($this->helper->layout->user('user_status/disable', [
             'user' => $user,
-        )));
+        ]));
     }
 
     /**

@@ -42,7 +42,7 @@ class TaskCreatorFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('creator');
+        return ['creator'];
     }
 
     /**
@@ -54,22 +54,22 @@ class TaskCreatorFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(TaskModel::TABLE.'.creator_id', $this->value);
+            $this->query->eq(TaskModel::TABLE . '.creator_id', $this->value);
         } else {
             switch ($this->value) {
                 case 'me':
-                    $this->query->eq(TaskModel::TABLE.'.creator_id', $this->currentUserId);
+                    $this->query->eq(TaskModel::TABLE . '.creator_id', $this->currentUserId);
                     break;
                 case 'nobody':
-                    $this->query->eq(TaskModel::TABLE.'.creator_id', 0);
+                    $this->query->eq(TaskModel::TABLE . '.creator_id', 0);
                     break;
                 case 'anybody':
-                    $this->query->gt(TaskModel::TABLE.'.creator_id', 0);
+                    $this->query->gt(TaskModel::TABLE . '.creator_id', 0);
                     break;
                 default:
                     $this->query->beginOr();
-                    $this->query->ilike('uc.username', '%'.$this->value.'%');
-                    $this->query->ilike('uc.name', '%'.$this->value.'%');
+                    $this->query->ilike('uc.username', '%' . $this->value . '%');
+                    $this->query->ilike('uc.name', '%' . $this->value . '%');
                     $this->query->closeOr();
             }
         }

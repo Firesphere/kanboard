@@ -7,16 +7,16 @@
         <?php foreach ($grouped_links as $link): ?>
             <tr>
                 <td class="column-10">
-                    <?= $this->task->getProgress($link).'%' ?>
+                    <?= $this->task->getProgress($link) . '%' ?>
                 </td>
                 <td class="column-60">
                     <?= $this->url->link(
-                        $this->text->e('#'.$link['task_id'].' '.$link['title']),
+                        $this->text->e('#' . $link['task_id'] . ' ' . $link['title']),
                         'TaskViewController',
                         'show',
-                        array('task_id' => $link['task_id']),
+                        ['task_id' => $link['task_id']],
                         false,
-                        $link['is_active'] ? '' : 'task-link-closed'
+                        $link['is_active'] ? '' : 'task-link-closed',
                     ) ?>
                 </td>
                 <td>

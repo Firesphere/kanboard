@@ -2,9 +2,9 @@
 
 namespace Kanboard\Core\Mail;
 
+use Kanboard\Core\Base;
 use Kanboard\Job\EmailJob;
 use Pimple\Container;
-use Kanboard\Core\Base;
 
 /**
  * Mail Client
@@ -53,7 +53,7 @@ class Client extends Base
                 $subject,
                 $html,
                 is_null($authorName) ? $this->getAuthorName() : $authorName,
-                is_null($authorEmail) ? $this->getAuthorEmail() : $authorEmail
+                is_null($authorEmail) ? $this->getAuthorEmail() : $authorEmail,
             ));
         }
 

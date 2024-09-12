@@ -8,6 +8,4 @@ namespace Kanboard\Core\Plugin;
  * @package Kanboard\Core\Plugin
  * @author  Frederic Guillot
  */
-class PluginInstallerException extends PluginException
-{
-}
+class PluginInstallerException extends PluginException {}

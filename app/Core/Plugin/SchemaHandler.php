@@ -30,7 +30,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      */
     public static function getSchemaFilename($pluginName)
     {
-        return PLUGINS_DIR.'/'.$pluginName.'/Schema/'.ucfirst(DB_DRIVER).'.php';
+        return PLUGINS_DIR . '/' . $pluginName . '/Schema/' . ucfirst(DB_DRIVER) . '.php';
     }
 
     /**
@@ -66,7 +66,7 @@ class SchemaHandler extends \Kanboard\Core\Base
      */
     public function migrateSchema($pluginName)
     {
-        $lastVersion = constant('\Kanboard\Plugin\\'.$pluginName.'\Schema\VERSION');
+        $lastVersion = constant('\Kanboard\Plugin\\' . $pluginName . '\Schema\VERSION');
         $currentVersion = $this->getSchemaVersion($pluginName);
 
         try {
@@ -74,7 +74,7 @@ class SchemaHandler extends \Kanboard\Core\Base
             $this->db->getDriver()->disableForeignKeys();
 
             for ($i = $currentVersion + 1; $i <= $lastVersion; $i++) {
-                $functionName = '\Kanboard\Plugin\\'.$pluginName.'\Schema\version_'.$i;
+                $functionName = '\Kanboard\Plugin\\' . $pluginName . '\Schema\version_' . $i;
 
                 if (function_exists($functionName)) {
                     call_user_func($functionName, $this->db->getConnection());
@@ -87,7 +87,7 @@ class SchemaHandler extends \Kanboard\Core\Base
         } catch (PDOException $e) {
             $this->db->cancelTransaction();
             $this->db->getDriver()->enableForeignKeys();
-            throw new RuntimeException('Unable to migrate schema for the plugin: '.$pluginName.' => '.$e->getMessage());
+            throw new RuntimeException('Unable to migrate schema for the plugin: ' . $pluginName . ' => ' . $e->getMessage());
         }
     }
 
@@ -113,9 +113,9 @@ class SchemaHandler extends \Kanboard\Core\Base
      */
     public function setSchemaVersion($plugin, $version)
     {
-        $dictionary = array(
-            strtolower($plugin) => $version
-        );
+        $dictionary = [
+            strtolower($plugin) => $version,
+        ];
 
         return $this->db->getDriver()->upsert(self::TABLE_SCHEMA, 'plugin', 'version', $dictionary);
     }

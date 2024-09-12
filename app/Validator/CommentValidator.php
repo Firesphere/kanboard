@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Kanboard\Core\Security\Role;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Kanboard\Core\Security\Role;
 
 /**
  * Comment Validator
@@ -23,21 +23,21 @@ class CommentValidator extends BaseValidator
      */
     public function validateEmailCreation(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('task_id', t('This value is required')),
             new Validators\Required('user_id', t('This value is required')),
             new Validators\Required('subject', t('This field is required')),
             new Validators\Required('emails', t('This field is required')),
             new Validators\Required('visibility', t('Visibility is required')),
-            new Validators\InArray('visibility', array(Role::APP_USER, Role::APP_MANAGER, Role::APP_ADMIN), t('The visibility should be an app role'))
-        );
+            new Validators\InArray('visibility', [Role::APP_USER, Role::APP_MANAGER, Role::APP_ADMIN], t('The visibility should be an app role')),
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -49,18 +49,18 @@ class CommentValidator extends BaseValidator
      */
     public function validateCreation(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('task_id', t('This value is required')),
             new Validators\Required('visibility', t('Visibility is required')),
-            new Validators\InArray('visibility', array(Role::APP_USER, Role::APP_MANAGER, Role::APP_ADMIN), t('The visibility should be an app role'))
-        );
+            new Validators\InArray('visibility', [Role::APP_USER, Role::APP_MANAGER, Role::APP_ADMIN], t('The visibility should be an app role')),
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -72,16 +72,16 @@ class CommentValidator extends BaseValidator
      */
     public function validateModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('This value is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -92,12 +92,12 @@ class CommentValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Integer('id', t('This value must be an integer')),
             new Validators\Integer('task_id', t('This value must be an integer')),
             new Validators\Integer('user_id', t('This value must be an integer')),
             new Validators\MaxLength('reference', t('The maximum length is %d characters', 191), 191),
-            new Validators\Required('comment', t('Comment is required'))
-        );
+            new Validators\Required('comment', t('Comment is required')),
+        ];
     }
 }

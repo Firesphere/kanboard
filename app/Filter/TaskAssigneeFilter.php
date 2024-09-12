@@ -43,7 +43,7 @@ class TaskAssigneeFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('assignee');
+        return ['assignee'];
     }
 
     /**
@@ -55,22 +55,22 @@ class TaskAssigneeFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(TaskModel::TABLE.'.owner_id', $this->value);
+            $this->query->eq(TaskModel::TABLE . '.owner_id', $this->value);
         } else {
             switch ($this->value) {
                 case 'me':
-                    $this->query->eq(TaskModel::TABLE.'.owner_id', $this->currentUserId);
+                    $this->query->eq(TaskModel::TABLE . '.owner_id', $this->currentUserId);
                     break;
                 case 'nobody':
-                    $this->query->eq(TaskModel::TABLE.'.owner_id', 0);
+                    $this->query->eq(TaskModel::TABLE . '.owner_id', 0);
                     break;
                 case 'anybody':
-                    $this->query->gt(TaskModel::TABLE.'.owner_id', 0);
+                    $this->query->gt(TaskModel::TABLE . '.owner_id', 0);
                     break;
                 default:
                     $this->query->beginOr();
-                    $this->query->ilike(UserModel::TABLE.'.username', '%'.$this->value.'%');
-                    $this->query->ilike(UserModel::TABLE.'.name', '%'.$this->value.'%');
+                    $this->query->ilike(UserModel::TABLE . '.username', '%' . $this->value . '%');
+                    $this->query->ilike(UserModel::TABLE . '.name', '%' . $this->value . '%');
                     $this->query->closeOr();
             }
         }

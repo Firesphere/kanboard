@@ -2,7 +2,6 @@
 
 namespace Kanboard\Middleware;
 
-use Kanboard\Core\Controller\AccessForbiddenException;
 use Kanboard\Core\Controller\BaseMiddleware;
 use Kanboard\Core\Security\Role;
 

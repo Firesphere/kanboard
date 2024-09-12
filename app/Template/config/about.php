@@ -41,7 +41,7 @@
         </li>
         <li>
             <?= t('OS version:') ?>
-            <strong><?= @php_uname('s').' '.@php_uname('r') ?></strong>
+            <strong><?= @php_uname('s') . ' ' . @php_uname('r') ?></strong>
         </li>
         <li>
             <?= t('Database driver:') ?>
@@ -69,14 +69,14 @@
                 <strong><?= $this->text->bytes($db_size) ?></strong>
             </li>
             <li>
-                <?= $this->url->link(t('Download the database'), 'ConfigController', 'downloadDb', array(), true) ?>&nbsp;
+                <?= $this->url->link(t('Download the database'), 'ConfigController', 'downloadDb', [], true) ?>&nbsp;
                 <?= t('(Gzip compressed Sqlite file)') ?>
             </li>
             <li>
-                <?= $this->url->link(t('Upload the database'), 'ConfigController', 'uploadDb', array(), false, 'js-modal-medium') ?>
+                <?= $this->url->link(t('Upload the database'), 'ConfigController', 'uploadDb', [], false, 'js-modal-medium') ?>
             </li>
             <li>
-                <?= $this->url->link(t('Optimize the database'), 'ConfigController', 'optimizeDb', array(), true) ?>&nbsp;
+                <?= $this->url->link(t('Optimize the database'), 'ConfigController', 'optimizeDb', [], true) ?>&nbsp;
                 <?= t('(VACUUM command)') ?>
             </li>
             <?php foreach ($db_options as $option => $value): ?>
@@ -90,5 +90,5 @@
     <h2><?= t('License') ?></h2>
 </div>
 <div class="panel">
-<?= nl2br(file_get_contents(ROOT_DIR.DIRECTORY_SEPARATOR.'LICENSE')) ?>
+<?= nl2br(file_get_contents(ROOT_DIR . DIRECTORY_SEPARATOR . 'LICENSE')) ?>
 </div>

@@ -53,7 +53,7 @@ class Tool
     {
         foreach ($namespaces as $namespace => $classes) {
             foreach ($classes as $name) {
-                $class = '\\Kanboard\\'.$namespace.'\\'.$name;
+                $class = '\\Kanboard\\' . $namespace . '\\' . $name;
                 $container[lcfirst($name)] = function ($c) use ($class) {
                     return new $class($c);
                 };
@@ -76,7 +76,7 @@ class Tool
     {
         foreach ($namespaces as $namespace => $classes) {
             foreach ($classes as $name) {
-                $class = '\\Kanboard\\'.$namespace.'\\'.$name;
+                $class = '\\Kanboard\\' . $namespace . '\\' . $name;
                 $container[lcfirst($name)] = $container->factory(function ($c) use ($class) {
                     return new $class($c);
                 });
@@ -99,7 +99,7 @@ class Tool
     {
         foreach ($namespaces as $namespace => $classes) {
             foreach ($classes as $name) {
-                $class = '\\Kanboard\\'.$namespace.'\\'.$name;
+                $class = '\\Kanboard\\' . $namespace . '\\' . $name;
                 $container['helper']->register($name, $class);
             }
         }

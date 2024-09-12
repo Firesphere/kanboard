@@ -21,7 +21,7 @@ class TaskDueDateFilter extends BaseDateFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('due');
+        return ['due'];
     }
 
     /**
@@ -33,11 +33,11 @@ class TaskDueDateFilter extends BaseDateFilter implements FilterInterface
     public function apply()
     {
         if ($this->value == "none") {
-            $this->query->eq(TaskModel::TABLE.'.date_due', 0);
+            $this->query->eq(TaskModel::TABLE . '.date_due', 0);
         } else {
-            $this->query->neq(TaskModel::TABLE.'.date_due', 0);
-            $this->query->notNull(TaskModel::TABLE.'.date_due');
-            $this->applyDateFilter(TaskModel::TABLE.'.date_due');
+            $this->query->neq(TaskModel::TABLE . '.date_due', 0);
+            $this->query->notNull(TaskModel::TABLE . '.date_due');
+            $this->applyDateFilter(TaskModel::TABLE . '.date_due');
         }
 
         return $this;

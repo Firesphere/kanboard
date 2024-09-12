@@ -16,10 +16,10 @@ class UserApiAccessController extends BaseController
     {
         $user = $this->getUser();
 
-        return $this->response->html($this->helper->layout->user('user_api_access/show', array(
+        return $this->response->html($this->helper->layout->user('user_api_access/show', [
             'user'  => $user,
             'title' => t('API User Access'),
-        )));
+        ]));
     }
 
     public function generate()
@@ -27,10 +27,10 @@ class UserApiAccessController extends BaseController
         $user = $this->getUser();
         $this->checkCSRFParam();
 
-        $this->userModel->update(array(
-            'id' => $user['id'],
+        $this->userModel->update([
+            'id'               => $user['id'],
             'api_access_token' => Token::getToken(),
-        ));
+        ]);
 
         $this->renderResponse($user);
     }
@@ -40,10 +40,10 @@ class UserApiAccessController extends BaseController
         $user = $this->getUser();
         $this->checkCSRFParam();
 
-        $this->userModel->update(array(
-            'id' => $user['id'],
+        $this->userModel->update([
+            'id'               => $user['id'],
             'api_access_token' => null,
-        ));
+        ]);
 
         $this->renderResponse($user);
     }
@@ -53,7 +53,7 @@ class UserApiAccessController extends BaseController
         if ($this->request->isAjax()) {
             $this->show();
         } else {
-            $this->response->redirect($this->helper->url->to('UserApiAccessController', 'show', array('user_id' => $user['id'])));
+            $this->response->redirect($this->helper->url->to('UserApiAccessController', 'show', ['user_id' => $user['id']]));
         }
     }
 }

@@ -2,13 +2,13 @@
     <h2><?= t('Choose an event') ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('ActionCreationController', 'params', array('project_id' => $project['id'])) ?>">
+<form method="post" action="<?= $this->url->href('ActionCreationController', 'params', ['project_id' => $project['id']]) ?>">
     <?= $this->form->csrf() ?>
 
     <?= $this->form->hidden('action_name', $values) ?>
 
     <?= $this->form->label(t('Action'), 'action_name') ?>
-    <?= $this->form->select('action_name', $available_actions, $values, array(), array('disabled')) ?>
+    <?= $this->form->select('action_name', $available_actions, $values, [], ['disabled']) ?>
 
     <?= $this->form->label(t('Event'), 'event_name') ?>
     <?= $this->form->select('event_name', $events, $values) ?>
@@ -17,7 +17,7 @@
         <?= t('When the selected event occurs execute the corresponding action.') ?>
     </div>
 
-    <?= $this->modal->submitButtons(array(
-        'submitLabel' => t('Next step')
-    )) ?>
+    <?= $this->modal->submitButtons([
+        'submitLabel' => t('Next step'),
+    ]) ?>
 </form>

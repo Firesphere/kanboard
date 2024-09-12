@@ -14,7 +14,7 @@ use Kanboard\Core\Csv;
 class Response extends Base
 {
     private $httpStatusCode = 200;
-    private $httpHeaders = array();
+    private $httpHeaders = [];
     private $httpBody = '';
     private $responseSent = false;
 
@@ -89,12 +89,12 @@ class Response extends Base
      * @param  array  $policies
      * @return $this
      */
-    public function withContentSecurityPolicy(array $policies = array())
+    public function withContentSecurityPolicy(array $policies = [])
     {
         $values = '';
 
         foreach ($policies as $policy => $acl) {
-            $values .= $policy.' '.trim($acl).'; ';
+            $values .= $policy . ' ' . trim($acl) . '; ';
         }
 
         $this->withHeader('Content-Security-Policy', $values);
@@ -198,7 +198,7 @@ class Response extends Base
      */
     public function withFileDownload($filename)
     {
-        $this->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
+        $this->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
         $this->withHeader('Content-Transfer-Encoding', 'binary');
         $this->withHeader('Content-Type', 'application/octet-stream');
         return $this;
@@ -214,12 +214,12 @@ class Response extends Base
         $this->responseSent = true;
 
         if ($this->httpStatusCode !== 200) {
-            header('Status: '.$this->httpStatusCode);
-            header($this->request->getServerVariable('SERVER_PROTOCOL').' '.$this->httpStatusCode);
+            header('Status: ' . $this->httpStatusCode);
+            header($this->request->getServerVariable('SERVER_PROTOCOL') . ' ' . $this->httpStatusCode);
         }
 
         foreach ($this->httpHeaders as $header => $value) {
-            header($header.': '.$value);
+            header($header . ': ' . $value);
         }
 
         if (! empty($this->httpBody)) {

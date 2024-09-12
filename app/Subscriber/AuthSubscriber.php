@@ -2,11 +2,11 @@
 
 namespace Kanboard\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Kanboard\Core\Security\AuthenticationManager;
 use Kanboard\Core\Session\SessionManager;
-use Kanboard\Event\AuthSuccessEvent;
 use Kanboard\Event\AuthFailureEvent;
+use Kanboard\Event\AuthSuccessEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Authentication Subscriber
@@ -25,11 +25,11 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             AuthenticationManager::EVENT_SUCCESS => 'afterLogin',
             AuthenticationManager::EVENT_FAILURE => 'onLoginFailure',
-            SessionManager::EVENT_DESTROY => 'afterLogout',
-        );
+            SessionManager::EVENT_DESTROY        => 'afterLogout',
+        ];
     }
 
     /**
@@ -40,7 +40,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
      */
     public function afterLogin(AuthSuccessEvent $event)
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
 
         $userAgent = $this->request->getUserAgent();
         $ipAddress = $this->request->getIpAddress();
@@ -51,7 +51,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
             $event->getAuthType(),
             $this->userSession->getId(),
             $ipAddress,
-            $userAgent
+            $userAgent,
         );
 
         if ($event->getAuthType() === 'RememberMe') {
@@ -71,7 +71,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
      */
     public function afterLogout()
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $credentials = $this->rememberMeCookie->read();
 
         if ($credentials !== false) {
@@ -93,13 +93,13 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
      */
     public function onLoginFailure(AuthFailureEvent $event)
     {
-        $this->logger->debug('Subscriber executed: '.__METHOD__);
+        $this->logger->debug('Subscriber executed: ' . __METHOD__);
         $username = $event->getUsername();
         $ipAddress = $this->request->getIpAddress();
 
         if (! empty($username)) {
             // log login failure in web server log to allow fail2ban usage
-            error_log('Kanboard: user '.$username.' authentication failure with IP address: '.$ipAddress);
+            error_log('Kanboard: user ' . $username . ' authentication failure with IP address: ' . $ipAddress);
             $this->userLockingModel->incrementFailedLogin($username);
 
             if ($this->userLockingModel->getFailedLogin($username) > BRUTEFORCE_LOCKDOWN) {
@@ -107,7 +107,7 @@ class AuthSubscriber extends BaseSubscriber implements EventSubscriberInterface
             }
         } else {
             // log login failure in web server log to allow fail2ban usage
-            error_log('Kanboard: user Unknown authentication failure with IP address: '.$ipAddress);
+            error_log('Kanboard: user Unknown authentication failure with IP address: ' . $ipAddress);
         }
     }
 }

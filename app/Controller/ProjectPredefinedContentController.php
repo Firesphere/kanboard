@@ -10,17 +10,17 @@ namespace Kanboard\Controller;
  */
 class ProjectPredefinedContentController extends BaseController
 {
-    public function show(array $values = array(), array $errors = array())
+    public function show(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
 
-        $this->response->html($this->helper->layout->project('project_predefined_content/show', array(
-            'values' => empty($values) ? $project : $values,
-            'errors' => $errors,
-            'project' => $project,
+        $this->response->html($this->helper->layout->project('project_predefined_content/show', [
+            'values'                       => empty($values) ? $project : $values,
+            'errors'                       => $errors,
+            'project'                      => $project,
             'predefined_task_descriptions' => $this->predefinedTaskDescriptionModel->getAll($project['id']),
-            'title' => t('Predefined Contents'),
-        )));
+            'title'                        => t('Predefined Contents'),
+        ]));
     }
 
     public function update()
@@ -28,18 +28,18 @@ class ProjectPredefinedContentController extends BaseController
         $project = $this->getProject();
         $values = $this->request->getValues();
 
-        $values = array(
-            'id' => $project['id'],
-            'name' => $project['name'],
+        $values = [
+            'id'                        => $project['id'],
+            'name'                      => $project['name'],
             'predefined_email_subjects' => isset($values['predefined_email_subjects']) ? $values['predefined_email_subjects'] : '',
-        );
+        ];
 
         list($valid, $errors) = $this->projectValidator->validateModification($values);
 
         if ($valid) {
             if ($this->projectModel->update($values)) {
                 $this->flash->success(t('Project updated successfully.'));
-                return $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', array('project_id' => $project['id'])), true);
+                return $this->response->redirect($this->helper->url->to('ProjectPredefinedContentController', 'show', ['project_id' => $project['id']]), true);
             } else {
                 $this->flash->failure(t('Unable to update this project.'));
             }

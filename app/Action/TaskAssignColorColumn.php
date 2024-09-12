@@ -31,10 +31,10 @@ class TaskAssignColorColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE,
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class TaskAssignColorColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-            'color_id' => t('Color'),
-        );
+            'color_id'  => t('Color'),
+        ];
     }
 
     /**
@@ -59,13 +59,13 @@ class TaskAssignColorColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -77,10 +77,10 @@ class TaskAssignColorColumn extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'       => $data['task_id'],
             'color_id' => $this->getParam('color_id'),
-        );
+        ];
 
         return $this->taskModificationModel->update($values, false);
     }

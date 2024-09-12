@@ -27,7 +27,7 @@ class ObjectStorageProvider implements ServiceProviderInterface
                         FILES_DIR,
                         $stat['mode'],
                         $stat['uid'],
-                        $stat['gid']
+                        $stat['gid'],
                     ));
                 }
             } elseif (! @mkdir(FILES_DIR)) {
@@ -39,7 +39,7 @@ class ObjectStorageProvider implements ServiceProviderInterface
                     $folder,
                     $stat['mode'],
                     $stat['uid'],
-                    $stat['gid']
+                    $stat['gid'],
                 ));
             }
 

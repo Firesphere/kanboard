@@ -31,11 +31,11 @@ class TaskEmail extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
             TaskModel::EVENT_CLOSE,
             TaskModel::EVENT_CREATE,
-        );
+        ];
     }
 
     /**
@@ -46,11 +46,11 @@ class TaskEmail extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'column_id' => t('Column'),
-            'user_id' => t('User that will receive the email'),
-            'subject' => t('Email subject'),
-        );
+            'user_id'   => t('User that will receive the email'),
+            'subject'   => t('Email subject'),
+        ];
     }
 
     /**
@@ -61,13 +61,13 @@ class TaskEmail extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -94,9 +94,9 @@ class TaskEmail extends Base
                 $user['email'],
                 $user['name'] ?: $user['username'],
                 $subject,
-                $this->template->render('notification/task_create', array(
+                $this->template->render('notification/task_create', [
                     'task' => $data['task'],
-                ))
+                ]),
             );
 
             return true;

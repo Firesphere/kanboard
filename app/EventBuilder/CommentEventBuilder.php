@@ -41,10 +41,10 @@ class CommentEventBuilder extends BaseEventBuilder
             return null;
         }
 
-        return new CommentEvent(array(
+        return new CommentEvent([
             'comment' => $comment,
-            'task' => $this->taskFinderModel->getDetails($comment['task_id']),
-        ));
+            'task'    => $this->taskFinderModel->getDetails($comment['task_id']),
+        ]);
     }
 
     /**

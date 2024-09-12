@@ -34,7 +34,7 @@ class UserSession extends Base
      */
     public function initialize(array $user)
     {
-        foreach (array('password', 'is_admin', 'is_project_admin', 'twofactor_secret') as $column) {
+        foreach (['password', 'is_admin', 'is_project_admin', 'twofactor_secret'] as $column) {
             if (isset($user[$column])) {
                 unset($user[$column]);
             }
@@ -248,11 +248,11 @@ class UserSession extends Base
      */
     public function getFilters($projectID)
     {
-        if (! session_exists('filters:'.$projectID)) {
+        if (! session_exists('filters:' . $projectID)) {
             return session_get('user') ? session_get('user')['filter'] ?: 'status:open' : 'status:open';
         }
 
-        return session_get('filters:'.$projectID);
+        return session_get('filters:' . $projectID);
     }
 
     /**
@@ -264,7 +264,7 @@ class UserSession extends Base
      */
     public function setFilters($projectID, $filters)
     {
-        session_set('filters:'.$projectID, $filters);
+        session_set('filters:' . $projectID, $filters);
     }
 
     /**
@@ -278,11 +278,11 @@ class UserSession extends Base
     {
         $default = ['tasks.id', 'DESC'];
 
-        if (! session_exists('listOrder:'.$projectID)) {
+        if (! session_exists('listOrder:' . $projectID)) {
             return $default;
         }
 
-        return session_get('listOrder:'.$projectID);
+        return session_get('listOrder:' . $projectID);
     }
 
     /**
@@ -295,6 +295,6 @@ class UserSession extends Base
      */
     public function setListOrder($projectID, $listOrder, $listDirection)
     {
-        session_set('listOrder:'.$projectID, [$listOrder, $listDirection]);
+        session_set('listOrder:' . $projectID, [$listOrder, $listDirection]);
     }
 }

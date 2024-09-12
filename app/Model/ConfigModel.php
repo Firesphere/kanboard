@@ -82,10 +82,10 @@ class ConfigModel extends SettingModel
     {
         if (DB_DRIVER === 'sqlite') {
             return [
-                'journal_mode' => $this->db->getConnection()->query('PRAGMA journal_mode')->fetchColumn(),
+                'journal_mode'       => $this->db->getConnection()->query('PRAGMA journal_mode')->fetchColumn(),
                 'wal_autocheckpoint' => $this->db->getConnection()->query('PRAGMA wal_autocheckpoint')->fetchColumn(),
-                'synchronous' => $this->db->getConnection()->query('PRAGMA synchronous')->fetchColumn(),
-                'busy_timeout' => $this->db->getConnection()->query('PRAGMA busy_timeout')->fetchColumn(),
+                'synchronous'        => $this->db->getConnection()->query('PRAGMA synchronous')->fetchColumn(),
+                'busy_timeout'       => $this->db->getConnection()->query('PRAGMA busy_timeout')->fetchColumn(),
             ];
         }
 
@@ -101,7 +101,7 @@ class ConfigModel extends SettingModel
      */
     public function regenerateToken($option)
     {
-        return $this->save(array($option => Token::getToken()));
+        return $this->save([$option => Token::getToken()]);
     }
 
     /**
@@ -114,7 +114,7 @@ class ConfigModel extends SettingModel
     public function prepare(array $values)
     {
         if (! empty($values['application_url']) && substr($values['application_url'], -1) !== '/') {
-            $values['application_url'] = $values['application_url'].'/';
+            $values['application_url'] = $values['application_url'] . '/';
         }
 
         return $values;

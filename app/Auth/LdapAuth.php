@@ -2,12 +2,12 @@
 
 namespace Kanboard\Auth;
 
-use LogicException;
 use Kanboard\Core\Base;
 use Kanboard\Core\Ldap\Client as LdapClient;
 use Kanboard\Core\Ldap\ClientException as LdapException;
 use Kanboard\Core\Ldap\User as LdapUser;
 use Kanboard\Core\Security\PasswordAuthenticationProviderInterface;
+use LogicException;
 
 /**
  * LDAP Authentication Provider
@@ -61,14 +61,13 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
     public function authenticate()
     {
         try {
-
             $client = LdapClient::connect($this->getLdapUsername(), $this->getLdapPassword());
             $client->setLogger($this->logger);
 
             $user = LdapUser::getUser($client, $this->username);
 
             if ($user === null) {
-                $this->logger->info('User ('.$this->username.') not found in LDAP server');
+                $this->logger->info('User (' . $this->username . ') not found in LDAP server');
                 return false;
             }
 
@@ -76,13 +75,12 @@ class LdapAuth extends Base implements PasswordAuthenticationProviderInterface
                 throw new LogicException('Username not found in LDAP profile, check the parameter LDAP_USER_ATTRIBUTE_USERNAME');
             }
 
-            $this->logger->info('Authenticate this user: '.$user->getDn());
+            $this->logger->info('Authenticate this user: ' . $user->getDn());
 
             if ($client->authenticate($user->getDn(), $this->password)) {
                 $this->userInfo = $user;
                 return true;
             }
-
         } catch (LdapException $e) {
             $this->logger->error($e->getMessage());
         }

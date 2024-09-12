@@ -14,8 +14,8 @@ use Pimple\ServiceProviderInterface;
  */
 class FormatterProvider implements ServiceProviderInterface
 {
-    protected $formatters = array(
-        'Formatter' => array(
+    protected $formatters = [
+        'Formatter' => [
             'BoardColumnFormatter',
             'BoardFormatter',
             'BoardSwimlaneFormatter',
@@ -36,8 +36,8 @@ class FormatterProvider implements ServiceProviderInterface
             'TaskSuggestMenuFormatter',
             'UserAutoCompleteFormatter',
             'UserMentionFormatter',
-        )
-    );
+        ],
+    ];
 
     /**
      * Registers services on the given container.

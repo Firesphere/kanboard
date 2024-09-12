@@ -14,7 +14,7 @@ class UserNameFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('name');
+        return ['name'];
     }
 
     /**
@@ -26,8 +26,8 @@ class UserNameFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         $this->query->beginOr()
-            ->ilike('username', '%'.$this->value.'%')
-            ->ilike('name', '%'.$this->value.'%')
+            ->ilike('username', '%' . $this->value . '%')
+            ->ilike('name', '%' . $this->value . '%')
             ->closeOr();
 
         return $this;

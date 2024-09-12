@@ -23,7 +23,7 @@ class UserMentionJob extends BaseJob
      */
     public function withParams($text, $eventName, GenericEvent $event)
     {
-        $this->jobParams = array($text, $eventName, $event->getAll());
+        $this->jobParams = [$text, $eventName, $event->getAll()];
         return $this;
     }
 
@@ -56,7 +56,7 @@ class UserMentionJob extends BaseJob
      */
     public function getMentionedUsers($text)
     {
-        $users = array();
+        $users = [];
 
         if ($text !== null && preg_match_all('/@([^\s,!:?]+)/', $text, $matches)) {
             array_walk($matches[1], function (&$username) { $username = rtrim($username, '.'); });

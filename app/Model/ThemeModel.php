@@ -22,8 +22,8 @@ class ThemeModel extends Base
     {
         return [
             'light' => t('Light theme'),
-            'dark' => t('Dark theme'),
-            'auto' => t('Automatic theme - Sync with system'),
+            'dark'  => t('Dark theme'),
+            'auto'  => t('Automatic theme - Sync with system'),
         ];
     }
 }

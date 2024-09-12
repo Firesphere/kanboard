@@ -2,12 +2,12 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Kanboard\Core\ExternalLink\ExternalLinkManager;
-use Kanboard\ExternalLink\WebLinkProvider;
 use Kanboard\ExternalLink\AttachmentLinkProvider;
 use Kanboard\ExternalLink\FileLinkProvider;
+use Kanboard\ExternalLink\WebLinkProvider;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
  * External Link Provider

@@ -21,7 +21,7 @@ class TaskStartsWithIdFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('starts_with_id');
+        return ['starts_with_id'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskStartsWithIdFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->ilike('CAST('.TaskModel::TABLE.'.id AS CHAR(8))', $this->value.'%');
+        $this->query->ilike('CAST(' . TaskModel::TABLE . '.id AS CHAR(8))', $this->value . '%');
         return $this;
     }
 }

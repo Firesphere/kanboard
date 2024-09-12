@@ -34,7 +34,7 @@ class DateParser extends Base
      */
     public function getUserDateTimeFormat()
     {
-        return $this->getUserDateFormat().' '.$this->getUserTimeFormat();
+        return $this->getUserDateFormat() . ' ' . $this->getUserTimeFormat();
     }
 
     /**
@@ -56,10 +56,10 @@ class DateParser extends Base
      */
     public function getTimeFormats()
     {
-        return array(
+        return [
             'H:i',
             'g:i a',
-        );
+        ];
     }
 
     /**
@@ -71,21 +71,21 @@ class DateParser extends Base
      */
     public function getDateFormats($iso = false)
     {
-        $formats = array(
+        $formats = [
             $this->getUserDateFormat(),
-        );
+        ];
 
-        $isoFormats = array(
+        $isoFormats = [
             'Y-m-d',
             'Y_m_d',
-        );
+        ];
 
-        $userFormats = array(
+        $userFormats = [
             'm/d/Y',
             'd/m/Y',
             'Y/m/d',
             'd.m.Y',
-        );
+        ];
 
         if ($iso) {
             $formats = array_merge($formats, $isoFormats, $userFormats);
@@ -105,13 +105,13 @@ class DateParser extends Base
      */
     public function getDateTimeFormats($iso = false)
     {
-        $formats = array(
+        $formats = [
             $this->getUserDateTimeFormat(),
-        );
+        ];
 
         foreach ($this->getDateFormats($iso) as $date) {
             foreach ($this->getTimeFormats() as $time) {
-                $formats[] = $date.' '.$time;
+                $formats[] = $date . ' ' . $time;
             }
         }
 
@@ -139,10 +139,10 @@ class DateParser extends Base
      */
     public function getAvailableFormats(array $formats)
     {
-        $values = array();
+        $values = [];
 
         foreach ($formats as $format) {
-            $values[$format] = date($format).' ('.$format.')';
+            $values[$format] = date($format) . ' (' . $format . ')';
         }
 
         return $values;
@@ -156,14 +156,14 @@ class DateParser extends Base
      */
     public function getParserFormats()
     {
-        return array(
+        return [
             $this->getUserDateFormat(),
             'Y-m-d',
             'Y_m_d',
             $this->getUserDateTimeFormat(),
             'Y-m-d H:i',
             'Y_m_d H:i',
-        );
+        ];
     }
 
     /**

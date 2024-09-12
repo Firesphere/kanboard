@@ -2,11 +2,11 @@
 
 namespace Kanboard\ServiceProvider;
 
-use Pimple\Container;
-use Pimple\ServiceProviderInterface;
 use Kanboard\Core\Group\GroupManager;
 use Kanboard\Group\DatabaseBackendGroupProvider;
 use Kanboard\Group\LdapBackendGroupProvider;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
  * Group Provider

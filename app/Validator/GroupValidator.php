@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Kanboard\Model\GroupModel;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Kanboard\Model\GroupModel;
 
 /**
  * Group Validator
@@ -25,10 +25,10 @@ class GroupValidator extends BaseValidator
     {
         $v = new Validator($values, $this->commonValidationRules());
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -40,16 +40,16 @@ class GroupValidator extends BaseValidator
      */
     public function validateModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('The id is required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -60,12 +60,12 @@ class GroupValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Required('name', t('The name is required')),
             new Validators\MaxLength('name', t('The maximum length is %d characters', 191), 191),
             new Validators\Unique('name', t('The name must be unique'), $this->db->getConnection(), $this->db->escapeIdentifier(GroupModel::TABLE), $this->db->escapeIdentifier('id')),
             new Validators\MaxLength('external_id', t('The maximum length is %d characters', 255), 255),
             new Validators\Integer('id', t('This value must be an integer')),
-        );
+        ];
     }
 }

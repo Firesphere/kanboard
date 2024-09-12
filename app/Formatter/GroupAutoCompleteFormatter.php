@@ -42,15 +42,15 @@ class GroupAutoCompleteFormatter extends BaseFormatter implements FormatterInter
      */
     public function format()
     {
-        $result = array();
+        $result = [];
 
         foreach ($this->groups as $group) {
-            $result[] = array(
-                'id' => $group->getInternalId(),
+            $result[] = [
+                'id'          => $group->getInternalId(),
                 'external_id' => $group->getExternalId(),
-                'value' => $group->getName(),
-                'label' => $group->getName(),
-            );
+                'value'       => $group->getName(),
+                'label'       => $group->getName(),
+            ];
         }
 
         return $result;

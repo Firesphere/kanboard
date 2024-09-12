@@ -17,17 +17,17 @@ class TaskMovePositionController extends BaseController
     {
         $task = $this->getTask();
 
-        $this->response->html($this->template->render('task_move_position/show', array(
-            'task' => $task,
+        $this->response->html($this->template->render('task_move_position/show', [
+            'task'  => $task,
             'board' => $this->boardFormatter
                 ->withProjectId($task['project_id'])
                 ->withQuery(
                     $this->taskFinderModel->getExtendedQuery()
-                    ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
-                    ->neq(TaskModel::TABLE.'.id', $task['id'])
+                    ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
+                    ->neq(TaskModel::TABLE . '.id', $task['id']),
                 )
-                ->format()
-        )));
+                ->format(),
+        ]));
     }
 
     public function save()
@@ -45,9 +45,9 @@ class TaskMovePositionController extends BaseController
             $task['id'],
             $values['column_id'],
             $values['position'],
-            $values['swimlane_id']
+            $values['swimlane_id'],
         );
 
-        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', array('task_id' => $task['id'])));
+        $this->response->redirect($this->helper->url->to('TaskViewController', 'show', ['task_id' => $task['id']]));
     }
 }

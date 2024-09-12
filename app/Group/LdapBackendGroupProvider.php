@@ -2,12 +2,12 @@
 
 namespace Kanboard\Group;
 
-use LogicException;
 use Kanboard\Core\Base;
 use Kanboard\Core\Group\GroupBackendProviderInterface;
 use Kanboard\Core\Ldap\Client as LdapClient;
 use Kanboard\Core\Ldap\ClientException as LdapException;
 use Kanboard\Core\Ldap\Group as LdapGroup;
+use LogicException;
 
 /**
  * LDAP Backend Group Provider
@@ -29,10 +29,9 @@ class LdapBackendGroupProvider extends Base implements GroupBackendProviderInter
         try {
             $ldap = LdapClient::connect();
             return LdapGroup::getGroups($ldap, $this->getLdapGroupPattern($input));
-
         } catch (LdapException $e) {
             $this->logger->error($e->getMessage());
-            return array();
+            return [];
         }
     }
 

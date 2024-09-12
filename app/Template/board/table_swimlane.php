@@ -11,7 +11,7 @@
         <?= $this->text->e($swimlane['name']) ?>
 
         <?php if (! $not_editable && ! empty($swimlane['description'])): ?>
-            <?= $this->app->tooltipLink('<i class="fa fa-info-circle"></i>', $this->url->href('BoardTooltipController', 'swimlane', array('swimlane_id' => $swimlane['id'], 'project_id' => $project['id']))) ?>
+            <?= $this->app->tooltipLink('<i class="fa fa-info-circle"></i>', $this->url->href('BoardTooltipController', 'swimlane', ['swimlane_id' => $swimlane['id'], 'project_id' => $project['id']])) ?>
         <?php endif ?>
 
         <span title="<?= t('Number of tasks in this swimlane') ?>" class="board-column-header-task-count swimlane-task-count-<?= $swimlane['id'] ?>">

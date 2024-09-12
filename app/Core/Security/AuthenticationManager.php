@@ -2,10 +2,10 @@
 
 namespace Kanboard\Core\Security;
 
-use LogicException;
 use Kanboard\Core\Base;
 use Kanboard\Event\AuthFailureEvent;
 use Kanboard\Event\AuthSuccessEvent;
+use LogicException;
 
 /**
  * Authentication Manager
@@ -29,7 +29,7 @@ class AuthenticationManager extends Base
      * @access private
      * @var array
      */
-    private $providers = array();
+    private $providers = [];
 
     public function reset()
     {
@@ -59,7 +59,7 @@ class AuthenticationManager extends Base
     public function getProvider($name)
     {
         if (! isset($this->providers[$name])) {
-            throw new LogicException('Authentication provider not found: '.$name);
+            throw new LogicException('Authentication provider not found: ' . $name);
         }
 
         return $this->providers[$name];
@@ -76,7 +76,7 @@ class AuthenticationManager extends Base
         if ($this->userSession->isLogged()) {
             foreach ($this->filterProviders('SessionCheckProviderInterface') as $provider) {
                 if (! $provider->isValidSession()) {
-                    $this->logger->debug('Invalidate session for '.$this->userSession->getUsername());
+                    $this->logger->debug('Invalidate session for ' . $this->userSession->getUsername());
                     session_flush();
                     $this->preAuthentication();
                     return false;
@@ -183,7 +183,7 @@ class AuthenticationManager extends Base
      */
     private function filterProviders($interface)
     {
-        $interface = '\Kanboard\Core\Security\\'.$interface;
+        $interface = '\Kanboard\Core\Security\\' . $interface;
 
         return array_filter($this->providers, function (AuthenticationProviderInterface $provider) use ($interface) {
             return is_a($provider, $interface);

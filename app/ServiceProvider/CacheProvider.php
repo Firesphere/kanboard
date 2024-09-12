@@ -44,7 +44,7 @@ class CacheProvider implements ServiceProviderInterface
         $container['userCacheDecorator'] = function ($c) {
             return new UserCacheDecorator(
                 $c['memoryCache'],
-                $c['userModel']
+                $c['userModel'],
             );
         };
 
@@ -53,28 +53,28 @@ class CacheProvider implements ServiceProviderInterface
                 $c['cacheDriver'],
                 $c['userMetadataModel'],
                 'user.metadata.',
-                $c['userSession']->getId()
+                $c['userSession']->getId(),
             );
         };
 
         $container['columnMoveRestrictionCacheDecorator'] = function ($c) {
             return new ColumnMoveRestrictionCacheDecorator(
                 $c['memoryCache'],
-                $c['columnMoveRestrictionModel']
+                $c['columnMoveRestrictionModel'],
             );
         };
 
         $container['columnRestrictionCacheDecorator'] = function ($c) {
             return new ColumnRestrictionCacheDecorator(
                 $c['memoryCache'],
-                $c['columnRestrictionModel']
+                $c['columnRestrictionModel'],
             );
         };
 
         $container['projectRoleRestrictionCacheDecorator'] = function ($c) {
             return new ProjectRoleRestrictionCacheDecorator(
                 $c['memoryCache'],
-                $c['projectRoleRestrictionModel']
+                $c['projectRoleRestrictionModel'],
             );
         };
 

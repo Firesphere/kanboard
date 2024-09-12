@@ -33,7 +33,7 @@ class AvatarHelper extends Base
             $html = $this->avatarManager->render($user_id, $username, $name, $email, $avatar_path, $size);
         }
 
-        return '<div class="avatar avatar-'.$size.' '.$css.'">'.$html.'</div>';
+        return '<div class="avatar avatar-' . $size . ' ' . $css . '">' . $html . '</div>';
     }
 
     /**

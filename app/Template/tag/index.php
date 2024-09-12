@@ -21,8 +21,8 @@
                 <td><?= $this->text->e($tag['name']) ?></td>
                 <td><?= $this->text->e($colors[$tag['color_id']] ?? '') ?></td>
                 <td>
-                    <?= $this->modal->medium('edit', t('Edit'), 'TagController', 'edit', array('tag_id' => $tag['id'])) ?>
-                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TagController', 'confirm', array('tag_id' => $tag['id'])) ?>
+                    <?= $this->modal->medium('edit', t('Edit'), 'TagController', 'edit', ['tag_id' => $tag['id']]) ?>
+                    <?= $this->modal->confirm('trash-o', t('Remove'), 'TagController', 'confirm', ['tag_id' => $tag['id']]) ?>
                 </td>
             </tr>
         <?php endforeach ?>

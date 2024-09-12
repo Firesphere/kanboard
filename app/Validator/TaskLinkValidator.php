@@ -2,9 +2,9 @@
 
 namespace Kanboard\Validator;
 
+use Kanboard\Model\TaskModel;
 use SimpleValidator\Validator;
 use SimpleValidator\Validators;
-use Kanboard\Model\TaskModel;
 
 /**
  * Task Link Validator
@@ -22,13 +22,13 @@ class TaskLinkValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
-        return array(
+        return [
             new Validators\Required('task_id', t('Field required')),
             new Validators\Required('opposite_task_id', t('Field required')),
             new Validators\Required('link_id', t('Field required')),
             new Validators\NotEquals('opposite_task_id', 'task_id', t('A task cannot be linked to itself')),
-            new Validators\Exists('opposite_task_id', t('This linked task id doesn\'t exists'), $this->db->getConnection(), TaskModel::TABLE, 'id')
-        );
+            new Validators\Exists('opposite_task_id', t('This linked task id doesn\'t exists'), $this->db->getConnection(), TaskModel::TABLE, 'id'),
+        ];
     }
 
     /**
@@ -42,10 +42,10 @@ class TaskLinkValidator extends BaseValidator
     {
         $v = new Validator($values, $this->commonValidationRules());
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 
     /**
@@ -57,15 +57,15 @@ class TaskLinkValidator extends BaseValidator
      */
     public function validateModification(array $values)
     {
-        $rules = array(
+        $rules = [
             new Validators\Required('id', t('Field required')),
-        );
+        ];
 
         $v = new Validator($values, array_merge($rules, $this->commonValidationRules()));
 
-        return array(
+        return [
             $v->execute(),
-            $v->getErrors()
-        );
+            $v->getErrors(),
+        ];
     }
 }

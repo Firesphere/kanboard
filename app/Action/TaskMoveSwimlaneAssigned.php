@@ -31,12 +31,11 @@ class TaskMoveSwimlaneAssigned extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
-
+        return [
             TaskModel::EVENT_CREATE_UPDATE,
             TaskModel::EVENT_ASSIGNEE_CHANGE,
             TaskModel::EVENT_UPDATE,
-        );
+        ];
     }
 
     /**
@@ -47,11 +46,10 @@ class TaskMoveSwimlaneAssigned extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
-            'user_id' => t('Assignee'),
+        return [
+            'user_id'          => t('Assignee'),
             'dest_swimlane_id' => t('Destination swimlane'),
-
-        );
+        ];
     }
 
     /**
@@ -62,16 +60,16 @@ class TaskMoveSwimlaneAssigned extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'column_id',
                 'owner_id',
                 'position',
                 'swimlane_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -89,7 +87,7 @@ class TaskMoveSwimlaneAssigned extends Base
             $data['task']['column_id'],
             $data['task']['position'],
             $this->getParam('dest_swimlane_id'),
-            true
+            true,
         );
     }
 

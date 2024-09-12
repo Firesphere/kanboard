@@ -49,7 +49,7 @@ class ProjectFileProcedure extends BaseProcedure
         try {
             return $this->projectFileModel->uploadContent($project_id, $filename, $blob);
         } catch (ObjectStorageException $e) {
-            $this->logger->error(__METHOD__.': '.$e->getMessage());
+            $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
             return false;
         }
     }

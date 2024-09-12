@@ -4,7 +4,7 @@
         $this->text->e($author),
         $task['id'],
         $this->text->e($task['title']),
-        $this->text->e($task['project_name'])
+        $this->text->e($task['project_name']),
     ) ?>
     <small class="activity-date"><?= $this->dt->datetime($date_creation) ?></small>
 </p>

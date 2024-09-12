@@ -108,13 +108,13 @@ class ProjectProcedure extends BaseProcedure
 
     public function createProject($name, $description = null, $owner_id = 0, $identifier = null, $start_date = null, $end_date = null)
     {
-        $values = $this->filterValues(array(
-            'name' => $name,
+        $values = $this->filterValues([
+            'name'        => $name,
             'description' => $description,
-            'identifier' => $identifier,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-        ));
+            'identifier'  => $identifier,
+            'start_date'  => $start_date,
+            'end_date'    => $end_date,
+        ]);
 
         list($valid, ) = $this->projectValidator->validateCreation($values);
         return $valid ? $this->projectModel->create($values, $owner_id, $this->userSession->isLogged()) : false;
@@ -124,15 +124,15 @@ class ProjectProcedure extends BaseProcedure
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateProject', $project_id);
 
-        $values = $this->filterValues(array(
-            'id' => $project_id,
-            'name' => $name,
+        $values = $this->filterValues([
+            'id'          => $project_id,
+            'name'        => $name,
             'description' => $description,
-            'owner_id' => $owner_id,
-            'identifier' => $identifier,
-            'start_date' => $start_date,
-            'end_date' => $end_date
-        ));
+            'owner_id'    => $owner_id,
+            'identifier'  => $identifier,
+            'start_date'  => $start_date,
+            'end_date'    => $end_date,
+        ]);
 
         list($valid, ) = $this->projectValidator->validateModification($values);
         return $valid && $this->projectModel->update($values);

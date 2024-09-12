@@ -19,7 +19,7 @@ class ProjectMetricJob extends BaseJob
      */
     public function withParams($projectId)
     {
-        $this->jobParams = array($projectId);
+        $this->jobParams = [$projectId];
         return $this;
     }
 
@@ -31,7 +31,7 @@ class ProjectMetricJob extends BaseJob
      */
     public function execute($projectId)
     {
-        $this->logger->debug(__METHOD__.' Run project metrics calculation');
+        $this->logger->debug(__METHOD__ . ' Run project metrics calculation');
         $now = date('Y-m-d');
 
         $this->projectDailyColumnStatsModel->updateTotals($projectId, $now);

@@ -2,8 +2,8 @@
 
 namespace Kanboard\User;
 
-use Kanboard\Core\User\UserProviderInterface;
 use Kanboard\Core\Security\Role;
+use Kanboard\Core\User\UserProviderInterface;
 
 /**
  * Reverse Proxy User Provider
@@ -43,7 +43,7 @@ class ReverseProxyUserProvider implements UserProviderInterface
      * @access protected
      * @var array
      */
-    private $userProfile = array();
+    private $userProfile = [];
 
     /**
      * Constructor
@@ -53,7 +53,7 @@ class ReverseProxyUserProvider implements UserProviderInterface
      * @param  string $email
      * @param  string $fullname
      */
-    public function __construct($username, $email, $fullname, array $userProfile = array())
+    public function __construct($username, $email, $fullname, array $userProfile = [])
     {
         $this->username = $username;
         $this->email = $email;
@@ -155,7 +155,7 @@ class ReverseProxyUserProvider implements UserProviderInterface
     public function getEmail()
     {
         if (REVERSE_PROXY_DEFAULT_DOMAIN !== '' && $this->email === '') {
-            return $this->username.'@'.REVERSE_PROXY_DEFAULT_DOMAIN;
+            return $this->username . '@' . REVERSE_PROXY_DEFAULT_DOMAIN;
         }
 
         return $this->email;
@@ -169,7 +169,7 @@ class ReverseProxyUserProvider implements UserProviderInterface
      */
     public function getExternalGroupIds()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -180,9 +180,9 @@ class ReverseProxyUserProvider implements UserProviderInterface
      */
     public function getExtraAttributes()
     {
-        return array(
-            'is_ldap_user' => 1,
+        return [
+            'is_ldap_user'       => 1,
             'disable_login_form' => 1,
-        );
+        ];
     }
 }

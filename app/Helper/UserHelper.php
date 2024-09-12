@@ -63,7 +63,7 @@ class UserHelper extends Base
      * @param  array    $user   User properties
      * @return string
      */
-    public function getFullname(array $user = array())
+    public function getFullname(array $user = [])
     {
         $user = empty($user) ? $this->userSession->getAll() : $user;
         return $user['name'] ?: $user['username'];
@@ -143,11 +143,11 @@ class UserHelper extends Base
         }
 
         return [
-            'full_list' => $groupsList,
+            'full_list'    => $groupsList,
             'limited_list' => $limitedList,
-            'has_groups' => $total > 0,
-            'total' => $total,
-            'shown' => count($limitedList),
+            'has_groups'   => $total > 0,
+            'total'        => $total,
+            'shown'        => count($limitedList),
         ];
     }
 
@@ -164,7 +164,7 @@ class UserHelper extends Base
             return false;
         }
 
-        $key = 'app_access:'.$controller.$action;
+        $key = 'app_access:' . $controller . $action;
         $result = $this->memoryCache->get($key);
 
         if ($result === null) {
@@ -185,7 +185,7 @@ class UserHelper extends Base
      */
     public function hasProjectAccess($controller, $action, $project_id)
     {
-        $key = 'project_access:'.$controller.$action.$project_id;
+        $key = 'project_access:' . $controller . $action . $project_id;
         $result = $this->memoryCache->get($key);
 
         if ($result === null) {

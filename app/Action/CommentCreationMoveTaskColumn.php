@@ -31,9 +31,9 @@ class CommentCreationMoveTaskColumn extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_MOVE_COLUMN,
-        );
+        ];
     }
 
     /**
@@ -44,7 +44,7 @@ class CommentCreationMoveTaskColumn extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array('column_id' => t('Column'));
+        return ['column_id' => t('Column')];
     }
 
     /**
@@ -55,13 +55,13 @@ class CommentCreationMoveTaskColumn extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'column_id',
                 'project_id',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -79,11 +79,11 @@ class CommentCreationMoveTaskColumn extends Base
 
         $column = $this->columnModel->getById($data['task']['column_id']);
 
-        return (bool) $this->commentModel->create(array(
+        return (bool) $this->commentModel->create([
             'comment' => t('Moved to column %s', $column['title']),
             'task_id' => $data['task_id'],
             'user_id' => $this->userSession->getId(),
-        ));
+        ]);
     }
 
     /**

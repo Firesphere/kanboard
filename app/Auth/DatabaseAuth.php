@@ -22,7 +22,7 @@ class DatabaseAuth extends Base implements PasswordAuthenticationProviderInterfa
      * @access protected
      * @var array
      */
-    protected $userInfo = array();
+    protected $userInfo = [];
 
     /**
      * Username

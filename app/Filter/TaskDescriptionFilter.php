@@ -21,7 +21,7 @@ class TaskDescriptionFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('description', 'desc');
+        return ['description', 'desc'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskDescriptionFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
-        $this->query->ilike(TaskModel::TABLE.'.description', '%'.$this->value.'%');
+        $this->query->ilike(TaskModel::TABLE . '.description', '%' . $this->value . '%');
         return $this;
     }
 }

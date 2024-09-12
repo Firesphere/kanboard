@@ -129,7 +129,7 @@ class LexerBuilder
             $criteria->withQuery($this->query);
 
             foreach ($values as $value) {
-                $currentFilter = clone($filter);
+                $currentFilter = clone $filter;
                 $criteria->withFilter($currentFilter->withValue($value));
             }
 

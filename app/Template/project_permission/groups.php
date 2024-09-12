@@ -17,16 +17,16 @@
             <tr>
                 <td><?= $this->text->e($group['name']) ?></td>
                 <td>
-                    <?= $this->app->component('project-select-role', array(
-                        'roles' => $roles,
-                        'role' => $group['role'],
-                        'id' => $group['id'],
+                    <?= $this->app->component('project-select-role', [
+                        'roles'     => $roles,
+                        'role'      => $group['role'],
+                        'id'        => $group['id'],
                         'ariaLabel' => t('Role'),
-                        'url' => $this->url->to('ProjectPermissionController', 'changeGroupRole', array('project_id' => $project['id'])),
-                    )) ?>
+                        'url'       => $this->url->to('ProjectPermissionController', 'changeGroupRole', ['project_id' => $project['id']]),
+                    ]) ?>
                 </td>
                 <td>
-                    <?= $this->url->icon('trash-o', t('Remove'), 'ProjectPermissionController', 'removeGroup', array('project_id' => $project['id'], 'group_id' => $group['id']), true) ?>
+                    <?= $this->url->icon('trash-o', t('Remove'), 'ProjectPermissionController', 'removeGroup', ['project_id' => $project['id'], 'group_id' => $group['id']], true) ?>
                 </td>
             </tr>
         <?php endforeach ?>
@@ -35,7 +35,7 @@
 
 <?php if ($project['is_private'] == 0): ?>
     <div class="panel">
-        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addGroup', array('project_id' => $project['id'])) ?>" autocomplete="off" class="form-inline">
+        <form method="post" action="<?= $this->url->href('ProjectPermissionController', 'addGroup', ['project_id' => $project['id']]) ?>" autocomplete="off" class="form-inline">
             <?= $this->form->csrf() ?>
             <?= $this->form->hidden('group_id', $values) ?>
             <?= $this->form->hidden('external_id', $values) ?>
@@ -45,18 +45,18 @@
                 'name',
                 $values,
                 $errors,
-                array(
-                'required',
-                'placeholder="'.t('Enter group name...').'"',
-                'title="'.t('Enter group name...').'"',
-                'data-dst-field="group_id"',
-                'data-dst-extra-fields="external_id"',
-                'data-search-url="'.$this->url->href('GroupAjaxController', 'autocomplete').'"',
-            ),
-                'autocomplete'
+                [
+                    'required',
+                    'placeholder="' . t('Enter group name...') . '"',
+                    'title="' . t('Enter group name...') . '"',
+                    'data-dst-field="group_id"',
+                    'data-dst-extra-fields="external_id"',
+                    'data-search-url="' . $this->url->href('GroupAjaxController', 'autocomplete') . '"',
+                ],
+                'autocomplete',
             ) ?>
 
-            <?= $this->form->select('role', $roles, $values, $errors, array('aria-label="'.t('Role').'"')) ?>
+            <?= $this->form->select('role', $roles, $values, $errors, ['aria-label="' . t('Role') . '"']) ?>
 
             <button type="submit" class="btn btn-blue"><?= t('Add') ?></button>
         </form>

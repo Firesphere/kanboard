@@ -2,8 +2,8 @@
 
 namespace Kanboard\Model;
 
-use PDO;
 use Kanboard\Core\Base;
+use PDO;
 
 /**
  * Link model
@@ -102,7 +102,7 @@ class LinkModel extends Base
             $value = t($value);
         }
 
-        return $prepend ? array('') + $labels : $labels;
+        return $prepend ? [''] + $labels : $labels;
     }
 
     /**
@@ -117,7 +117,7 @@ class LinkModel extends Base
     {
         $this->db->startTransaction();
 
-        if (! $this->db->table(self::TABLE)->insert(array('label' => $label))) {
+        if (! $this->db->table(self::TABLE)->insert(['label' => $label])) {
             $this->db->cancelTransaction();
             return false;
         }
@@ -127,17 +127,17 @@ class LinkModel extends Base
         if (! empty($opposite_label)) {
             $this->db
                 ->table(self::TABLE)
-                ->insert(array(
-                    'label' => $opposite_label,
+                ->insert([
+                    'label'       => $opposite_label,
                     'opposite_id' => $label_id,
-                ));
+                ]);
 
             $this->db
                 ->table(self::TABLE)
                 ->eq('id', $label_id)
-                ->update(array(
-                    'opposite_id' => $this->db->getLastId()
-                ));
+                ->update([
+                    'opposite_id' => $this->db->getLastId(),
+                ]);
         }
 
         $this->db->closeTransaction();
@@ -157,10 +157,10 @@ class LinkModel extends Base
         return $this->db
                     ->table(self::TABLE)
                     ->eq('id', $values['id'])
-                    ->update(array(
-                        'label' => $values['label'],
+                    ->update([
+                        'label'       => $values['label'],
                         'opposite_id' => $values['opposite_id'],
-                    ));
+                    ]);
     }
 
     /**
@@ -172,7 +172,7 @@ class LinkModel extends Base
      */
     public function remove($link_id)
     {
-        $this->db->table(self::TABLE)->eq('opposite_id', $link_id)->update(array('opposite_id' => 0));
+        $this->db->table(self::TABLE)->eq('opposite_id', $link_id)->update(['opposite_id' => 0]);
         return $this->db->table(self::TABLE)->eq('id', $link_id)->remove();
     }
 }

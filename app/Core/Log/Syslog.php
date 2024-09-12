@@ -2,8 +2,8 @@
 
 namespace Kanboard\Core\Log;
 
-use RuntimeException;
 use Psr\Log\LogLevel;
+use RuntimeException;
 
 /**
  * Syslog Logger
@@ -62,7 +62,7 @@ class Syslog extends Base
      * @param  array   $context
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $syslogPriority = $this->getSyslogPriority($level);
         $syslogMessage = $this->interpolate($message, $context);

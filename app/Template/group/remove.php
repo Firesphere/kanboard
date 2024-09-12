@@ -7,6 +7,6 @@
     <?= $this->modal->confirmButtons(
         'GroupListController',
         'remove',
-        array('group_id' => $group['id'])
+        ['group_id' => $group['id']],
     ) ?>
 </div>

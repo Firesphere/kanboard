@@ -7,7 +7,7 @@ function concat_files(array $files)
     $data = '';
     foreach ($files as $pattern) {
         foreach (glob($pattern, GLOB_ERR | GLOB_NOCHECK) as $filename) {
-            echo $filename.PHP_EOL;
+            echo $filename . PHP_EOL;
             if (! file_exists($filename)) {
                 die("$filename not found\n");
             }
@@ -86,7 +86,7 @@ function array_merge_relation(array &$input, array &$relations, $relation, $colu
         if (isset($row[$column]) && isset($relations[$row[$column]])) {
             $row[$relation] = $relations[$row[$column]];
         } else {
-            $row[$relation] = array();
+            $row[$relation] = [];
         }
     }
 }
@@ -111,7 +111,7 @@ function array_merge_relation(array &$input, array &$relations, $relation, $colu
  */
 function array_column_index(array &$input, $column)
 {
-    $result = array();
+    $result = [];
 
     foreach ($input as &$row) {
         if (isset($row[$column])) {
@@ -142,7 +142,7 @@ function array_column_index(array &$input, $column)
  */
 function array_column_index_unique(array &$input, $column)
 {
-    $result = array();
+    $result = [];
 
     foreach ($input as &$row) {
         if (isset($row[$column]) && ! isset($result[$row[$column]])) {
@@ -197,7 +197,7 @@ function build_app_version($ref, $commit_hash)
     }
 
     if ($commit_hash !== '$Format:%H$') {
-        return 'main.'.$commit_hash;
+        return 'main.' . $commit_hash;
     } elseif (file_exists(__DIR__ . '/version.txt')) {
         return rtrim(file_get_contents(__DIR__ . '/version.txt'));
     }
@@ -272,7 +272,7 @@ function get_file_extension($filename)
  */
 function t()
 {
-    return call_user_func_array(array(Translator::getInstance(), 'translate'), func_get_args());
+    return call_user_func_array([Translator::getInstance(), 'translate'], func_get_args());
 }
 
 /**
@@ -282,7 +282,7 @@ function t()
  */
 function e()
 {
-    return call_user_func_array(array(Translator::getInstance(), 'translateNoEscaping'), func_get_args());
+    return call_user_func_array([Translator::getInstance(), 'translateNoEscaping'], func_get_args());
 }
 
 /**

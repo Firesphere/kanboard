@@ -1,7 +1,7 @@
 <?php if (! empty($subtasks)): ?>
     <table
         class="subtasks-table table-striped table-scrolling"
-        data-save-position-url="<?= $this->url->href('SubtaskController', 'movePosition', array('task_id' => $task['id'])) ?>"
+        data-save-position-url="<?= $this->url->href('SubtaskController', 'movePosition', ['task_id' => $task['id']]) ?>"
     >
     <thead>
         <tr>
@@ -18,10 +18,10 @@
               <div class="subtask-table-td">
                 <?php if ($editable): ?>
                       <i class="fa fa-arrows-alt draggable-row-handle" title="<?= t('Change subtask position') ?>" role="button" aria-label="<?= t('Change subtask position') ?>"></i>&nbsp;
-                      <?= $this->render('subtask/menu', array(
-                          'task' => $task,
+                      <?= $this->render('subtask/menu', [
+                          'task'    => $task,
                           'subtask' => $subtask,
-                      )) ?>
+                      ]) ?>
                     <?= $this->subtask->renderToggleStatus($task, $subtask, 'table') ?>
                 <?php else: ?>
                     <?= $this->subtask->renderTitle($subtask) ?>
@@ -33,12 +33,12 @@
                     <?= $this->text->e($subtask['name'] ?: $subtask['username']) ?>
                 <?php endif ?>
             </td>
-            <?= $this->hook->render('template:subtask:table:rows', array('subtask' => $subtask)) ?>
+            <?= $this->hook->render('template:subtask:table:rows', ['subtask' => $subtask]) ?>
             <td>
-                <?= $this->render('subtask/timer', array(
+                <?= $this->render('subtask/timer', [
                     'task'    => $task,
                     'subtask' => $subtask,
-                )) ?>
+                ]) ?>
             </td>
         </tr>
         <?php endforeach ?>

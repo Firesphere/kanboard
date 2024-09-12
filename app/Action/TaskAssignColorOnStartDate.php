@@ -31,9 +31,9 @@ class TaskAssignColorOnStartDate extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_DAILY_CRONJOB,
-        );
+        ];
     }
 
     /**
@@ -44,9 +44,9 @@ class TaskAssignColorOnStartDate extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'color_id' => t('Color'),
-        );
+        ];
     }
 
     /**
@@ -58,7 +58,7 @@ class TaskAssignColorOnStartDate extends Base
 
     public function getEventRequiredParameters()
     {
-        return array('tasks');
+        return ['tasks'];
     }
 
     /**
@@ -70,14 +70,14 @@ class TaskAssignColorOnStartDate extends Base
      */
     public function doAction(array $data)
     {
-        $results = array();
+        $results = [];
 
         foreach ($data['tasks'] as $task) {
             if ($task['date_started'] <= time() && $task['date_started'] > 0 && $task['color_id'] != $this->getParam('color_id')) {
-                $values = array(
+                $values = [
                     'id'       => $task['id'],
                     'color_id' => $this->getParam('color_id'),
-                );
+                ];
                 $results[] = $this->taskModificationModel->update($values, false);
             }
         }

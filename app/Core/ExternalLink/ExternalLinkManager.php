@@ -25,7 +25,7 @@ class ExternalLinkManager extends Base
      * @access private
      * @var ExternalLinkProviderInterface[]
      */
-    private $providers = array();
+    private $providers = [];
 
     /**
      * Type chosen by the user
@@ -74,7 +74,7 @@ class ExternalLinkManager extends Base
             }
         }
 
-        throw new ExternalLinkProviderNotFound('Unable to find link provider: '.$type);
+        throw new ExternalLinkProviderNotFound('Unable to find link provider: ' . $type);
     }
 
     /**
@@ -85,7 +85,7 @@ class ExternalLinkManager extends Base
      */
     public function getTypes()
     {
-        $types = array();
+        $types = [];
 
         foreach ($this->providers as $provider) {
             $types[$provider->getType()] = $provider->getName();
@@ -93,7 +93,7 @@ class ExternalLinkManager extends Base
 
         asort($types);
 
-        return array(self::TYPE_AUTO => t('Auto')) + $types;
+        return [self::TYPE_AUTO => t('Auto')] + $types;
     }
 
     /**

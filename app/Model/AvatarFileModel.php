@@ -42,9 +42,9 @@ class AvatarFileModel extends Base
      */
     public function create($user_id, $path)
     {
-        $result = $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(array(
+        $result = $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update([
             'avatar_path' => $path,
-        ));
+        ]);
 
         $this->userSession->refresh($user_id);
 
@@ -65,7 +65,7 @@ class AvatarFileModel extends Base
 
             if (! empty($filename)) {
                 $this->objectStorage->remove($filename);
-                return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(array('avatar_path' => ''));
+                return $this->db->table(UserModel::TABLE)->eq('id', $user_id)->update(['avatar_path' => '']);
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
@@ -91,9 +91,8 @@ class AvatarFileModel extends Base
                 $this->objectStorage->moveUploadedFile($file['tmp_name'], $destinationFilename);
                 $this->create($user_id, $destinationFilename);
             } else {
-                throw new Exception('File not uploaded: '.var_export($file['error'], true));
+                throw new Exception('File not uploaded: ' . var_export($file['error'], true));
             }
-
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             return false;
@@ -134,7 +133,7 @@ class AvatarFileModel extends Base
      */
     public function generatePath($user_id, $filename)
     {
-        return implode(DIRECTORY_SEPARATOR, array(self::PATH_PREFIX, $user_id, hash('sha1', $filename.time())));
+        return implode(DIRECTORY_SEPARATOR, [self::PATH_PREFIX, $user_id, hash('sha1', $filename . time())]);
     }
 
     /**

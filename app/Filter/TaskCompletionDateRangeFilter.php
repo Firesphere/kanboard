@@ -21,7 +21,7 @@ class TaskCompletionDateRangeFilter extends BaseDateRangeFilter implements Filte
      */
     public function getAttributes()
     {
-        return array('completedRange');
+        return ['completedRange'];
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskCompletionDateRangeFilter extends BaseDateRangeFilter implements Filte
      */
     public function apply()
     {
-        $this->applyDateFilter(TaskModel::TABLE.'.date_completed');
+        $this->applyDateFilter(TaskModel::TABLE . '.date_completed');
         return $this;
     }
 }

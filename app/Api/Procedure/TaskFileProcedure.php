@@ -51,7 +51,7 @@ class TaskFileProcedure extends BaseProcedure
         try {
             return $this->taskFileModel->uploadContent($task_id, $filename, $blob);
         } catch (ObjectStorageException $e) {
-            $this->logger->error(__METHOD__.': '.$e->getMessage());
+            $this->logger->error(__METHOD__ . ': ' . $e->getMessage());
             return false;
         }
     }

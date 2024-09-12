@@ -23,13 +23,13 @@ class ResetPasswordCommand extends BaseCommand
         $helper = $this->getHelper('question');
         $username = $input->getArgument('username');
 
-        $passwordQuestion = new Question('What is the new password for '.$username.'? (characters are not printed)'.PHP_EOL);
+        $passwordQuestion = new Question('What is the new password for ' . $username . '? (characters are not printed)' . PHP_EOL);
         $passwordQuestion->setHidden(true);
         $passwordQuestion->setHiddenFallback(false);
 
         $password = $helper->ask($input, $output, $passwordQuestion);
 
-        $confirmationQuestion = new Question('Confirmation:'.PHP_EOL);
+        $confirmationQuestion = new Question('Confirmation:' . PHP_EOL);
         $confirmationQuestion->setHidden(true);
         $confirmationQuestion->setHiddenFallback(false);
 
@@ -43,15 +43,15 @@ class ResetPasswordCommand extends BaseCommand
 
     private function validatePassword(OutputInterface $output, $password, $confirmation)
     {
-        list($valid, $errors) = $this->passwordResetValidator->validateModification(array(
-            'password' => $password,
+        list($valid, $errors) = $this->passwordResetValidator->validateModification([
+            'password'     => $password,
             'confirmation' => $confirmation,
-        ));
+        ]);
 
         if (!$valid) {
             foreach ($errors as $error_list) {
                 foreach ($error_list as $error) {
-                    $output->writeln('<error>'.$error.'</error>');
+                    $output->writeln('<error>' . $error . '</error>');
                 }
             }
         }
@@ -68,7 +68,7 @@ class ResetPasswordCommand extends BaseCommand
             return false;
         }
 
-        if (!$this->userModel->update(array('id' => $userId, 'password' => $password))) {
+        if (!$this->userModel->update(['id' => $userId, 'password' => $password])) {
             $output->writeln('<error>Unable to update password</error>');
             return false;
         }

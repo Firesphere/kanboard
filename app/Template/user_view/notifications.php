@@ -2,7 +2,7 @@
     <h2><?= t('Notifications') ?></h2>
 </div>
 
-<form method="post" action="<?= $this->url->href('UserViewController', 'notifications', array('user_id' => $user['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('UserViewController', 'notifications', ['user_id' => $user['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <h4><?= t('Notification methods:') ?></h4>

@@ -4,6 +4,4 @@ namespace Kanboard\Core\ObjectStorage;
 
 use Exception;
 
-class ObjectStorageException extends Exception
-{
-}
+class ObjectStorageException extends Exception {}

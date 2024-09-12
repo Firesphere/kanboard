@@ -4,18 +4,18 @@
 
 <?php if ($task['recurrence_status'] != \Kanboard\Model\TaskModel::RECURRING_STATUS_NONE): ?>
 <div class="panel">
-    <?= $this->render('task_recurrence/info', array(
-        'task' => $task,
-        'recurrence_trigger_list' => $recurrence_trigger_list,
+    <?= $this->render('task_recurrence/info', [
+        'task'                      => $task,
+        'recurrence_trigger_list'   => $recurrence_trigger_list,
         'recurrence_timeframe_list' => $recurrence_timeframe_list,
-        'recurrence_basedate_list' => $recurrence_basedate_list,
-    )) ?>
+        'recurrence_basedate_list'  => $recurrence_basedate_list,
+    ]) ?>
 </div>
 <?php endif ?>
 
 <?php if ($task['recurrence_status'] != \Kanboard\Model\TaskModel::RECURRING_STATUS_PROCESSED): ?>
 
-    <form method="post" action="<?= $this->url->href('TaskRecurrenceController', 'update', array('task_id' => $task['id'])) ?>" autocomplete="off">
+    <form method="post" action="<?= $this->url->href('TaskRecurrenceController', 'update', ['task_id' => $task['id']]) ?>" autocomplete="off">
 
         <?= $this->form->csrf() ?>
 

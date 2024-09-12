@@ -23,29 +23,28 @@ class DashboardPagination extends Base
      */
     public function getOverview($userId)
     {
-        $paginators = array();
+        $paginators = [];
         $projects = $this->projectUserRoleModel->getActiveProjectsByUser($userId);
 
         foreach ($projects as $projectId => $projectName) {
-
-            $query = $this->taskFinderModel->getUserQuery($userId)->eq(ProjectModel::TABLE.'.id', $projectId);
+            $query = $this->taskFinderModel->getUserQuery($userId)->eq(ProjectModel::TABLE . '.id', $projectId);
             $this->hook->reference('pagination:dashboard:task:query', $query);
 
             $paginator = $this->paginator
-                ->setUrl('DashboardController', 'show', array('user_id' => $userId, 'pagination' => 'tasks-'.$projectId), 'project-tasks-'.$projectId)
+                ->setUrl('DashboardController', 'show', ['user_id' => $userId, 'pagination' => 'tasks-' . $projectId], 'project-tasks-' . $projectId)
                 ->setMax(15)
-                ->setOrder(TaskModel::TABLE.'.priority')
+                ->setOrder(TaskModel::TABLE . '.priority')
                 ->setDirection('DESC')
                 ->setFormatter($this->taskListSubtaskAssigneeFormatter->withUserId($userId))
                 ->setQuery($query)
-                ->calculateOnlyIf($this->request->getStringParam('pagination') === 'tasks-'.$projectId);
+                ->calculateOnlyIf($this->request->getStringParam('pagination') === 'tasks-' . $projectId);
 
             if ($paginator->getTotal() > 0) {
-                $paginators[] = array(
+                $paginators[] = [
                     'project_id'   => $projectId,
                     'project_name' => $projectName,
                     'paginator'    => $paginator,
-                );
+                ];
             }
         }
 

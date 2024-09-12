@@ -11,7 +11,7 @@ use Kanboard\Core\Filter\FormatterInterface;
  */
 class TasksApiFormatter extends BaseFormatter implements FormatterInterface
 {
-    protected $tasks = array();
+    protected $tasks = [];
 
     public function withTasks($tasks)
     {

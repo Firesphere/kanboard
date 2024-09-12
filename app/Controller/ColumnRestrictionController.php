@@ -19,20 +19,20 @@ class ColumnRestrictionController extends BaseController
      * @param  array $errors
      * @throws AccessForbiddenException
      */
-    public function create(array $values = array(), array $errors = array())
+    public function create(array $values = [], array $errors = [])
     {
         $project = $this->getProject();
         $role_id = $this->request->getIntegerParam('role_id');
         $role = $this->projectRoleModel->getById($project['id'], $role_id);
 
-        $this->response->html($this->template->render('column_restriction/create', array(
+        $this->response->html($this->template->render('column_restriction/create', [
             'project' => $project,
-            'role' => $role,
-            'rules' => $this->columnRestrictionModel->getRules(),
+            'role'    => $role,
+            'rules'   => $this->columnRestrictionModel->getRules(),
             'columns' => $this->columnModel->getList($project['id']),
-            'values' => $values + array('project_id' => $project['id'], 'role_id' => $role['role_id']),
-            'errors' => $errors,
-        )));
+            'values'  => $values + ['project_id' => $project['id'], 'role_id' => $role['role_id']],
+            'errors'  => $errors,
+        ]));
     }
 
     /**
@@ -50,7 +50,7 @@ class ColumnRestrictionController extends BaseController
                 $project['id'],
                 $values['role_id'],
                 $values['column_id'],
-                $values['rule']
+                $values['rule'],
             );
 
             if ($restriction_id !== false) {
@@ -59,7 +59,7 @@ class ColumnRestrictionController extends BaseController
                 $this->flash->failure(t('Unable to create this column restriction.'));
             }
 
-            $this->response->redirect($this->helper->url->to('ProjectRoleController', 'show', array('project_id' => $project['id'])));
+            $this->response->redirect($this->helper->url->to('ProjectRoleController', 'show', ['project_id' => $project['id']]));
         } else {
             $this->create($values, $errors);
         }
@@ -75,10 +75,10 @@ class ColumnRestrictionController extends BaseController
         $project = $this->getProject();
         $restriction_id = $this->request->getIntegerParam('restriction_id');
 
-        $this->response->html($this->helper->layout->project('column_restriction/remove', array(
-            'project' => $project,
+        $this->response->html($this->helper->layout->project('column_restriction/remove', [
+            'project'     => $project,
             'restriction' => $this->columnRestrictionModel->getById($project['id'], $restriction_id),
-        )));
+        ]));
     }
 
     /**
@@ -98,6 +98,6 @@ class ColumnRestrictionController extends BaseController
             $this->flash->failure(t('Unable to remove this restriction.'));
         }
 
-        $this->response->redirect($this->helper->url->to('ProjectRoleController', 'show', array('project_id' => $project['id'])));
+        $this->response->redirect($this->helper->url->to('ProjectRoleController', 'show', ['project_id' => $project['id']]));
     }
 }

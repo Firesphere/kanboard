@@ -18,7 +18,7 @@ class Stderr extends Base
      * @param array  $context
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         file_put_contents('php://stderr', $this->formatMessage($level, $message, $context), FILE_APPEND);
     }

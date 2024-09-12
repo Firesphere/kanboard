@@ -19,9 +19,9 @@
 
 <div class="margin-bottom">
     <form method="get" action="<?= $this->url->dir() ?>" class="search">
-        <?= $this->form->hidden('controller', array('controller' => 'UserListController')) ?>
-        <?= $this->form->hidden('action', array('action' => 'search')) ?>
-        <?= $this->form->text('search', $values, array(), array('placeholder="'.t('Search').'"', 'aria-label="'.t('Search').'"')) ?>
+        <?= $this->form->hidden('controller', ['controller' => 'UserListController']) ?>
+        <?= $this->form->hidden('action', ['action' => 'search']) ?>
+        <?= $this->form->text('search', $values, [], ['placeholder="' . t('Search') . '"', 'aria-label="' . t('Search') . '"']) ?>
     </form>
 </div>
 
@@ -29,20 +29,20 @@
     <p class="alert"><?= t('No users found.') ?></p>
 <?php elseif (! $paginator->isEmpty()): ?>
     <div class="table-list">
-        <?= $this->render('user_list/header', array('paginator' => $paginator)) ?>
+        <?= $this->render('user_list/header', ['paginator' => $paginator]) ?>
         <?php foreach ($paginator->getCollection() as $user): ?>
             <div class="table-list-row table-border-left">
-                <?= $this->render('user_list/user_title', array(
+                <?= $this->render('user_list/user_title', [
                     'user' => $user,
-                )) ?>
+                ]) ?>
 
-                <?= $this->render('user_list/user_details', array(
+                <?= $this->render('user_list/user_details', [
                     'user' => $user,
-                )) ?>
+                ]) ?>
 
-                <?= $this->render('user_list/user_icons', array(
+                <?= $this->render('user_list/user_icons', [
                     'user' => $user,
-                )) ?>
+                ]) ?>
             </div>
         <?php endforeach ?>
     </div>

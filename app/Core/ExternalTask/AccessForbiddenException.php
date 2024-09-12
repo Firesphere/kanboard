@@ -8,6 +8,4 @@ namespace Kanboard\Core\ExternalTask;
  * @package Kanboard\Core\ExternalTask
  * @author  Frederic Guillot
  */
-class AccessForbiddenException extends ExternalTaskException
-{
-}
+class AccessForbiddenException extends ExternalTaskException {}

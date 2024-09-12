@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= $this->text->e($project['name']) ?> &gt; <?= $this->text->e($task['title']) ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('TaskModificationController', 'update', array('task_id' => $task['id'])) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('TaskModificationController', 'update', ['task_id' => $task['id']]) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <div class="task-form-container">
@@ -11,7 +11,7 @@
             <?= $this->task->renderDescriptionTemplateDropdown($project['id']) ?>
             <?= $this->task->renderTagField($project, $tags) ?>
 
-            <?= $this->hook->render('template:task:form:first-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:first-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-secondary-column">
@@ -20,7 +20,7 @@
             <?= $this->task->renderCategoryField($categories_list, $values, $errors) ?>
             <?= $this->task->renderPriorityField($project, $values) ?>
 
-            <?= $this->hook->render('template:task:form:second-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:second-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-secondary-column">
@@ -31,12 +31,12 @@
             <?= $this->task->renderScoreField($values, $errors) ?>
             <?= $this->task->renderReferenceField($values, $errors) ?>
 
-            <?= $this->hook->render('template:task:form:third-column', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:third-column', ['values' => $values, 'errors' => $errors]) ?>
         </div>
 
         <div class="task-form-bottom">
 
-            <?= $this->hook->render('template:task:form:bottom-before-buttons', array('values' => $values, 'errors' => $errors)) ?>
+            <?= $this->hook->render('template:task:form:bottom-before-buttons', ['values' => $values, 'errors' => $errors]) ?>
 
             <?= $this->modal->submitButtons() ?>
         </div>

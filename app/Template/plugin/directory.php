@@ -28,9 +28,9 @@
             <td>
                 <?php if ($is_configured): ?>
                     <?php if (! isset($installed_plugins[$plugin_name])): ?>
-                        <?= $this->url->icon('cloud-download', t('Install'), 'PluginController', 'install', array('archive_url' => urlencode($plugin['download'])), true) ?>
+                        <?= $this->url->icon('cloud-download', t('Install'), 'PluginController', 'install', ['archive_url' => urlencode($plugin['download'])], true) ?>
                     <?php elseif ($installed_plugins[$plugin_name] < $plugin['version']): ?>
-                        <?= $this->url->icon('refresh', t('Update'), 'PluginController', 'update', array('archive_url' => urlencode($plugin['download'])), true) ?>
+                        <?= $this->url->icon('refresh', t('Update'), 'PluginController', 'update', ['archive_url' => urlencode($plugin['download'])], true) ?>
                     <?php else: ?>
                         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                         <?= t('Up to date') ?>

@@ -32,11 +32,11 @@ class EstimatedActualColumnAnalytic extends Base
 
         $metrics = [];
         foreach ($columns as $column_id => $column_title) {
-            $metrics[$column_id] = array(
-                'hours_spent' => 0,
+            $metrics[$column_id] = [
+                'hours_spent'     => 0,
                 'hours_estimated' => 0,
-                'title' => $column_title,
-            );
+                'title'           => $column_title,
+            ];
         }
 
         foreach ($rows as $row) {

@@ -41,7 +41,5 @@ class WebNotification extends Base implements NotificationInterface
      * @param  string    $event_name
      * @param  array     $event_data
      */
-    public function notifyProject(array $project, $event_name, array $event_data)
-    {
-    }
+    public function notifyProject(array $project, $event_name, array $event_data) {}
 }

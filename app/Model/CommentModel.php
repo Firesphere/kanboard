@@ -25,9 +25,9 @@ class CommentModel extends Base
      *
      * @var string
      */
-    public const EVENT_UPDATE       = 'comment.update';
-    public const EVENT_CREATE       = 'comment.create';
-    public const EVENT_DELETE       = 'comment.delete';
+    public const EVENT_UPDATE = 'comment.update';
+    public const EVENT_CREATE = 'comment.create';
+    public const EVENT_DELETE = 'comment.delete';
     public const EVENT_USER_MENTION = 'comment.user.mention';
 
     /**
@@ -41,7 +41,7 @@ class CommentModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.id', $comment_id)
+            ->eq(self::TABLE . '.id', $comment_id)
             ->join(TaskModel::TABLE, 'id', 'task_id')
             ->findOneColumn(TaskModel::TABLE . '.project_id') ?: 0;
     }
@@ -57,7 +57,7 @@ class CommentModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.id', $comment_id)
+            ->eq(self::TABLE . '.id', $comment_id)
             ->findOneColumn(self::TABLE . '.visibility') ?: Role::APP_USER;
     }
 
@@ -74,22 +74,22 @@ class CommentModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.id',
-                self::TABLE.'.date_creation',
-                self::TABLE.'.date_modification',
-                self::TABLE.'.task_id',
-                self::TABLE.'.user_id',
-                self::TABLE.'.comment',
-                self::TABLE.'.visibility',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name',
-                UserModel::TABLE.'.email',
-                UserModel::TABLE.'.avatar_path'
+                self::TABLE . '.id',
+                self::TABLE . '.date_creation',
+                self::TABLE . '.date_modification',
+                self::TABLE . '.task_id',
+                self::TABLE . '.user_id',
+                self::TABLE . '.comment',
+                self::TABLE . '.visibility',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
+                UserModel::TABLE . '.email',
+                UserModel::TABLE . '.avatar_path',
             )
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->orderBy(self::TABLE.'.date_creation', $sorting)
-            ->orderBy(self::TABLE.'.id', $sorting)
-            ->eq(self::TABLE.'.task_id', $task_id)
+            ->orderBy(self::TABLE . '.date_creation', $sorting)
+            ->orderBy(self::TABLE . '.id', $sorting)
+            ->eq(self::TABLE . '.task_id', $task_id)
             ->findAll();
     }
 
@@ -105,21 +105,21 @@ class CommentModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.id',
-                self::TABLE.'.task_id',
-                self::TABLE.'.user_id',
-                self::TABLE.'.date_creation',
-                self::TABLE.'.date_modification',
-                self::TABLE.'.comment',
-                self::TABLE.'.reference',
-                self::TABLE.'.visibility',
-                UserModel::TABLE.'.username',
-                UserModel::TABLE.'.name',
-                UserModel::TABLE.'.email',
-                UserModel::TABLE.'.avatar_path'
+                self::TABLE . '.id',
+                self::TABLE . '.task_id',
+                self::TABLE . '.user_id',
+                self::TABLE . '.date_creation',
+                self::TABLE . '.date_modification',
+                self::TABLE . '.comment',
+                self::TABLE . '.reference',
+                self::TABLE . '.visibility',
+                UserModel::TABLE . '.username',
+                UserModel::TABLE . '.name',
+                UserModel::TABLE . '.email',
+                UserModel::TABLE . '.avatar_path',
             )
             ->join(UserModel::TABLE, 'id', 'user_id')
-            ->eq(self::TABLE.'.id', $comment_id)
+            ->eq(self::TABLE . '.id', $comment_id)
             ->findOne();
     }
 
@@ -134,7 +134,7 @@ class CommentModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->eq(self::TABLE.'.task_id', $task_id)
+            ->eq(self::TABLE . '.task_id', $task_id)
             ->count();
     }
 
@@ -170,7 +170,7 @@ class CommentModel extends Base
         $result = $this->db
                     ->table(self::TABLE)
                     ->eq('id', $values['id'])
-                    ->update(array('comment' => $values['comment'], 'date_modification' => time()));
+                    ->update(['comment' => $values['comment'], 'date_modification' => time()]);
 
         if ($result) {
             $this->queueManager->push($this->commentEventJob->withParams($values['id'], self::EVENT_UPDATE));

@@ -20,9 +20,9 @@ class AvatarFileController extends BaseController
     {
         $user = $this->getUser();
 
-        $this->response->html($this->helper->layout->user('avatar_file/show', array(
+        $this->response->html($this->helper->layout->user('avatar_file/show', [
             'user' => $user,
-        )));
+        ]));
     }
 
     /**
@@ -73,7 +73,7 @@ class AvatarFileController extends BaseController
         }
 
         $filename = $this->avatarFileModel->getFilename($user_id);
-        $etag = md5($filename.$size);
+        $etag = md5($filename . $size);
 
         if ($hash !== $etag) {
             $this->response->status(404);
@@ -83,7 +83,7 @@ class AvatarFileController extends BaseController
         $this->response->withCache(365 * 86400, $etag);
         $this->response->withContentType('image/png');
 
-        if ($this->request->getHeader('If-None-Match') !== '"'.$etag.'"') {
+        if ($this->request->getHeader('If-None-Match') !== '"' . $etag . '"') {
             $this->response->send();
             $this->render($filename, $size);
         } else {
@@ -116,7 +116,7 @@ class AvatarFileController extends BaseController
         if ($this->request->isAjax()) {
             $this->show();
         } else {
-            $this->response->redirect($this->helper->url->to('AvatarFileController', 'show', array('user_id' => $userId)));
+            $this->response->redirect($this->helper->url->to('AvatarFileController', 'show', ['user_id' => $userId]));
         }
     }
 }

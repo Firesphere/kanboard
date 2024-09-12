@@ -10,6 +10,6 @@
     <?= $this->modal->confirmButtons(
         'CustomFilterController',
         'remove',
-        array('project_id' => $project['id'], 'filter_id' => $filter['id'])
+        ['project_id' => $project['id'], 'filter_id' => $filter['id']],
     ) ?>
 </div>

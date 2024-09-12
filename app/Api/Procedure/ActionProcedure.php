@@ -43,12 +43,12 @@ class ActionProcedure extends BaseProcedure
     public function createAction($project_id, $event_name, $action_name, array $params)
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'createAction', $project_id);
-        $values = array(
-            'project_id' => $project_id,
-            'event_name' => $event_name,
+        $values = [
+            'project_id'  => $project_id,
+            'event_name'  => $event_name,
             'action_name' => $action_name,
-            'params' => $params,
-        );
+            'params'      => $params,
+        ];
 
         list($valid, ) = $this->actionValidator->validateCreation($values);
 

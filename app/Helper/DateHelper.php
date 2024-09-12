@@ -114,7 +114,7 @@ class DateHelper extends Base
         } elseif ($diff < 3600) {
             return t('<1h');
         } elseif ($diff < 86400) {
-            return '~'.t('%dh', $diff / 3600);
+            return '~' . t('%dh', $diff / 3600);
         }
 
         return t('%dd', ($now - $timestamp) / 86400);
@@ -128,10 +128,10 @@ class DateHelper extends Base
      */
     public function getDayHours()
     {
-        $values = array();
+        $values = [];
 
         foreach (range(0, 23) as $hour) {
-            foreach (array(0, 30) as $minute) {
+            foreach ([0, 30] as $minute) {
                 $time = sprintf('%02d:%02d', $hour, $minute);
                 $values[$time] = $time;
             }
@@ -148,7 +148,7 @@ class DateHelper extends Base
      */
     public function getWeekDays()
     {
-        $values = array();
+        $values = [];
 
         foreach (range(1, 7) as $day) {
             $values[$day] = $this->getWeekDay($day);
@@ -166,6 +166,6 @@ class DateHelper extends Base
      */
     public function getWeekDay($day)
     {
-        return date('l', strtotime('next Monday +'.($day - 1).' days'));
+        return date('l', strtotime('next Monday +' . ($day - 1) . ' days'));
     }
 }

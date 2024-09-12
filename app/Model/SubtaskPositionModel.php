@@ -29,18 +29,18 @@ class SubtaskPositionModel extends Base
 
         $subtask_ids = $this->db->table(SubtaskModel::TABLE)->eq('task_id', $task_id)->neq('id', $subtask_id)->asc('position')->findAllByColumn('id');
         $offset = 1;
-        $results = array();
+        $results = [];
 
         foreach ($subtask_ids as $current_subtask_id) {
             if ($offset == $position) {
                 $offset++;
             }
 
-            $results[] = $this->db->table(SubtaskModel::TABLE)->eq('id', $current_subtask_id)->update(array('position' => $offset));
+            $results[] = $this->db->table(SubtaskModel::TABLE)->eq('id', $current_subtask_id)->update(['position' => $offset]);
             $offset++;
         }
 
-        $results[] = $this->db->table(SubtaskModel::TABLE)->eq('id', $subtask_id)->update(array('position' => $position));
+        $results[] = $this->db->table(SubtaskModel::TABLE)->eq('id', $subtask_id)->update(['position' => $position]);
 
         return !in_array(false, $results, true);
     }

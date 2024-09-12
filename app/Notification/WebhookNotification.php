@@ -21,9 +21,7 @@ class WebhookNotification extends Base implements NotificationInterface
      * @param  string    $event_name
      * @param  array     $event_data
      */
-    public function notifyUser(array $user, $event_name, array $event_data)
-    {
-    }
+    public function notifyUser(array $user, $event_name, array $event_data) {}
 
     /**
      * Send notification to a project
@@ -40,16 +38,16 @@ class WebhookNotification extends Base implements NotificationInterface
 
         if (! empty($url)) {
             if (strpos($url, '?') !== false) {
-                $url .= '&token='.$token;
+                $url .= '&token=' . $token;
             } else {
-                $url .= '?token='.$token;
+                $url .= '?token=' . $token;
             }
 
-            $payload = array(
-                'event_name' => $event_name,
-                'event_data' => $event_data,
+            $payload = [
+                'event_name'   => $event_name,
+                'event_data'   => $event_data,
                 'event_author' => ($this->userSession->isLogged() ? $this->userSession->getUsername() : null),
-            );
+            ];
 
             $this->httpClient->postJson($url, $payload);
         }

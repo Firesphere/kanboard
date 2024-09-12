@@ -29,9 +29,9 @@ class TaskPagination extends Base
         $this->hook->reference('pagination:dashboard:task:query', $query);
 
         return $this->paginator
-            ->setUrl('DashboardController', $method, array('pagination' => 'tasks', 'user_id' => $userId))
+            ->setUrl('DashboardController', $method, ['pagination' => 'tasks', 'user_id' => $userId])
             ->setMax($max)
-            ->setOrder(TaskModel::TABLE.'.id')
+            ->setOrder(TaskModel::TABLE . '.id')
             ->setQuery($query)
             ->setFormatter($this->taskListFormatter)
             ->calculateOnlyIf($this->request->getStringParam('pagination') === 'tasks');

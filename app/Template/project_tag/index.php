@@ -2,7 +2,7 @@
     <h2><?= t('Project tags') ?></h2>
     <ul class="no-bullet">
         <li>
-            <?= $this->modal->medium('plus', t('Add new tag'), 'ProjectTagController', 'create', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('plus', t('Add new tag'), 'ProjectTagController', 'create', ['project_id' => $project['id']]) ?>
         </li>
     </ul>
 </div>
@@ -22,15 +22,15 @@
                         <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                         <ul>
                             <li>
-                                <?= $this->modal->medium('edit', t('Edit'), 'ProjectTagController', 'edit', array('tag_id' => $tag['id'], 'project_id' => $project['id'])) ?>
+                                <?= $this->modal->medium('edit', t('Edit'), 'ProjectTagController', 'edit', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
                             </li>
                             <?php if ($this->user->isAdmin()): ?>
                             <li>
-                                <?= $this->modal->confirm('globe', t('Change to global tag'), 'ProjectTagController', 'confirmMakeGlobalTag', array('tag_id' => $tag['id'], 'project_id' => $project['id'])) ?>
+                                <?= $this->modal->confirm('globe', t('Change to global tag'), 'ProjectTagController', 'confirmMakeGlobalTag', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
                             </li>
                             <?php endif ?>
                             <li>
-                                <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectTagController', 'confirm', array('tag_id' => $tag['id'], 'project_id' => $project['id'])) ?>
+                                <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectTagController', 'confirm', ['tag_id' => $tag['id'], 'project_id' => $project['id']]) ?>
                             </li>
                         </ul>
                     </div>
@@ -47,7 +47,7 @@
 </div>
 
 <div class="panel">
-    <form method="post" action="<?= $this->url->href('ProjectTagController', 'updateSettings', array('project_id' => $project['id'])) ?>" autocomplete="off">
+    <form method="post" action="<?= $this->url->href('ProjectTagController', 'updateSettings', ['project_id' => $project['id']]) ?>" autocomplete="off">
         <?= $this->form->csrf() ?>
         
         <?= $this->form->checkbox('enable_global_tags', t('Enable global tags for this project'), 1, $project['enable_global_tags'] == 1) ?>

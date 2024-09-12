@@ -108,10 +108,10 @@ class TaskProcedure extends BaseProcedure
         $recurrence_timeframe = 0,
         $recurrence_basedate = 0,
         $reference = '',
-        array $tags = array(),
+        array $tags = [],
         $date_started = '',
         $time_spent = null,
-        $time_estimated = null
+        $time_estimated = null,
     ) {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'createTask', $project_id);
 
@@ -123,30 +123,30 @@ class TaskProcedure extends BaseProcedure
             $creator_id = $this->userSession->getId();
         }
 
-        $values = array(
-            'title' => $title,
-            'project_id' => $project_id,
-            'color_id' => $color_id,
-            'column_id' => $column_id,
-            'owner_id' => $owner_id,
-            'creator_id' => $creator_id,
-            'date_due' => $date_due,
-            'description' => $description,
-            'category_id' => $category_id,
-            'score' => $score,
-            'swimlane_id' => $swimlane_id,
-            'recurrence_status' => $recurrence_status,
-            'recurrence_trigger' => $recurrence_trigger,
-            'recurrence_factor' => $recurrence_factor,
+        $values = [
+            'title'                => $title,
+            'project_id'           => $project_id,
+            'color_id'             => $color_id,
+            'column_id'            => $column_id,
+            'owner_id'             => $owner_id,
+            'creator_id'           => $creator_id,
+            'date_due'             => $date_due,
+            'description'          => $description,
+            'category_id'          => $category_id,
+            'score'                => $score,
+            'swimlane_id'          => $swimlane_id,
+            'recurrence_status'    => $recurrence_status,
+            'recurrence_trigger'   => $recurrence_trigger,
+            'recurrence_factor'    => $recurrence_factor,
             'recurrence_timeframe' => $recurrence_timeframe,
-            'recurrence_basedate' => $recurrence_basedate,
-            'reference' => $reference,
-            'priority' => $priority,
-            'tags' => $tags,
-            'date_started' => $date_started,
-            'time_spent' => $time_spent,
-            'time_estimated' => $time_estimated,
-        );
+            'recurrence_basedate'  => $recurrence_basedate,
+            'reference'            => $reference,
+            'priority'             => $priority,
+            'tags'                 => $tags,
+            'date_started'         => $date_started,
+            'time_spent'           => $time_spent,
+            'time_estimated'       => $time_estimated,
+        ];
 
         list($valid, ) = $this->taskValidator->validateCreation($values);
 
@@ -172,7 +172,7 @@ class TaskProcedure extends BaseProcedure
         $tags = null,
         $date_started = null,
         $time_spent = null,
-        $time_estimated = null
+        $time_estimated = null,
     ) {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateTask', $id);
         $project_id = $this->taskFinderModel->getProjectId($id);
@@ -185,27 +185,27 @@ class TaskProcedure extends BaseProcedure
             return false;
         }
 
-        $values = $this->filterValues(array(
-            'id' => $id,
-            'title' => $title,
-            'color_id' => $color_id,
-            'owner_id' => $owner_id,
-            'date_due' => $date_due,
-            'description' => $description,
-            'category_id' => $category_id,
-            'score' => $score,
-            'recurrence_status' => $recurrence_status,
-            'recurrence_trigger' => $recurrence_trigger,
-            'recurrence_factor' => $recurrence_factor,
+        $values = $this->filterValues([
+            'id'                   => $id,
+            'title'                => $title,
+            'color_id'             => $color_id,
+            'owner_id'             => $owner_id,
+            'date_due'             => $date_due,
+            'description'          => $description,
+            'category_id'          => $category_id,
+            'score'                => $score,
+            'recurrence_status'    => $recurrence_status,
+            'recurrence_trigger'   => $recurrence_trigger,
+            'recurrence_factor'    => $recurrence_factor,
             'recurrence_timeframe' => $recurrence_timeframe,
-            'recurrence_basedate' => $recurrence_basedate,
-            'reference' => $reference,
-            'priority' => $priority,
-            'tags' => $tags,
-            'date_started' => $date_started,
-            'time_spent' => $time_spent,
-            'time_estimated' => $time_estimated,
-        ));
+            'recurrence_basedate'  => $recurrence_basedate,
+            'reference'            => $reference,
+            'priority'             => $priority,
+            'tags'                 => $tags,
+            'date_started'         => $date_started,
+            'time_spent'           => $time_spent,
+            'time_estimated'       => $time_estimated,
+        ]);
 
         list($valid) = $this->taskValidator->validateApiModification($values);
         return $valid && $this->taskModificationModel->update($values);

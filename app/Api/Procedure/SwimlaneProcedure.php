@@ -53,11 +53,11 @@ class SwimlaneProcedure extends BaseProcedure
     {
         ProjectAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateSwimlane', $project_id);
 
-        $values = array(
+        $values = [
             'project_id' => $project_id,
             'id'         => $swimlane_id,
             'name'       => $name,
-        );
+        ];
 
         if (! is_null($description)) {
             $values['description'] = $description;
@@ -66,7 +66,7 @@ class SwimlaneProcedure extends BaseProcedure
         list($valid, $errors) = $this->swimlaneValidator->validateModification($values);
 
         if (! $valid) {
-            $this->logger->debug(__METHOD__.': Validation error: '.var_export($errors, true));
+            $this->logger->debug(__METHOD__ . ': Validation error: ' . var_export($errors, true));
             return false;
         }
 

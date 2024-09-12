@@ -17,8 +17,8 @@ use Kanboard\Core\User\Avatar\AvatarProviderInterface;
  */
 class LetterAvatarProvider extends Base implements AvatarProviderInterface
 {
-    protected $lightness = array(0.35, 0.5, 0.65);
-    protected $saturation = array(0.35, 0.5, 0.65);
+    protected $lightness = [0.35, 0.5, 0.65];
+    protected $saturation = [0.35, 0.5, 0.65];
 
     /**
      * Render avatar html
@@ -41,7 +41,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
             $rgb[2],
             $name,
             $name,
-            $this->helper->text->e($initials)
+            $this->helper->text->e($initials),
         );
     }
 
@@ -104,7 +104,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
             }
 
             return round($color * 255);
-        }, array($hue + 1 / 3, $hue, $hue - 1 / 3));
+        }, [$hue + 1 / 3, $hue, $hue - 1 / 3]);
     }
 
     /**
@@ -126,7 +126,7 @@ class LetterAvatarProvider extends Base implements AvatarProviderInterface
         $hash = intval($hash / count($this->saturation));
         $lightness = $this->lightness[$hash % count($this->lightness)];
 
-        return array($hue, $saturation, $lightness);
+        return [$hue, $saturation, $lightness];
     }
 
     /**

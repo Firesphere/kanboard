@@ -21,7 +21,7 @@ class UserDistributionAnalytic extends Base
      */
     public function build($project_id)
     {
-        $metrics = array();
+        $metrics = [];
         $total = 0;
         $tasks = $this->taskFinderModel->getAll($project_id);
         $users = $this->projectUserRoleModel->getAssignableUsersList($project_id);
@@ -31,18 +31,18 @@ class UserDistributionAnalytic extends Base
             $total++;
 
             if (! isset($metrics[$user])) {
-                $metrics[$user] = array(
-                    'nb_tasks' => 0,
+                $metrics[$user] = [
+                    'nb_tasks'   => 0,
                     'percentage' => 0,
-                    'user' => $user,
-                );
+                    'user'       => $user,
+                ];
             }
 
             $metrics[$user]['nb_tasks']++;
         }
 
         if ($total === 0) {
-            return array();
+            return [];
         }
 
         foreach ($metrics as &$metric) {

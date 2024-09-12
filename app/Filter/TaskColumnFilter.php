@@ -22,7 +22,7 @@ class TaskColumnFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('column');
+        return ['column'];
     }
 
     /**
@@ -34,9 +34,9 @@ class TaskColumnFilter extends BaseFilter implements FilterInterface
     public function apply()
     {
         if (is_int($this->value) || ctype_digit((string) $this->value)) {
-            $this->query->eq(TaskModel::TABLE.'.column_id', $this->value);
+            $this->query->eq(TaskModel::TABLE . '.column_id', $this->value);
         } else {
-            $this->query->eq(ColumnModel::TABLE.'.title', $this->value);
+            $this->query->eq(ColumnModel::TABLE . '.title', $this->value);
         }
 
         return $this;

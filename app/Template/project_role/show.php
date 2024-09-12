@@ -2,7 +2,7 @@
     <h2><?= t('Custom Project Roles') ?></h2>
     <ul>
         <li>
-            <?= $this->modal->medium('plus', t('Add a new custom role'), 'ProjectRoleController', 'create', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('plus', t('Add a new custom role'), 'ProjectRoleController', 'create', ['project_id' => $project['id']]) ?>
         </li>
     </ul>
 </div>
@@ -18,19 +18,19 @@
                     <a href="#" class="dropdown-menu"><?= t('Restrictions for the role "%s"', $role['role']) ?> <i class="fa fa-caret-down"></i></a>
                     <ul>
                         <li>
-                            <?= $this->modal->medium('plus', t('Add a new project restriction'), 'ProjectRoleRestrictionController', 'create', array('project_id' => $project['id'], 'role_id' => $role['role_id'])) ?>
+                            <?= $this->modal->medium('plus', t('Add a new project restriction'), 'ProjectRoleRestrictionController', 'create', ['project_id' => $project['id'], 'role_id' => $role['role_id']]) ?>
                         </li>
                         <li>
-                            <?= $this->modal->medium('plus', t('Add a new drag and drop restriction'), 'ColumnMoveRestrictionController', 'create', array('project_id' => $project['id'], 'role_id' => $role['role_id'])) ?>
+                            <?= $this->modal->medium('plus', t('Add a new drag and drop restriction'), 'ColumnMoveRestrictionController', 'create', ['project_id' => $project['id'], 'role_id' => $role['role_id']]) ?>
                         </li>
                         <li>
-                            <?= $this->modal->medium('plus', t('Add a new column restriction'), 'ColumnRestrictionController', 'create', array('project_id' => $project['id'], 'role_id' => $role['role_id'])) ?>
+                            <?= $this->modal->medium('plus', t('Add a new column restriction'), 'ColumnRestrictionController', 'create', ['project_id' => $project['id'], 'role_id' => $role['role_id']]) ?>
                         </li>
                         <li>
-                            <?= $this->modal->medium('edit', t('Edit this role'), 'ProjectRoleController', 'edit', array('project_id' => $project['id'], 'role_id' => $role['role_id'])) ?>
+                            <?= $this->modal->medium('edit', t('Edit this role'), 'ProjectRoleController', 'edit', ['project_id' => $project['id'], 'role_id' => $role['role_id']]) ?>
                         </li>
                         <li>
-                            <?= $this->modal->confirm('trash-o', t('Remove this role'), 'ProjectRoleController', 'confirm', array('project_id' => $project['id'], 'role_id' => $role['role_id'])) ?>
+                            <?= $this->modal->confirm('trash-o', t('Remove this role'), 'ProjectRoleController', 'confirm', ['project_id' => $project['id'], 'role_id' => $role['role_id']]) ?>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                         <?= $this->text->e($restriction['title']) ?>
                     </td>
                     <td>
-                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectRoleRestrictionController', 'confirm', array('project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id'])) ?>
+                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ProjectRoleRestrictionController', 'confirm', ['project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id']]) ?>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -70,7 +70,7 @@
                         <?= $this->text->e($restriction['title']) ?>
                     </td>
                     <td>
-                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnRestrictionController', 'confirm', array('project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id'])) ?>
+                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnRestrictionController', 'confirm', ['project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id']]) ?>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -87,7 +87,7 @@
                         <?php endif ?>
                     </td>
                     <td>
-                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnMoveRestrictionController', 'confirm', array('project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id'])) ?>
+                        <?= $this->modal->confirm('trash-o', t('Remove'), 'ColumnMoveRestrictionController', 'confirm', ['project_id' => $project['id'], 'restriction_id' => $restriction['restriction_id']]) ?>
                     </td>
                 </tr>
             <?php endforeach ?>

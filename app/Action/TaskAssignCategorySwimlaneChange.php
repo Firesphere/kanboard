@@ -31,10 +31,10 @@ class TaskAssignCategorySwimlaneChange extends Base
      */
     public function getCompatibleEvents()
     {
-        return array(
+        return [
             TaskModel::EVENT_CREATE,
             TaskModel::EVENT_MOVE_SWIMLANE,
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class TaskAssignCategorySwimlaneChange extends Base
      */
     public function getActionRequiredParameters()
     {
-        return array(
+        return [
             'swimlane_id' => t('Swimlane'),
             'category_id' => t('Category'),
-        );
+        ];
     }
 
     /**
@@ -59,13 +59,13 @@ class TaskAssignCategorySwimlaneChange extends Base
      */
     public function getEventRequiredParameters()
     {
-        return array(
+        return [
             'task_id',
-            'task' => array(
+            'task' => [
                 'project_id',
                 'swimlane_id',
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -77,10 +77,10 @@ class TaskAssignCategorySwimlaneChange extends Base
      */
     public function doAction(array $data)
     {
-        $values = array(
-            'id' => $data['task_id'],
+        $values = [
+            'id'          => $data['task_id'],
             'category_id' => $this->getParam('category_id'),
-        );
+        ];
 
         return $this->taskModificationModel->update($values, false);
     }

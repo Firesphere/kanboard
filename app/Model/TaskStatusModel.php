@@ -87,7 +87,7 @@ class TaskStatusModel extends Base
             ->table(TaskModel::TABLE)
             ->eq('swimlane_id', $swimlane_id)
             ->eq('column_id', $column_id)
-            ->eq(TaskModel::TABLE.'.is_active', TaskModel::STATUS_OPEN)
+            ->eq(TaskModel::TABLE . '.is_active', TaskModel::STATUS_OPEN)
             ->findAllByColumn('id');
 
         $this->closeMultipleTasks($task_ids);
@@ -112,14 +112,14 @@ class TaskStatusModel extends Base
         $result = $this->db
                         ->table(TaskModel::TABLE)
                         ->eq('id', $task_id)
-                        ->update(array(
-                            'is_active' => $status,
-                            'date_completed' => $date_completed,
+                        ->update([
+                            'is_active'         => $status,
+                            'date_completed'    => $date_completed,
                             'date_modification' => time(),
-                        ));
+                        ]);
 
         if ($result) {
-            $this->queueManager->push($this->taskEventJob->withParams($task_id, array($event_name)));
+            $this->queueManager->push($this->taskEventJob->withParams($task_id, [$event_name]));
         }
 
         return $result;

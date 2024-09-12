@@ -24,7 +24,7 @@ class AccessMap
      * @access private
      * @var array
      */
-    private $hierarchy = array();
+    private $hierarchy = [];
 
     /**
      * Access map
@@ -32,7 +32,7 @@ class AccessMap
      * @access private
      * @var array
      */
-    private $map = array();
+    private $map = [];
 
     /**
      * Define the default role when nothing match
@@ -61,7 +61,7 @@ class AccessMap
             if (isset($this->hierarchy[$subrole])) {
                 $this->hierarchy[$subrole][] = $role;
             } else {
-                $this->hierarchy[$subrole] = array($role);
+                $this->hierarchy[$subrole] = [$role];
             }
         }
 
@@ -77,7 +77,7 @@ class AccessMap
      */
     public function getRoleHierarchy($role)
     {
-        $roles = array($role);
+        $roles = [$role];
 
         if (isset($this->hierarchy[$role])) {
             $roles = array_merge($roles, $this->hierarchy[$role]);
@@ -95,7 +95,7 @@ class AccessMap
      */
     public function getHighestRole(array $roles)
     {
-        $rank = array();
+        $rank = [];
 
         foreach ($roles as $role) {
             $rank[$role] = count($this->getRoleHierarchy($role));
@@ -143,7 +143,7 @@ class AccessMap
         $method = strtolower($method);
 
         if (! isset($this->map[$controller])) {
-            $this->map[$controller] = array();
+            $this->map[$controller] = [];
         }
 
         $this->map[$controller][$method] = $role;
@@ -164,7 +164,7 @@ class AccessMap
         $controller = strtolower($controller);
         $method = strtolower($method);
 
-        foreach (array($method, '*') as $key) {
+        foreach ([$method, '*'] as $key) {
             if (isset($this->map[$controller][$key])) {
                 return $this->getRoleHierarchy($this->map[$controller][$key]);
             }

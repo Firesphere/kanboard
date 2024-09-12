@@ -26,7 +26,7 @@ class ResetTwoFactorCommand extends BaseCommand
             return 1;
         }
 
-        if (!$this->userModel->update(array('id' => $userId, 'twofactor_activated' => 0, 'twofactor_secret' => ''))) {
+        if (!$this->userModel->update(['id' => $userId, 'twofactor_activated' => 0, 'twofactor_secret' => ''])) {
             $output->writeln('<error>Unable to update user profile</error>');
             return 1;
         }

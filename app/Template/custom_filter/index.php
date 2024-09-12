@@ -2,7 +2,7 @@
     <h2><?= t('Custom filters') ?></h2>
     <ul>
         <li>
-            <?= $this->modal->medium('filter', t('Add custom filters'), 'CustomFilterController', 'create', array('project_id' => $project['id'])) ?>
+            <?= $this->modal->medium('filter', t('Add custom filters'), 'CustomFilterController', 'create', ['project_id' => $project['id']]) ?>
         </li>
     </ul>
 </div>
@@ -22,8 +22,8 @@
                     <div class="dropdown">
                         <a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-cog"></i><i class="fa fa-caret-down"></i></a>
                         <ul>
-                            <li><?= $this->modal->medium('edit', t('Edit'), 'CustomFilterController', 'edit', array('project_id' => $filter['project_id'], 'filter_id' => $filter['id'])) ?></li>
-                            <li><?= $this->modal->confirm('trash-o', t('Remove'), 'CustomFilterController', 'confirm', array('project_id' => $filter['project_id'], 'filter_id' => $filter['id'])) ?></li>
+                            <li><?= $this->modal->medium('edit', t('Edit'), 'CustomFilterController', 'edit', ['project_id' => $filter['project_id'], 'filter_id' => $filter['id']]) ?></li>
+                            <li><?= $this->modal->confirm('trash-o', t('Remove'), 'CustomFilterController', 'confirm', ['project_id' => $filter['project_id'], 'filter_id' => $filter['id']]) ?></li>
                         </ul>
                     </div>
                 <?php endif ?>

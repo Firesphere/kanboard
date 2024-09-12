@@ -91,7 +91,7 @@ abstract class MetadataModel extends Base
      */
     public function save($entity_id, array $values)
     {
-        $results = array();
+        $results = [];
         $user_id = $this->userSession->getId();
         $timestamp = time();
 
@@ -102,19 +102,19 @@ abstract class MetadataModel extends Base
                 $results[] = $this->db->table($this->getTable())
                     ->eq($this->getEntityKey(), $entity_id)
                     ->eq('name', $key)
-                    ->update(array(
-                        'value' => $value,
+                    ->update([
+                        'value'      => $value,
                         'changed_on' => $timestamp,
                         'changed_by' => $user_id,
-                    ));
+                    ]);
             } else {
-                $results[] = $this->db->table($this->getTable())->insert(array(
-                    'name' => $key,
-                    'value' => $value,
+                $results[] = $this->db->table($this->getTable())->insert([
+                    'name'                => $key,
+                    'value'               => $value,
                     $this->getEntityKey() => $entity_id,
-                    'changed_on' => $timestamp,
-                    'changed_by' => $user_id,
-                ));
+                    'changed_on'          => $timestamp,
+                    'changed_by'          => $user_id,
+                ]);
             }
         }
 

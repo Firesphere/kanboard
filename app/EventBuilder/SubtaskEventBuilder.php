@@ -2,8 +2,8 @@
 
 namespace Kanboard\EventBuilder;
 
-use Kanboard\Event\SubtaskEvent;
 use Kanboard\Event\GenericEvent;
+use Kanboard\Event\SubtaskEvent;
 use Kanboard\Model\SubtaskModel;
 
 /**
@@ -28,7 +28,7 @@ class SubtaskEventBuilder extends BaseEventBuilder
      * @access protected
      * @var array
      */
-    protected $values = array();
+    protected $values = [];
 
     /**
      * Set SubtaskId
@@ -62,11 +62,11 @@ class SubtaskEventBuilder extends BaseEventBuilder
      */
     public function buildEvent()
     {
-        $eventData = array();
+        $eventData = [];
         $eventData['subtask'] = $this->subtaskModel->getByIdWithDetails($this->subtaskId);
 
         if (empty($eventData['subtask'])) {
-            $this->logger->debug(__METHOD__.': Subtask not found');
+            $this->logger->debug(__METHOD__ . ': Subtask not found');
             return null;
         }
 

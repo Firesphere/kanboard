@@ -26,21 +26,21 @@ class ColumnMoveRestrictionModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.restriction_id',
-                self::TABLE.'.project_id',
-                self::TABLE.'.role_id',
-                self::TABLE.'.src_column_id',
-                self::TABLE.'.dst_column_id',
-                self::TABLE.'.only_assigned',
+                self::TABLE . '.restriction_id',
+                self::TABLE . '.project_id',
+                self::TABLE . '.role_id',
+                self::TABLE . '.src_column_id',
+                self::TABLE . '.dst_column_id',
+                self::TABLE . '.only_assigned',
                 'pr.role',
                 'sc.title as src_column_title',
-                'dc.title as dst_column_title'
+                'dc.title as dst_column_title',
             )
             ->left(ColumnModel::TABLE, 'sc', 'id', self::TABLE, 'src_column_id')
             ->left(ColumnModel::TABLE, 'dc', 'id', self::TABLE, 'dst_column_id')
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
-            ->eq(self::TABLE.'.project_id', $project_id)
-            ->eq(self::TABLE.'.restriction_id', $restriction_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
+            ->eq(self::TABLE . '.restriction_id', $restriction_id)
             ->findOne();
     }
 
@@ -55,20 +55,20 @@ class ColumnMoveRestrictionModel extends Base
         return $this->db
             ->table(self::TABLE)
             ->columns(
-                self::TABLE.'.restriction_id',
-                self::TABLE.'.project_id',
-                self::TABLE.'.role_id',
-                self::TABLE.'.src_column_id',
-                self::TABLE.'.dst_column_id',
-                self::TABLE.'.only_assigned',
+                self::TABLE . '.restriction_id',
+                self::TABLE . '.project_id',
+                self::TABLE . '.role_id',
+                self::TABLE . '.src_column_id',
+                self::TABLE . '.dst_column_id',
+                self::TABLE . '.only_assigned',
                 'pr.role',
                 'sc.title as src_column_title',
-                'dc.title as dst_column_title'
+                'dc.title as dst_column_title',
             )
             ->left(ColumnModel::TABLE, 'sc', 'id', self::TABLE, 'src_column_id')
             ->left(ColumnModel::TABLE, 'dc', 'id', self::TABLE, 'dst_column_id')
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->findAll();
     }
 
@@ -83,9 +83,9 @@ class ColumnMoveRestrictionModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->columns(self::TABLE.'.src_column_id', self::TABLE.'.dst_column_id', self::TABLE.'.only_assigned')
+            ->columns(self::TABLE . '.src_column_id', self::TABLE . '.dst_column_id', self::TABLE . '.only_assigned')
             ->left(ProjectRoleModel::TABLE, 'pr', 'role_id', self::TABLE, 'role_id')
-            ->eq(self::TABLE.'.project_id', $project_id)
+            ->eq(self::TABLE . '.project_id', $project_id)
             ->eq('pr.role', $role)
             ->findAll();
     }
@@ -104,13 +104,13 @@ class ColumnMoveRestrictionModel extends Base
     {
         return $this->db
             ->table(self::TABLE)
-            ->persist(array(
-                'project_id' => $project_id,
-                'role_id' => $role_id,
+            ->persist([
+                'project_id'    => $project_id,
+                'role_id'       => $role_id,
                 'src_column_id' => $src_column_id,
                 'dst_column_id' => $dst_column_id,
                 'only_assigned' => (int) $only_assigned,
-            ));
+            ]);
     }
 
     /**
@@ -156,13 +156,13 @@ class ColumnMoveRestrictionModel extends Base
                 return false;
             }
 
-            $result = $this->db->table(self::TABLE)->persist(array(
-                'project_id' => $project_dst_id,
-                'role_id' => $role_dst_id,
+            $result = $this->db->table(self::TABLE)->persist([
+                'project_id'    => $project_dst_id,
+                'role_id'       => $role_dst_id,
                 'src_column_id' => $src_column_id,
                 'dst_column_id' => $dst_column_id,
                 'only_assigned' => (int) $row['only_assigned'],
-            ));
+            ]);
 
             if (! $result) {
                 return false;
